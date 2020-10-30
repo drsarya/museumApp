@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brown"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageSwitcher
+            android:id="@+id/splashScreenImageSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+             android:scaleType="matrix"
+            android:layout_marginTop="40dp"
+            android:layout_weight="0.7">
+
+        </ImageSwitcher>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="40dp"
+            android:layout_weight="0.3"
+            android:background="@color/dark_brown">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/prata"
+                android:gravity="end"
+                android:text="@string/app_name"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/white"
+                tools:ignore="Suspicious0dp">
+
+            </TextView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Выставочный зал</string>
+    <string name="private_office">Личный кабинет</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
+    <string name="forgetPassword">Забыл пароль</string>
+    <string name="goIn">Войти</string>
+</resources>

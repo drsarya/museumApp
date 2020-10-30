@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brown"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.2"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/points"
+                android:onClick="showPopup">
+
+            </ImageButton>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/prata"
+                android:gravity="center_horizontal"
+                android:text="@string/private_office"
+                android:textAlignment="center"
+                android:textColor="@color/darkBeige"
+                android:textSize="30sp">
+
+            </TextView>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            style="@style/TextPrata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/prata"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:helperText="@string/login"
+            app:helperTextColor="@color/darkBeige"
+            app:labelText="@string/login"
+            app:panelBackgroundColor="@color/lightBeige"
+            app:primaryColor="@color/grey"
+            app:secondaryColor="@color/grey">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLength="14"
+                android:textColor="@color/dark_dark_brown"
+                android:textSize="20sp"
+                app:helperText="@string/password" />
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            style="@style/TextPrata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/prata"
+            android:imeOptions="actionDone"
+            app:helperText="@string/password"
+            app:helperTextColor="@color/darkBeige"
+            app:labelText="@string/password"
+            app:panelBackgroundColor="@color/lightBeige"
+            app:primaryColor="@color/grey"
+            app:secondaryColor="@color/grey">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="14"
+                android:textColor="@color/dark_dark_brown"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="20sp"
+                app:helperText="@string/password" />
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/prata"
+                android:gravity="center_vertical"
+                android:text="@string/forgetPassword"
+                android:textColor="@color/darkBeige"
+                android:textSize="20sp"
+                android:theme="@style/ClickableView">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:minHeight="40dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/blue"
+            android:theme="@style/roundBtn">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:scaleType="matrix"
+                    android:src="@drawable/image_for_btn">
+
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:autoSizeMaxTextSize="30sp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/glass"
+                android:clickable="true"
+                android:fontFamily="@font/prata"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/goIn"
+                android:textColor="@color/darkBeige">
+
+            </Button>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
