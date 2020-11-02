@@ -1,13 +1,7 @@
-package com.example.museums.dop;
+package com.example.museums.services;
 
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.ImageSwitcher;
-
-import androidx.annotation.MainThread;
-
-import com.example.museums.R;
 
 
 import java.util.TimerTask;
@@ -35,9 +29,7 @@ public class SplashScreenTimerTask extends TimerTask {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }else{
-
         Message message = mHandler.obtainMessage();
         message.sendToTarget();}
     }

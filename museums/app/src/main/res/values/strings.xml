@@ -5,4 +5,15 @@
     <string name="login">Логин</string>
     <string name="forgetPassword">Забыл пароль</string>
     <string name="goIn">Войти</string>
+    <string name="information_on_museum">Информация о музее</string>
+    <string name="exhibits">Экспонаты</string>
+    <string name="update_info_about_exhibition">Обновить информацию о музее</string>
+    <string name="create_exhibition">Создать выставку</string>
+    <string name="exhibitions">Выставки</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="id_cod">Идентификационный код</string>
+    <string name="reg_museum">Регистрация музея</string>
+    <string name="registration">Зарегистрировать</string>
+    <string name="reg_yourself">Регистрация</string>
+    <string name="registration_yourself">Зарегистрироваться</string>
 </resources>

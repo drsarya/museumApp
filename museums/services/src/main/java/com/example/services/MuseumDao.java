@@ -15,7 +15,7 @@ import java.util.List;
 public interface MuseumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertTypeOfExihibit(TypeOfExihibit type);
+    void insertTypeOfExhibit(TypeOfExihibit type);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User ui);

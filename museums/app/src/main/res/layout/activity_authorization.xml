@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/brown"
     android:orientation="vertical">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -50,51 +53,38 @@
         android:orientation="vertical">
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            style="@style/TextPrata"
+            style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/prata"
-            android:textCursorDrawable="@drawable/color_cursor"
             app:helperText="@string/login"
-            app:helperTextColor="@color/darkBeige"
             app:labelText="@string/login"
-            app:panelBackgroundColor="@color/lightBeige"
-            app:primaryColor="@color/grey"
-            app:secondaryColor="@color/grey">
+             >
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:maxLength="14"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            style="@style/TextPrata"
+            style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/prata"
             android:imeOptions="actionDone"
             app:helperText="@string/password"
-            app:helperTextColor="@color/darkBeige"
             app:labelText="@string/password"
-            app:panelBackgroundColor="@color/lightBeige"
-            app:primaryColor="@color/grey"
-            app:secondaryColor="@color/grey">
+            >
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:maxLength="14"
                 android:textColor="@color/dark_dark_brown"
-                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="20sp"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -127,16 +117,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:minHeight="40dp">
+        android:layout_marginBottom="20dp"
+    >
 
         <RelativeLayout
+            android:id="@+id/relativeLayotAuthorization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/blue"
+             android:background="@color/blue"
             android:theme="@style/roundBtn">
 
             <androidx.cardview.widget.CardView
@@ -150,7 +140,6 @@
                     android:layout_height="60dp"
                     android:scaleType="matrix"
                     android:src="@drawable/image_for_btn">
-
                 </ImageView>
             </androidx.cardview.widget.CardView>
 
@@ -165,6 +154,7 @@
                 android:fontFamily="@font/prata"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:textAllCaps="false"
                 android:text="@string/goIn"
                 android:textColor="@color/darkBeige">
 

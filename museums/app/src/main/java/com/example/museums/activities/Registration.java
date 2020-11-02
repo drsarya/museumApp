@@ -1,15 +1,15 @@
 package com.example.museums.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.PopupMenu;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -17,36 +17,30 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
+import com.example.museums.services.MyGestureListener;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
-public class Authorization extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class Registration extends AppCompatActivity {
+    ScrollView view;
     RelativeLayout relativeLayoutMuseumReg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authorization);
+        setContentView(R.layout.acticvity_reg);
         initViews();
+        setListener(view);
         keyBoardListener();
     }
 
     private void initViews() {
-        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.relativeLayotAuthorization);
-    }
-
-    public void showPopup(View view) {
-        Context wrapper = new ContextThemeWrapper(this, R.style.menuStyle);
-        PopupMenu popup = new PopupMenu(wrapper, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_authorization, popup.getMenu());
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
+        view = (ScrollView) findViewById(R.id.l1_reg);
+        relativeLayoutMuseumReg= (RelativeLayout) findViewById(R.id.relativeLayotRegMuseum);
     }
 
     private void keyBoardListener() {
-
         KeyboardVisibilityEvent.setEventListener(
                 this,
                 new KeyboardVisibilityEventListener() {
@@ -60,20 +54,21 @@ public class Authorization extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                 });
     }
+    @SuppressLint("ClickableViewAccessibility")
+    private void setListener(View cd) {
+        MyGestureListener ndm = new MyGestureListener();
+        GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.authorization_production:
-                Intent intent1 = new Intent(getApplication(), RegistrationMuseum.class);
+        view.setOnTouchListener((View v, MotionEvent event) -> {
+
+            boolean b = mDetector.onTouchEvent(event);
+            System.out.println(b);
+            if (b) {
+                System.out.println("dfdfdfdf");
+                Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);
-                return true;
-            case R.id.authorization_register:
-                Intent intent2 = new Intent(getApplication(), Registration.class);
-                this.startActivity(intent2);
-                return true;
-            default:
-                return false;
-        }
+            }
+            return mDetector.onTouchEvent(event);
+        });
     }
 }

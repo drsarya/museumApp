@@ -1,9 +1,6 @@
 package com.example.museums.activities;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -16,10 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
-import com.example.museums.dop.MyHandler;
-import com.example.museums.dop.SplashScreenTimerTask;
+import com.example.museums.services.MyHandler;
+import com.example.museums.services.SplashScreenTimerTask;
 
-import java.sql.Date;
 import java.util.Timer;
 
 
