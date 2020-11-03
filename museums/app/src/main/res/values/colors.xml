@@ -13,6 +13,8 @@
     <color name="dark_dark_brown">#0E1114</color>
     <color name="blue">#6E7C8D</color>
     <color name="glass">#006E7C8D</color>
+    <color name="black">#000000</color>
+    <color name="pink">#AF6B6B</color>
 
     <color name="brown">#25211F</color>
 </resources>

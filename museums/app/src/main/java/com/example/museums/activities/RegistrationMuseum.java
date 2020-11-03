@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
-import com.example.museums.services.MyGestureListener;
+import com.example.museums.services.MyGestureListenerTurnBack;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -39,7 +39,7 @@ public class RegistrationMuseum extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void touchListener() {
 
-        MyGestureListener ndm = new MyGestureListener();
+        MyGestureListenerTurnBack ndm = new MyGestureListenerTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
         view.setOnTouchListener((View v, MotionEvent event) -> {
             boolean b = mDetector.onTouchEvent(event);
