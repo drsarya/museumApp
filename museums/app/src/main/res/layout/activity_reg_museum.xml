@@ -22,7 +22,7 @@
     </TextView>
 
     <ScrollView
-        android:id="@+id/l1_reg_museum"
+        android:id="@+id/registration_museum_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -115,7 +115,7 @@
     </LinearLayout>
 
     <RelativeLayout
-         android:id="@+id/relativeLayotRegMuseum"
+        android:id="@+id/registration_museum_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

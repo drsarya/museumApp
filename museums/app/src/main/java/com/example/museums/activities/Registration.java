@@ -13,10 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
-import com.example.museums.services.MyGestureListenerTurnBack;
+import com.example.museums.services.Listeners.GestureDetectorTurnBack;
+import com.example.museums.services.Listeners.KeyboardListenerHideOptionalBlock;
+import com.example.museums.services.Listeners.OnTouchListenerGestureTurnBack;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 public class Registration extends AppCompatActivity {
     ScrollView view;
@@ -27,32 +28,27 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acticvity_reg);
         initViews();
-        setListener(view);
+        onTouchlistener();
         keyBoardListener();
     }
 
     private void initViews() {
-        view = (ScrollView) findViewById(R.id.l1_reg);
-        relativeLayoutMuseumReg= (RelativeLayout) findViewById(R.id.relativeLayotRegMuseum);
+        view = (ScrollView) findViewById(R.id.registration_scroll_view);
+        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.registration_relative_layout);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void keyBoardListener() {
+
+
         KeyboardVisibilityEvent.setEventListener(
                 this,
-                new KeyboardVisibilityEventListener() {
-                    @Override
-                    public void onVisibilityChanged(boolean isOpen) {
-                        if (isOpen) {
-                            relativeLayoutMuseumReg.setVisibility(View.GONE);
-                        } else {
-                            relativeLayoutMuseumReg.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+                new KeyboardListenerHideOptionalBlock(relativeLayoutMuseumReg));
     }
+
     @SuppressLint("ClickableViewAccessibility")
-    private void setListener(View cd) {
-        MyGestureListenerTurnBack ndm = new MyGestureListenerTurnBack();
+    private void onTouchlistener() {
+        GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
 
         view.setOnTouchListener((View v, MotionEvent event) -> {
@@ -60,7 +56,6 @@ public class Registration extends AppCompatActivity {
             boolean b = mDetector.onTouchEvent(event);
             System.out.println(b);
             if (b) {
-                System.out.println("dfdfdfdf");
                 Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);
             }

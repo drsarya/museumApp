@@ -1,9 +1,9 @@
-package com.example.museums.services;
+package com.example.museums.services.Listeners;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-public class MyGestureListenerTurnBack implements GestureDetector.OnGestureListener {
+public class GestureDetectorTurnBack implements GestureDetector.OnGestureListener {
     @Override
     public boolean onDown(MotionEvent e) {
         return false;

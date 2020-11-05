@@ -1,4 +1,4 @@
-package com.example.museums.services;
+package com.example.museums.services.Handlers;
 
 
 import android.content.Intent;
@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import com.example.museums.activities.Authorization;
 import com.example.museums.activities.SplashScreen;
 
-public class MyHandler extends Handler {
+public class HandlerSplashScreen extends Handler {
 
-    public MyHandler(ImageSwitcher imageSwitcher, int[] listImages, SplashScreen splashScreen) {
+    public HandlerSplashScreen(ImageSwitcher imageSwitcher, int[] listImages, SplashScreen splashScreen) {
         this.imageSwitcher = imageSwitcher;
         this.listImages = listImages;
         this.splashScreen = splashScreen;
@@ -27,11 +27,12 @@ public class MyHandler extends Handler {
     @Override
     public void handleMessage(@NonNull Message msg) {
         super.handleMessage(msg);
-        if(msg.arg1 == 50){
+        if (msg.arg1 == 50) {
             Intent intent = new Intent(splashScreen.getApplicationContext(), Authorization.class);
             splashScreen.startActivity(intent);
-        }else{
-        imageSwitcher.setImageResource(listImages[ind % listImages.length]);
-        ind++;}
+        } else {
+            imageSwitcher.setImageResource(listImages[ind % listImages.length]);
+            ind++;
+        }
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <TextView
+        android:text="Выставки"
+        android:textAlignment="center"
+        android:fontFamily="@font/prata"
+        android:textSize="30dp"
+        android:textColor="@color/dark_dark_brown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+    </TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_exhibitons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:textAlignment="gravity"
+
+        app:column_count_portrait="2"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="1"
+
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

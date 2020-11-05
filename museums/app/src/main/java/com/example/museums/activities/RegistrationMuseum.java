@@ -13,10 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
-import com.example.museums.services.MyGestureListenerTurnBack;
+import com.example.museums.services.Listeners.GestureDetectorTurnBack;
+import com.example.museums.services.Listeners.KeyboardListenerHideOptionalBlock;
+import com.example.museums.services.Listeners.OnTouchListenerGestureTurnBack;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 public class RegistrationMuseum extends AppCompatActivity {
     ScrollView view;
@@ -27,22 +28,22 @@ public class RegistrationMuseum extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg_museum);
         initViews();
-        touchListener();
-        keyBoardListener();
+        setListeners();
     }
 
     private void initViews() {
-        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.relativeLayotRegMuseum);
-        view = (ScrollView) findViewById(R.id.l1_reg_museum);
+        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.registration_museum_relative_layout);
+        view = (ScrollView) findViewById(R.id.registration_museum_scroll_view);
     }
-
     @SuppressLint("ClickableViewAccessibility")
-    private void touchListener() {
-
-        MyGestureListenerTurnBack ndm = new MyGestureListenerTurnBack();
+    private void onTouchlistener() {
+        GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
+
         view.setOnTouchListener((View v, MotionEvent event) -> {
+
             boolean b = mDetector.onTouchEvent(event);
+            System.out.println(b);
             if (b) {
                 Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);
@@ -51,19 +52,11 @@ public class RegistrationMuseum extends AppCompatActivity {
         });
     }
 
-    private void keyBoardListener() {
-
-        KeyboardVisibilityEvent.setEventListener(
+    @SuppressLint("ClickableViewAccessibility")
+    private void setListeners() {
+        onTouchlistener();
+         KeyboardVisibilityEvent.setEventListener(
                 this,
-                new KeyboardVisibilityEventListener() {
-                    @Override
-                    public void onVisibilityChanged(boolean isOpen) {
-                        if (isOpen) {
-                            relativeLayoutMuseumReg.setVisibility(View.GONE);
-                        } else {
-                            relativeLayoutMuseumReg.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+                new KeyboardListenerHideOptionalBlock(relativeLayoutMuseumReg));
     }
 }

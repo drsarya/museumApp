@@ -1,4 +1,4 @@
-package com.example.museums.services;
+package com.example.museums.services.Timers;
 
 import android.os.Handler;
 import android.os.Message;
@@ -29,8 +29,9 @@ public class SplashScreenTimerTask extends TimerTask {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }else{
-        Message message = mHandler.obtainMessage();
-        message.sendToTarget();}
+        } else {
+            Message message = mHandler.obtainMessage();
+            message.sendToTarget();
+        }
     }
 }

@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
-import com.example.museums.services.MyHandler;
-import com.example.museums.services.SplashScreenTimerTask;
+import com.example.museums.services.Handlers.HandlerSplashScreen;
+import com.example.museums.services.Timers.SplashScreenTimerTask;
 
 import java.util.Timer;
 
@@ -23,7 +23,7 @@ public class SplashScreen extends AppCompatActivity implements ViewSwitcher.View
     private int[] mImageIds = {R.drawable.image1,
             R.drawable.image2, R.drawable.image3, R.drawable.image4};
     private ImageSwitcher mImageSwitcher;
-    private MyHandler mg;
+    private HandlerSplashScreen mg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity implements ViewSwitcher.View
     }
 
     private void timerTask() {
-        mg = new MyHandler(mImageSwitcher, mImageIds, this);
+        mg = new HandlerSplashScreen(mImageSwitcher, mImageIds, this);
         SplashScreenTimerTask sty = new SplashScreenTimerTask(mg);
         Timer tn = new Timer();
         tn.schedule(sty, 0, 2400);

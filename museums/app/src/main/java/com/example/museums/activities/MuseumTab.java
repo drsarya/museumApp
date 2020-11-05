@@ -2,22 +2,18 @@ package com.example.museums.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
+import com.example.museums.fragments.DetailedExhbtn;
 import com.example.museums.fragments.DetailedExhibit;
-import com.example.museums.fragments.museum.CreateExhibition;
 import com.example.museums.fragments.museum.Exhibitions;
 import com.example.museums.fragments.museum.Exhibits;
 import com.example.museums.fragments.museum.MainInfoMuseumPage;
-import com.example.services.models.Exhibit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MuseumTab extends AppCompatActivity {
@@ -39,16 +35,15 @@ public class MuseumTab extends AppCompatActivity {
 
                         DetailedExhibit detailedExhibit = new DetailedExhibit();
 
-                        ft.replace(R.id.container, detailedExhibit)
+                        ft.replace(R.id.container_tab_museum, detailedExhibit)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_create_exhbtn).setChecked(true);
 
                         break;
                     case R.id.menu_fr_exhibitions:
                         final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-
-                        Exhibitions exhibitions = new Exhibitions();
-                        ft1.replace(R.id.container, exhibitions)
+                          Exhibitions exhibitions = new Exhibitions();
+                        ft1.replace(R.id.container_tab_museum, exhibitions)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_exhibitions).setChecked(true);
 
@@ -57,16 +52,17 @@ public class MuseumTab extends AppCompatActivity {
                         final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
 
                         Exhibits exhibits = new Exhibits();
-                        ft2.replace(R.id.container, exhibits)
+                        ft2.replace(R.id.container_tab_museum, exhibits)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_exhibits).setChecked(true);
 
                         break;
                     case R.id.menu_fr_main_museum:
                         final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
+                       // DetailedExhbtn mainInfoMuseumPage = new DetailedExhbtn();
 
                         MainInfoMuseumPage mainInfoMuseumPage = new MainInfoMuseumPage();
-                        ft3.replace(R.id.container, mainInfoMuseumPage)
+                        ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);
 

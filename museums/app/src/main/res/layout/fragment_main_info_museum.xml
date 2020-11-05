@@ -1,6 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/brown"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_weight="0.7"
+                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeMinTextSize="20sp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal"
+                        android:text="Третьяковская галерея"
+                        android:textAlignment="center"
+                        android:textSize="30sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/lightGrey"
+                        android:src="@drawable/edit"
+                        app:tint="@color/dark_dark_brown">
+
+                    </ImageView>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+
+                        android:src="@drawable/museum_photo">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/lightGrey"
+                        android:src="@drawable/edit"
+                        app:tint="@color/dark_dark_brown">
+
+                    </ImageView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="25sp"
+                        android:autoSizeMinTextSize="20sp"
+                        android:autoSizeTextType="uniform"
+                        android:background="@color/brown"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal"
+                        android:text="Описание"
+                        android:textAlignment="center"
+                        android:textSize="30sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end|center_vertical"
+
+                        android:layout_marginRight="5dp"
+                        android:background="@color/lightGrey"
+                        android:src="@drawable/edit"
+                        app:tint="@color/dark_dark_brown">
+
+                    </ImageView>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/description"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="25sp"
+                        android:autoSizeMinTextSize="20sp"
+                        android:autoSizeTextType="uniform"
+                        android:background="@color/brown"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal"
+                        android:text="Адрес"
+                        android:textAlignment="center"
+                        android:textSize="30sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end|center_vertical"
+
+                        android:layout_marginRight="5dp"
+                        android:background="@color/lightGrey"
+                        android:src="@drawable/edit"
+                        app:tint="@color/dark_dark_brown">
+
+                    </ImageView>
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Москва, Лаврушенский переулок, 10"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp">
+
+                </TextView>
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/blue"
+        android:gravity="bottom"
+        android:theme="@style/roundBtn">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:scaleType="matrix"
+                android:src="@drawable/image_for_btn">
+
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/glass"
+            android:clickable="true"
+            android:fontFamily="@font/prata"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="Обновить"
+            android:textAllCaps="false"
+            android:textColor="@color/darkBeige">
+
+        </Button>
+    </RelativeLayout>
 </LinearLayout>
