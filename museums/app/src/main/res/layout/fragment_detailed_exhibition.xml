@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBeige"
     android:orientation="vertical">
 
     <ScrollView
-        android:background="@color/darkBeige"
-
+        android:id="@+id/detailed_exhbtn_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/darkBeige">
 
         <LinearLayout
 
@@ -18,59 +19,76 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="30sp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/brown"
+                android:fontFamily="@font/prata"
+                android:gravity="center_horizontal"
+                android:text="Атлас В. Маяковский"
+                android:textAlignment="center"
+                android:textSize="30sp">
 
+            </TextView>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/darkBeige"
+                android:src="@drawable/image1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@color/brown"
-                    android:fontFamily="@font/prata"
-                    android:gravity="center_horizontal"
-                    android:text="Атлас В. Маяковский"
-                    android:textAlignment="center"
-                    android:textSize="30sp">
-
-                </TextView>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/darkBeige"
-                    android:src="@drawable/image1">
-
-                </ImageView>
+            </ImageView>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:background="@color/white"
                     android:id="@+id/detailed_exhibition_option_pane_lin_lay"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
+                    android:background="@color/white"
                     android:paddingVertical="5dp">
 
-                    <ImageView
-                        android:id="@+id/detailed_exhibition_like_image_view"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:src="@drawable/like"
-                        app:tint="@color/pink">
+                        android:orientation="vertical">
 
-                    </ImageView>
+                        <ImageButton
+
+                             android:id="@+id/detailed_exhibition_like_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:scaleType="fitCenter"
+                            android:background="@color/glass"
+
+                            android:src="@drawable/like"
+                            android:textColor="@color/brown"
+                             >
+
+                        </ImageButton>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                             android:gravity="center_horizontal"
+                            android:text="25566"
+                            android:textAlignment="center"
+                            android:textColor="@color/dark_dark_brown">
+
+                        </TextView>
+                    </LinearLayout>
+
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
                         android:clickable="true"
                         android:src="@drawable/share"
                         app:tint="@color/brown">
@@ -85,7 +103,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:autoSizeMaxTextSize="30sp"
+                            android:autoSizeMaxTextSize="25sp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/prata"
                             android:gravity="center_horizontal|center_vertical"
@@ -98,9 +116,8 @@
 
                     <ImageView
                         android:id="@+id/detailed_exhibition_close_image_view"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
+                        android:layout_width="45dp"
+                        android:layout_height="35dp"                        android:layout_gravity="end"
                         android:clickable="true"
                         android:src="@drawable/close"
                         app:tint="@color/brown">
@@ -108,36 +125,54 @@
                     </ImageView>
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/detailed_exhbtn_descriprion_btn"
+                    style="@style/darkBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp"
+                    android:text="Описание"
+                    android:textAlignment="center"
+                    tools:ignore="RtlCompat">
+
+                </Button>
 
                 <TextView
-                    android:textAlignment="center"
-                    android:background="@color/darkBeige"
-                    android:text="@string/description"
-                    android:textColor="@color/dark_dark_brown"
+                    android:id="@+id/detailed_exhbtn_descriprion_text_view"
                     android:layout_width="match_parent"
-                    android:fontFamily="@font/prata"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="5dp"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeTextType="uniform"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
+                     android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@color/darkBeige"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal"
+                    android:text="@string/description"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp">
 
                 </TextView>
+
                 <Button
                     style="@style/darkBtn"
+                    android:id="@+id/detailed_exhibition_btn_museum_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
                     android:autoSizeMaxTextSize="20sp"
                     android:autoSizeTextType="uniform"
-
                     android:gravity="center_vertical"
                     android:paddingHorizontal="20dp"
                     android:text="@string/information_on_museum"
-                    android:textAlignment="gravity">
+                    android:textAlignment="center"
+                    tools:ignore="RtlCompat">
 
                 </Button>
+
                 <Button
                     style="@style/darkBtn"
                     android:layout_width="match_parent"
@@ -145,14 +180,13 @@
                     android:layout_marginBottom="5dp"
                     android:autoSizeMaxTextSize="20sp"
                     android:autoSizeTextType="uniform"
-
                     android:gravity="center_vertical"
                     android:paddingHorizontal="20dp"
                     android:text="Экспонаты"
-                    android:textAlignment="gravity">
+                    android:textAlignment="center"
+                    tools:ignore="RtlCompat">
 
                 </Button>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

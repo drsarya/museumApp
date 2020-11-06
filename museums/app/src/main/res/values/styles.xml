@@ -49,7 +49,7 @@
         <item name="android:clickable">true</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="fontFamily">@font/prata</item>
-        <item name="android:background">@color/dark_brown</item>
+        <item name="android:background">@color/brown</item>
     </style>
 
 

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBeige"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/main_info_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/brown"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal"
+                        android:text="Третьяковская галерея"
+                        android:textAlignment="center"
+                        android:textColor="@color/darkBeige"
+                        android:textSize="30sp">
+
+                    </TextView>
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/museum_photo">
+
+                    </ImageView>
+
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/brown"
+android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/main_info_museum_btn_description_btn"
+                        style="@style/darkBtn"
+
+                        android:text="Описание"
+                        android:textSize="30sp"
+                        android:textColor="@color/darkBeige"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         android:autoSizeMaxTextSize="30sp"
+                        android:paddingHorizontal="20dp"
+                        android:textAlignment="gravity">
+
+                    </Button>
+                </LinearLayout>
+
+                <TextView
+                     android:id="@+id/main_info_museum_description_text_view"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/description"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/brown"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal"
+                        android:text="Адрес"
+                        android:textAlignment="center"
+                        android:textColor="@color/darkBeige"
+                        android:textSize="30sp">
+
+                    </TextView>
+                </LinearLayout>
+
+                <TextView
+                    android:background="@color/lightBeige"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Москва, Лаврушенский переулок, 10"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp">
+
+                </TextView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

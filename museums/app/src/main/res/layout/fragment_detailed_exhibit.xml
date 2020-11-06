@@ -34,14 +34,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@color/darkBeige">
 
                     <TextView
                         android:layout_width="0dp"
-
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
@@ -55,7 +53,6 @@
 
                     <TextView
                         android:layout_width="0dp"
-
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
@@ -75,9 +72,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="match_parent">
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -91,34 +86,49 @@
                     android:textSize="19sp">
 
                 </TextView>
-
-
-
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/detailed_exhibit_option_pane_lin_lay"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/darkBeige"
         android:paddingVertical="5dp">
 
-        <ImageView
-            android:id="@+id/detailed_exhibit_like_image_view"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/like"
-            app:tint="@color/pink">
+            android:orientation="vertical">
 
-        </ImageView>
+            <ImageButton
+                android:id="@+id/detailed_exhibit_like_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@color/glass"
+                android:scaleType="fitCenter"
+                android:src="@drawable/like"
+                android:textColor="@color/brown">
+
+            </ImageButton>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="256"
+                android:textAlignment="center"
+                android:textColor="@color/dark_dark_brown">
+
+            </TextView>
+        </LinearLayout>
+
 
         <ImageView
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
             android:clickable="true"
             android:src="@drawable/share"
             app:tint="@color/brown">
@@ -134,8 +144,8 @@
 
         <ImageView
             android:id="@+id/detailed_exhibit_close_image_view"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
             android:layout_gravity="end"
             android:clickable="true"
             android:src="@drawable/close"

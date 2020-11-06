@@ -9,11 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.fragments.DetailedExhbtn;
 import com.example.museums.fragments.DetailedExhibit;
 import com.example.museums.fragments.museum.Exhibitions;
 import com.example.museums.fragments.museum.Exhibits;
-import com.example.museums.fragments.museum.MainInfoMuseumPage;
+import com.example.museums.fragments.museum.MainInfoMuseumPageEdit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MuseumTab extends AppCompatActivity {
@@ -61,7 +60,7 @@ public class MuseumTab extends AppCompatActivity {
                         final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                        // DetailedExhbtn mainInfoMuseumPage = new DetailedExhbtn();
 
-                        MainInfoMuseumPage mainInfoMuseumPage = new MainInfoMuseumPage();
+                        MainInfoMuseumPageEdit mainInfoMuseumPage = new MainInfoMuseumPageEdit();
                         ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);

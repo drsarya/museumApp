@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
 
-public class MainInfoMuseumPage extends Fragment {
+public class MainInfoMuseumPageEdit extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class MainInfoMuseumPage extends Fragment {
 
         //return super.onCreateView(inflater container, savedInstanceState);
         View rootView =
-                inflater.inflate(R.layout.fragment_main_info_museum, container, false);
+                inflater.inflate(R.layout.fragment_main_info_museum_edit, container, false);
         return rootView;
     }
 

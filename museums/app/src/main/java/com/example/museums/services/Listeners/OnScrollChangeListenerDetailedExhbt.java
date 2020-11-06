@@ -8,15 +8,16 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class ScrollChangeListenerDetailedExhbt implements View.OnScrollChangeListener{
+public class OnScrollChangeListenerDetailedExhbt implements View.OnScrollChangeListener{
     private LinearLayout ll;
 
-    public ScrollChangeListenerDetailedExhbt(LinearLayout ll) {
+    public OnScrollChangeListenerDetailedExhbt(LinearLayout ll) {
         this.ll = ll;
     }
 
     @Override
     public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
         if (scrollY - oldScrollY < 0) {
 
 
