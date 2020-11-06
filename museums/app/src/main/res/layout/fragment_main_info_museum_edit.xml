@@ -45,18 +45,8 @@
 
                     </TextView>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
 
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="5dp"
-                        android:background="@color/lightGrey"
-                        android:gravity="center_vertical"
-                        android:src="@drawable/edit"
-                        app:tint="@color/dark_dark_brown">
 
-                    </ImageView>
                 </LinearLayout>
 
                 <FrameLayout
@@ -156,18 +146,7 @@
                     </TextView>
 
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_gravity="center_vertical"
 
-                        android:background="@color/lightGrey"
-                        android:src="@drawable/edit"
-                        app:tint="@color/dark_dark_brown">
-
-                    </ImageView>
                 </LinearLayout>
 
                 <TextView

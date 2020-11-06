@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
 import com.example.museums.activities.MuseumTab;
-import com.example.museums.fragments.DetailedExhibit;
+import com.example.museums.fragments.DetailedExhibitWithListeners;
 import com.example.museums.services.MethodsWithFragment;
 import com.example.museums.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.services.recyclerViews.ExhibitsRecyclerViewAdapter;
@@ -24,7 +24,7 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (holder.textView.getVisibility() == View.VISIBLE) {
-            Fragment myFragment = new DetailedExhibit();
+            Fragment myFragment = new DetailedExhibitWithListeners();
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment, v, activity, R.id.container_tab_museum);
         } else {

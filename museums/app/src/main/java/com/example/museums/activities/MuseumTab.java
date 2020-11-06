@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.fragments.DetailedExhibit;
+import com.example.museums.fragments.DetailedExhibitWithListeners;
 import com.example.museums.fragments.museum.Exhibitions;
 import com.example.museums.fragments.museum.Exhibits;
 import com.example.museums.fragments.museum.MainInfoMuseumPageEdit;
@@ -32,9 +32,9 @@ public class MuseumTab extends AppCompatActivity {
                     case R.id.menu_fr_create_exhbtn:
                         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-                        DetailedExhibit detailedExhibit = new DetailedExhibit();
+                        DetailedExhibitWithListeners detailedExhibitWithListeners = new DetailedExhibitWithListeners();
 
-                        ft.replace(R.id.container_tab_museum, detailedExhibit)
+                        ft.replace(R.id.container_tab_museum, detailedExhibitWithListeners)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                         munuTab.getMenu().findItem(R.id.menu_fr_create_exhbtn).setChecked(true);
 

@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment;
 import com.example.museums.R;
 import com.example.museums.activities.MuseumTab;
 import com.example.museums.fragments.DetailedExhbtn;
-import com.example.museums.fragments.DetailedExhibit;
 import com.example.museums.services.MethodsWithFragment;
-import com.example.museums.services.Timers.CountDownTimerHideInfo;
 
 public class ClickOnListenerHolderExhbtn  implements View.OnClickListener {
     private MethodsWithFragment mth = new MethodsWithFragment();

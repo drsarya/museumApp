@@ -114,15 +114,7 @@
                         </TextView>
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/detailed_exhibition_close_image_view"
-                        android:layout_width="45dp"
-                        android:layout_height="35dp"                        android:layout_gravity="end"
-                        android:clickable="true"
-                        android:src="@drawable/close"
-                        app:tint="@color/brown">
 
-                    </ImageView>
                 </LinearLayout>
 
                 <Button
@@ -175,6 +167,7 @@
 
                 <Button
                     style="@style/darkBtn"
+                    android:id="@+id/detailed_exhbtn_all_exhbts_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
