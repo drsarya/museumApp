@@ -7,27 +7,29 @@ import android.view.animation.TranslateAnimation;
 
 import androidx.annotation.NonNull;
 
-import com.example.museums.services.recyclerViews.ExhibitsRecyclerViewAdapter;
-
 public class HandlerTimerCountDown extends Handler {
 
-    public HandlerTimerCountDown(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder) {
-        this.holder = holder;
+    public HandlerTimerCountDown(View view) {
+        this.view = view;
     }
 
-    private ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder;
+    private View view;
 
     @Override
     public void handleMessage(@NonNull Message msg) {
         super.handleMessage(msg);
         if (msg.arg1 == 20) {
-            holder.textView.setVisibility(View.VISIBLE);
+            System.out.println("seeeee");
+            view.setVisibility(View.VISIBLE);
         } else if (msg.arg1 == 50) {
-            TranslateAnimation animate = new TranslateAnimation(0, 0, 0, holder.textView.getHeight());
-            System.out.println(holder.textView.getHeight());
+
+            TranslateAnimation animate = new TranslateAnimation(0,0,0, view.getHeight());
+            System.out.println(animate);
+           // TranslateAnimation animate = new TranslateAnimation(0, 0, 0,  view.getHeight());
             animate.setDuration(500);
-            holder.textView.startAnimation(animate);
-            holder.textView.setVisibility(View.GONE);
+
+            view.startAnimation(animate);
+            view.setVisibility(View.GONE);
         }
     }
 }

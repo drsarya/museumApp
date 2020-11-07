@@ -79,22 +79,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/brown"
-
                     android:orientation="horizontal">
 
-                    <TextView
+                    <Button
+                        android:textSize="30sp"
+                        android:gravity="center_horizontal|center_vertical"
+
+                        style="@style/darkBtn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.7"
-                        android:fontFamily="@font/prata"
-                        android:gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:autoSizeMaxTextSize="20sp"
+                        android:autoSizeTextType="uniform"
+                         android:paddingHorizontal="20dp"
                         android:text="Описание"
                         android:textAlignment="center"
-                        android:textColor="@color/darkBeige"
-                        android:textSize="30sp">
+                        tools:ignore="RtlCompat">
 
-                    </TextView>
-
+                    </Button>
 
                     <ImageView
                         android:layout_width="40dp"

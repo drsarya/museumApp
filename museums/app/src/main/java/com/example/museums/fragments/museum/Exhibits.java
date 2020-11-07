@@ -26,7 +26,6 @@ public class Exhibits extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibits, container, false);
         return rootView;

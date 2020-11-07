@@ -28,7 +28,6 @@ public class Exhibitions extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        //return super.onCreateView(inflater container, savedInstanceState);
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibitions, container, false);
         return rootView;
@@ -41,10 +40,6 @@ public class Exhibitions extends Fragment {
 
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_exhibitons);
 
-//        recyclerView.setHasFixedSize(true);
-
-
-        // specify an adapter (see also next example)
         List<Exhibition> in = new ArrayList<>();
         in.add(new Exhibition());
         in.add(new Exhibition());

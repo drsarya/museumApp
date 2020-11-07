@@ -24,7 +24,6 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         public TextView dateOfExhbtn;
         public TextView nameOfExhibtn;
         public TextView nameOfEMuseum;
-
         public ImageView image;
 
         public ExhibitionsViewHolder(View view) {

@@ -27,8 +27,6 @@ public class MainInfoMuseum extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        //return super.onCreateView(inflater container, savedInstanceState);
         View rootView =
                 inflater.inflate(R.layout.frgment_main_info_museum, container, false);
         return rootView;
