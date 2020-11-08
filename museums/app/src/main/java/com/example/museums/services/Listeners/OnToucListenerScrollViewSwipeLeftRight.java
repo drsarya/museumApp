@@ -48,11 +48,11 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
                                 ll.startAnimation(animate);
                                 ll.setVisibility(View.VISIBLE);
                             } else {
-                                TranslateAnimation animate = new TranslateAnimation(0, 0,  -ll.getHeight(), 0);
-                                animate.setDuration(500);
-                                animate.setFillAfter(false);
-                                ll.startAnimation(animate);
-                                System.out.println("видно");
+//                                TranslateAnimation animate = new TranslateAnimation(0, 0,  -ll.getHeight(), 0);
+//                                animate.setDuration(500);
+//                                animate.setFillAfter(false);
+//                                ll.startAnimation(animate);
+//                                System.out.println("видно");
                                 ll.setVisibility(View.VISIBLE);
                             }
                         }

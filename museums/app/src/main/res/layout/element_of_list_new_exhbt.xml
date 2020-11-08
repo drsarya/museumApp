@@ -22,46 +22,41 @@
         </ImageView>
 
 
-        <RelativeLayout
-
+        <LinearLayout
+            android:id="@+id/new_exhbt_optional_panel_linear_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/new_exhbt_optional_panel_linear_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal">
 
 
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/lightGrey"
-                    android:clickable="true"
-                    android:id="@+id/new_exhbt_edit"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/edit"
-                    android:tint="@color/dark_dark_brown">
+            <ImageButton
+                android:id="@+id/new_exhbt_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/lightGrey"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/edit"
+                android:tint="@color/dark_dark_brown">
 
-                </ImageButton>
+            </ImageButton>
 
-                <ImageButton
-                    android:id="@+id/new_exhbt_delete"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/lightGrey"
-                    android:clickable="true"
+            <ImageButton
+                android:id="@+id/new_exhbt_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/lightGrey"
+                android:clickable="true"
 
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/close"
-                    android:tint="@color/dark_dark_brown">
+                android:scaleType="fitCenter"
+                android:src="@drawable/close"
+                android:tint="@color/dark_dark_brown">
 
-                </ImageButton>
-            </LinearLayout>
+            </ImageButton>
+        </LinearLayout>
 
-        </RelativeLayout>
+
     </RelativeLayout>
 
     <TextView

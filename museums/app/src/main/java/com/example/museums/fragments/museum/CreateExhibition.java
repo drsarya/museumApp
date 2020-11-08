@@ -59,5 +59,6 @@ public class CreateExhibition extends Fragment {
 
         mAdapter = new NewExhibitsRecyclerViewAdapter(in);
         recyclerView.setAdapter(mAdapter);
+
     }
 }

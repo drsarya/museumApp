@@ -1,83 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container_two"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-android:background="@color/white"
 
     >
+
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/main_exhibits_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="Экспонаты"
-            android:textAlignment="center"
-            android:fontFamily="@font/prata"
-            android:textSize="30dp"
-            android:textColor="@color/dark_dark_brown"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+            app:hasClearButton="true"
+            app:labelText="Поиск"
+            app:isResponsiveIconColor="true"
 
-        </TextView>
+              >
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="@color/dark_dark_brown"
+
+                app:helperText="@string/password" />
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textAlignment="center"
-                android:background="@color/brown"
-                android:text="Тип"
-                android:fontFamily="@font/prata"
-                android:textSize="30dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            </TextView>
-            <TextView
-                android:textAlignment="center"
-                android:background="@color/brown"
-                android:text="Автор"
-                android:fontFamily="@font/prata"
-                android:textSize="30dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_exhibits_recycler_view"
                 android:layout_width="0dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:background="@color/brown"
+                android:fontFamily="@font/prata"
+                android:orientation="horizontal"
+                android:textSize="30dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
-            </TextView>
+            </androidx.recyclerview.widget.RecyclerView>
+
+
         </LinearLayout>
     </LinearLayout>
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_exhibits"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:textAlignment="gravity"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_exhibits"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
-             android:orientation="vertical"
-            android:textAlignment="gravity"
+        app:column_count_portrait="2"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2"
 
-            app:column_count_portrait="2"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-             app:spanCount="2"
+        >
 
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

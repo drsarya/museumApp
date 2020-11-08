@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +25,6 @@ import java.util.List;
 
 public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRecyclerViewAdapter.ExhibitsViewHolder> {
 
-
     public static class ExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
         public ImageView image;
@@ -30,6 +32,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
 
         public ExhibitsViewHolder(View view) {
             super(view);
+
             image = view.findViewById(R.id.elemt_exhbt_image_view);
             textView = view.findViewById(R.id.elemt_exhbt_text_view);
 
@@ -37,10 +40,9 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     }
 
     private List<Exhibit> mDataset;
-    private  FragmentActivity activity;
+
     public ExhibitsRecyclerViewAdapter(List<Exhibit> myDataset ) {
-        mDataset = myDataset;
-    //    activity = activity;
+        this.mDataset = myDataset;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -49,17 +51,15 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     public ExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_exhibits, parent, false);
-        ///LinearLayout l
-        ExhibitsViewHolder vh = new ExhibitsViewHolder(v);
-       /// v.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(activity, ll, false));
 
+        ExhibitsViewHolder vh = new ExhibitsViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
+         holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
         if (position % 3 == 0) {
             holder.image.setImageResource(R.drawable.image2);
         } else if (position % 2 == 0) {

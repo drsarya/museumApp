@@ -31,8 +31,8 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
             image = view.findViewById(R.id.new_exhbt_main_image_view);
             nameOfExhbr = view.findViewById(R.id.new_exhbt_name_text_view);
             optionalPanel =  view.findViewById(R.id.new_exhbt_optional_panel_linear_layout);
-            delete = view.findViewById(R.id.new_exhbt_delete);
-            edit =  view.findViewById(R.id.new_exhbt_edit );
+//            delete = view.findViewById(R.id.new_exhbt_delete);
+//            edit =  view.findViewById(R.id.new_exhbt_edit );
         }
     }
     public NewExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
