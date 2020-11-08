@@ -20,16 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/points"
-                android:onClick="showPopup">
-
-            </ImageButton>
 
             <TextView
                 android:layout_width="match_parent"
@@ -57,8 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:helperText="@string/login"
-            app:labelText="@string/login"
-             >
+            app:labelText="@string/login">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
@@ -76,8 +65,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             app:helperText="@string/password"
-            app:labelText="@string/password"
-            >
+            app:labelText="@string/password">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
@@ -117,16 +105,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-    >
+        android:orientation="vertical"
+
+        >
 
         <RelativeLayout
-            android:id="@+id/relativeLayotAuthorization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="10dp"
-             android:background="@color/blue"
+            android:layout_marginBottom="10dp"
+            android:background="@color/blue"
             android:theme="@style/roundBtn">
 
             <androidx.cardview.widget.CardView
@@ -140,6 +129,7 @@
                     android:layout_height="60dp"
                     android:scaleType="matrix"
                     android:src="@drawable/image_for_btn">
+
                 </ImageView>
             </androidx.cardview.widget.CardView>
 
@@ -154,11 +144,60 @@
                 android:fontFamily="@font/prata"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:textAllCaps="false"
                 android:text="@string/goIn"
+                android:textAllCaps="false"
                 android:textColor="@color/darkBeige">
 
             </Button>
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/authorization_reg_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/glass"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+
+                android:focusable="true"
+                android:fontFamily="@font/prata"
+                android:gravity="center_vertical"
+                android:text="Зарегистрироваться"
+                android:textAllCaps="false"
+                android:textColor="@color/darkBeige"
+                android:textSize="17sp"
+                android:theme="@style/ClickableView">
+
+            </Button>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/authorization_reg_museum"
+                android:foreground="?attr/selectableItemBackground"
+
+                android:layout_gravity="center"
+                android:background="@color/glass"
+                android:clickable="true"
+
+                android:focusable="true"
+                android:fontFamily="@font/prata"
+                android:gravity="center_vertical"
+                android:text="Представителю музея"
+                android:textAllCaps="false"
+                android:textColor="@color/darkBeige"
+                android:textSize="17sp"
+                android:theme="@style/ClickableView">
+
+            </Button>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

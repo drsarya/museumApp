@@ -3,23 +3,20 @@ package com.example.museums.services.Listeners;
 import android.os.CountDownTimer;
 import android.view.View;
 
-import com.example.museums.services.MethodsWithFragment;
 import com.example.museums.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 public class ClickListenerHolderNewExhibit implements View.OnClickListener {
-    public ClickListenerHolderNewExhibit(View view) {
-        this.view = view;
+    public ClickListenerHolderNewExhibit(NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder holder) {
+        this.holder = holder;
     }
 
     private CountDownTimer ctimte = null;
-    private MethodsWithFragment mth = new MethodsWithFragment();
-    private View view;
+    private NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder holder;
 
     @Override
     public void onClick(View v) {
-        System.out.println("");
-        ctimte = new CountDownTimerHideInfo(3000, 3000, view);
+        ctimte = new CountDownTimerHideInfo(3000, 3000, holder.optionalPanel);
         ctimte.start();
     }
 

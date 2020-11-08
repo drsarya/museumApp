@@ -22,9 +22,8 @@
             android:name=".activities.RegistrationMuseum"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.SplashScreen"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:name=".activities.Authorization"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

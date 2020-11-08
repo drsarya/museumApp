@@ -17,6 +17,6 @@
     <color name="glass">#006E7C8D</color>
     <color name="black">#000000</color>
     <color name="pink">#AF6B6B</color>
-
+    <color name="splash_screen">#1C1A18</color>
     <color name="brown">#25211F</color>
 </resources>

@@ -72,7 +72,7 @@ public class DetailedExhibitWithoutListeners extends Fragment{
         view = (ScrollView) v.findViewById(R.id.detailed_exhibit_description_scroll_view);
         ll = (LinearLayout) v.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         close = (ImageButton) v.findViewById(R.id.detailed_exhb_view_pager);
-        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(),   ll));
+        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(),   ll, true));
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

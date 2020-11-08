@@ -57,8 +57,6 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         holder.nameOfExhibtn.setText("Выставка" + position);
         holder.nameOfEMuseum.setText("Третьяковская галерея");
         holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn());
-
-
     }
 
     @Override
