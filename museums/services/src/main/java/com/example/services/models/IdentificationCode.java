@@ -2,7 +2,9 @@ package com.example.services.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+@Entity(tableName = "identification_code")
 
 public class IdentificationCode {
     @ColumnInfo(name = "id")

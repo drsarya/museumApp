@@ -4,7 +4,9 @@ package com.example.services.models;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+@Entity(tableName = "author")
 
 public class Author {
     @ColumnInfo(name = "id")
@@ -19,9 +21,7 @@ public class Author {
     @ColumnInfo(name = "firstName")
     public String firstName;
 
-    @Nullable
-    @ColumnInfo(name = "patronymic")
-    public String patronymic;
+
 
 
 }

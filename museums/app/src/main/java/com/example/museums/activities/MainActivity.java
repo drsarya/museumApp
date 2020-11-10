@@ -2,17 +2,14 @@ package com.example.museums.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.museums.R;
 import com.example.services.AppDelegate;
 import com.example.services.MuseumDao;
-import com.example.services.models.TypeOfExihibit;
 import com.example.services.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
-        final TypeOfExihibit t1 = new TypeOfExihibit();
+        //final TypeOfExihibit t1 = new TypeOfExihibit();
 //        t1.type = "Скульптура";
 //        AsyncTask.execute(new Runnable() {
 //            @Override
@@ -43,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            });
 //        }
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<User> users = memsDao.getUsers();
-                for (int i = 0; i < users.size(); i++) {
-                    System.out.println(users.get(i).id + " " + users.get(i).login + " " + users.get(i).password);
-                }
-            }
-        });
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                List<User> users = memsDao.getUsers();
+//                for (int i = 0; i < users.size(); i++) {
+//                    System.out.println(users.get(i).id + " " + users.get(i).login + " " + users.get(i).password);
+//                }
+//            }
+//        });
 
 
     }

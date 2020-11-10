@@ -5,12 +5,16 @@ import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
+
 @Entity(foreignKeys = {
-        @ForeignKey(entity = Photo.class, parentColumns = "id", childColumns = "photoUrlId")
-})
+        @ForeignKey(entity = Museum.class, parentColumns = "id", childColumns = "idMuseum")
+
+
+},tableName = "exhibition", indices = {@Index(value = {"idMuseum"}, unique = false)})
 
 public class Exhibition {
     @ColumnInfo(name = "id")
@@ -20,7 +24,9 @@ public class Exhibition {
     @NonNull
     @ColumnInfo(name = "name")
     public String name;
-
+    @NonNull
+    @ColumnInfo(name = "idMuseum")
+    public String idMuseum;
     @NonNull
     @ColumnInfo(name = "photoUrlId")
     public String photoUrlId;

@@ -2,12 +2,18 @@ package com.example.services.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+@Entity(tableName = "museum")
 
 public class Museum {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     public   int id;
+
+    @ColumnInfo(name = "login")
+    @NonNull
+    public  String login;
 
     @ColumnInfo(name = "name")
     @NonNull
@@ -32,4 +38,8 @@ public class Museum {
     @ColumnInfo(name = "description")
     @NonNull
     public  String description;
+    @ColumnInfo(name = "image")
+    @NonNull
+    public  String image;
+
 }

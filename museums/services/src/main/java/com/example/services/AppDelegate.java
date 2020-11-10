@@ -16,7 +16,7 @@ public class AppDelegate extends Application {
                         .build();
     }
 
-    public   MuseumDatabase getMuseumDb() {
+    public MuseumDatabase getMuseumDb() {
         return museumDatabase;
     }
 

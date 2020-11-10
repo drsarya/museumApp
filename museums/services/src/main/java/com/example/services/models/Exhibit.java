@@ -4,22 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(foreignKeys = {
-        @ForeignKey(entity = Author.class, parentColumns = "id", childColumns = "authorId"),
-        @ForeignKey(entity = TypeOfExihibit.class, parentColumns = "id", childColumns = "typeId"),
-        @ForeignKey(entity = Photo.class, parentColumns = "id", childColumns = "photoUrlId")
-})
+        @ForeignKey(entity = Author.class, parentColumns = "id", childColumns = "authorId")
+
+
+}, tableName = "exhibit", indices = {@Index(value = {"authorId"}, unique = false)})
 
 public class Exhibit {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     public  int id;
 
-    @NonNull
-    @ColumnInfo(name = "typeId")
-    public int typeId;
+
 
     @NonNull
     @ColumnInfo(name = "authorId")
@@ -30,8 +31,8 @@ public class Exhibit {
     public  String name;
 
     @NonNull
-    @ColumnInfo(name = "photoUrlId")
-    public  String photoUrlId;
+    @ColumnInfo(name = "photoUrl")
+    public  String photoUrl;
 
     @NonNull
     @ColumnInfo(name = "description")
@@ -40,4 +41,9 @@ public class Exhibit {
     @NonNull
     @ColumnInfo(name = "dateOfCreate")
     public String dateOfCreate;
+
+    @NonNull
+    @ColumnInfo(name = "tags")
+    public  String  tags;
+
 }

@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-@Entity(tableName = "User")
+@Entity(tableName = "user")
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    public  int id;
 
-    @ColumnInfo(name = "login")
+
+    @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "login")
     public  String login;
 
     @ColumnInfo(name = "password")
