@@ -108,6 +108,21 @@
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                style="@style/textBoxOuter"
+                android:layout_marginVertical="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelText="Ключевые слова для поиска">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 style="@style/textBoxOuter"

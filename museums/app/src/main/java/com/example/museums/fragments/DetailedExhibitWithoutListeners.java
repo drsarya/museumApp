@@ -19,9 +19,8 @@ import androidx.fragment.app.Fragment;
 import com.example.museums.R;
 import com.example.museums.services.Listeners.ClickListenerChangeColorLike;
 import com.example.museums.services.Listeners.OnToucListenerScrollViewSwipeLeftRight;
-import com.example.museums.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 
-public class DetailedExhibitWithoutListeners extends Fragment{
+public class DetailedExhibitWithoutListeners extends Fragment {
     public ScrollView view;
     public LinearLayout ll;
     public ImageButton like;
@@ -31,20 +30,21 @@ public class DetailedExhibitWithoutListeners extends Fragment{
     private boolean state = false;
     private ScrollView scrollView;
 
-    public  static final String PAINT_DESCRIPTIONS = "paint_descriptions";
-     @Nullable
+    public static final String PAINT_DESCRIPTIONS = "paint_descriptions";
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
 
-         View rootView =
-                 inflater.inflate(R.layout.fragment_detailed_exhibit_view_page, container, false);
-         Bundle arguments = getArguments();
-         if (arguments != null) {
-             String catName = arguments.getString(PAINT_DESCRIPTIONS);
-             displayValues(rootView, catName  );
+        View rootView =
+                inflater.inflate(R.layout.fragment_detailed_exhibit_view_page, container, false);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            String catName = arguments.getString(PAINT_DESCRIPTIONS);
+            displayValues(rootView, catName);
 
-          }
+        }
 
         return rootView;
     }
@@ -60,19 +60,20 @@ public class DetailedExhibitWithoutListeners extends Fragment{
         view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
 
-        name =  (TextView)getActivity().findViewById(R.id.detailed_exhibit_name_of_paint);
+        name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint);
 
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private void displayValues(View v, String s
-                                ) {
-        name =  (TextView)v.findViewById(R.id.detailed_exhibit_name_of_paint);
+    ) {
+        name = (TextView) v.findViewById(R.id.detailed_exhibit_name_of_paint);
         like = (ImageButton) v.findViewById(R.id.detailed_exhibit_like_btn);
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         view = (ScrollView) v.findViewById(R.id.detailed_exhibit_description_scroll_view);
         ll = (LinearLayout) v.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         close = (ImageButton) v.findViewById(R.id.detailed_exhb_view_pager);
-        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(),   ll, true));
+        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(), ll, true));
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,9 +81,6 @@ public class DetailedExhibitWithoutListeners extends Fragment{
             }
         });
         name.setText(s);
-
     }
-
-
 
 }

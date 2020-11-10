@@ -20,21 +20,24 @@ import java.util.List;
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
     private List<Exhibit> mDataset;
+
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
         public LinearLayout optionalPanel;
         public ImageView image;
         public ImageButton delete;
         public ImageButton edit;
+
         public NewExhibitsViewHolder(View view) {
             super(view);
             image = view.findViewById(R.id.new_exhbt_main_image_view);
             nameOfExhbr = view.findViewById(R.id.new_exhbt_name_text_view);
-            optionalPanel =  view.findViewById(R.id.new_exhbt_optional_panel_linear_layout);
+            optionalPanel = view.findViewById(R.id.new_exhbt_optional_panel_linear_layout);
 //            delete = view.findViewById(R.id.new_exhbt_delete);
 //            edit =  view.findViewById(R.id.new_exhbt_edit );
         }
     }
+
     public NewExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
         mDataset = myDataset;
     }
@@ -51,7 +54,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
 
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder));
         if (position % 3 == 0) {
             holder.image.setImageResource(R.drawable.image2);
         } else if (position % 2 == 0) {
@@ -61,7 +64,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         }
         holder.nameOfExhbr.setText("Картина  " + position);
 
-         //holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn());
+        //   holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn());
 
     }
 

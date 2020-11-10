@@ -1,22 +1,26 @@
 package com.example.museums.services.Listeners;
 
+import android.os.Build;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.R;
-import com.example.museums.activities.MuseumTab;
 import com.example.museums.fragments.DetailedExhbtn;
 import com.example.museums.services.MethodsWithFragment;
 
-public class ClickOnListenerHolderExhbtn  implements View.OnClickListener {
+public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     private MethodsWithFragment mth = new MethodsWithFragment();
 
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-             Fragment myFragment = new DetailedExhbtn();
-            MuseumTab activity = (MuseumTab) v.getContext();
-            mth.replaceFragment(myFragment, v, activity, R.id.container_tab_museum);
-
+        Fragment myFragment = new DetailedExhbtn();
+        AppCompatActivity ss = (AppCompatActivity) v.getContext();
+        System.out.println(ss);
+        mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
+        System.out.println(ss);
     }
 }

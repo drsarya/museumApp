@@ -49,7 +49,6 @@ public class MainInfoMuseum extends Fragment {
                 new ClickListenerHideDescription(museumDescriptionTextView, state)
         );
 
-
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 }

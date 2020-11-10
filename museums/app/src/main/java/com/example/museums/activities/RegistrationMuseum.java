@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.museums.R;
 import com.example.museums.services.Listeners.GestureDetectorTurnBack;
 import com.example.museums.services.Listeners.KeyboardListenerHideOptionalBlock;
-import com.example.museums.services.Listeners.OnTouchListenerGestureTurnBack;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
@@ -35,6 +34,7 @@ public class RegistrationMuseum extends AppCompatActivity {
         relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.registration_museum_relative_layout);
         view = (ScrollView) findViewById(R.id.registration_museum_scroll_view);
     }
+
     @SuppressLint("ClickableViewAccessibility")
     private void onTouchlistener() {
         GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
@@ -55,8 +55,6 @@ public class RegistrationMuseum extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void setListeners() {
         onTouchlistener();
-         KeyboardVisibilityEvent.setEventListener(
-                this,
-                new KeyboardListenerHideOptionalBlock(relativeLayoutMuseumReg));
+
     }
 }

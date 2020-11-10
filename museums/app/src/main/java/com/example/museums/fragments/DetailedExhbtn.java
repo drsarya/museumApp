@@ -14,11 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.activities.MuseumTab;
 import com.example.museums.fragments.museum.MainInfoMuseum;
 import com.example.museums.services.Listeners.ClickListenerChangeColorLike;
 import com.example.museums.services.Listeners.ClickListenerHideDescription;
@@ -71,34 +71,29 @@ public class DetailedExhbtn extends Fragment {
     private void setListeners() {
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         museumInfo.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
                 Fragment myFragment = new MainInfoMuseum();
-                MuseumTab activity = (MuseumTab) v.getContext();
-                mth.replaceFragment(myFragment, v, activity, R.id.container_tab_museum);
+                mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
             }
         });
         exhbtnDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(exhbtnDescriptionTextView, stateDescription)
         );
-        allExhibits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        allExhibits.setOnClickListener(v -> {
 
-                List<Exhibit> lisr = new ArrayList<>();
-                lisr.add(new Exhibit());
-                lisr.add(new Exhibit());
-                lisr.add(new Exhibit());
-                lisr.add(new Exhibit());
-                lisr.add(new Exhibit());
+            List<Exhibit> lisr = new ArrayList<>();
+            lisr.add(new Exhibit());
+            lisr.add(new Exhibit());
+            lisr.add(new Exhibit());
+            lisr.add(new Exhibit());
+            lisr.add(new Exhibit());
 
-                final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ExhibitViewPager exhibitViewPager = new ExhibitViewPager(lisr);
+            mth.replaceFragment(exhibitViewPager, v, (AppCompatActivity) v.getContext());
 
-                ExhibitViewPager exhibitViewPager = new ExhibitViewPager(lisr);
-
-                ft.replace(R.id.container_tab_museum, exhibitViewPager).addToBackStack(DetailedExhbtn.class.toString())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-            }
         });
     }
 }

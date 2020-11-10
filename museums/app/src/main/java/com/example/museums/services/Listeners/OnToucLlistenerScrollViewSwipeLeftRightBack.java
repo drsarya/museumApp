@@ -13,12 +13,14 @@ public class OnToucLlistenerScrollViewSwipeLeftRightBack implements View.OnTouch
     private FragmentActivity activity;
     private boolean trof;
     private LinearLayout ll;
+
     public OnToucLlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof) {
         this.activity = activity;
         this.trof = trof;
 
     }
-    public OnToucLlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof , LinearLayout ll) {
+
+    public OnToucLlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof, LinearLayout ll) {
         this.activity = activity;
         this.trof = trof;
         this.ll = ll;
@@ -39,6 +41,7 @@ public class OnToucLlistenerScrollViewSwipeLeftRightBack implements View.OnTouch
                     float deltaX = downx - upX;
                     float deltaY = downy - upY;
                     if (Math.abs(deltaX) > Math.abs(deltaY)) {
+
                         activity.onBackPressed();
                     } else {
                         if (trof) {

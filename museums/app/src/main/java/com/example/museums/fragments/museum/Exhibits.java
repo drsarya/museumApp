@@ -35,7 +35,7 @@ public class Exhibits extends Fragment {
     private RecyclerView.Adapter horizontalAdapter;
     public LinearLayout ll;
     public RecyclerView listView;
-   List<String> names = Arrays.asList("Иван", "Марья", "Петр", "Антон", "Даша", "Борис" );
+    List<String> names = Arrays.asList("Иван", "Марья", "Петр", "Антон", "Даша", "Борис");
 
 
     @Nullable
@@ -57,7 +57,6 @@ public class Exhibits extends Fragment {
         ll = (LinearLayout) getActivity().findViewById(R.id.main_exhibits_linear_layout);
         listView = (RecyclerView) getActivity().findViewById(R.id.main_exhibits_recycler_view);
 
-
         List<Exhibit> in = new ArrayList<>();
         in.add(new Exhibit());
         in.add(new Exhibit());
@@ -69,10 +68,8 @@ public class Exhibits extends Fragment {
         in.add(new Exhibit());
         in.add(new Exhibit());
         in.add(new Exhibit());
-
         mAdapter = new ExhibitsRecyclerViewAdapter(in);
         recyclerView.setAdapter(mAdapter);
-
 
         horizontalAdapter = new TagsRecyclerViewAdapter(names);
         listView.setAdapter(horizontalAdapter);

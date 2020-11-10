@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
 import com.example.museums.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
-import com.example.museums.services.recyclerViews.ExhibitsRecyclerViewAdapter;
-import com.example.services.models.Exhibit;
 import com.example.services.models.Exhibition;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ public class Exhibitions extends Fragment {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibitions, container, false);
+
         return rootView;
     }
 
@@ -52,7 +51,7 @@ public class Exhibitions extends Fragment {
         in.add(new Exhibition());
         in.add(new Exhibition());
 
-        mAdapter = new ExhibitionsRecyclerViewAdapter(in);
+        mAdapter = new ExhibitionsRecyclerViewAdapter(in );
         recyclerView.setAdapter(mAdapter);
     }
 }

@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
-import com.example.museums.services.Listeners.ClickListenerHolderExhibitis;
 import com.example.museums.services.Listeners.ClickOnListenerHolderExhbtn;
-import com.example.services.models.Exhibit;
 import com.example.services.models.Exhibition;
 
 import java.util.List;
@@ -39,6 +37,7 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
 
     public ExhibitionsRecyclerViewAdapter(List<Exhibition> myDataset) {
         mDataset = myDataset;
+
     }
 
     @NonNull

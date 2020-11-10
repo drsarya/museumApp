@@ -44,16 +44,14 @@ public class MainActivity extends AppCompatActivity {
 //            });
 //        }
         AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                   List<User> users =  memsDao.getUsers();
-                    for (int i = 0; i <users.size() ; i++) {
-                        System.out.println(users.get(i).id+" "+users.get(i).login+" "+users.get(i).password);
-                    }
+            @Override
+            public void run() {
+                List<User> users = memsDao.getUsers();
+                for (int i = 0; i < users.size(); i++) {
+                    System.out.println(users.get(i).id + " " + users.get(i).login + " " + users.get(i).password);
                 }
-            });
-
-
+            }
+        });
 
 
     }

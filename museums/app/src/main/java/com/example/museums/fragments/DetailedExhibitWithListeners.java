@@ -25,7 +25,6 @@ public class DetailedExhibitWithListeners extends Fragment {
     private ImageButton like;
 
     private boolean state = false;
-    private ScrollView scrollView;
 
     @Nullable
     @Override
@@ -33,6 +32,7 @@ public class DetailedExhibitWithListeners extends Fragment {
         super.setRetainInstance(true);
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibit, container, false);
+        System.out.println("dfdfdfdfdfdfdfdfdfdfdfdfdf");
         return rootView;
     }
 
@@ -46,7 +46,6 @@ public class DetailedExhibitWithListeners extends Fragment {
         ll = (LinearLayout) getActivity().findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
-
         setListeners();
     }
 

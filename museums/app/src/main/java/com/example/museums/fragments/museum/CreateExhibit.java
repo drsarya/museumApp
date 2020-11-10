@@ -10,7 +10,6 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
 import com.example.museums.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
@@ -33,6 +32,5 @@ public class CreateExhibit extends Fragment {
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
         view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
-
     }
 }

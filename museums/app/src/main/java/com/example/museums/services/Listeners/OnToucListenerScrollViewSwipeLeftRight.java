@@ -39,7 +39,7 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
                     float upX = event.getX();
                     float deltaY = downy - upY;
                     System.out.println(deltaY);
-                    if (upY - downy > 0  ) {
+                    if (upY - downy > 0) {
                         if (ll.getVisibility() != View.VISIBLE) {
                             if (trof) {
                                 TranslateAnimation animate = new TranslateAnimation(0, 0, ll.getHeight(), 0);

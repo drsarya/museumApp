@@ -1,5 +1,6 @@
 package com.example.museums.fragments.museum;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,13 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
 import com.example.museums.activities.MuseumTab;
 import com.example.museums.services.MethodsWithFragment;
-import com.example.museums.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 import com.example.museums.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 import com.example.services.models.Exhibit;
 
@@ -26,6 +27,7 @@ public class CreateExhibition extends Fragment {
     private ImageButton plusExhbt;
     private MethodsWithFragment mth = new MethodsWithFragment();
     private RecyclerView.Adapter mAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,11 +51,12 @@ public class CreateExhibition extends Fragment {
         in.add(new Exhibit());
         in.add(new Exhibit());
         plusExhbt.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
                 Fragment myFragment = new CreateExhibit();
                 MuseumTab activity = (MuseumTab) v.getContext();
-                mth.replaceFragment(myFragment, v, activity, R.id.container_tab_museum);
+                mth.replaceFragment(myFragment, v, activity);
             }
         });
 

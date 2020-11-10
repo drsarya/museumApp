@@ -2,24 +2,19 @@ package com.example.museums.services.recyclerViews;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.TranslateAnimation;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
 import com.example.museums.services.Listeners.ClickListenerHolderExhibitis;
-import com.example.museums.services.Listeners.OnToucListenerScrollViewSwipeLeftRight;
 import com.example.services.models.Exhibit;
+
 
 import java.util.List;
 
@@ -41,8 +36,9 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
 
     private List<Exhibit> mDataset;
 
-    public ExhibitsRecyclerViewAdapter(List<Exhibit> myDataset ) {
+    public ExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
         this.mDataset = myDataset;
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -59,7 +55,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     @Override
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
 
-         holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
+        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
         if (position % 3 == 0) {
             holder.image.setImageResource(R.drawable.image2);
         } else if (position % 2 == 0) {
