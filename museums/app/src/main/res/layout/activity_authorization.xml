@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:id="@+id/authorization_log_text_view"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
                 app:helperText="@string/password" />
@@ -74,6 +75,8 @@
                 android:inputType="textPassword"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
+                android:id="@+id/authorization_password_text_view"
+
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -134,6 +137,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/authorization_btn_auth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

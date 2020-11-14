@@ -8,8 +8,8 @@ import android.widget.ImageSwitcher;
 
 import androidx.annotation.NonNull;
 
-import com.example.museums.activities.Authorization;
-import com.example.museums.activities.SplashScreen;
+import com.example.museums.activities.common.Authorization;
+import com.example.museums.activities.common.SplashScreen;
 
 public class HandlerSplashScreen extends Handler {
 

@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.activities.MuseumTab;
-import com.example.museums.fragments.DetailedExhibitWithListeners;
+import com.example.museums.fragments.common.DetailedExhibitWithListeners;
 import com.example.museums.services.MethodsWithFragment;
 import com.example.museums.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.services.recyclerViews.NewExhibitsRecyclerViewAdapter;

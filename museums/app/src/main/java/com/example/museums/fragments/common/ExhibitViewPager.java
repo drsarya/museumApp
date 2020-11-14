@@ -1,4 +1,4 @@
-package com.example.museums.fragments;
+package com.example.museums.fragments.common;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.museums.fragments.museum.Exhibitions;
-import com.example.museums.fragments.museum.Exhibits;
+import com.example.museums.fragments.common.Exhibitions;
+import com.example.museums.fragments.common.Exhibits;
 import com.example.services.models.Exhibit;
 import com.example.services.models.Exhibition;
 

@@ -1,4 +1,4 @@
-package com.example.museums.fragments;
+package com.example.museums.fragments.common;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -59,14 +59,12 @@ public class DetailedExhibitWithoutListeners extends Fragment {
         ll = (LinearLayout) getActivity().findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
-
         name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint);
 
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void displayValues(View v, String s
-    ) {
+    private void displayValues(View v, String s) {
         name = (TextView) v.findViewById(R.id.detailed_exhibit_name_of_paint);
         like = (ImageButton) v.findViewById(R.id.detailed_exhibit_like_btn);
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));

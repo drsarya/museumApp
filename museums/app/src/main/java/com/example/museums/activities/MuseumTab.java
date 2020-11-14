@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
 import com.example.museums.fragments.museum.CreateExhibition;
-import com.example.museums.fragments.museum.Exhibitions;
-import com.example.museums.fragments.museum.Exhibits;
+import com.example.museums.fragments.common.Exhibitions;
+import com.example.museums.fragments.common.Exhibits;
 import com.example.museums.fragments.museum.MainInfoMuseumPageEdit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

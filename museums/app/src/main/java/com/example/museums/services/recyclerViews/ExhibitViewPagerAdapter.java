@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.museums.fragments.DetailedExhibitWithoutListeners;
+import com.example.museums.fragments.common.DetailedExhibitWithoutListeners;
 import com.example.services.models.Exhibit;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.museums.fragments.museum;
+package com.example.museums.fragments.common;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

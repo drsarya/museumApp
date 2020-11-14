@@ -1,5 +1,6 @@
 package com.example.services;
 
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,6 +18,11 @@ import com.example.services.models.User;
 import java.util.List;
 
 
+import io.reactivex.Flowable;
+
+import io.reactivex.Single;
+
+
 @Dao
 public interface MuseumDao {
 
@@ -29,7 +35,7 @@ public interface MuseumDao {
     long[] insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 
     @Query("SELECT * FROM exhibit")
-    List<Exhibit> getAllExhibits();
+     List<Exhibit>  getAllExhibits();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertExhbt(List<Exhibit>  exhibit);
@@ -62,9 +68,9 @@ public interface MuseumDao {
     int updateMuseumInfo(Museum museum);
 
     @Query("SELECT * FROM user WHERE login =:login AND password=:password")
-    long getUser(String login, String password);
+    Single<User> getUser(String login, String password);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertUser(User user);
+    Single<Long> insertUser(User user);
 
 }

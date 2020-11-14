@@ -1,4 +1,4 @@
-package com.example.museums.activities;
+package com.example.museums.activities.common;
 
 import android.os.Bundle;
 import android.view.View;

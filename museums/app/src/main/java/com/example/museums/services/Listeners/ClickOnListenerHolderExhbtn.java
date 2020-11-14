@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.fragments.DetailedExhbtn;
+import com.example.museums.fragments.common.DetailedExhbtn;
 import com.example.museums.services.MethodsWithFragment;
 
 public class ClickOnListenerHolderExhbtn implements View.OnClickListener {

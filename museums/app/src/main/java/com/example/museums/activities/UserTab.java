@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.fragments.museum.Exhibitions;
-import com.example.museums.fragments.museum.Exhibits;
+import com.example.museums.fragments.common.Exhibitions;
+import com.example.museums.fragments.common.Exhibits;
 import com.example.museums.fragments.user.LikedExhbViewPager;
 import com.example.services.models.Exhibit;
 import com.example.services.models.Exhibition;

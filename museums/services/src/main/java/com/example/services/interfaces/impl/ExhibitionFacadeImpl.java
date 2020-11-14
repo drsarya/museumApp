@@ -6,11 +6,11 @@ import com.example.services.models.Exhibition;
 
 import java.util.List;
 
-public class ExhbitionFacadeImpl implements ExhibitionFacade {
+public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
     private MuseumDao museumDao;
 
-    public ExhbitionFacadeImpl(MuseumDao museumDao) {
+    public ExhibitionFacadeImpl(MuseumDao museumDao) {
         museumDao = museumDao;
     }
 

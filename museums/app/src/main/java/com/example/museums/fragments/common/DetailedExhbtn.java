@@ -1,4 +1,4 @@
-package com.example.museums.fragments;
+package com.example.museums.fragments.common;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.fragments.museum.MainInfoMuseum;
 import com.example.museums.services.Listeners.ClickListenerChangeColorLike;
 import com.example.museums.services.Listeners.ClickListenerHideDescription;
 import com.example.museums.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;

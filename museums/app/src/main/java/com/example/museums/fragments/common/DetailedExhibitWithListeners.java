@@ -1,4 +1,4 @@
-package com.example.museums.fragments;
+package com.example.museums.fragments.common;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -32,7 +32,6 @@ public class DetailedExhibitWithListeners extends Fragment {
         super.setRetainInstance(true);
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibit, container, false);
-        System.out.println("dfdfdfdfdfdfdfdfdfdfdfdfdf");
         return rootView;
     }
 

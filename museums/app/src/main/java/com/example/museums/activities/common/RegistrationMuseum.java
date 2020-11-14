@@ -1,4 +1,4 @@
-package com.example.museums.activities;
+package com.example.museums.activities.common;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,30 +13,25 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
+import com.example.museums.activities.common.Authorization;
 import com.example.museums.services.Listeners.GestureDetectorTurnBack;
-import com.example.museums.services.Listeners.KeyboardListenerHideOptionalBlock;
 
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-
-public class Registration extends AppCompatActivity {
+public class RegistrationMuseum extends AppCompatActivity {
     ScrollView view;
     RelativeLayout relativeLayoutMuseumReg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acticvity_reg);
+        setContentView(R.layout.activity_reg_museum);
         initViews();
-        onTouchlistener();
-        //keyBoardListener();
+        setListeners();
     }
 
     private void initViews() {
-        view = (ScrollView) findViewById(R.id.registration_scroll_view);
-        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.registration_relative_layout);
+        relativeLayoutMuseumReg = (RelativeLayout) findViewById(R.id.registration_museum_relative_layout);
+        view = (ScrollView) findViewById(R.id.registration_museum_scroll_view);
     }
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     private void onTouchlistener() {
@@ -53,5 +48,11 @@ public class Registration extends AppCompatActivity {
             }
             return mDetector.onTouchEvent(event);
         });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setListeners() {
+        onTouchlistener();
+
     }
 }
