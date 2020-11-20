@@ -8,7 +8,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".activities.common.Authorization"
+        <activity android:name=".view.activities.common.Authorization.Authorization"
+
              android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,12 +17,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.common.Registration"
+            android:name=".view.activities.common.Registration.Registration"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.common.RegistrationMuseum"
+            android:name=".view.activities.common.RegistrationMuseum"
             android:windowSoftInputMode="adjustPan"/>
-
+        <activity
+            android:name=".view.activities.UserTab"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".view.activities.MuseumTab"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

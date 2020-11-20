@@ -54,7 +54,10 @@
 
 
     <style name="textBoxOuter">
+
         <item name="fontFamily">@font/prata</item>
+        <item name="errorColor">@color/blue</item>
+
         <item name="helperTextColor">@color/darkBeige</item>
         <item name="panelBackgroundColor">@color/lightBeige</item>
         <item name="primaryColor">@color/grey</item>

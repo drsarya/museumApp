@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
 
-                app:labelText="История созднания">
+                app:labelText="История создания">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:layout_width="match_parent"
