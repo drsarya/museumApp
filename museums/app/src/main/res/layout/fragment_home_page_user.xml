@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_two"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/main_exhibits_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/prata"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Избранное"
+            android:textAlignment="gravity"
+            android:textColor="@color/brown">
+
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/home_page_user_menu_popup"
+            android:layout_width="40dp"
+
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/points"
+            android:clickable="true">
+
+        </ImageButton>
+    </LinearLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/liked"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

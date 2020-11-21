@@ -32,12 +32,12 @@ public class QueryRegistration {
 
     }
 
-    public void getQuery(String login, String password) {
+    public void getQuery(String login, String password ) {
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.insertUser(login, password);
+        userFacade.insertUser(login, password, false);
 
     }
 }

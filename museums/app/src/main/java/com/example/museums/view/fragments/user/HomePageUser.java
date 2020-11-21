@@ -2,7 +2,6 @@ package com.example.museums.view.fragments.user;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -10,78 +9,48 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.view.ContextThemeWrapper;
-import android.widget.PopupMenu;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.museums.R;
-import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapter;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.Exhibition;
 
-import java.util.List;
-
-public class LikedExhbViewPager extends Fragment  implements PopupMenu.OnMenuItemClickListener{
-
-    private ViewPager mPager;
-    private List<Exhibit> mDataset;
-    private List<Exhibition> mExhbn;
-    public static final String LOGIN_KEY_USER = "login_key_user";
-    private ImageButton imbtn;
-
-    private PagerAdapter pagerAdapter;
-
-    public LikedExhbViewPager(List<Exhibit> mDataset, List<Exhibition> mExhbn) {
-        this.mDataset = mDataset;
-        this.mExhbn = mExhbn;
-    }
-
+public class HomePageUser extends Fragment implements PopupMenu.OnMenuItemClickListener{
+ private ImageButton imbtn;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.setRetainInstance(true);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String login = arguments.getString(LOGIN_KEY_USER);
-        }
 
         View rootView =
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
-
-
+        imbtn = rootView.findViewById(R.id.home_page_user_menu_popup);
+        imbtn.setOnClickListener(v -> showPopup(v));
         return rootView;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        super.setRetainInstance(true);
+        setRetainInstance(true);
 
-         imbtn = getActivity().findViewById(R.id.home_page_user_menu_popup);
-         imbtn.setOnClickListener(this::showPopup);
 
-        mPager = (ViewPager) getActivity().findViewById(R.id.liked);
-        pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), mDataset, mExhbn);
-        mPager.setAdapter(pagerAdapter);
-
-    }
+     }
     public void showPopup(View view) {
+        System.out.println("dfdfdfdfdfdfd");
         Context wrapper = new ContextThemeWrapper(getActivity().getApplicationContext() , R.style.menuStyle);
-        PopupMenu popup = new PopupMenu( wrapper ,  view);
+        PopupMenu popup = new PopupMenu(wrapper, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_home_page_user, popup.getMenu());
         popup.setOnMenuItemClickListener( this);
         popup.show();
     }
-    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
@@ -96,3 +65,4 @@ public class LikedExhbViewPager extends Fragment  implements PopupMenu.OnMenuIte
         }
     }
 }
+

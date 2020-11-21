@@ -30,7 +30,7 @@
 
     <style name="menuStyle" parent="Widget.AppCompat.PopupMenu">
         <item name="android:textColor">@color/dark_brown</item>
-        <item name="android:itemBackground">@color/lightBeige</item>
+        <item name="android:itemBackground">@color/white</item>
     </style>
 
     <style name="ClickableView">

@@ -19,8 +19,6 @@ public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     public void onClick(View v) {
         Fragment myFragment = new DetailedExhbtn();
         AppCompatActivity ss = (AppCompatActivity) v.getContext();
-        System.out.println(ss);
         mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
-        System.out.println(ss);
     }
 }

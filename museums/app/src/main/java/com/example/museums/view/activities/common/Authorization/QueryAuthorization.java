@@ -11,6 +11,7 @@ import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.User;
+import com.example.museums.view.activities.AdminTab;
 import com.example.museums.view.activities.MuseumTab;
 import com.example.museums.view.activities.UserTab;
 
@@ -54,7 +55,14 @@ public class QueryAuthorization {
 
     public void onSuccess(User user) {
         museumFacade = new MuseumFacadeImpl(memsDao, this);
-        museumFacade.getMuseumByLogin(user.login);
+        if (user.type) {
+            activity.progressBar.setVisibility(View.INVISIBLE);
+            Intent intent = new Intent(activity.getApplicationContext(), AdminTab.class);
+             activity.startActivity(intent);
+
+        } else {
+            museumFacade.getMuseumByLogin(user.login);
+        }
     }
 
     public void onError() {

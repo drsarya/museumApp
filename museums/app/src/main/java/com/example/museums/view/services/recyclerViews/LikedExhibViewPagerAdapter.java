@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.museums.view.fragments.common.Exhibitions;
-import com.example.museums.view.fragments.common.Exhibits;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
+import com.example.museums.view.fragments.user.LikedExhbtns;
+import com.example.museums.view.fragments.user.LikedExhibits;
 
 import java.util.List;
 
@@ -28,10 +28,10 @@ public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
 
         Fragment fragment;
         if (position == 0) {
-            fragment = new Exhibits();
+            fragment = new LikedExhibits();
 
         } else {
-            fragment = new Exhibitions();
+            fragment = new LikedExhbtns();
 
         }
 

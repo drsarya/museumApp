@@ -60,16 +60,17 @@ public class UserFacadeImpl implements UserFacade {
 
     @SuppressLint("CheckResult")
     @Override
-    public void insertUser(String login, String password) {
+    public void insertUser(String login, String password, boolean type) {
         User user = new User();
         user.login = login;
         user.password = password;
+        user.type = type;
         museumDao.insertUser(user).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        queryRegistration.onSuccess();
+                         queryRegistration.onSuccess();
                     }
 
                     @Override

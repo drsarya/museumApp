@@ -16,4 +16,8 @@ public class User {
     @ColumnInfo(name = "password")
     @NonNull
     public String password;
+//true - admin
+    @ColumnInfo(name = "type")
+    @NonNull
+    public boolean type;
 }

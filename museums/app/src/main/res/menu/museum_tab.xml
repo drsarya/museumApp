@@ -20,4 +20,9 @@
         android:id="@+id/menu_fr_exhibits"
         android:icon="@drawable/tab_museum_exhibit"
         android:title="экспонаты" />
+    <item
+        android:id="@+id/menu_fr_home"
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:title="Домашняя страница" />
 </menu>

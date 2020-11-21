@@ -36,7 +36,7 @@ public class ExhibitViewPager extends Fragment {
         super.setRetainInstance(true);
 
         View rootView =
-                inflater.inflate(R.layout.fragment_screen_slide, container, false);
+                inflater.inflate(R.layout.fragment_screen_slide_exhibits_from_exhbtn, container, false);
         return rootView;
     }
 

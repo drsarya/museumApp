@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_admin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            style="@style/textBoxOuter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hasClearButton="true"
+            app:labelText="Поиск"
+            app:isResponsiveIconColor="true"
+
+            >
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="@color/dark_dark_brown"
+                app:helperText="@string/password" />
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:id="@+id/admin_all_museums_recyclerView"
+        android:textAlignment="gravity"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

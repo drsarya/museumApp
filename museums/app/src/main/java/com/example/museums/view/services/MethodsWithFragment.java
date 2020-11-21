@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.museums.API.models.Museum;
 import com.example.museums.R;
+import com.example.museums.view.activities.MuseumTab;
 import com.example.museums.view.activities.UserTab;
 import com.example.museums.view.activities.common.Authorization.Authorization;
 
@@ -31,7 +33,7 @@ public class MethodsWithFragment {
                     .addToBackStack(backStateName)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
-        } else {
+        } else if (activity.getComponentName().getClassName().equals(MuseumTab.class.getTypeName())){
             ft.replace(R.id.container_tab_museum, myFragment)
                     .addToBackStack(backStateName)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

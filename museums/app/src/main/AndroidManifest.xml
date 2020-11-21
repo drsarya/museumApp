@@ -28,6 +28,9 @@
         <activity
             android:name=".view.activities.MuseumTab"
             android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".view.activities.AdminTab"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

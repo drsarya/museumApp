@@ -23,7 +23,7 @@ public class UserTab extends AppCompatActivity {
 
     private BottomNavigationView menuTab;
     public static final String LOGIN_KEY = "login_key";
-private String loginUser;
+    private String loginUser;
     private boolean currState = false;
 
     @Override
@@ -52,7 +52,7 @@ private String loginUser;
 
                         Exhibits detailedExhibitWithListeners = new Exhibits();
 
-                         bundle.putString(detailedExhibitWithListeners.LOGIN_KEY_USER, loginUser);
+                        bundle.putString(detailedExhibitWithListeners.LOGIN_KEY_USER, loginUser);
                         detailedExhibitWithListeners.setArguments(bundle);
 
 
@@ -66,7 +66,7 @@ private String loginUser;
                         final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                         Exhibitions exhibitions = new Exhibitions();
 
-                         bundle.putString(exhibitions.LOGIN_KEY_USER, loginUser);
+                        bundle.putString(exhibitions.LOGIN_KEY_USER, loginUser);
                         exhibitions.setArguments(bundle);
 
                         ft1.replace(R.id.container_tab_user, exhibitions)
@@ -75,7 +75,7 @@ private String loginUser;
                         menuTab.getMenu().findItem(R.id.menu_user_exhibitions).setChecked(true);
 
                         break;
-                    case R.id.menu_user_like:
+                    case R.id.menu_user_home:
                         final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                         List<Exhibit> list = new ArrayList<>();
                         List<Exhibition> list2 = new ArrayList<>();
@@ -86,8 +86,8 @@ private String loginUser;
 
                         ft2.replace(R.id.container_tab_user, exhibits)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                .addToBackStack(Exhibits.class.toString()).commit();
-                        menuTab.getMenu().findItem(R.id.menu_user_like).setChecked(true);
+                                .addToBackStack(LikedExhbViewPager.class.toString()).commit();
+                        menuTab.getMenu().findItem(R.id.menu_user_home).setChecked(true);
 
                         break;
 
@@ -97,7 +97,8 @@ private String loginUser;
 
         });
     }
-    private void setInitialPage(){
+
+    private void setInitialPage() {
 
         if (!currState) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

@@ -6,27 +6,9 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        style="@style/textBoxOuter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hasClearButton="true"
-        app:labelText="Поиск"
-        app:isResponsiveIconColor="true"
 
-        >
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:textColor="@color/dark_dark_brown"
-
-            app:helperText="@string/password" />
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_exhibitons"
+        android:id="@+id/recycler_view_liked_exhibitons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
