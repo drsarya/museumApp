@@ -36,7 +36,14 @@
 
 
     </LinearLayout>
-
+    <ProgressBar
+        android:id="@+id/admin_all_museums_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:layout_gravity="bottom"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
          android:layout_width="match_parent"

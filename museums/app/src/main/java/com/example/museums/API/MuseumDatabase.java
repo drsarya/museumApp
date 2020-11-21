@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase;
 
 import com.example.museums.API.models.*;
 
-@Database(entities = { User.class, Exhibit.class, Exhibition.class, Author.class, ExhibitToExhbtn.class,
-IdentificationCode.class, Like.class, Museum.class}, version = 1)
+@Database(entities = {User.class, Exhibit.class, Exhibition.class, Author.class, ExhibitToExhbtn.class,
+        Like.class, Museum.class}, version = 1)
 public abstract class MuseumDatabase extends RoomDatabase {
     public abstract MuseumDao museumDao();
 }

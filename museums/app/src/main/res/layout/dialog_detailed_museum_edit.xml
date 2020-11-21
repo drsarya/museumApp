@@ -13,43 +13,90 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginBottom="40dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:paddingVertical="2dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/lightBeige"
+                android:gravity="center|center_vertical"
+                android:text="Код:"
+                android:textColor="@color/brown">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/dialog_museum_edit_id_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="3"
+                android:autoSizeTextType="uniform"
+                android:background="@color/white"
+                android:gravity="center|center_vertical"
+                android:text="5678"
+                android:textColor="@color/brown">
+
+            </TextView>
+        </LinearLayout>
+
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/dialog_museum_edit_name_text_field_boxes"
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
+            android:imeOptions="actionDone"
+            app:hasClearButton="true"
+
             app:labelText="Название музея">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/dialog_museum_edit_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
+                android:inputType="text"
+                android:lines="1"
                 android:text="Третьяковская галерея"
+
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/dialog_museum_edit_address_text_field_boxes"
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
+            android:imeOptions="actionDone"
+            app:hasClearButton="true"
+
             app:labelText="Адрес">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/dialog_museum_edit_address_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
-                android:inputType="textMultiLine"
+                android:inputType="text"
+
+                android:lines="1"
                 android:text="Лаврушинский пер., 10, Москва"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp" />
@@ -79,9 +126,18 @@
                 android:src="@drawable/image_for_btn">
 
             </ImageView>
+
+            <ProgressBar
+                android:id="@+id/dialog_museum_edit_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="bottom"
+                android:visibility="gone" />
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/dialog_museum_edit_update_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

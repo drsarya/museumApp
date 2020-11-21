@@ -1,6 +1,8 @@
 package com.example.museums.API;
 
 
+import androidx.constraintlayout.helper.widget.Flow;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -16,7 +18,6 @@ import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.User;
 
 import java.util.List;
-
 
 import io.reactivex.Flowable;
 
@@ -35,10 +36,10 @@ public interface MuseumDao {
     long[] insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 
     @Query("SELECT * FROM exhibit")
-     List<Exhibit>  getAllExhibits();
+    List<Exhibit> getAllExhibits();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertExhbt(List<Exhibit>  exhibit);
+    long[] insertExhbt(List<Exhibit> exhibit);
 
     @Query("SELECT * FROM exhibition")
     List<Exhibition> getAllExhibitions();
@@ -59,13 +60,17 @@ public interface MuseumDao {
     long insertLike(Like like);
 
     @Query("SELECT * FROM museum WHERE id =:id")
-    Museum getMuseumById(String id);
+    Single<Museum> getMuseumById(int id);
 
     @Query("SELECT * FROM museum WHERE login =:login")
     Single<Museum> getMuseumByLogin(String login);
 
-    @Update
-    int updateMuseumInfo(Museum museum);
+
+    @Query("SELECT * FROM museum  ")
+    Flowable<List<Museum>> getAllMuseums();
+
+    @Query("UPDATE museum SET  address = :address  , name = :name where id= :id ")
+    Single<Integer> updateMuseumInfo(String name, String address, int id);
 
     @Query("SELECT * FROM user WHERE login =:login AND password=:password")
     Single<User> getUser(String login, String password);
@@ -73,7 +78,7 @@ public interface MuseumDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<Long> insertUser(User user);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<Long> insertMuseum(Museum museum);
 
 }

@@ -3,12 +3,15 @@ package com.example.museums.API.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "museum")
+@Entity(tableName = "museum", indices = {@Index(value = {"login"}, unique = true),
+        @Index(value = {"name"}, unique = true), @Index(value = {"address"}, unique = true)})
 
 public class Museum {
     @ColumnInfo(name = "id")
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 
@@ -20,21 +23,27 @@ public class Museum {
     @NonNull
     public String name;
 
-    @ColumnInfo(name = "country")
-    @NonNull
-    public String country;
 
-    @ColumnInfo(name = "city")
+    @ColumnInfo(name = "address")
     @NonNull
-    public String city;
+    public String address;
 
-    @ColumnInfo(name = "street")
-    @NonNull
-    public String street;
 
-    @ColumnInfo(name = "build")
-    @NonNull
-    public String build;
+//    @ColumnInfo(name = "country")
+//    @NonNull
+//    public String country;
+
+//    @ColumnInfo(name = "city")
+//    @NonNull
+//    public String city;
+//
+//    @ColumnInfo(name = "street")
+//    @NonNull
+//    public String street;
+//
+//    @ColumnInfo(name = "build")
+//    @NonNull
+//    public String build;
 
     @ColumnInfo(name = "description")
     public String description;

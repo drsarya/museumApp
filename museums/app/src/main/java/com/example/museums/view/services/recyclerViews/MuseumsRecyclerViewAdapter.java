@@ -3,7 +3,6 @@ package com.example.museums.view.services.recyclerViews;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Museum;
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.ClickListenerHolderMuseum;
+import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
+import com.example.museums.view.services.Listeners.ClickListenerHolderMuseumAdminEditPage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecyclerViewAdapter.MuseumsViewHolder> {
@@ -21,19 +22,36 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
         public TextView textView;
 
 
-
         public MuseumsViewHolder(View view) {
             super(view);
 
-             textView = view.findViewById(R.id.element_of_list_museum);
+            textView = view.findViewById(R.id.element_of_list_museum);
 
         }
     }
+//    public void deletePosition(Integer position){
+//        d = position;
+//         mDataset.remove((int)position-1);
+//
+//    }
+//    int d = -1;
+//    public void addPosition(Museum museum){
+//       //  mDataset.add(museum);
+//         notifyDataSetChanged();
+//    }
+
+    public void updateAll(List<Museum> museum){
+        mDataset =new ArrayList<>();
+        mDataset.addAll(museum);
+        notifyDataSetChanged();
+    }
+
     private List<Museum> mDataset;
+    private AllMuseums allMuseums;
 
-    public MuseumsRecyclerViewAdapter(List<Museum> myDataset) {
+    public MuseumsRecyclerViewAdapter(List<Museum> myDataset, AllMuseums allMuseums) {
         this.mDataset = myDataset;
-
+        this.allMuseums = allMuseums;
     }
 
     @NonNull
@@ -48,9 +66,8 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
 
     @Override
     public void onBindViewHolder(@NonNull MuseumsViewHolder holder, int position) {
-       holder.itemView.setOnClickListener(new ClickListenerHolderMuseum(holder));
-
-        holder.textView.setText("Третьяковская галерея" + position);
+        holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, mDataset.get(position), allMuseums));
+        holder.textView.setText(mDataset.get(position).name);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class QueryAuthorization {
 
     public void isUser() {
 
-        activity.progressBar.setVisibility(View.INVISIBLE);
+        activity.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(activity.getApplicationContext(), UserTab.class);
         intent.putExtra(UserTab.LOGIN_KEY, login);
         activity.startActivity(intent);
@@ -56,7 +56,7 @@ public class QueryAuthorization {
     public void onSuccess(User user) {
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         if (user.type) {
-            activity.progressBar.setVisibility(View.INVISIBLE);
+            activity.progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(activity.getApplicationContext(), AdminTab.class);
              activity.startActivity(intent);
 
@@ -68,7 +68,7 @@ public class QueryAuthorization {
     public void onError() {
         Toast.makeText(activity.getApplicationContext(),
                 "ошибка входа", Toast.LENGTH_SHORT).show();
-        activity.progressBar.setVisibility(View.INVISIBLE);
+        activity.progressBar.setVisibility(View.GONE);
 
     }
 

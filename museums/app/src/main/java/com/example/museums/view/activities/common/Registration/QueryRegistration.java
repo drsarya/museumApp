@@ -22,22 +22,22 @@ public class QueryRegistration {
     public void onSuccess() {
         Toast.makeText(activity.getApplicationContext(),
                 "Успешная регистрация", Toast.LENGTH_SHORT).show();
-        activity.progressBar.setVisibility(View.INVISIBLE);
+        activity.progressBar.setVisibility(View.GONE);
     }
 
     public void onError() {
         Toast.makeText(activity.getApplicationContext(),
                 "Пользователь с  введёнными данными уже существует", Toast.LENGTH_SHORT).show();
-        activity.progressBar.setVisibility(View.INVISIBLE);
+        activity.progressBar.setVisibility(View.GONE);
 
     }
 
-    public void getQuery(String login, String password ) {
+    public void getQuery(String login, String password,boolean type ) {
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.insertUser(login, password, false);
+        userFacade.insertUser(login, password, type);
 
     }
 }

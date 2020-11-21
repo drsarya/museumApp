@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".view.activities.common.Authorization.Authorization"
+        <activity android:name=".view.activities.AdminTab"
 
              android:windowSoftInputMode="stateHidden" >
             <intent-filter>
@@ -28,9 +28,8 @@
         <activity
             android:name=".view.activities.MuseumTab"
             android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name=".view.activities.AdminTab"
-            android:windowSoftInputMode="adjustPan"/>
+
+
     </application>
 
 </manifest>

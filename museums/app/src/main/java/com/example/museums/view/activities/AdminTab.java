@@ -9,10 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.AllMuseums;
-import com.example.museums.view.fragments.admin.CreateMuseum;
+import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
+import com.example.museums.view.fragments.admin.createMuseum.CreateMuseum;
 import com.example.museums.view.fragments.museum.HomePageMuseum;
-import com.example.museums.view.fragments.user.HomePageUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminTab  extends AppCompatActivity {

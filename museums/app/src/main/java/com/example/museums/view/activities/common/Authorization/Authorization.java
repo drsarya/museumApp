@@ -16,14 +16,14 @@ import com.example.museums.view.activities.common.RegistrationMuseum;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 
-public class Authorization extends AppCompatActivity   {
+public class Authorization extends AppCompatActivity {
     private Button regPerson;
     private Button reMuseum;
     public Button authBtn;
     private EditText logEditText;
     private EditText passEditText;
-     private QueryAuthorization queryAuthorization;
-public ProgressBar progressBar;
+    private QueryAuthorization queryAuthorization;
+    public ProgressBar progressBar;
 
 
     @Override
@@ -36,13 +36,13 @@ public ProgressBar progressBar;
 
     private void initViews() {
         progressBar = (ProgressBar) findViewById(R.id.authorization_progress_bar);
-        queryAuthorization = new QueryAuthorization(this );
+        queryAuthorization = new QueryAuthorization(this);
         regPerson = (Button) findViewById(R.id.authorization_reg_person);
         reMuseum = (Button) findViewById(R.id.authorization_reg_museum);
         authBtn = (Button) findViewById(R.id.authorization_btn_auth);
         logEditText = (EditText) findViewById(R.id.authorization_log_text_view);
         passEditText = (EditText) findViewById(R.id.authorization_password_text_view);
-     }
+    }
 
     private void setListeners() {
         reMuseum.setOnClickListener(v -> {
@@ -54,13 +54,12 @@ public ProgressBar progressBar;
             startActivity(intent2);
         });
         authBtn.setOnClickListener(v -> {
-            if(!logEditText.getText().toString().isEmpty()&&!passEditText.getText().toString().isEmpty()){
+            if (!logEditText.getText().toString().isEmpty() && !passEditText.getText().toString().isEmpty()) {
                 queryAuthorization.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
                 queryAuthorization.getQuery();
             }
         });
     }
-
 
 
 }

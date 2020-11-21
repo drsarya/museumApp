@@ -26,6 +26,7 @@ public class UserFacadeImpl implements UserFacade {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
     }
+
     public UserFacadeImpl(MuseumDao mDao, QueryRegistration queryRegistration) {
         museumDao = mDao;
         this.queryRegistration = queryRegistration;
@@ -70,7 +71,7 @@ public class UserFacadeImpl implements UserFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                         queryRegistration.onSuccess();
+                        queryRegistration.onSuccess();
                     }
 
                     @Override

@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         MuseumFacadeImpl i1 = new MuseumFacadeImpl(memsDao);
-        i1.insertMuseum("2222", "tretizkovskayay", "Russia", "Moskow", "Novgorodskaya", "56");
+        i1.insertMuseum("2222", "tretizkovskayay", "Russia  Moskow Novgorodskaya 56");
         //final TypeOfExihibit t1 = new TypeOfExihibit();
-        i1.insertMuseum("3333", "tretizkovskayay", "Russia", "Moskow", "Novgorodskaya", "56");
+        i1.insertMuseum("3333", "tretizkovskayay", "Russia  Moskow Novgorodskaya 56");
 
 
 //        for (int i = 0; i < 3 ; i++) {
