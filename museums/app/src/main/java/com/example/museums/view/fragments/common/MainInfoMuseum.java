@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.ClickListenerHideDescription;
-import com.example.museums.view.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 
 public class MainInfoMuseum extends Fragment {
 
@@ -32,8 +32,7 @@ public class MainInfoMuseum extends Fragment {
         return rootView;
     }
 
-    private boolean state = true;
-    private Float downx = null;
+     private Float downx = null;
     private Float downy = null;
 
 
@@ -46,7 +45,7 @@ public class MainInfoMuseum extends Fragment {
         museumDescriptionTextView = (TextView) getActivity().findViewById(R.id.main_info_museum_description_text_view);
         scrollView = (ScrollView) getActivity().findViewById(R.id.main_info_scroll_view);
         museumDescriptionBtn.setOnClickListener(
-                new ClickListenerHideDescription(museumDescriptionTextView, state)
+                new ClickListenerHideDescription(museumDescriptionTextView)
         );
 
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));

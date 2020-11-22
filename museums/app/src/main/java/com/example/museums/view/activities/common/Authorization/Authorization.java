@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
-import com.example.museums.view.activities.common.RegistrationMuseum;
-
-import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
 
 
 public class Authorization extends AppCompatActivity {

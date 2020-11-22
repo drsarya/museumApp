@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".view.activities.AdminTab"
+        <activity android:name=".view.activities.common.Authorization.Authorization"
 
              android:windowSoftInputMode="stateHidden" >
             <intent-filter>
@@ -20,15 +20,14 @@
             android:name=".view.activities.common.Registration.Registration"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.activities.common.RegistrationMuseum"
-            android:windowSoftInputMode="adjustPan"/>
+            android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"
+            android:windowSoftInputMode="adjustUnspecified"/>
         <activity
-            android:name=".view.activities.UserTab"
-            android:windowSoftInputMode="adjustPan"/>
+            android:name=".view.activities.tabs.UserTab"
+            android:windowSoftInputMode="adjustUnspecified"/>
         <activity
-            android:name=".view.activities.MuseumTab"
-            android:windowSoftInputMode="adjustPan"/>
-
+        android:name=".view.activities.tabs.MuseumTab"
+        android:windowSoftInputMode="adjustUnspecified"/>
 
     </application>
 

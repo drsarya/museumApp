@@ -10,17 +10,19 @@
     >
 
     <LinearLayout
-         android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/brown"
+        android:orientation="horizontal">
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             style="@style/textBoxOuter"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             app:hasClearButton="true"
-            app:labelText="Поиск"
             app:isResponsiveIconColor="true"
+            app:labelText="Поиск"
 
             >
 
@@ -33,26 +35,35 @@
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+        <ImageButton
+            android:id="@+id/admin_all_museums_menu_popup"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
 
+            android:background="@drawable/points"
+            android:clickable="true">
+
+        </ImageButton>
 
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/admin_all_museums_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:visibility="gone"
         android:layout_gravity="bottom"
-        />
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-         android:layout_width="match_parent"
+        android:id="@+id/admin_all_museums_recyclerView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
         android:orientation="vertical"
-        android:id="@+id/admin_all_museums_recyclerView"
         android:textAlignment="gravity"
-         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
         >
 

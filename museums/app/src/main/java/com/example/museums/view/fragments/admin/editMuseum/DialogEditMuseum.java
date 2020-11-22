@@ -1,6 +1,5 @@
 package com.example.museums.view.fragments.admin.editMuseum;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.TextWatcherListenerCheckValidate;
+import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
@@ -46,15 +44,12 @@ public class DialogEditMuseum extends DialogFragment {
 
         View rootView =
                 inflater.inflate(R.layout.dialog_detailed_museum_edit, container, false);
-
         initViews(rootView);
         getData();
 
         setListeners();
         return rootView;
     }
-
-
 
     private void getData() {
         Bundle bd = getArguments();

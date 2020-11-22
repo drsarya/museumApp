@@ -1,4 +1,4 @@
-package com.example.museums.view.services.Listeners;
+package com.example.museums.view.services.Listeners.textWatchers;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,10 +22,10 @@ public class TextWatcherListenerCheckValidate implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         if (s.toString().trim().isEmpty()) {
-            textFieldBoxes.setError("поле обязательно для заполнения", false);
+            textFieldBoxes.setError("Поле обязательно для заполнения", false);
         } else {
             if (s.toString().contains(" ")) {
-                textFieldBoxes.setError("поле содержит запрещённые символы", false);
+                textFieldBoxes.setError("Поле содержит запрещённые символы", false);
             } else {
                 textFieldBoxes.removeError();
 

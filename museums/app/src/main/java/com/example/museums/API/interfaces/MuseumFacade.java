@@ -12,5 +12,6 @@ public interface MuseumFacade {
 
     void insertMuseum(String login, String name, String address );
     void getAllMuseums( );
+    void  getMuseumByLoginAndIdCode(String login,  int id,  String password, boolean type);
 
 }

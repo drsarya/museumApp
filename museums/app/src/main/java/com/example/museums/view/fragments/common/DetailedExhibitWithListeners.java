@@ -16,8 +16,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.ClickListenerChangeColorLike;
-import com.example.museums.view.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 
 public class DetailedExhibitWithListeners extends Fragment {
     private ScrollView view;

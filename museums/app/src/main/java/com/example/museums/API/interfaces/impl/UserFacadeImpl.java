@@ -7,6 +7,8 @@ import com.example.museums.API.interfaces.UserFacade;
 import com.example.museums.API.models.User;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
 import com.example.museums.view.activities.common.Registration.QueryRegistration;
+import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
+import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,10 +23,22 @@ public class UserFacadeImpl implements UserFacade {
 
     private QueryAuthorization queryAuthorization;
     private QueryRegistration queryRegistration;
+    private QueryRegistrationMuseum queryRegistrationMuseum;
+    private QueryUpdatePassword queryUpdatePassword;
 
     public UserFacadeImpl(MuseumDao mDao, QueryAuthorization queryAuthorization) {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
+    }
+
+    public UserFacadeImpl(MuseumDao mDao, QueryUpdatePassword queryUpdatePassword) {
+        museumDao = mDao;
+        this.queryUpdatePassword = queryUpdatePassword;
+    }
+
+    public UserFacadeImpl(MuseumDao mDao, QueryRegistrationMuseum queryRegistrationMuseum) {
+        museumDao = mDao;
+        this.queryRegistrationMuseum = queryRegistrationMuseum;
     }
 
     public UserFacadeImpl(MuseumDao mDao, QueryRegistration queryRegistration) {
@@ -34,7 +48,6 @@ public class UserFacadeImpl implements UserFacade {
 
     public UserFacadeImpl(MuseumDao mDao) {
         museumDao = mDao;
-
     }
 
     @SuppressLint("CheckResult")
@@ -59,6 +72,26 @@ public class UserFacadeImpl implements UserFacade {
 
     }
 
+    @Override
+    public void getUser(String login, String password, String newPassword) {
+        museumDao.getUser(login, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<User>() {
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+                        updateUserPassword(login, newPassword);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                        queryUpdatePassword.onError();
+                    }
+                })
+        ;
+    }
+
     @SuppressLint("CheckResult")
     @Override
     public void insertUser(String login, String password, boolean type) {
@@ -67,6 +100,7 @@ public class UserFacadeImpl implements UserFacade {
         user.password = password;
         user.type = type;
         museumDao.insertUser(user).subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
@@ -79,8 +113,47 @@ public class UserFacadeImpl implements UserFacade {
                         queryRegistration.onError();
                     }
                 });
-
     }
 
+    @Override
+    public void insertUserMuseum(String login, String password, boolean type) {
+        User user = new User();
+        user.login = login;
+        user.password = password;
+        user.type = type;
+        museumDao.insertUser(user).subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Long>() {
+                    @Override
+                    public void onSuccess(@NonNull Long aLong) {
+                        queryRegistrationMuseum.onSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        queryRegistrationMuseum.onError();
+                    }
+                });
+    }
+
+    @Override
+    public void updateUserPassword(String login, String password) {
+
+        museumDao.updateUserPassword(login, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer user) {
+                        queryUpdatePassword.onSuccess();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryUpdatePassword.onError();
+                    }
+                });
+    }
 
 }

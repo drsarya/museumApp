@@ -6,6 +6,7 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.MuseumFacade;
 import com.example.museums.API.models.Museum;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
+import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
 import com.example.museums.view.fragments.admin.allMuseums.QueryAllMuseums;
 import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.admin.editMuseum.QueryEditMuseum;
@@ -21,6 +22,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     private QueryCreateMuseum queryCreateMuseum;
     private QueryAllMuseums queryAllMuseums;
     private QueryEditMuseum queryEditMuseum;
+    private QueryRegistrationMuseum queryRegistrationMuseum;
 
     public MuseumFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -30,7 +32,6 @@ public class MuseumFacadeImpl implements MuseumFacade {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
     }
-
 
 
     public MuseumFacadeImpl(MuseumDao mDao, QueryEditMuseum queryEditMuseum) {
@@ -43,11 +44,15 @@ public class MuseumFacadeImpl implements MuseumFacade {
         this.queryAllMuseums = queryAllMuseums;
     }
 
+    public MuseumFacadeImpl(MuseumDao mDao, QueryRegistrationMuseum queryRegistrationMuseum) {
+        museumDao = mDao;
+        this.queryRegistrationMuseum = queryRegistrationMuseum;
+    }
+
     public MuseumFacadeImpl(MuseumDao mDao, QueryCreateMuseum queryCreateMuseum) {
         museumDao = mDao;
         this.queryCreateMuseum = queryCreateMuseum;
     }
-
 
 
     @Override
@@ -86,20 +91,17 @@ public class MuseumFacadeImpl implements MuseumFacade {
         Museum museum = new Museum();
         museum.name = name;
         museum.address = address;
-        museumDao.updateMuseumInfo(name,  address, id).subscribeOn(Schedulers.io())
+        museumDao.updateMuseumInfo(name, address, id)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer museum) {
-
-
-                        System.out.println(museum+"kooooooooooooooooool");
                         queryEditMuseum.onSuccess();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                         queryEditMuseum.onError();
                     }
                 });
@@ -143,5 +145,25 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(museums -> queryAllMuseums.onSuccess(museums))
         ;
+    }
+
+    @Override
+    public void getMuseumByLoginAndIdCode(String login, int id, String password, boolean type) {
+        museumDao.getMuseumByLoginAndIdCode(login, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Museum>() {
+                    @Override
+                    public void onSuccess(@NonNull Museum museum) {
+                        System.out.println(1);
+                        UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
+                        userFacade.insertUserMuseum(login, password, type);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryRegistrationMuseum.onError();
+                    }
+                });
     }
 }

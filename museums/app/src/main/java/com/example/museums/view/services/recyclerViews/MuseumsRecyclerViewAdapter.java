@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
-import com.example.museums.view.services.Listeners.ClickListenerHolderMuseumAdminEditPage;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderMuseumAdminEditPage;
 
 import java.util.ArrayList;
 import java.util.List;

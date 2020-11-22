@@ -65,12 +65,24 @@ public interface MuseumDao {
     @Query("SELECT * FROM museum WHERE login =:login")
     Single<Museum> getMuseumByLogin(String login);
 
+    @Query("SELECT * FROM museum WHERE login =:login AND id = :idCode")
+    Single<Museum> getMuseumByLoginAndIdCode(String login, int idCode);
 
     @Query("SELECT * FROM museum  ")
     Flowable<List<Museum>> getAllMuseums();
 
     @Query("UPDATE museum SET  address = :address  , name = :name where id= :id ")
     Single<Integer> updateMuseumInfo(String name, String address, int id);
+
+
+    @Query("UPDATE user SET  password = :password  where login= :login ")
+    Single<Integer> updateUserPassword(String login, String password);
+
+
+    @Query("SELECT * FROM user where login = :login and type=:type and password = null ")
+    Single<User> getUserByLoginAndType(String login, boolean type);
+
+
 
     @Query("SELECT * FROM user WHERE login =:login AND password=:password")
     Single<User> getUser(String login, String password);

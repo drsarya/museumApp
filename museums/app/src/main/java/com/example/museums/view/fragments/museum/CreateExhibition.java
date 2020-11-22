@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
-import com.example.museums.view.activities.MuseumTab;
+import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 import com.example.museums.API.models.Exhibit;
@@ -27,6 +27,8 @@ public class CreateExhibition extends Fragment {
     private ImageButton plusExhbt;
     private MethodsWithFragment mth = new MethodsWithFragment();
     private RecyclerView.Adapter mAdapter;
+    public static final String LOGIN_USER_KEY = "login_key";
+
 
     @Nullable
     @Override

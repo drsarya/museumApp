@@ -1,22 +1,22 @@
-package com.example.museums.view.activities.common.Registration;
+package com.example.museums.view.activities.common.RegistrationMuseum;
 
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.view.activities.common.Authorization.Authorization;
+import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 
-public class QueryRegistration {
-    private Registration activity;
-    private UserFacadeImpl userFacade;
+public class QueryRegistrationMuseum {
+
+    private RegistrationMuseum activity;
+    private MuseumFacadeImpl museumFacade;
     private MuseumDao memsDao;
 
-    public QueryRegistration(Registration activity) {
+    public QueryRegistrationMuseum(RegistrationMuseum activity) {
         this.activity = activity;
-
     }
+
 
     public void onSuccess() {
         Toast.makeText(activity.getApplicationContext(),
@@ -26,17 +26,17 @@ public class QueryRegistration {
 
     public void onError() {
         Toast.makeText(activity.getApplicationContext(),
-                "Пользователь с  введёнными данными уже существует", Toast.LENGTH_SHORT).show();
+                "Ошибка регистрации", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
 
     }
 
-    public void getQuery(String login, String password,boolean type ) {
-
+    public void getQuery(String login, String password,boolean type , int idCode) {
+        System.out.println(1);
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
-        userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.insertUser(login, password, type);
+        museumFacade = new MuseumFacadeImpl(memsDao, this);
+        museumFacade.getMuseumByLoginAndIdCode(login, idCode, password,type ) ;
 
     }
 }

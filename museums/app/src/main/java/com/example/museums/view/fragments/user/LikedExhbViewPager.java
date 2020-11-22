@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,26 +16,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.view.ContextThemeWrapper;
+
 import android.widget.PopupMenu;
+
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapter;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
 
 import java.util.List;
 
-public class LikedExhbViewPager extends Fragment  implements PopupMenu.OnMenuItemClickListener{
+public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
     private ViewPager mPager;
     private List<Exhibit> mDataset;
     private List<Exhibition> mExhbn;
     public static final String LOGIN_KEY_USER = "login_key_user";
     private ImageButton imbtn;
-
+    private String login;
     private PagerAdapter pagerAdapter;
 
     public LikedExhbViewPager(List<Exhibit> mDataset, List<Exhibition> mExhbn) {
@@ -48,13 +54,10 @@ public class LikedExhbViewPager extends Fragment  implements PopupMenu.OnMenuIte
         super.setRetainInstance(true);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            String login = arguments.getString(LOGIN_KEY_USER);
+            login = arguments.getString(LOGIN_KEY_USER);
         }
-
         View rootView =
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
-
-
         return rootView;
     }
 
@@ -65,31 +68,43 @@ public class LikedExhbViewPager extends Fragment  implements PopupMenu.OnMenuIte
         super.onActivityCreated(savedInstanceState);
         super.setRetainInstance(true);
 
-         imbtn = getActivity().findViewById(R.id.home_page_user_menu_popup);
-         imbtn.setOnClickListener(this::showPopup);
+        imbtn = getActivity().findViewById(R.id.home_page_user_menu_popup);
+        imbtn.setOnClickListener(this::showPopup);
 
         mPager = (ViewPager) getActivity().findViewById(R.id.liked);
         pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), mDataset, mExhbn);
         mPager.setAdapter(pagerAdapter);
 
     }
+
     public void showPopup(View view) {
-        Context wrapper = new ContextThemeWrapper(getActivity().getApplicationContext() , R.style.menuStyle);
-        PopupMenu popup = new PopupMenu( wrapper ,  view);
+        Context wrapper = new ContextThemeWrapper(getActivity().getApplicationContext(), R.style.menuStyle);
+        PopupMenu popup = new PopupMenu(wrapper, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_home_page_user, popup.getMenu());
-        popup.setOnMenuItemClickListener( this);
+        inflater.inflate(R.menu.menu_logout_change_password, popup.getMenu());
+        popup.setOnMenuItemClickListener(this);
         popup.show();
     }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home_page_logout:
-                //
+            case R.id.menu_item_page_logout:
+                DialogLogOut myFragment = new DialogLogOut();
+                final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                myFragment.show(ft, "dialog");
                 return true;
-            case R.id.home_page_change_password:
-                //
+            case R.id.menu_item_change_password:
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
+                Bundle bd = new Bundle();
+
+                if (login != null) {
+                    bd.putString(DialogUpdatePassword.LOGIN_KEY, login);
+                    dialogUpdatePassword.setArguments(bd);
+                }
+                final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+                dialogUpdatePassword.show(ft1, "dialog2");
                 return true;
             default:
                 return false;

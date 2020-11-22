@@ -30,73 +30,102 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/reg_museum_id_code_text_field_boxes"
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                app:labelText="@string/id_cod">
+                android:imeOptions="actionDone"
+                app:hasClearButton="true"
+
+                app:labelText="@string/id_cod"
+                app:manualValidateError="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/dark_dark_brown"
-                    android:textSize="20sp"
-                    app:helperText="@string/password" />
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                style="@style/textBoxOuter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                app:labelText="@string/login">
-
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/dark_dark_brown"
-                    android:textSize="20sp"
-                    app:helperText="@string/password" />
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                style="@style/textBoxOuter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                app:labelText="@string/password">
-
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/dark_dark_brown"
-                    android:textSize="20sp"
-                    app:helperText="@string/password" />
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                style="@style/textBoxOuter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                app:labelText="@string/repeat_password">
-
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/reg_museum_id_code_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp"
+                    app:helperText="@string/password" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/reg_museum_login_text_field_boxes"
+                style="@style/textBoxOuter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:imeOptions="actionDone"
+
+                app:hasClearButton="true"
+                app:labelText="@string/login"
+                app:manualValidateError="true">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/reg_museum_login_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp"
+                    app:helperText="@string/password" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/reg_museum_first_pass_text_field_boxes"
+                style="@style/textBoxOuter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:imeOptions="actionDone"
+                app:hasClearButton="true"
+
+                app:labelText="@string/password"
+                app:manualValidateError="true">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/reg_museum_first_pass_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp"
+                    app:helperText="@string/password" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/reg_museum_second_pass_text_field_boxes"
+                style="@style/textBoxOuter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:imeOptions="actionDone"
+                app:hasClearButton="true"
+                app:labelText="@string/repeat_password"
+                app:manualValidateError="true">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/reg_museum_second_pass_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:lines="1"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp"
                     app:helperText="@string/password" />
@@ -139,9 +168,17 @@
                 android:src="@drawable/image_for_btn">
 
             </ImageView>
+            <ProgressBar
+                android:id="@+id/registration_museum_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="bottom"
+                android:visibility="gone" />
         </androidx.cardview.widget.CardView>
 
         <Button
+            android:id="@+id/reg_museum_reg_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

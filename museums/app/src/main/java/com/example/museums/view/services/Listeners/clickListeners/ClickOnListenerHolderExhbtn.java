@@ -1,4 +1,4 @@
-package com.example.museums.view.services.Listeners;
+package com.example.museums.view.services.Listeners.clickListeners;
 
 import android.os.Build;
 import android.view.View;

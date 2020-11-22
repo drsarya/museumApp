@@ -29,7 +29,6 @@ public class Exhibitions extends Fragment {
         if (arguments != null) {
             String login = arguments.getString(LOGIN_KEY_USER);
 
-
         }
 
         View rootView =

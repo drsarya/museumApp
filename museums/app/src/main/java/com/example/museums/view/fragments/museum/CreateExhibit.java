@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 
 public class CreateExhibit extends Fragment {
     private ScrollView view;

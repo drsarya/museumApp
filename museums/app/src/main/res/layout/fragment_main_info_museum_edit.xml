@@ -24,7 +24,7 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/brown"
@@ -33,21 +33,35 @@
 
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/main_info_museum_edit_name_of_museum"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_centerInParent="true"
                         android:fontFamily="@font/prata"
                         android:gravity="center_horizontal"
                         android:text="Третьяковская галерея"
                         android:textAlignment="center"
+
                         android:textColor="@color/darkBeige"
-                        android:textSize="30sp">
+                        android:textSize="20sp">
 
                     </TextView>
 
+                    <ImageButton
+                        android:id="@+id/main_info_museum_edit_menu_popup"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignBaseline="@+id/main_info_museum_edit_name_of_museum"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/points"
+                        android:clickable="true">
+
+                    </ImageButton>
 
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -75,26 +89,27 @@
                     </ImageView>
                 </FrameLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/brown"
                     android:orientation="horizontal">
 
                     <Button
-                        android:textSize="30sp"
-                        android:gravity="center_horizontal|center_vertical"
-
+                        android:id="@+id/main_info_museum_edit_description_btn"
                         style="@style/darkBtn"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:autoSizeMaxTextSize="20sp"
                         android:autoSizeTextType="uniform"
-                         android:paddingHorizontal="20dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:paddingHorizontal="20dp"
                         android:text="Описание"
                         android:textAlignment="center"
+                        android:textSize="30sp"
                         tools:ignore="RtlCompat">
 
                     </Button>
@@ -102,6 +117,9 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="5dp"
                         android:background="@color/lightGrey"
@@ -110,9 +128,11 @@
                         app:tint="@color/dark_dark_brown">
 
                     </ImageView>
-                </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/main_info_museum_edit_description_text_view"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -130,24 +150,22 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/brown"
-
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/prata"
-                        android:gravity="center_horizontal"
+                        android:gravity="center_horizontal|center_vertical"
                         android:text="Адрес"
                         android:textAlignment="center"
-                        android:textColor="@color/darkBeige"
-                        android:textSize="30sp">
+                        android:textColor="@color/white"
+                        android:textSize="20sp">
 
                     </TextView>
-
 
 
                 </LinearLayout>
@@ -175,44 +193,4 @@
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/blue"
-        android:gravity="bottom"
-        android:theme="@style/roundBtn">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="8dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:scaleType="matrix"
-                android:src="@drawable/image_for_btn">
-
-            </ImageView>
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:autoSizeMaxTextSize="30sp"
-            android:autoSizeTextType="uniform"
-            android:background="@color/glass"
-            android:clickable="true"
-            android:fontFamily="@font/prata"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="Обновить"
-            android:textAllCaps="false"
-            android:textColor="@color/darkBeige">
-
-        </Button>
-    </RelativeLayout>
 </LinearLayout>

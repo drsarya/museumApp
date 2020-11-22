@@ -1,26 +1,26 @@
-package com.example.museums.view.services.Listeners;
+package com.example.museums.view.services.Listeners.clickListeners;
 
 import android.view.View;
 import android.widget.TextView;
 
 
 public class ClickListenerHideDescription implements View.OnClickListener {
-    public ClickListenerHideDescription(TextView textView, Boolean state) {
+    public ClickListenerHideDescription(TextView textView ) {
         this.textView = textView;
-        this.state = state;
+
     }
 
     private TextView textView;
 
-    private Boolean state;
+
 
     @Override
     public void onClick(View v) {
-        if (state) {
-            state = false;
+        if ( textView.getVisibility() ==View.VISIBLE) {
+
             textView.setVisibility(View.GONE);
         } else {
-            state = true;
+
             textView.setVisibility(View.VISIBLE);
         }
     }

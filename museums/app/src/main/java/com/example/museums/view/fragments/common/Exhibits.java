@@ -26,7 +26,6 @@ public class Exhibits extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter horizontalAdapter;
-    public LinearLayout ll;
     public RecyclerView listView;
     public static final String LOGIN_KEY_USER = "login_key_user";
 
@@ -36,14 +35,14 @@ public class Exhibits extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView =
+                inflater.inflate(R.layout.fragment_main_exhibits, container, false);
         Bundle arguments = getArguments();
         if (arguments != null) {
             String login = arguments.getString(LOGIN_KEY_USER);
 
-
         }
-        View rootView =
-                inflater.inflate(R.layout.fragment_main_exhibits, container, false);
         return rootView;
     }
 
@@ -54,7 +53,6 @@ public class Exhibits extends Fragment {
         setRetainInstance(true);
 
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_exhibits);
-        ll = (LinearLayout) getActivity().findViewById(R.id.main_exhibits_linear_layout);
         listView = (RecyclerView) getActivity().findViewById(R.id.main_exhibits_recycler_view);
 
         List<Exhibit> in = new ArrayList<>();

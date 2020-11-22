@@ -19,9 +19,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.ClickListenerChangeColorLike;
-import com.example.museums.view.services.Listeners.ClickListenerHideDescription;
-import com.example.museums.view.services.Listeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.API.models.Exhibit;
 
@@ -41,7 +41,7 @@ public class DetailedExhbtn extends Fragment {
     private boolean stateDescription = true;
 
     @SuppressLint("ClickableViewAccessibility")
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -65,12 +65,11 @@ public class DetailedExhbtn extends Fragment {
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void setListeners() {
+     private void setListeners() {
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         museumInfo.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View v) {
                 Fragment myFragment = new MainInfoMuseum();
@@ -78,7 +77,7 @@ public class DetailedExhbtn extends Fragment {
             }
         });
         exhbtnDescriptionBtn.setOnClickListener(
-                new ClickListenerHideDescription(exhbtnDescriptionTextView, stateDescription)
+                new ClickListenerHideDescription(exhbtnDescriptionTextView )
         );
         allExhibits.setOnClickListener(v -> {
 

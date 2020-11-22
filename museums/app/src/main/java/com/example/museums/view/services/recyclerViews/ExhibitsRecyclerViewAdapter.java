@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.ClickListenerHolderExhibitis;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibitis;
 import com.example.museums.API.models.Exhibit;
 
 

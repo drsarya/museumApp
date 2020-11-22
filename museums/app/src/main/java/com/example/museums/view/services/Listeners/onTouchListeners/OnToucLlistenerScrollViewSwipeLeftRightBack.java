@@ -1,4 +1,4 @@
-package com.example.museums.view.services.Listeners;
+package com.example.museums.view.services.Listeners.onTouchListeners;
 
 import android.view.MotionEvent;
 import android.view.View;

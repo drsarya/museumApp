@@ -38,9 +38,11 @@
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/registration_login_text_field_boxes"
                 android:layout_marginVertical="10dp"
                 app:hasClearButton="true"
-                 app:labelText="@string/login">
+                app:manualValidateError="true"
+                app:labelText="@string/login">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/registration_login_edtext"
@@ -57,20 +59,20 @@
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:id="@+id/registration_first_pass_textFieldBoxes"
                 style="@style/textBoxOuter"
-                app:manualValidateError="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginVertical="10dp"
+
                 app:hasClearButton="true"
-                app:labelText="@string/password">
+                app:labelText="@string/password"
+                app:manualValidateError="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/registration_first_pass_edtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                     android:inputType="text"
                     android:imeOptions="actionDone"
+                    android:inputType="text"
 
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp"
@@ -85,17 +87,16 @@
                 android:layout_marginVertical="10dp"
 
 
-                app:manualValidateError="true"
                 app:hasClearButton="true"
                 app:labelText="@string/repeat_password"
-                 >
+                app:manualValidateError="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/registration_second_pass_edtext"
-                    android:imeOptions="actionDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                     android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp"
 
@@ -137,14 +138,14 @@
                 android:src="@drawable/image_for_btn">
 
             </ImageView>
+
             <ProgressBar
                 android:id="@+id/registration_progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
                 android:layout_gravity="bottom"
-                />
+                android:visibility="gone" />
         </androidx.cardview.widget.CardView>
 
         <Button

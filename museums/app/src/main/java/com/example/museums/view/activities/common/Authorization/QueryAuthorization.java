@@ -1,6 +1,5 @@
 package com.example.museums.view.activities.common.Authorization;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
@@ -11,9 +10,9 @@ import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.User;
-import com.example.museums.view.activities.AdminTab;
-import com.example.museums.view.activities.MuseumTab;
-import com.example.museums.view.activities.UserTab;
+import com.example.museums.view.activities.tabs.AdminTab;
+import com.example.museums.view.activities.tabs.MuseumTab;
+import com.example.museums.view.activities.tabs.UserTab;
 
 public class QueryAuthorization {
 
