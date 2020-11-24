@@ -11,7 +11,7 @@ import com.example.museums.R;
 import com.example.museums.view.fragments.museum.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
-import com.example.museums.view.fragments.museum.MainInfoMuseumPageEdit;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MuseumTab extends AppCompatActivity {

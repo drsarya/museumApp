@@ -1,5 +1,7 @@
 package com.example.museums.API.models;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -48,6 +50,6 @@ public class Museum {
     @ColumnInfo(name = "description")
     public String description;
     @ColumnInfo(name = "image")
-    public String image;
+    public Bitmap image;
 
 }

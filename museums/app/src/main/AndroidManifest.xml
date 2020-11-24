@@ -26,8 +26,8 @@
             android:name=".view.activities.tabs.UserTab"
             android:windowSoftInputMode="adjustUnspecified"/>
         <activity
-        android:name=".view.activities.tabs.MuseumTab"
-        android:windowSoftInputMode="adjustUnspecified"/>
+            android:name=".view.activities.tabs.MuseumTab"
+            android:windowSoftInputMode="adjustUnspecified"/>
 
     </application>
 

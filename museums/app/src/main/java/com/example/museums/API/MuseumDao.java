@@ -1,6 +1,8 @@
 package com.example.museums.API;
 
 
+import android.graphics.Bitmap;
+
 import androidx.constraintlayout.helper.widget.Flow;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -62,8 +64,8 @@ public interface MuseumDao {
     @Query("SELECT * FROM museum WHERE id =:id")
     Single<Museum> getMuseumById(int id);
 
-    @Query("SELECT * FROM museum WHERE login =:login")
-    Single<Museum> getMuseumByLogin(String login);
+    @Query("SELECT id FROM museum WHERE login =:login")
+    Single<Integer> getMuseumByLogin(String login);
 
     @Query("SELECT * FROM museum WHERE login =:login AND id = :idCode")
     Single<Museum> getMuseumByLoginAndIdCode(String login, int idCode);
@@ -73,6 +75,12 @@ public interface MuseumDao {
 
     @Query("UPDATE museum SET  address = :address  , name = :name where id= :id ")
     Single<Integer> updateMuseumInfo(String name, String address, int id);
+
+    @Query("UPDATE museum SET  image = :image    where login= :login ")
+    Single<Integer> updateMuseumImage(Bitmap image, String login);
+    @Query("UPDATE museum SET  description = :description   where login= :login ")
+    Single<Integer> updateMuseumDescription(String description, String login);
+
 
 
     @Query("UPDATE user SET  password = :password  where login= :login ")

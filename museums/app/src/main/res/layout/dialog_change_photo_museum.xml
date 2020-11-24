@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/lightBeige"
+    android:minWidth="500dp"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="20dp">
+
+   <RelativeLayout
+        android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+  <ImageView
+
+        android:id="@+id/dialog_change_photo_museum_photo_im_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+
+        android:src="@drawable/image1">
+
+    </ImageView>
+
+       <ImageView
+            android:id="@+id/dialog_change_image_museum_close_image_view"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:background="@color/lightGrey"
+           android:src="@drawable/close">
+
+       </ImageView>
+   </RelativeLayout>
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:background="@color/blue"
+        android:gravity="bottom"
+        android:theme="@style/roundBtn">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:scaleType="matrix"
+                android:src="@drawable/image_for_btn">
+
+            </ImageView>
+
+
+            <ProgressBar
+                android:id="@+id/dialog_change_photo_museum_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="bottom"
+                android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/dialog_change_photo_museum_update_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/glass"
+            android:clickable="true"
+            android:fontFamily="@font/prata"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="Обновить"
+            android:textAllCaps="false"
+            android:textColor="@color/darkBeige">
+
+        </Button>
+    </RelativeLayout>
+
+</LinearLayout>

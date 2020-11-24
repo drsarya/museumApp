@@ -1,5 +1,7 @@
 package com.example.museums.API.interfaces;
 
+import android.graphics.Bitmap;
+
 import com.example.museums.API.models.Museum;
 
 
@@ -7,7 +9,8 @@ public interface MuseumFacade {
 
     void getMuseumByLogin(String login);
 
-    void updateMuseumInfoByMuseum(String image, String description);
+    void updateMuseumImage(String login , Bitmap image );
+    void updateMuseumDescription(String login ,String description );
     void updateMuseumInfoByAdmin( String name, String address,  int id);
 
     void insertMuseum(String login, String name, String address );

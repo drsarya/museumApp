@@ -55,9 +55,7 @@ public class CreateMuseum extends Fragment {
 
     private void setListeners() {
         logEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(logTextFieldBoxes));
-        nameEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(nameTextFieldBoxes));
-        addressEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(addressTextFieldBoxes));
-        regMuseumBtn.setOnClickListener(
+         regMuseumBtn.setOnClickListener(
 
                 v -> {
                     queryCreateMuseum = new QueryCreateMuseum(this);

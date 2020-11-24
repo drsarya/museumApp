@@ -34,7 +34,7 @@ public class QueryAuthorization {
         this.password = password;
     }
 
-    public void isMuseum(Museum museum) {
+    public void isMuseum(Integer museum) {
         activity.authBtn.setVisibility(View.VISIBLE);
         activity.progressBar.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(activity.getApplicationContext(), MuseumTab.class);

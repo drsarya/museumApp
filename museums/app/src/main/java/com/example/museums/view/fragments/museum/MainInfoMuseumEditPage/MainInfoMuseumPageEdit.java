@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum;
+package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum.DialogChangeDescriptionMuseum;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 
 public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -29,24 +32,18 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     private TextView descriptionTextView;
     private ImageButton imbtn;
     private String login;
+    private ImageView imageViewEditDescription;
     public static final String LOGIN_KEY_USER = "login_key_user";
-
+    private ImageView imageViewMainImage;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-         View rootView =
+        View rootView =
                 inflater.inflate(R.layout.fragment_main_info_museum_edit, container, false);
-
-
         return rootView;
     }
-
-
-
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,17 +52,14 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
         if (arguments != null) {
             login = arguments.getString(LOGIN_KEY_USER);
-            System.out.println(login + "ttttttttttttttttttttttttttttttttttttttttttttttt");
-
-        } else {
-            System.out.println("errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-
         }
     }
 
     private void initViews() {
+        imageViewEditDescription = getActivity().findViewById(R.id.main_info_museum_edit_description_image_view);
+        imageViewMainImage = getActivity().findViewById(R.id.main_info_museum_edit_image_view);
         imbtn = getActivity().findViewById(R.id.main_info_museum_edit_menu_popup);
-        descriptionBtn = getActivity().findViewById(R.id.main_info_museum_edit_description_btn);
+        descriptionBtn = getActivity().findViewById(R.id.main_info_museum_edit_hide_description_btn);
         descriptionTextView = getActivity().findViewById(R.id.main_info_museum_edit_description_text_view);
     }
 
@@ -89,6 +83,20 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
         descriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTextView));
+        imageViewMainImage.setOnClickListener(v -> {
+            DialogChangeMuseumPhoto dialogUpdatePassword = new DialogChangeMuseumPhoto().newInstance("mmmmmmm", login);
+            final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+            dialogUpdatePassword.show(ft1, "dialog3");
+
+
+        });
+        imageViewEditDescription.setOnClickListener(v -> {
+
+            DialogChangeDescriptionMuseum dialogUpdatePassword = new DialogChangeDescriptionMuseum().newInstance("mmmmmmm", login);
+            final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+            dialogUpdatePassword.show(ft1, "dialog4");
+
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
