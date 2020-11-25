@@ -13,6 +13,7 @@ import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.admin.editMuseum.QueryEditMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum.QueryDialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -28,6 +29,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     private QueryRegistrationMuseum queryRegistrationMuseum;
     private QueryChangeMuseumImage queryChangeMuseumImage;
     private QueryDialogChangeDescriptionMuseum queryDialogChangeDescriptionMuseum;
+    private QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit;
 
     public MuseumFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -37,13 +39,20 @@ public class MuseumFacadeImpl implements MuseumFacade {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
     }
+
     public MuseumFacadeImpl(MuseumDao mDao, QueryDialogChangeDescriptionMuseum queryDialogChangeDescriptionMuseum) {
         museumDao = mDao;
         this.queryDialogChangeDescriptionMuseum = queryDialogChangeDescriptionMuseum;
     }
+
     public MuseumFacadeImpl(MuseumDao mDao, QueryChangeMuseumImage queryChangeMuseumImage) {
         museumDao = mDao;
         this.queryChangeMuseumImage = queryChangeMuseumImage;
+    }
+
+    public MuseumFacadeImpl(MuseumDao mDao, QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit) {
+        museumDao = mDao;
+        this.queryMainInfoMuseumPageEdit = queryMainInfoMuseumPageEdit;
     }
 
     public MuseumFacadeImpl(MuseumDao mDao, QueryEditMuseum queryEditMuseum) {
@@ -78,15 +87,12 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     public void onSuccess(@NonNull Integer museum) {
                         System.out.println("museuuummmmmmmmmmmmm");
                         queryAuthorization.isMuseum(museum);
-
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         System.out.println("not museuuuuummmmmmmm");
-
                         queryAuthorization.isUser();
-
                     }
                 })
         ;
@@ -104,6 +110,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     public void onSuccess(@NonNull Integer museum) {
                         queryDialogChangeDescriptionMuseum.onSuccess();
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryDialogChangeDescriptionMuseum.onError();
@@ -115,7 +122,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     @Override
     public void updateMuseumImage(String login, Bitmap image) {
         Museum museum = new Museum();
-        museum.image = image ;
+        museum.image = image;
         museumDao.updateMuseumImage(image, login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -124,6 +131,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     public void onSuccess(@NonNull Integer museum) {
                         queryChangeMuseumImage.onSuccess();
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryChangeMuseumImage.onError();
@@ -152,6 +160,27 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     }
                 });
 
+    }
+
+    @Override
+    public void getMuseumImageByLogin(String login) {
+
+
+        museumDao.getMuseumImage(login)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Bitmap>() {
+                    @Override
+                    public void onSuccess(@NonNull Bitmap museum) {
+                         queryMainInfoMuseumPageEdit.onSuccess(museum);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryMainInfoMuseumPageEdit.onError();
+                    }
+                })
+        ;
     }
 
     //    public void insertMuseum(String login, String name, String country, String city, String street, String build) {

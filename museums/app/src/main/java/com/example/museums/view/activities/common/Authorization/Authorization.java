@@ -6,12 +6,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
+
 
 
 public class Authorization extends AppCompatActivity {
@@ -30,7 +32,11 @@ public class Authorization extends AppCompatActivity {
         setContentView(R.layout.activity_authorization);
         initViews();
         setListeners();
+
+
+
     }
+
 
     private void initViews() {
         progressBar = (ProgressBar) findViewById(R.id.authorization_progress_bar);

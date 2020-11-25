@@ -1,7 +1,9 @@
-package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage;
+package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,12 +23,16 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.museums.API.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum.DialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
+
+
+import org.w3c.dom.Text;
 
 public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private Button descriptionBtn;
@@ -34,7 +41,10 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     private String login;
     private ImageView imageViewEditDescription;
     public static final String LOGIN_KEY_USER = "login_key_user";
-    private ImageView imageViewMainImage;
+    public ImageView imageViewMainImage;
+    private TextView addressTextView;
+    public ProgressBar progressBar;
+    private TextView nameOfMuseumTextView;
 
     @Nullable
     @Override
@@ -52,15 +62,29 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
         if (arguments != null) {
             login = arguments.getString(LOGIN_KEY_USER);
+
         }
     }
+    /*
+    * Название музея nameOfMuseumTextView
+    * Фото музея imageViewMainImage
+    * Описани музея descriptionTextView
+    * Адрес музея addressTextView
+    *
+    * */
 
     private void initViews() {
+        progressBar = getActivity().findViewById(R.id.main_info_museum_edit_progress_bar);
+        nameOfMuseumTextView = getView().findViewById(R.id.main_info_museum_edit_name_of_museum_text_view);
         imageViewEditDescription = getActivity().findViewById(R.id.main_info_museum_edit_description_image_view);
         imageViewMainImage = getActivity().findViewById(R.id.main_info_museum_edit_image_view);
         imbtn = getActivity().findViewById(R.id.main_info_museum_edit_menu_popup);
         descriptionBtn = getActivity().findViewById(R.id.main_info_museum_edit_hide_description_btn);
         descriptionTextView = getActivity().findViewById(R.id.main_info_museum_edit_description_text_view);
+        addressTextView = getActivity().findViewById(R.id.main_info_museum_edit_address_text_view);
+
+
+
     }
 
     public void showPopup(View view) {
@@ -72,19 +96,32 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         popup.show();
     }
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         initViews();
         setListeners();
+        updateImageView();
+    }
+    public void updateImageView(){
+        QueryMainInfoMuseumPageEdit q =new QueryMainInfoMuseumPageEdit(this);
+        q.getQuery(login);
+
     }
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
         descriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTextView));
         imageViewMainImage.setOnClickListener(v -> {
-            DialogChangeMuseumPhoto dialogUpdatePassword = new DialogChangeMuseumPhoto().newInstance("mmmmmmm", login);
+
+
+            BitmapDrawable drawable = (BitmapDrawable) imageViewMainImage.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            DialogChangeMuseumPhoto dialogUpdatePassword = new DialogChangeMuseumPhoto().newInstance(bitmap, login);
+
             final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
             dialogUpdatePassword.show(ft1, "dialog3");
 
@@ -94,7 +131,9 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
             DialogChangeDescriptionMuseum dialogUpdatePassword = new DialogChangeDescriptionMuseum().newInstance("mmmmmmm", login);
             final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+
             dialogUpdatePassword.show(ft1, "dialog4");
+
 
         });
     }

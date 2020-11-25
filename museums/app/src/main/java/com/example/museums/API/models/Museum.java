@@ -49,7 +49,7 @@ public class Museum {
 
     @ColumnInfo(name = "description")
     public String description;
-    @ColumnInfo(name = "image")
+    @ColumnInfo(name = "image" )
     public Bitmap image;
 
 }

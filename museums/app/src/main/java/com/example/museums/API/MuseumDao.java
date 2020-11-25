@@ -10,6 +10,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.museums.API.models.Exhibit;
@@ -63,10 +64,11 @@ public interface MuseumDao {
 
     @Query("SELECT * FROM museum WHERE id =:id")
     Single<Museum> getMuseumById(int id);
-
+    @Transaction
     @Query("SELECT id FROM museum WHERE login =:login")
     Single<Integer> getMuseumByLogin(String login);
-
+    @Query("SELECT image FROM museum WHERE login =:login")
+    Single<Bitmap> getMuseumImage(String login);
     @Query("SELECT * FROM museum WHERE login =:login AND id = :idCode")
     Single<Museum> getMuseumByLoginAndIdCode(String login, int idCode);
 
@@ -75,7 +77,7 @@ public interface MuseumDao {
 
     @Query("UPDATE museum SET  address = :address  , name = :name where id= :id ")
     Single<Integer> updateMuseumInfo(String name, String address, int id);
-
+    @Transaction
     @Query("UPDATE museum SET  image = :image    where login= :login ")
     Single<Integer> updateMuseumImage(Bitmap image, String login);
     @Query("UPDATE museum SET  description = :description   where login= :login ")

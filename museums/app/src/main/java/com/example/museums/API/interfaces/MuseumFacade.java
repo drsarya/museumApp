@@ -9,9 +9,10 @@ public interface MuseumFacade {
 
     void getMuseumByLogin(String login);
 
-    void updateMuseumImage(String login , Bitmap image );
+    void updateMuseumImage(String login ,Bitmap image );
     void updateMuseumDescription(String login ,String description );
     void updateMuseumInfoByAdmin( String name, String address,  int id);
+    void getMuseumImageByLogin( String login   );
 
     void insertMuseum(String login, String name, String address );
     void getAllMuseums( );

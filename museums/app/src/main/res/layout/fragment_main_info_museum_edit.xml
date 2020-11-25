@@ -33,7 +33,7 @@
 
 
                     <TextView
-                        android:id="@+id/main_info_museum_edit_name_of_museum"
+                        android:id="@+id/main_info_museum_edit_name_of_museum_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -51,7 +51,7 @@
                         android:id="@+id/main_info_museum_edit_menu_popup"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_alignBaseline="@+id/main_info_museum_edit_name_of_museum"
+                        android:layout_alignBaseline="@+id/main_info_museum_edit_name_of_museum_text_view"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
@@ -60,7 +60,14 @@
 
                     </ImageButton>
 
+                    <ProgressBar
+                        android:id="@+id/main_info_museum_edit_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
 
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <FrameLayout
@@ -69,9 +76,11 @@
 
                     <ImageView
                         android:id="@+id/main_info_museum_edit_image_view"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
                         android:src="@drawable/museum_photo">
 
                     </ImageView>
@@ -158,6 +167,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/prata"
@@ -173,6 +183,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/main_info_museum_edit_address_text_view"
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

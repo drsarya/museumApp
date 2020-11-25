@@ -60,7 +60,8 @@ public class QueryAuthorization {
              activity.startActivity(intent);
 
         } else {
-            museumFacade.getMuseumByLogin(user.login);
+     museumFacade.getMuseumByLogin(user.login);
+          //  museumFacade.getMuseumImageByLogin(login);
         }
     }
 

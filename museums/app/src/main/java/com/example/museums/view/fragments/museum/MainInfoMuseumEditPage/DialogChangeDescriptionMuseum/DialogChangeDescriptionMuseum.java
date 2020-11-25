@@ -85,7 +85,7 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
 
     private void hideKeyboard() {
         InputMethodManager imm =
-                (InputMethodManager)descriptionEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) descriptionEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive())
             imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }

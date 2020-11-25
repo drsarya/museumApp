@@ -2,7 +2,9 @@ package com.example.museums.view.activities.tabs;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,8 +13,9 @@ import com.example.museums.R;
 import com.example.museums.view.fragments.museum.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
-import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class MuseumTab extends AppCompatActivity {
     private BottomNavigationView menuTab;
@@ -24,7 +27,7 @@ public class MuseumTab extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle b = getIntent().getExtras();
+         Bundle b = getIntent().getExtras();
 
         if (b != null) {
             login = b.getString(LOGIN_KEY);
@@ -98,6 +101,10 @@ public class MuseumTab extends AppCompatActivity {
             return false;
         });
     }
+
+
+
+
 
     private void setInitialPage() {
 
