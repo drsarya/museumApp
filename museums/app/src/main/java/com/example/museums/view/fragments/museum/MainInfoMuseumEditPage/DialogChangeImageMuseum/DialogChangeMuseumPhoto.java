@@ -37,7 +37,7 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     private ImageView closeDialog;
     static final String LOGIN_KEY = "login_key";
     static final String IMAGE_SOURCE_KEY = "image_source_key";
-
+    private Bitmap bitmap;
     public DialogChangeMuseumPhoto() {
 
     }
@@ -59,10 +59,10 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
 
         View rootView =
                 inflater.inflate(R.layout.dialog_change_photo_museum, container, false);
-         Bundle arguments = getArguments();
+        Bundle arguments = getArguments();
         if (arguments != null) {
             login = arguments.getString(LOGIN_KEY);
-            lastimage = (Bitmap) arguments.getParcelable(  IMAGE_SOURCE_KEY);
+            lastimage = (Bitmap) arguments.getParcelable(IMAGE_SOURCE_KEY);
 
         }
         initViews(rootView);
@@ -71,19 +71,18 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     }
 
 
-
     private void initViews(View rootView) {
         closeDialog = rootView.findViewById(R.id.dialog_change_image_museum_close_image_view);
         imageView = rootView.findViewById(R.id.dialog_change_photo_museum_photo_im_view);
         buttonUpdate = rootView.findViewById(R.id.dialog_change_photo_museum_update_btn);
         progressBar = rootView.findViewById(R.id.dialog_change_photo_museum_progress_bar);
-        if(lastimage!=null){
+        if (lastimage != null) {
             imageView.setImageBitmap(lastimage);
             getArguments().clear();
         }
     }
 
-    Bitmap bitmap;
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -107,10 +106,8 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     private void setListeners() {
         imageView.setOnClickListener(v -> {
 
-            System.out.println("sdsdsdsd");
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
-
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
         buttonUpdate.setOnClickListener(v -> {

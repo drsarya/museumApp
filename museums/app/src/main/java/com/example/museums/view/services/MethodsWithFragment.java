@@ -25,6 +25,7 @@ public class MethodsWithFragment {
 
         String backStateName = myFragment.getClass().getName();
         final FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+
         //getShortClassName
          if (activity.getComponentName().getClassName().equals(UserTab.class.getTypeName())) {
             ft.replace(R.id.container_tab_user, myFragment)

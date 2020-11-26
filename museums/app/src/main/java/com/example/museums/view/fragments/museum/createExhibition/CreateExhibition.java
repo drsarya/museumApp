@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum;
+package com.example.museums.view.fragments.museum.createExhibition;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -11,10 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
+import com.example.museums.view.fragments.admin.allMuseums.QueryAllMuseums;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 import com.example.museums.API.models.Exhibit;
@@ -26,10 +29,10 @@ public class CreateExhibition extends Fragment {
     private RecyclerView recyclerView;
     private ImageButton plusExhbt;
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private RecyclerView.Adapter mAdapter;
+    private NewExhibitsRecyclerViewAdapter mAdapter;
     public static final String LOGIN_USER_KEY = "login_key";
 
-
+    public  List<NewExhibitModel> exhibits = new ArrayList<NewExhibitModel>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,31 +42,36 @@ public class CreateExhibition extends Fragment {
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         plusExhbt = (ImageButton) getActivity().findViewById(R.id.create_new_exhibition_image_btn);
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.create_exhibition_recycler_view);
-        List<Exhibit> in = new ArrayList<>();
-        in.add(new Exhibit());
-        in.add(new Exhibit());
-        in.add(new Exhibit());
-        in.add(new Exhibit());
-        in.add(new Exhibit());
-        in.add(new Exhibit());
-        plusExhbt.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onClick(View v) {
-                Fragment myFragment = new CreateExhibit();
-                MuseumTab activity = (MuseumTab) v.getContext();
-                mth.replaceFragment(myFragment, v, activity);
-            }
+
+        plusExhbt.setOnClickListener(v -> {
+            Fragment myFragment = new CreateExhibit();
+            myFragment.setTargetFragment(CreateExhibition.this, 0);
+            MuseumTab activity = (MuseumTab) v.getContext();
+            mth.replaceFragment(myFragment, v, activity);
         });
 
-        mAdapter = new NewExhibitsRecyclerViewAdapter(in);
+        mAdapter = new NewExhibitsRecyclerViewAdapter(exhibits, this);
         recyclerView.setAdapter(mAdapter);
 
     }
+public void addNewExhibit(NewExhibitModel exhibit){
+    exhibits.add(exhibit);
+    mAdapter.updateAll(exhibits);
+}
+    public void updateExhibit(int poisition, NewExhibitModel exhibit){
+        exhibits.remove(poisition);
+        exhibits.add(poisition, exhibit);
+
+        mAdapter.updateAll(exhibits);
+    }
+
+
+
 }

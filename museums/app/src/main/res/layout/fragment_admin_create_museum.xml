@@ -18,6 +18,8 @@
         android:textColor="@color/darkBeige"
         android:textSize="20sp"></TextView>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -101,6 +103,7 @@
 
 
     <RelativeLayout
+
         android:id="@+id/relativeLayotAuthorization"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

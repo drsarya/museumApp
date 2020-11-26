@@ -23,7 +23,6 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.museums.API.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
@@ -31,20 +30,19 @@ import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogCh
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 
-
-import org.w3c.dom.Text;
-
 public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private Button descriptionBtn;
-    private TextView descriptionTextView;
+    public TextView descriptionTextView;
     private ImageButton imbtn;
     private String login;
     private ImageView imageViewEditDescription;
     public static final String LOGIN_KEY_USER = "login_key_user";
     public ImageView imageViewMainImage;
-    private TextView addressTextView;
+    public TextView addressTextView;
+    public TextView chooseImageTextView;
+    public static final String descriptionIsEmpty = "Добавьте описание музея";
     public ProgressBar progressBar;
-    private TextView nameOfMuseumTextView;
+    public TextView nameOfMuseumTextView;
 
     @Nullable
     @Override
@@ -66,14 +64,15 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         }
     }
     /*
-    * Название музея nameOfMuseumTextView
-    * Фото музея imageViewMainImage
-    * Описани музея descriptionTextView
-    * Адрес музея addressTextView
-    *
-    * */
+     * Название музея nameOfMuseumTextView
+     * Фото музея imageViewMainImage
+     * Описани музея descriptionTextView
+     * Адрес музея addressTextView
+     *
+     * */
 
     private void initViews() {
+        chooseImageTextView = getActivity().findViewById(R.id.main_info_museum_edit_choose_photo_text_view);
         progressBar = getActivity().findViewById(R.id.main_info_museum_edit_progress_bar);
         nameOfMuseumTextView = getView().findViewById(R.id.main_info_museum_edit_name_of_museum_text_view);
         imageViewEditDescription = getActivity().findViewById(R.id.main_info_museum_edit_description_image_view);
@@ -82,7 +81,6 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         descriptionBtn = getActivity().findViewById(R.id.main_info_museum_edit_hide_description_btn);
         descriptionTextView = getActivity().findViewById(R.id.main_info_museum_edit_description_text_view);
         addressTextView = getActivity().findViewById(R.id.main_info_museum_edit_address_text_view);
-
 
 
     }
@@ -97,7 +95,6 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     }
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -106,9 +103,10 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         setListeners();
         updateImageView();
     }
-    public void updateImageView(){
-        QueryMainInfoMuseumPageEdit q =new QueryMainInfoMuseumPageEdit(this);
-        q.getQuery(login);
+
+    public void updateImageView() {
+        QueryMainInfoMuseumPageEdit q = new QueryMainInfoMuseumPageEdit(this);
+        q.getImageQuery(login);
 
     }
 
@@ -129,7 +127,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         });
         imageViewEditDescription.setOnClickListener(v -> {
 
-            DialogChangeDescriptionMuseum dialogUpdatePassword = new DialogChangeDescriptionMuseum().newInstance("mmmmmmm", login);
+            DialogChangeDescriptionMuseum dialogUpdatePassword = new DialogChangeDescriptionMuseum().newInstance(descriptionTextView.getText().toString(), login);
             final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
 
             dialogUpdatePassword.show(ft1, "dialog4");

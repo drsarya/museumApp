@@ -76,15 +76,26 @@
 
                     <ImageView
                         android:id="@+id/main_info_museum_edit_image_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="411dp"
+                        android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/museum_photo">
+                        android:scaleType="fitStart"
+
+                        android:src="@drawable/empty_photo">
 
                     </ImageView>
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/main_info_museum_edit_choose_photo_text_view"
+                        android:layout_width="match_parent"
+                        android:text="Выбрать фото"
+                        android:textColor="@color/brown"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"
+                        tools:ignore="RtlCompat">
 
+                    </TextView>
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
@@ -152,7 +163,6 @@
                     android:enabled="false"
                     android:fontFamily="@font/prata"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/description"
                     android:textAlignment="center"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp">

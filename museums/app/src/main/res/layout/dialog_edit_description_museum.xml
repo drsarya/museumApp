@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:minWidth="500dp"
-    android:minHeight="500dp"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/lightBeige">
 

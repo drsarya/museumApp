@@ -22,8 +22,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.MainInfoMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
@@ -77,7 +79,11 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
         if (arguments != null) {
             login = arguments.getString(LOGIN_KEY);
             description = arguments.getString(DESCRIPTION_SOURCE_KEY);
-            descriptionEditText.setText(description);
+            if(!description.equals(MainInfoMuseumPageEdit.descriptionIsEmpty)){
+
+                descriptionEditText.setText(description);
+            }
+
         }
         setListeners();
         return rootView;

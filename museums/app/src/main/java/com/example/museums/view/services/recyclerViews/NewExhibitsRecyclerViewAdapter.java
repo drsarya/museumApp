@@ -11,16 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.Museum;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
+import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
 import com.example.museums.API.models.Exhibit;
+import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
-    private List<Exhibit> mDataset;
-
+    private List<NewExhibitModel> mDataset;
+    private CreateExhibition createExhibition;
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
         public LinearLayout optionalPanel;
@@ -33,13 +40,14 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
             image = view.findViewById(R.id.new_exhbt_main_image_view);
             nameOfExhbr = view.findViewById(R.id.new_exhbt_name_text_view);
             optionalPanel = view.findViewById(R.id.new_exhbt_optional_panel_linear_layout);
-//            delete = view.findViewById(R.id.new_exhbt_delete);
-//            edit =  view.findViewById(R.id.new_exhbt_edit );
+            delete = view.findViewById(R.id.new_exhbt_delete);
+           edit =  view.findViewById(R.id.new_exhbt_edit );
         }
     }
 
-    public NewExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
+    public NewExhibitsRecyclerViewAdapter(List<NewExhibitModel> myDataset, CreateExhibition createExhibition) {
         mDataset = myDataset;
+        this.createExhibition = createExhibition;
     }
 
     @NonNull
@@ -55,17 +63,19 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder));
-        if (position % 3 == 0) {
-            holder.image.setImageResource(R.drawable.image2);
-        } else if (position % 2 == 0) {
-            holder.image.setImageResource(R.drawable.detailed_exhibition);
-        } else {
-            holder.image.setImageResource(R.drawable.image3);
-        }
-        holder.nameOfExhbr.setText("Картина  " + position);
 
-        //   holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn());
+        holder.image.setImageBitmap(mDataset.get(position).photo);
 
+        holder.nameOfExhbr.setText(mDataset.get(position).name);
+        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, mDataset.get(position), position));
+//добавить alert  в литснере
+    holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, position, mDataset));
+    }
+
+    public void updateAll(List<NewExhibitModel> exhibits) {
+        mDataset = new ArrayList<>();
+        mDataset.addAll(exhibits);
+        notifyItemRemoved(exhibits.size() - 1);
     }
 
     @Override

@@ -214,6 +214,47 @@
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
+            <RelativeLayout
+                android:id="@+id/relativeLayotAuthorization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/blue"
+                android:theme="@style/roundBtn">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:scaleType="matrix"
+                        android:src="@drawable/image_for_btn">
+
+                    </ImageView>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/create_exhibit_create_exhibit_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@color/glass"
+                    android:clickable="true"
+                    android:fontFamily="@font/prata"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Создать"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkBeige">
+
+                </Button>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

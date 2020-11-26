@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.MuseumFacade;
 import com.example.museums.API.models.Museum;
+import com.example.museums.API.models.MuseumInfoWithoutImage;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
 import com.example.museums.view.fragments.admin.allMuseums.QueryAllMuseums;
@@ -13,6 +14,7 @@ import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.admin.editMuseum.QueryEditMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum.QueryDialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
+import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -164,8 +166,6 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
     @Override
     public void getMuseumImageByLogin(String login) {
-
-
         museumDao.getMuseumImage(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -175,6 +175,23 @@ public class MuseumFacadeImpl implements MuseumFacade {
                          queryMainInfoMuseumPageEdit.onSuccess(museum);
                     }
 
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryMainInfoMuseumPageEdit.onError();
+                    }
+                })
+        ;
+    }
+
+    @Override
+    public void getMuseumInfoByLogin(String login) {
+        museumDao.getMuseumInfo(login)  .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<MuseumInfoWithoutImage>() {
+                    @Override
+                    public void onSuccess(@NonNull MuseumInfoWithoutImage museum) {
+                        queryMainInfoMuseumPageEdit.onSuccess(museum);
+                    }
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryMainInfoMuseumPageEdit.onError();

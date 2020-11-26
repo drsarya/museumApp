@@ -34,42 +34,49 @@
 
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/create_exhibit_author_text_field_box"
                 style="@style/textBoxOuter"
-                android:layout_marginTop="10dp"
-               android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
 
                 app:labelText="Автор">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/create_exhibit_author_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="textMultiLine"
+                    android:inputType="text"
+                    android:lines="1"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/create_exhibit_name_text_field_box"
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
-                android:layout_marginVertical="5dp"
-
                 android:layout_height="wrap_content"
+
+                android:layout_marginVertical="5dp"
                 app:labelText="Название экспоната">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/create_exhibit_name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="textMultiLine"
-
+                    android:inputType="text"
+                    android:lines="1"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             <Button
+                android:id="@+id/create_exhibit_choose_photo_btn"
                 style="@style/darkBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,44 +94,56 @@
             </Button>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/create_exhibit_chosen_photo_image_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image1">
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart">
 
             </ImageView>
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/create_exhibit_date_of_create_text_field_box"
                 style="@style/textBoxOuter"
-                android:layout_marginVertical="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Дата создания  экспоната">
+
+                android:layout_marginVertical="5dp"
+                app:labelText="Дата создания  экспоната dd.mm.yyyy ">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/create_exhibit_date_of_create_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
+                    android:inputType="date"
+
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/create_exhibit_key_words_text_field_box"
                 style="@style/textBoxOuter"
-                android:layout_marginVertical="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginVertical="5dp"
                 app:labelText="Ключевые слова для поиска">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/create_exhibit_key_words_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="text"
+                    android:lines="1"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/create_exhibit_description_of_exhibit_text_field_box"
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,6 +152,7 @@
                 app:labelText="История создания">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/create_exhibit_description_of_exhibit_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
@@ -165,6 +185,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <Button
+                    android:id="@+id/create_exhibit_create_exhibit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

@@ -2,15 +2,13 @@ package com.example.museums.view.activities.tabs;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.CreateExhibition;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
