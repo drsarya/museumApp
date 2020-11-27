@@ -7,7 +7,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,19 +24,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
-import com.example.museums.view.fragments.admin.allMuseums.QueryAllMuseums;
-import com.example.museums.view.fragments.common.Exhibitions;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.CreateExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
-import com.example.museums.API.models.Exhibit;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +60,7 @@ public class CreateExhibition extends Fragment {
     private EditText dateOfEndET;
     private EditText nameET;
     private EditText descriptionET;
-    private ImageView currImageImageView;
+    private static ImageView currImageImageView;
     private Button chooseImageBtn;
     private Button hideDescriptionBtn;
     public ProgressBar progressBar;
@@ -108,21 +104,36 @@ public class CreateExhibition extends Fragment {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (getArguments().getParcelable("image") != null) {
+//
+//            Bitmap n = (Bitmap) data.getParcelableExtra("image");
+//            currImageImageView.setImageBitmap(n);
+//            getArguments().clear();
+//            System.out.println("2222222222222222222222222222222222222");
+//
+//        }
 
-        switch (requestCode) {
+         switch (requestCode) {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                        Bundle b = getArguments();
+//                        if (b != null) {
+//                            b.putParcelable("image", bitmap);
+//                            System.out.println("gjkj;bhsbdsbdshdshbd");
+//                        }
+                        currImageImageView.setImageBitmap(bitmap);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    currImageImageView.setImageBitmap(bitmap);
+
                 }
         }
     }
@@ -141,10 +152,6 @@ public class CreateExhibition extends Fragment {
         return rootView;
     }
 
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
@@ -180,6 +187,11 @@ public class CreateExhibition extends Fragment {
                     && !descriptionET.getText().toString().isEmpty()
             ) {
                 Exhibition exhibition = new Exhibition();
+                exhibition.name = nameET.getText().toString();
+                BitmapDrawable drawable = (BitmapDrawable) currImageImageView.getDrawable();
+                Bitmap image = drawable.getBitmap();
+                exhibition.description = descriptionET.getText().toString();
+                exhibition.image = image;
                 if (onlineCheckBox.isChecked()) {
                     exhibition.firstDate = null;
                     exhibition.lastDate = null;
@@ -194,16 +206,21 @@ public class CreateExhibition extends Fragment {
                         Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                Toast.makeText(getContext(), "Успешное создание", Toast.LENGTH_SHORT).show();
-
+                hideKeyboard();
+                QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
+                queryCreateExhibition.getQuery(login, exhibition, exhibits);
 
             } else {
-
+                hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
 
         });
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     public void addNewExhibit(NewExhibitModel exhibit) {

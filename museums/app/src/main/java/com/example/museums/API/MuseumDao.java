@@ -38,13 +38,13 @@ public interface MuseumDao {
     List<Exhibit> getExhibitsByExhdtnId(String ixhbtnId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
+    Single<Long[]> insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 
     @Query("SELECT * FROM exhibit")
     List<Exhibit> getAllExhibits();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertExhbt(List<Exhibit> exhibit);
+    Single<Long[]> insertExhibits(List<Exhibit> exhibit);
 
     @Query("SELECT * FROM exhibition")
     List<Exhibition> getAllExhibitions();
@@ -53,7 +53,7 @@ public interface MuseumDao {
     List<Exhibition> getExhbtnByMuseumId(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertExhbtn(Exhibition exhibition);
+    Single<Long> insertExhbtn(Exhibition exhibition);
 
     @Query("SELECT Count (*) FROM `like` WHERE idExhb =:exhbtId")
     String getLikesByExhId(String exhbtId);
@@ -125,8 +125,14 @@ public interface MuseumDao {
     /*GET*/
     @Query("SELECT * FROM author  ")
     Flowable<List<Author>> getAllAuthors();
+
+
+    @Query("SELECT id FROM author  where fullName = :fullname ")
+    Single<Integer>  getAllAuthorByName(String fullname);
     /*INSERT*/
     @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<Long> insertAuthor(Author author);
 
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    Single<List<Long>> insertAuthors(List<Author> author);
 }

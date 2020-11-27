@@ -8,6 +8,6 @@ public interface ExhibitFacade {
 
     List<Exhibit> getAllExhibits();
 
-    long[] insertExhbt(List<Exhibit> exhibits);
+    void insertExhibits(List<Exhibit> exhibits);
 
 }

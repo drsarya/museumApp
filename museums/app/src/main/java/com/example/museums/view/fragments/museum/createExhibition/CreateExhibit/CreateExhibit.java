@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.createExhibition;
+package com.example.museums.view.fragments.museum.createExhibition.CreateExhibit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -26,12 +27,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Author;
+import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Museum;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
+import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
 import com.example.museums.view.fragments.museum.createExhibition.authors.QueryAuthor;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,7 +64,7 @@ public class CreateExhibit extends Fragment {
     private ImageView mainImageView;
     private Button createBtn;
     private AuthorsRecyclerViewAdapter authorAdapter;
-
+    public ProgressBar progressBar;
     private Button choosePhotoBtn;
     private RecyclerView authorRecyclerView;
 
@@ -91,9 +97,9 @@ public class CreateExhibit extends Fragment {
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         authorRecyclerView.setVisibility(View.GONE);
+        progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
 
-
-        authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText);
+        authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
 
         //Получить список авторов
@@ -102,6 +108,8 @@ public class CreateExhibit extends Fragment {
     }
 
     public void refreshAllList(List<Author> authors) {
+          authorList = new ArrayList<>();
+        authorList.addAll(authors);
         authorAdapter.updateAll(authors);
     }
 
@@ -135,6 +143,7 @@ public class CreateExhibit extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -158,10 +167,11 @@ public class CreateExhibit extends Fragment {
                         , bitmap, descriptionEditText.getText().toString()
                 );
 
-                CreateExhibition c = (CreateExhibition) getTargetFragment();
                 hideKeyboard();
-                c.addNewExhibit(ex);
-                Toast.makeText(getContext(), "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
+                QueryExhibit queryExhibit = new QueryExhibit(this);
+                queryExhibit.getQuery(ex);
+
+
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
@@ -171,6 +181,14 @@ public class CreateExhibit extends Fragment {
         });
 
     }
+
+    public void insertNewExhibit(NewExhibitModel newEx) {
+        CreateExhibition c = (CreateExhibition) getTargetFragment();
+        c.addNewExhibit(newEx);
+
+    }
+
+
 
     private boolean containsString(String fullName, String currText) {
         String newName = fullName.toLowerCase();

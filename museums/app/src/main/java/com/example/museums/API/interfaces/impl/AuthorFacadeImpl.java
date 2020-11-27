@@ -5,8 +5,19 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.AuthorFacade;
 import com.example.museums.API.models.Author;
+import com.example.museums.API.models.Like;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.QueryExhibit;
+import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.createExhibition.authors.QueryAuthor;
 
+import org.reactivestreams.Subscription;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.List;
+import java.util.function.DoubleToIntFunction;
+
+import io.reactivex.FlowableSubscriber;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -15,6 +26,8 @@ import io.reactivex.schedulers.Schedulers;
 public class AuthorFacadeImpl implements AuthorFacade {
     private MuseumDao museumDao;
     private QueryAuthor queryAuthor;
+    private QueryCreateExhibition queryCreateExhibition;
+    private QueryExhibit queryExhibit;
 
     public AuthorFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -23,6 +36,15 @@ public class AuthorFacadeImpl implements AuthorFacade {
     public AuthorFacadeImpl(MuseumDao museumDao, QueryAuthor queryAuthor) {
         this.museumDao = museumDao;
         this.queryAuthor = queryAuthor;
+    }
+    public AuthorFacadeImpl(MuseumDao museumDao, QueryExhibit queryExhibit) {
+        this.museumDao = museumDao;
+        this.queryExhibit = queryExhibit;
+    }
+
+    public AuthorFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
+        this.museumDao = museumDao;
+        this.queryCreateExhibition = queryCreateExhibition;
     }
 
     @SuppressLint("CheckResult")
@@ -34,6 +56,27 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(museums -> queryAuthor.onSuccess(museums));
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void getAuthorByName(String name) {
+        museumDao.getAllAuthorByName(name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer aLong) {
+                        queryExhibit.onSuccess(aLong );
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        queryExhibit.onError();
+                    }
+                });
+
+    }
+
+
     @Override
     public void insertAuthor(String author) {
         Author authorModel = new Author();
@@ -43,10 +86,32 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
+                        queryExhibit.onSuccessInsert(aLong.intValue());
                      }
 
                     @Override
                     public void onError(Throwable e) {
+                        queryExhibit.onErrorInsert();
+                    }
+                });
+    }
+
+    @Override
+    public void insertAuthors(List<Author> author) {
+        System.out.println(author.size()+"изначальное число");
+        museumDao.insertAuthors(author).
+                subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<List<Long>>() {
+                    @Override
+                    public void onSuccess(@NonNull List<Long> aLong) {
+                        System.out.println(aLong.size()+"конечное число");
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e);
                     }
                 });
     }

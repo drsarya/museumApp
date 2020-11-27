@@ -19,13 +19,14 @@ public class QueryChangeMuseumImage {
     private MuseumFacadeImpl museumFacade;
     private MuseumDao museumDao;
     private DialogChangeMuseumPhoto activity;
-private Bitmap bitmap;
+    private Bitmap bitmap;
+
     public QueryChangeMuseumImage(DialogChangeMuseumPhoto fragment) {
         this.activity = fragment;
     }
 
     public void onSuccess() {
-      ImageView in =   ( ImageView )activity.getActivity().findViewById(R.id.main_info_museum_edit_image_view);
+        ImageView in = (ImageView) activity.getActivity().findViewById(R.id.main_info_museum_edit_image_view);
 
         in.setImageBitmap(bitmap);
 
@@ -44,7 +45,7 @@ private Bitmap bitmap;
 
     public void getQuery(String login, Bitmap image) {
         bitmap = image.copy(image.getConfig(), image.isMutable());
-         activity.progressBar.setVisibility(View.GONE);
+        activity.progressBar.setVisibility(View.GONE);
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(museumDao, this);

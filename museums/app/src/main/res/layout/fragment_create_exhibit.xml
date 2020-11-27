@@ -29,7 +29,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         app:hasClearButton="true"
-        app:labelText="Автор">
+        app:labelText="Автор (соблюдайте пунктуацию)">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
             android:id="@+id/create_exhibit_author_edit_text"
@@ -192,6 +192,13 @@
                         android:src="@drawable/image_for_btn">
 
                     </ImageView>
+                    <ProgressBar
+                        android:id="@+id/create_exhibit_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="bottom"
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
 
                 <Button

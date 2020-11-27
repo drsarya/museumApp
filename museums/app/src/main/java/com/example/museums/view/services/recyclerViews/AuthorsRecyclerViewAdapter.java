@@ -35,10 +35,11 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
 
     private List<Author> mDataset;
     private EditText authorEditText;
-
-    public AuthorsRecyclerViewAdapter(List<Author> myDataset, EditText authorEditText) {
+    private RecyclerView recyclerView;
+    public AuthorsRecyclerViewAdapter(List<Author> myDataset, EditText authorEditText, RecyclerView recyclerView) {
         mDataset = myDataset;
         this.authorEditText = authorEditText;
+        this.recyclerView = recyclerView;
     }
 
     public void updateAll(List<Author> authors){
@@ -61,8 +62,8 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
     @Override
     public void onBindViewHolder(@NonNull AuthorsRecyclerViewAdapter.AuthorsViewHolder holder, int position) {
 
-        holder.nameOfExhibtn.setText(mDataset.get(position).fullName + "  " + position);
-        holder.itemView.setOnClickListener(new ClickListenerSetChosenData(mDataset.get(position), authorEditText));
+        holder.nameOfExhibtn.setText(mDataset.get(position).fullName  );
+        holder.itemView.setOnClickListener(new ClickListenerSetChosenData(mDataset.get(position), authorEditText, recyclerView));
 
 
     }

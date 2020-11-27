@@ -16,6 +16,7 @@ import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogCh
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
+import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -32,6 +33,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     private QueryChangeMuseumImage queryChangeMuseumImage;
     private QueryDialogChangeDescriptionMuseum queryDialogChangeDescriptionMuseum;
     private QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit;
+    private QueryCreateExhibition queryCreateExhibition;
 
     public MuseumFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -50,6 +52,11 @@ public class MuseumFacadeImpl implements MuseumFacade {
     public MuseumFacadeImpl(MuseumDao mDao, QueryChangeMuseumImage queryChangeMuseumImage) {
         museumDao = mDao;
         this.queryChangeMuseumImage = queryChangeMuseumImage;
+    }
+
+    public MuseumFacadeImpl(MuseumDao mDao, QueryCreateExhibition queryCreateExhibition) {
+        museumDao = mDao;
+        this.queryCreateExhibition = queryCreateExhibition;
     }
 
     public MuseumFacadeImpl(MuseumDao mDao, QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit) {
@@ -89,6 +96,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     public void onSuccess(@NonNull Integer id) {
                         queryAuthorization.isMuseum(id);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryAuthorization.isUser();
@@ -175,6 +183,29 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryMainInfoMuseumPageEdit.onError();
+                    }
+                })
+        ;
+    }
+
+    @Override
+    public void getMuseumIDByLogin(String login) {
+
+        museumDao.getMuseumByLogin(login)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer id) {
+                        queryCreateExhibition.onSuccess(id);
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                        queryCreateExhibition.onError();
+
                     }
                 })
         ;

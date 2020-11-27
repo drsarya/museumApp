@@ -9,6 +9,6 @@ public interface ExhibitionFacade {
 
     List<Exhibition> getExhbtnByMuseumId(String id);
 
-    long insertExhbtn(Exhibition exhibition);
+    void insertExhbtn(Exhibition exhibition);
 
 }

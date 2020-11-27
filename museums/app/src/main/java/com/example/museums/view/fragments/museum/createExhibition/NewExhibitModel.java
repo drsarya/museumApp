@@ -11,6 +11,12 @@ public class NewExhibitModel {
     public String tags;
     public String author;
 
+    public void setIdAuthor(Long idAuthor) {
+        this.idAuthor = idAuthor;
+    }
+
+    public Long idAuthor;
+
     public String name;
 
     public Bitmap photo;

@@ -9,7 +9,7 @@ public interface ExhbtToExbtnFacade {
 
     List<Exhibit> getExhibitsByExhdtnId(String ixhbtnId);
 
-    long[] insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
+    void insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 
 }
 

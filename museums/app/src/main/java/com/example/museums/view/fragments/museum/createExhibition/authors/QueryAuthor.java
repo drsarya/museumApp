@@ -1,14 +1,12 @@
 package com.example.museums.view.fragments.museum.createExhibition.authors;
 
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 import com.example.museums.API.models.Author;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.CreateExhibit;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class QueryAuthor {
 
     public void onSuccess(List<Author> list) {
         activity.refreshAllList(list);
-
+        System.out.println("dfdfdfdfdfdfdf"+ list.size());
     }
 
     public void getQuery() {
