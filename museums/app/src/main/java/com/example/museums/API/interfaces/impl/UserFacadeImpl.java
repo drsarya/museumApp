@@ -99,7 +99,7 @@ public class UserFacadeImpl implements UserFacade {
         user.login = login;
         user.password = password;
         user.type = type;
-        museumDao.insertUser(user).subscribeOn(Schedulers.io())
+        museumDao.insertUser(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Long>() {
@@ -121,7 +121,7 @@ public class UserFacadeImpl implements UserFacade {
         user.login = login;
         user.password = password;
         user.type = type;
-        museumDao.insertUser(user).subscribeOn(Schedulers.io())
+        museumDao.insertUser(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Long>() {

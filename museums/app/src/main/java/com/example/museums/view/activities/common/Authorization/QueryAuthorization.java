@@ -34,12 +34,11 @@ public class QueryAuthorization {
         this.password = password;
     }
 
-    public void isMuseum(Integer museum) {
+    public void isMuseum(Integer id) {
         activity.authBtn.setVisibility(View.VISIBLE);
         activity.progressBar.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(activity.getApplicationContext(), MuseumTab.class);
-        intent.putExtra(MuseumTab.LOGIN_KEY, login);
-
+        intent.putExtra(MuseumTab.LOGIN_KEY_USER, login);
         activity.startActivity(intent);
     }
 
@@ -47,7 +46,7 @@ public class QueryAuthorization {
 
         activity.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(activity.getApplicationContext(), UserTab.class);
-        intent.putExtra(UserTab.LOGIN_KEY, login);
+        intent.putExtra(UserTab.LOGIN_KEY_USER, login);
         activity.startActivity(intent);
     }
 
@@ -57,11 +56,10 @@ public class QueryAuthorization {
         if (user.type) {
             activity.progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(activity.getApplicationContext(), AdminTab.class);
-             activity.startActivity(intent);
+            activity.startActivity(intent);
 
         } else {
-     museumFacade.getMuseumByLogin(user.login);
-          //  museumFacade.getMuseumImageByLogin(login);
+            museumFacade.getMuseumByLogin(user.login);
         }
     }
 

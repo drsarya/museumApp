@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".view.activities.tabs.MuseumTab"
+            android:name=".view.activities.common.Authorization.Authorization"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +23,12 @@
             android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"
             android:windowSoftInputMode="adjustUnspecified" />
         <!--  adjustPan  AdminTab -->
+        <!--  adjustResize  MuseumTab -->
         <activity
             android:name=".view.activities.tabs.UserTab"
+            android:windowSoftInputMode="adjustUnspecified" />
+        <activity
+            android:name=".view.activities.tabs.MuseumTab"
             android:windowSoftInputMode="adjustUnspecified" />
 
 

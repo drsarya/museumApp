@@ -1,5 +1,7 @@
 package com.example.museums.API.models;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
@@ -28,8 +30,8 @@ public class Exhibition {
     @ColumnInfo(name = "idMuseum")
     public String idMuseum;
     @NonNull
-    @ColumnInfo(name = "photoUrlId")
-    public String photoUrlId;
+    @ColumnInfo(name = "image")
+    public Bitmap image;
 
     @NonNull
     @ColumnInfo(name = "description")

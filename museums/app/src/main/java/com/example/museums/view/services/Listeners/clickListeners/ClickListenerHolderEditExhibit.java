@@ -31,10 +31,8 @@ public class ClickListenerHolderEditExhibit implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-       EditExhibit myFragment = new EditExhibit().newInstance(model.dateOfCreate, model.tags
-       , model.author, model.name, model.photo, model.description, position);
-
-
+        EditExhibit myFragment = new EditExhibit().newInstance(model.dateOfCreate, model.tags
+                , model.author, model.name, model.photo, model.description, position);
         myFragment.setTargetFragment(fragment, 0);
         MuseumTab activity = (MuseumTab) v.getContext();
         mth.replaceFragment(myFragment, v, activity);

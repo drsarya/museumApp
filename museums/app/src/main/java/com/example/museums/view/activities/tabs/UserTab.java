@@ -23,7 +23,7 @@ import java.util.List;
 public class UserTab extends AppCompatActivity {
 
     private BottomNavigationView menuTab;
-    public static final String LOGIN_KEY = "login_key";
+    public static final String LOGIN_KEY_USER = "login_key";
     private String loginUser;
     private boolean currState = false;
 
@@ -35,7 +35,7 @@ public class UserTab extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
 
         if (b != null) {
-            loginUser = b.getString(LOGIN_KEY);
+            loginUser = b.getString(LOGIN_KEY_USER);
 
         }
 

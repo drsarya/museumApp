@@ -1,8 +1,6 @@
 package com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword;
 
 import android.os.Bundle;
-import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.museums.R;
-import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
-
-import org.w3c.dom.ls.LSOutput;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
@@ -31,8 +26,8 @@ public class DialogUpdatePassword extends DialogFragment {
     private TextFieldBoxes newPassTextFieldBoxes;
     private Button updateBtn;
     public ProgressBar progressBar;
-    private String login;
-    public static final String LOGIN_KEY = "login_key";
+    private String loginMuseum;
+    public static final String ID_MUSEUM_KEY = "login_key";
 
     @Nullable
     @Override
@@ -43,7 +38,7 @@ public class DialogUpdatePassword extends DialogFragment {
         initViews(rootView);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            login = bundle.getString(LOGIN_KEY);
+            loginMuseum = bundle.getString(ID_MUSEUM_KEY);
 
         }
         setListeners();
@@ -65,13 +60,12 @@ public class DialogUpdatePassword extends DialogFragment {
         newPassEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(newPassTextFieldBoxes));
         updateBtn.setOnClickListener(v -> {
             if (!oldPassEditText.getText().toString().isEmpty() && !newPassEditText.getText().toString().isEmpty() &&
-                    !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && login != null) {
+                    !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && loginMuseum != null) {
                 QueryUpdatePassword updatePassword = new QueryUpdatePassword(this);
-                updatePassword.getQuery(login, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
+                updatePassword.getQuery(loginMuseum, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
 
             } else {
-                System.out.println(login);
-                Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
 
 

@@ -21,27 +21,16 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
 
-
         public MuseumsViewHolder(View view) {
             super(view);
-
             textView = view.findViewById(R.id.element_of_list_museum);
 
         }
     }
-//    public void deletePosition(Integer position){
-//        d = position;
-//         mDataset.remove((int)position-1);
-//
-//    }
-//    int d = -1;
-//    public void addPosition(Museum museum){
-//       //  mDataset.add(museum);
-//         notifyDataSetChanged();
-//    }
 
-    public void updateAll(List<Museum> museum){
-        mDataset =new ArrayList<>();
+
+    public void updateAll(List<Museum> museum) {
+        mDataset = new ArrayList<>();
         mDataset.addAll(museum);
         notifyDataSetChanged();
     }

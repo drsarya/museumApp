@@ -86,14 +86,11 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
-                    public void onSuccess(@NonNull Integer museum) {
-                        System.out.println("museuuummmmmmmmmmmmm");
-                        queryAuthorization.isMuseum(museum);
+                    public void onSuccess(@NonNull Integer id) {
+                        queryAuthorization.isMuseum(id);
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println("not museuuuuummmmmmmm");
                         queryAuthorization.isUser();
                     }
                 })
@@ -172,7 +169,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .subscribe(new DisposableSingleObserver<Bitmap>() {
                     @Override
                     public void onSuccess(@NonNull Bitmap museum) {
-                         queryMainInfoMuseumPageEdit.onSuccess(museum);
+                        queryMainInfoMuseumPageEdit.onSuccess(museum);
                     }
 
                     @Override
@@ -185,13 +182,14 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
     @Override
     public void getMuseumInfoByLogin(String login) {
-        museumDao.getMuseumInfo(login)  .subscribeOn(Schedulers.io())
+        museumDao.getMuseumInfo(login).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<MuseumInfoWithoutImage>() {
                     @Override
                     public void onSuccess(@NonNull MuseumInfoWithoutImage museum) {
                         queryMainInfoMuseumPageEdit.onSuccess(museum);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryMainInfoMuseumPageEdit.onError();

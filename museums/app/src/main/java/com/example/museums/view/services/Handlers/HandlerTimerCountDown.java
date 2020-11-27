@@ -21,7 +21,8 @@ public class HandlerTimerCountDown extends Handler {
         super.handleMessage(msg);
         if (msg.arg1 == 20) {
             view.setVisibility(View.VISIBLE);
-        } else if (msg.arg1 == 50) {
+        } else if (msg.arg1 == 50 && view.getVisibility() != View.GONE) {
+            System.out.println(msg.arg1 + "    " + msg.arg2);
             TranslateAnimation animate;
             if (view.getClass().toString().equals(LinearLayout.class.toString())) {
                 animate = new TranslateAnimation(0, 0, 0, -view.getHeight());
@@ -30,6 +31,8 @@ public class HandlerTimerCountDown extends Handler {
             }
             animate.setDuration(500);
             view.startAnimation(animate);
+            view.setVisibility(View.GONE);
+        } else if (msg.arg2 == -1) {
             view.setVisibility(View.GONE);
         }
     }

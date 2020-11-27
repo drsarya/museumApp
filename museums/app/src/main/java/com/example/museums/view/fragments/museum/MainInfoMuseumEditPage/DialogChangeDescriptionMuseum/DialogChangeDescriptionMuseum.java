@@ -1,15 +1,10 @@
 package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,17 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.common.MainInfoMuseum;
-import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
-import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
-import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
-
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-
-import java.io.IOException;
-
-import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class DialogChangeDescriptionMuseum extends DialogFragment {
 

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 import com.example.museums.view.services.recyclerViews.TagsRecyclerViewAdapter;
 import com.example.museums.API.models.Exhibit;
@@ -27,23 +28,32 @@ public class Exhibits extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter horizontalAdapter;
     public RecyclerView listView;
-    public static final String LOGIN_KEY_USER = "login_key_user";
-
+    public static final String LOGIN_KEY_USER = "login_key";
+    private String login;
     List<String> names = Arrays.asList("Природа", "Скульптура", "Графика", "Животные", "Живопись", "Люди");
 
 
+    public Exhibits newInstance(String login) {
+        final Exhibits myFragment = new Exhibits();
+        final Bundle args = new Bundle(1);
+        args.putString(LOGIN_KEY_USER, login);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            login = getArguments().getString(LOGIN_KEY_USER);
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibits, container, false);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String login = arguments.getString(LOGIN_KEY_USER);
-
-        }
-        return rootView;
+        getArgumentsFromBundle();
+         return rootView;
     }
 
     @SuppressLint("ClickableViewAccessibility")

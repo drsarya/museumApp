@@ -1,9 +1,7 @@
 package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -12,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -32,10 +29,10 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     private Button buttonUpdate;
     public ProgressBar progressBar;
     static final int GALLERY_REQUEST = 1;
-    private Bitmap lastimage;
+    private Bitmap lastImage;
     private String login;
     private ImageView closeDialog;
-    static final String LOGIN_KEY = "login_key";
+    static final String ID_MUSEUM_KEY = "login_key";
     static final String IMAGE_SOURCE_KEY = "image_source_key";
     private Bitmap bitmap;
     public DialogChangeMuseumPhoto() {
@@ -48,7 +45,7 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
         final DialogChangeMuseumPhoto myFragment = new DialogChangeMuseumPhoto();
         final Bundle args = new Bundle(2);
         args.putParcelable(IMAGE_SOURCE_KEY, image);
-        args.putString(LOGIN_KEY, login);
+        args.putString(ID_MUSEUM_KEY, login);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -61,8 +58,8 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
                 inflater.inflate(R.layout.dialog_change_photo_museum, container, false);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            login = arguments.getString(LOGIN_KEY);
-            lastimage = (Bitmap) arguments.getParcelable(IMAGE_SOURCE_KEY);
+            login = arguments.getString(ID_MUSEUM_KEY);
+            lastImage = (Bitmap) arguments.getParcelable(IMAGE_SOURCE_KEY);
 
         }
         initViews(rootView);
@@ -76,8 +73,8 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
         imageView = rootView.findViewById(R.id.dialog_change_photo_museum_photo_im_view);
         buttonUpdate = rootView.findViewById(R.id.dialog_change_photo_museum_update_btn);
         progressBar = rootView.findViewById(R.id.dialog_change_photo_museum_progress_bar);
-        if (lastimage != null) {
-            imageView.setImageBitmap(lastimage);
+        if (lastImage != null) {
+            imageView.setImageBitmap(lastImage);
             getArguments().clear();
         }
     }

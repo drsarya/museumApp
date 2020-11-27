@@ -2,7 +2,6 @@ package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInf
 
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
@@ -36,9 +35,7 @@ public class QueryMainInfoMuseumPageEdit {
             activity.descriptionTextView.setText(museumInfoWithoutImage.description);
         } else if (museumInfoWithoutImage.description == null) {
             activity.descriptionTextView.setText(activity.descriptionIsEmpty);
-
         }
-
         activity.progressBar.setVisibility(View.GONE);
         activity.chooseImageTextView.setVisibility(View.GONE);
 

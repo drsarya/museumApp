@@ -13,6 +13,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.museums.API.models.Author;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.API.models.Exhibition;
@@ -119,5 +120,13 @@ public interface MuseumDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<Long> insertUser(User user);
 
+    /*AUTHORS*/
+
+    /*GET*/
+    @Query("SELECT * FROM author  ")
+    Flowable<List<Author>> getAllAuthors();
+    /*INSERT*/
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    Single<Long> insertAuthor(Author author);
 
 }

@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeDescriptionMuseum.DialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
@@ -36,7 +37,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     private ImageButton imbtn;
     private String login;
     private ImageView imageViewEditDescription;
-    public static final String LOGIN_KEY_USER = "login_key_user";
+    public static final String LOGIN_KEY_USER = "login_key";
     public ImageView imageViewMainImage;
     public TextView addressTextView;
     public TextView chooseImageTextView;
@@ -50,19 +51,24 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
         View rootView =
                 inflater.inflate(R.layout.fragment_main_info_museum_edit, container, false);
+
         return rootView;
     }
+    public MainInfoMuseumPageEdit newInstance(String login) {
+        final MainInfoMuseumPageEdit myFragment = new MainInfoMuseumPageEdit();
+        final Bundle args = new Bundle(1);
+        args.putString(LOGIN_KEY_USER, login);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Bundle arguments = getArguments();
-
-        if (arguments != null) {
-            login = arguments.getString(LOGIN_KEY_USER);
-
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            login = getArguments().getString(LOGIN_KEY_USER);
         }
     }
+
+
     /*
      * Название музея nameOfMuseumTextView
      * Фото музея imageViewMainImage
@@ -101,6 +107,8 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         setRetainInstance(true);
         initViews();
         setListeners();
+        getArgumentsFromBundle();
+
         updateImageView();
     }
 
@@ -149,7 +157,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
                 DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
                 Bundle bd = new Bundle();
                 if (login != null) {
-                    bd.putString(DialogUpdatePassword.LOGIN_KEY, login);
+                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
                     dialogUpdatePassword.setArguments(bd);
                 }
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();

@@ -28,6 +28,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
 
     private List<NewExhibitModel> mDataset;
     private CreateExhibition createExhibition;
+
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
         public LinearLayout optionalPanel;
@@ -41,7 +42,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
             nameOfExhbr = view.findViewById(R.id.new_exhbt_name_text_view);
             optionalPanel = view.findViewById(R.id.new_exhbt_optional_panel_linear_layout);
             delete = view.findViewById(R.id.new_exhbt_delete);
-           edit =  view.findViewById(R.id.new_exhbt_edit );
+            edit = view.findViewById(R.id.new_exhbt_edit);
         }
     }
 
@@ -63,13 +64,10 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder));
-
         holder.image.setImageBitmap(mDataset.get(position).photo);
-
         holder.nameOfExhbr.setText(mDataset.get(position).name);
         holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, mDataset.get(position), position));
-//добавить alert  в литснере
-    holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, position, mDataset));
+        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, createExhibition, holder.optionalPanel, position, mDataset));
     }
 
     public void updateAll(List<NewExhibitModel> exhibits) {

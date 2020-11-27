@@ -1,16 +1,19 @@
 package com.example.museums.view.fragments.museum.createExhibition;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,14 +23,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Exhibit;
+import com.example.museums.API.models.Author;
+import com.example.museums.API.models.Museum;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
+import com.example.museums.view.fragments.museum.createExhibition.authors.QueryAuthor;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
+import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
@@ -46,11 +54,13 @@ public class CreateExhibit extends Fragment {
     private TextFieldBoxes descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
-
-    private NewExhibitModel exhibitModel;
+    private List<Author> authorList = new ArrayList<>();
     private ImageView mainImageView;
     private Button createBtn;
+    private AuthorsRecyclerViewAdapter authorAdapter;
+
     private Button choosePhotoBtn;
+    private RecyclerView authorRecyclerView;
 
     @Nullable
     @Override
@@ -79,11 +89,27 @@ public class CreateExhibit extends Fragment {
         choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_btn);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
+        authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
+        authorRecyclerView.setVisibility(View.GONE);
 
+
+        authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText);
+        authorRecyclerView.setAdapter(authorAdapter);
+
+        //Получить список авторов
+        QueryAuthor queryAuthor = new QueryAuthor(this);
+        queryAuthor.getQuery();
+    }
+
+    public void refreshAllList(List<Author> authors) {
+        authorAdapter.updateAll(authors);
     }
 
 
-
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     private void setListeners() {
         choosePhotoBtn.setOnClickListener(v -> {
@@ -91,8 +117,28 @@ public class CreateExhibit extends Fragment {
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
+
+        authorEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) {
+                    authorRecyclerView.setVisibility(View.GONE);
+                } else {
+                    authorRecyclerView.setVisibility(View.VISIBLE);
+                }
+                filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         nameEditText.addTextChangedListener(new TextWatcherEmptyField(nameTextFieldBoxes));
-        authorEditText.addTextChangedListener(new TextWatcherEmptyField(authorTextFieldBoxes));
         descriptionEditText.addTextChangedListener(new TextWatcherEmptyField(descriptionTextFieldBoxes));
         dateOfCreateEditText.addTextChangedListener(new TextWatcherEmptyField(dateOfCreateTextFieldBoxes));
         wordKeysEditText.addTextChangedListener(new TextWatcherEmptyField(wordKeysTextFieldBoxes));
@@ -113,15 +159,35 @@ public class CreateExhibit extends Fragment {
                 );
 
                 CreateExhibition c = (CreateExhibition) getTargetFragment();
-
+                hideKeyboard();
                 c.addNewExhibit(ex);
                 Toast.makeText(getContext(), "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
             } else {
+                hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
 
 
         });
+
+    }
+
+    private boolean containsString(String fullName, String currText) {
+        String newName = fullName.toLowerCase();
+        String newCurrText = currText.toLowerCase();
+        if (newName.contains(newCurrText)) {
+            return true;
+        } else return false;
+    }
+
+    private void filter(String text) {
+        List<Author> temp = new ArrayList();
+        for (Author d : authorList) {
+            if (containsString(d.fullName, text)) {
+                temp.add(d);
+            }
+        }
+        authorAdapter.updateList(temp);
     }
 
     @SuppressLint("ClickableViewAccessibility")

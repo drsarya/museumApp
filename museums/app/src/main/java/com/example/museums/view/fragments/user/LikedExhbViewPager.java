@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -100,7 +99,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
                 Bundle bd = new Bundle();
 
                 if (login != null) {
-                    bd.putString(DialogUpdatePassword.LOGIN_KEY, login);
+                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
                     dialogUpdatePassword.setArguments(bd);
                 }
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();

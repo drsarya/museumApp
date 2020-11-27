@@ -60,6 +60,7 @@ public class EditExhibit extends Fragment {
     private Button createBtn;
     private int positionExh;
     private Button choosePhotoBtn;
+
     public EditExhibit newInstance(String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
 
 
@@ -78,6 +79,7 @@ public class EditExhibit extends Fragment {
         myFragment.setArguments(args);
         return myFragment;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -93,7 +95,9 @@ public class EditExhibit extends Fragment {
             authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
             descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
             wordKeysEditText.setText(arguments.getString(EXHIBIT_TAGS_MODEL));
-            mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
+            if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
+                mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
+            }
             dateOfCreateEditText.setText(arguments.getString(EXHIBIT_DATA_MODEL));
             positionExh = arguments.getInt(EXHIBIT_POSITION_MODEL);
             arguments.clear();
@@ -117,8 +121,6 @@ public class EditExhibit extends Fragment {
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         createBtn.setText("Обновить");
     }
-
-
 
 
     private void setListeners() {
