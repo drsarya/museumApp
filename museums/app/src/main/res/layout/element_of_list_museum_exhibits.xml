@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="@color/lightBeige"
+        app:cardCornerRadius="5dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/element_list_museum_exhibits_image_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image3">
+
+        </ImageView>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/element_list_museum_exhibits_name_text_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="15dp"
+             android:autoSizeTextType="uniform"
+            android:background="@color/glassBeige"
+            android:fontFamily="@font/prata"
+            android:textColor="@color/brown"
+
+            tools:ignore="MissingConstraints,Suspicious0dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/element_list_museum_exhibits_author_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="15sp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/glassBeige"
+            android:fontFamily="@font/prata"
+            android:textColor="@color/brown"
+            tools:ignore="MissingConstraints,Suspicious0dp">
+
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

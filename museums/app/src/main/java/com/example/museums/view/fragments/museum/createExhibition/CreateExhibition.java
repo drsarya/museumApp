@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
@@ -49,7 +49,7 @@ public class CreateExhibition extends Fragment {
     private String login;
     public static List<NewExhibitModel> exhibits = new ArrayList<>();
     private Bitmap bitmap;
-    private ImageButton plusExhbt;
+    private TextView plusExhbt;
     private RecyclerView recyclerView;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB;
@@ -61,7 +61,8 @@ public class CreateExhibition extends Fragment {
     private EditText nameET;
     private EditText descriptionET;
     private static ImageView currImageImageView;
-    private Button chooseImageBtn;
+    private TextView chooseImageTextView;
+
     private Button hideDescriptionBtn;
     public ProgressBar progressBar;
     private Button createExhibitionBtn;
@@ -94,10 +95,10 @@ public class CreateExhibition extends Fragment {
         nameET = rootView.findViewById(R.id.create_exhibition_name_edit_text);
         descriptionET = rootView.findViewById(R.id.create_exhibition_description_edit_text);
         currImageImageView = rootView.findViewById(R.id.create_exhibition_main_image_image_view);
-        chooseImageBtn = rootView.findViewById(R.id.create_exhibition_choose_image_btn);
+        chooseImageTextView = rootView.findViewById(R.id.create_exhibition_choose_image_btn);
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
-        plusExhbt = rootView.findViewById(R.id.create_new_exhibition_image_btn);
+        plusExhbt = rootView.findViewById(R.id.create_new_exhibition_text_view);
         recyclerView = rootView.findViewById(R.id.create_exhibition_recycler_view);
         mAdapter = new NewExhibitsRecyclerViewAdapter(exhibits, this);
         recyclerView.setAdapter(mAdapter);
@@ -113,7 +114,6 @@ public class CreateExhibition extends Fragment {
 //            Bitmap n = (Bitmap) data.getParcelableExtra("image");
 //            currImageImageView.setImageBitmap(n);
 //            getArguments().clear();
-//            System.out.println("2222222222222222222222222222222222222");
 //
 //        }
 
@@ -123,7 +123,7 @@ public class CreateExhibition extends Fragment {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        Bundle b = getArguments();
+  //                      Bundle b = getArguments();
 //                        if (b != null) {
 //                            b.putParcelable("image", bitmap);
 //                            System.out.println("gjkj;bhsbdsbdshdshbd");
@@ -175,7 +175,7 @@ public class CreateExhibition extends Fragment {
             }
         });
 
-        chooseImageBtn.setOnClickListener(v -> {
+        chooseImageTextView.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);

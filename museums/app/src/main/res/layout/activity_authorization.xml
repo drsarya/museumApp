@@ -60,8 +60,7 @@
                 android:textSize="20sp"
                 android:imeOptions="actionDone"
 
-                android:text="3333"
-                app:helperText="@string/password" />
+                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -81,8 +80,7 @@
                 android:textSize="20sp"
                 android:imeOptions="actionDone"
 
-                android:text="1111"
-                android:id="@+id/authorization_password_text_view"
+                 android:id="@+id/authorization_password_text_view"
 
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>

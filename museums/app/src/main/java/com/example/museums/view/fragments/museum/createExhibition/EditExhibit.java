@@ -15,15 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 
@@ -59,7 +58,7 @@ public class EditExhibit extends Fragment {
     private ImageView mainImageView;
     private Button createBtn;
     private int positionExh;
-    private Button choosePhotoBtn;
+    private TextView choosePhotoBtn;
 
     public EditExhibit newInstance(String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
 
@@ -116,7 +115,7 @@ public class EditExhibit extends Fragment {
         dateOfCreateTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_date_of_create_text_field_box);
         wordKeysTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_key_words_text_field_box);
         descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
-        choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_btn);
+        choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_text_view);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         createBtn.setText("Обновить");

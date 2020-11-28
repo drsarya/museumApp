@@ -49,23 +49,42 @@
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/create_exhibition_choose_image_btn"
-                style="@style/darkBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+    <TextView
+        android:id="@+id/create_exhibition_choose_image_btn"
+        style="@style/darkBtn"
+        android:layout_width="match_parent"
+         android:layout_marginTop="5dp"
+        android:layout_centerInParent="true"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingHorizontal="20dp"
+        android:text="Выбрать фото"
+        android:textAlignment="center"
+        android:textColor="@color/darkBeige"
+        android:textSize="20sp"
+        tools:ignore="RtlCompat">
 
-                android:gravity="center_horizontal|center_vertical"
-                android:paddingHorizontal="20dp"
-                android:text="Выбрать фото"
-                android:textAlignment="center"
-                android:textColor="@color/darkBeige"
-                android:textSize="20sp"
-                tools:ignore="RtlCompat">
+    </TextView>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/glass"
+        android:clickable="true"
+        android:rotation="45"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/close"
+        android:tint="@color/darkBeige">
 
-            </Button>
+    </ImageButton>
+</RelativeLayout>
+
 
             <ImageView
                 android:id="@+id/create_exhibition_main_image_image_view"
@@ -178,14 +197,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
-                        app:labelText="Дата начала">
+                        app:labelText="Дата начала дд.мм">
 
                         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                             android:id="@+id/create_exhibition_date_of_start_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
-                            android:inputType="date"
+                            android:inputType="text"
                             android:textColor="@color/dark_dark_brown"
                             android:textSize="20sp" />
                     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -199,14 +218,14 @@
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
 
-                        app:labelText="Дата завершения">
+                        app:labelText="Завершения дд.мм">
 
                         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                             android:id="@+id/create_exhibition_date_of_end_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
-                            android:inputType="date"
+                             android:inputType="text"
 
                             android:textColor="@color/dark_dark_brown"
                             android:textSize="20sp" />
@@ -222,7 +241,9 @@
                 android:background="@color/brown"
                 android:orientation="horizontal">
                 <TextView
-                     android:layout_width="wrap_content"
+                    android:id="@+id/create_new_exhibition_text_view"
+                    style="@style/darkBtn"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
@@ -237,8 +258,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/create_new_exhibition_image_btn"
-                    android:layout_width="40dp"
+                     android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:background="@color/glass"

@@ -3,6 +3,7 @@ package com.example.museums.view.services.recyclerViews;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,9 +22,11 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
 
+
         public MuseumsViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.element_of_list_museum);
+
 
         }
     }

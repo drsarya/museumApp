@@ -12,6 +12,7 @@ import com.example.museums.view.fragments.museum.createExhibition.CreateExhibiti
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
+import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -21,7 +22,7 @@ public class MuseumTab extends AppCompatActivity {
     private boolean currState = false;
     private String login;
     private CreateExhibition detailedExhibitWithListeners;
-    private Exhibits exhibits;
+    private MuseumExhibits exhibits;
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
     private Exhibitions exhibitions;
 
@@ -36,12 +37,12 @@ public class MuseumTab extends AppCompatActivity {
             login = b.getString(LOGIN_KEY_USER);
             exhibitions = new Exhibitions().newInstance(login);
             mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(login);
-            exhibits = new Exhibits().newInstance(login);
+            exhibits = new MuseumExhibits().newInstance(login);
             detailedExhibitWithListeners = new CreateExhibition().newInstance(login);
         } else {
             exhibitions = new Exhibitions();
             mainInfoMuseumPage = new MainInfoMuseumPageEdit();
-            exhibits = new Exhibits();
+            exhibits = new MuseumExhibits();
             detailedExhibitWithListeners = new CreateExhibition();
         }
 

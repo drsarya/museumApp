@@ -84,24 +84,42 @@
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/create_exhibit_choose_photo_text_view"
+        style="@style/darkBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingHorizontal="20dp"
+        android:text="Выбрать фото"
+        android:textAlignment="center"
+        android:textColor="@color/darkBeige"
+        android:textSize="30sp"
+        tools:ignore="RtlCompat">
 
-            <Button
-                android:id="@+id/create_exhibit_choose_photo_btn"
-                style="@style/darkBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:autoSizeMaxTextSize="20sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center_horizontal|center_vertical"
-                android:paddingHorizontal="20dp"
-                android:text="Выбрать фото"
-                android:textAlignment="center"
-                android:textColor="@color/darkBeige"
-                android:textSize="30sp"
-                tools:ignore="RtlCompat">
+    </TextView>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/glass"
+        android:clickable="true"
+        android:rotation="45"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/close"
+        android:tint="@color/darkBeige">
 
-            </Button>
+    </ImageButton>
+</RelativeLayout>
+
 
             <ImageView
                 android:id="@+id/create_exhibit_chosen_photo_image_view"
@@ -126,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-                    android:inputType="date"
+                    android:inputType="text"
 
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />

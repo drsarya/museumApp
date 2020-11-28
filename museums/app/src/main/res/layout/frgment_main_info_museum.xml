@@ -32,11 +32,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/prata"
+
                         android:gravity="center_horizontal"
                         android:text="Третьяковская галерея"
                         android:textAlignment="center"
                         android:textColor="@color/darkBeige"
-                        android:textSize="30sp">
+                        android:textSize="22sp">
 
                     </TextView>
 
@@ -69,12 +70,12 @@ android:layout_marginBottom="10dp"
                         style="@style/darkBtn"
 
                         android:text="Описание"
-                        android:textSize="30sp"
+                        android:textSize="20sp"
                         android:textColor="@color/darkBeige"
                         android:gravity="center_horizontal|center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                         android:autoSizeMaxTextSize="30sp"
+                         android:autoSizeMaxTextSize="20sp"
                         android:paddingHorizontal="20dp"
                         android:textAlignment="gravity">
 
@@ -87,15 +88,14 @@ android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeMinTextSize="20sp"
-                    android:autoSizeTextType="uniform"
+                    android:autoSizeMaxTextSize="20sp"
+                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/description"
                     android:textAlignment="center"
                     android:textColor="@color/dark_dark_brown"
-                    android:textSize="20sp">
+                    android:textSize="16sp">
 
                 </TextView>
 
@@ -107,13 +107,13 @@ android:layout_marginBottom="10dp"
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:fontFamily="@font/prata"
-                        android:gravity="center_horizontal"
+                        android:gravity="center_horizontal|center_vertical"
                         android:text="Адрес"
                         android:textAlignment="center"
                         android:textColor="@color/darkBeige"
-                        android:textSize="30sp">
+                        android:textSize="20sp">
 
                     </TextView>
                 </LinearLayout>
@@ -123,15 +123,15 @@ android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeMinTextSize="16sp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="Москва, Лаврушенский переулок, 10"
                     android:textAlignment="center"
                     android:textColor="@color/dark_dark_brown"
-                    android:textSize="20sp">
+                     >
 
                 </TextView>
             </LinearLayout>

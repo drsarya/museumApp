@@ -15,6 +15,9 @@ public interface MuseumFacade {
 
     void getMuseumInfoByLogin(String login);
 
+    void getMuseumExhibitsById(int id);
+
+
     void getAllMuseums();
 
     void getMuseumByLoginAndIdCode(String login, int id, String password, boolean type);

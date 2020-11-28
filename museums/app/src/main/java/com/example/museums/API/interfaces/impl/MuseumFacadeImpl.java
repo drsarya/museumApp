@@ -3,8 +3,11 @@ package com.example.museums.API.interfaces.impl;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 
+import androidx.annotation.MainThread;
+
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.MuseumFacade;
+import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.MuseumInfoWithoutImage;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
@@ -18,10 +21,14 @@ import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfo
 import com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 
+import java.util.List;
+
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 public class MuseumFacadeImpl implements MuseumFacade {
     private MuseumDao museumDao;
@@ -227,6 +234,18 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     }
                 })
         ;
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getMuseumExhibitsById(int id) {
+        museumDao.getExhibitsByMuseumId(id).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(exhibits -> {
+                    
+                }, error -> {
+
+                });
     }
 
     //    public void insertMuseum(String login, String name, String country, String city, String street, String build) {

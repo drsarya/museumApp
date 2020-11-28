@@ -33,9 +33,17 @@ import io.reactivex.Single;
 public interface MuseumDao {
 
 
+    @Query("SELECT  * FROM" +
+
+            "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit" +
+            " WHERE  m1.id = :museumId   ")
+    Flowable<List<Exhibit>> getExhibitsByMuseumId(int museumId);
+
+
     @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
-            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit WHERE idExhibition = :ixhbtnId")
-    List<Exhibit> getExhibitsByExhdtnId(String ixhbtnId);
+            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit WHERE idExhibition = :exhbtnId")
+    List<Exhibit> getExhibitsByExhdtnId(String exhbtnId);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long[]> insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);

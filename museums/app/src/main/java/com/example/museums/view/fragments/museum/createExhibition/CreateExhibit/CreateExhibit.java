@@ -27,8 +27,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Author;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
@@ -36,8 +34,6 @@ import com.example.museums.view.fragments.museum.createExhibition.authors.QueryA
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
-
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,7 +88,7 @@ public class CreateExhibit extends Fragment {
         dateOfCreateTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_date_of_create_text_field_box);
         wordKeysTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_key_words_text_field_box);
         descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
-        choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_btn);
+        choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_text_view);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);

@@ -53,7 +53,6 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println(e);
                         queryCreateExhibition.onErrorInsertExhbtn();
                     }
                 })

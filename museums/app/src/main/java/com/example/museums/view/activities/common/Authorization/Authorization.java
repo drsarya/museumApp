@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +62,8 @@ public class Authorization extends AppCompatActivity {
             if (!logEditText.getText().toString().isEmpty() && !passEditText.getText().toString().isEmpty()) {
                 queryAuthorization.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
                 queryAuthorization.getQuery();
+            }else{
+                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
     }
