@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/element_of_list_author"
+        android:id="@+id/element_of_list_author_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoSizeMaxTextSize="20sp"

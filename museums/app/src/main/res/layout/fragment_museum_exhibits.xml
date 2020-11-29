@@ -34,7 +34,13 @@
 
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
+        <ProgressBar
+            android:id="@+id/museum_exhibits_recycler_progress_bar"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:layout_width="match_parent" />
 
 
     </LinearLayout>

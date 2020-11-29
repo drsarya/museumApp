@@ -1,4 +1,0 @@
-package com.example.museums.view.fragments.museum.museumExhibits;
-
-public class QueryMuseumExhibits {
-}

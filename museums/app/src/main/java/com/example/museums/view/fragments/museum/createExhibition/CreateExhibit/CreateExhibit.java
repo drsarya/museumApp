@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -61,7 +62,7 @@ public class CreateExhibit extends Fragment {
     private Button createBtn;
     private AuthorsRecyclerViewAdapter authorAdapter;
     public ProgressBar progressBar;
-    private Button choosePhotoBtn;
+    private TextView choosePhotoBtn;
     private RecyclerView authorRecyclerView;
 
     @Nullable

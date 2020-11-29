@@ -6,9 +6,11 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.AuthorFacade;
 import com.example.museums.API.models.Author;
 import com.example.museums.API.models.Like;
+import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.QueryExhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.createExhibition.authors.QueryAuthor;
+import com.example.museums.view.fragments.museum.createExhibition.editExhibit.QueryUpdateExhibit;
 
 import org.reactivestreams.Subscription;
 import org.w3c.dom.ls.LSOutput;
@@ -28,6 +30,7 @@ public class AuthorFacadeImpl implements AuthorFacade {
     private QueryAuthor queryAuthor;
     private QueryCreateExhibition queryCreateExhibition;
     private QueryExhibit queryExhibit;
+    private QueryUpdateExhibit queryUpdateExhibit;
 
     public AuthorFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -37,6 +40,12 @@ public class AuthorFacadeImpl implements AuthorFacade {
         this.museumDao = museumDao;
         this.queryAuthor = queryAuthor;
     }
+
+    public AuthorFacadeImpl(MuseumDao museumDao, QueryUpdateExhibit queryUpdateExhibit) {
+        this.museumDao = museumDao;
+        this.queryUpdateExhibit = queryUpdateExhibit;
+    }
+
     public AuthorFacadeImpl(MuseumDao museumDao, QueryExhibit queryExhibit) {
         this.museumDao = museumDao;
         this.queryExhibit = queryExhibit;
@@ -65,12 +74,20 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer aLong) {
-                        queryExhibit.onSuccess(aLong );
+                        if (queryExhibit != null) {
+                            queryExhibit.onSuccess(aLong);
+                        } else {
+                            queryUpdateExhibit.onSuccess(aLong);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        queryExhibit.onError();
+                        if (queryExhibit != null) {
+                            queryExhibit.onError();
+                        } else {
+                            queryUpdateExhibit.onError();
+                        }
                     }
                 });
 
@@ -81,31 +98,39 @@ public class AuthorFacadeImpl implements AuthorFacade {
     public void insertAuthor(String author) {
         Author authorModel = new Author();
         authorModel.fullName = author;
-        museumDao.insertAuthor(authorModel) .subscribeOn(Schedulers.io())
+        museumDao.insertAuthor(authorModel).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        queryExhibit.onSuccessInsert(aLong.intValue());
-                     }
+                        if (queryExhibit != null) {
+                            queryExhibit.onSuccessInsert(aLong.intValue());
+                        } else {
+                            queryUpdateExhibit.onSuccessInsert(aLong.intValue());
+                        }
+                    }
 
                     @Override
                     public void onError(Throwable e) {
-                        queryExhibit.onErrorInsert();
+                        if (queryExhibit != null) {
+                            queryExhibit.onErrorInsert();
+                        } else {
+                            queryUpdateExhibit.onErrorInsert();
+                        }
                     }
                 });
     }
 
     @Override
     public void insertAuthors(List<Author> author) {
-        System.out.println(author.size()+"изначальное число");
+        System.out.println(author.size() + "изначальное число");
         museumDao.insertAuthors(author).
                 subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<List<Long>>() {
                     @Override
                     public void onSuccess(@NonNull List<Long> aLong) {
-                        System.out.println(aLong.size()+"конечное число");
+                        System.out.println(aLong.size() + "конечное число");
 
                     }
 

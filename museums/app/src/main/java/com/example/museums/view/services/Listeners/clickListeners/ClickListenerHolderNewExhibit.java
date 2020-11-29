@@ -14,23 +14,23 @@ import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 public class ClickListenerHolderNewExhibit implements View.OnClickListener {
-    public ClickListenerHolderNewExhibit(NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder holder) {
-        this.holder = holder;
+    public ClickListenerHolderNewExhibit(View view) {
+        this.view = view;
     }
 
     private CountDownTimer ctimte = null;
-    private NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder holder;
+    private View view;
     private MethodsWithFragment mth = new MethodsWithFragment();
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-        if (holder.optionalPanel.getVisibility() == View.VISIBLE) {
+        if ( view.getVisibility() == View.VISIBLE) {
             Fragment myFragment = new DetailedExhibitWithListeners();
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment, v, activity);
         } else {
-            ctimte = new CountDownTimerHideInfo(3000, 3000, holder.optionalPanel);
+            ctimte = new CountDownTimerHideInfo(3000, 3000, view);
             ctimte.start();
         }
 

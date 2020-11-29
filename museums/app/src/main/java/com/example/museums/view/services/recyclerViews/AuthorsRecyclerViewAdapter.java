@@ -12,11 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Author;
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerSetChosenData;
-
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +26,7 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
 
         public AuthorsViewHolder(View view) {
             super(view);
-            nameOfExhibtn = view.findViewById(R.id.element_of_list_author);
+            nameOfExhibtn = view.findViewById(R.id.element_of_list_author_text_view);
         }
     }
 

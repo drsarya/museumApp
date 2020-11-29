@@ -3,6 +3,7 @@ package com.example.museums.API;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.IntegerRes;
 import androidx.constraintlayout.helper.widget.Flow;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -16,6 +17,7 @@ import androidx.room.Update;
 import com.example.museums.API.models.Author;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
+import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.API.models.Exhibition;
 import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
@@ -33,11 +35,7 @@ import io.reactivex.Single;
 public interface MuseumDao {
 
 
-    @Query("SELECT  * FROM" +
 
-            "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit" +
-            " WHERE  m1.id = :museumId   ")
-    Flowable<List<Exhibit>> getExhibitsByMuseumId(int museumId);
 
 
     @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
@@ -71,6 +69,21 @@ public interface MuseumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertLike(Like like);
+
+    /*EXHIBIT*/
+    /*GET*/
+    @Query("SELECT  * FROM" +
+
+            "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
+            "JOIN author as a1 ON a1.id_author = ex3.authorId" +
+            " WHERE  m1.login = :login   ")
+    Flowable<List<ExhibitWithAuthor>> getExhibitsByMuseumId(String login);
+    /*DELETE*/
+    @Query("DELETE FROM exhibit WHERE id = :id")
+    Single<Integer> deleteExhibit(int id);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+       Single<Integer> updateExhibitInfo(Exhibit exhibit);
 
 
     /*MUSEUM*/
@@ -135,8 +148,9 @@ public interface MuseumDao {
     Flowable<List<Author>> getAllAuthors();
 
 
-    @Query("SELECT id FROM author  where fullName = :fullname ")
-    Single<Integer>  getAllAuthorByName(String fullname);
+    @Query("SELECT id_author FROM author  where fullName = :fullname ")
+    Single<Integer> getAllAuthorByName(String fullname);
+
     /*INSERT*/
     @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<Long> insertAuthor(Author author);

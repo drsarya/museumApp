@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.MainInfoMuseumPageEdit;
+package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit;
 
 import android.graphics.Bitmap;
 import android.view.View;

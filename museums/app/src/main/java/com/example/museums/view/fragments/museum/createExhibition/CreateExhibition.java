@@ -33,6 +33,7 @@ import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.CreateExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
+import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class CreateExhibition extends Fragment {
+public class CreateExhibition extends Fragment implements IDeletePosition {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
     private NewExhibitsRecyclerViewAdapter mAdapter;
@@ -235,4 +236,8 @@ public class CreateExhibition extends Fragment {
     }
 
 
+    @Override
+    public void deletePosition(int position,  int id) {
+        exhibits.remove(position);
+    }
 }

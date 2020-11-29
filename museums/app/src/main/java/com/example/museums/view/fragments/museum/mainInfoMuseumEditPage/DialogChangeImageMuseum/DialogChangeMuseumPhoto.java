@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum;
+package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -1,6 +1,7 @@
 package com.example.museums.view.services.Listeners.clickListeners;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Museum;
 import com.example.museums.R;
@@ -17,25 +19,29 @@ import com.example.museums.view.fragments.museum.createExhibition.CreateExhibiti
 import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
 import com.example.museums.view.services.Handlers.HandlerTimerCountDown;
 import com.example.museums.view.services.MethodsWithFragment;
+import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 import java.util.List;
 
 public class ClickListenerHolderDeletePosition implements View.OnClickListener {
-    private NewExhibitsRecyclerViewAdapter adapter;
+    private RecyclerView.Adapter adapter;
     private int position;
-    private List<NewExhibitModel> newExhibitsModelList;
-    private CreateExhibition createExhibition;
+    private IDeletePosition iDeletePosition;
+    private Context context;
     private View view;
+    private int id;
 
-    public ClickListenerHolderDeletePosition(NewExhibitsRecyclerViewAdapter adapter, CreateExhibition createExhibition,
-                                             View view, int position, List<NewExhibitModel> newExhibitsModelList) {
+    public ClickListenerHolderDeletePosition(RecyclerView.Adapter adapter, IDeletePosition iDeletePosition, Context context,
+                                             View view, int position, int id) {
         this.adapter = adapter;
-        this.newExhibitsModelList = newExhibitsModelList;
-        this.createExhibition = createExhibition;
+        this.context = context;
+        this.iDeletePosition = iDeletePosition;
         this.position = position;
         this.view = view;
+        this.id = id;
+
     }
 
 
@@ -43,7 +49,7 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(createExhibition.getContext(), R.style.AboutDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AboutDialog);
         builder.setTitle("Удалить?")
 
                 .setMessage("Вы точно хотите удалить данный экспонат")
@@ -63,6 +69,8 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     private void updateRecyclerView() {
         adapter.notifyItemRemoved(position);
         adapter.notifyDataSetChanged();
-        newExhibitsModelList.remove(position);
+        //Вызвать метод класса родителя
+        iDeletePosition.deletePosition(position, id);
+        //  newExhibitsModelList.remove(position);
     }
 }

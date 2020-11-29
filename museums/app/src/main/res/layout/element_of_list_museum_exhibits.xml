@@ -10,11 +10,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_margin="5dp"
         app:cardBackgroundColor="@color/lightBeige"
         app:cardCornerRadius="5dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
+
             android:id="@+id/element_list_museum_exhibits_image_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,37 +30,141 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginVertical="5dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/element_list_museum_exhibits_name_text_view"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/element_list_museum_exhibits_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoSizeMaxTextSize="20dp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/glassBeige"
+                android:fontFamily="@font/prata"
+                android:gravity="center_horizontal|center_vertical"
+                android:paddingHorizontal="5dp"
+                android:text="Барыня Успенская Бабушкин сад"
+                android:textAlignment="center"
+
+                android:textColor="@color/brown"
+                tools:ignore="MissingConstraints,Suspicious0dp">
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/element_list_museum_exhibits_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:baselineAligned="true"
+                android:orientation="horizontal"
+                android:visibility="gone"
+              >
+
+
+                <ImageButton
+                    android:id="@+id/element_list_museum_exhibits_edit_exhibit_image_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/lightGrey"
+                    android:clickable="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/edit"
+                    android:layout_marginRight="5dp"
+                    android:tint="@color/dark_dark_brown">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/element_list_museum_exhibits_delete_exhibit_image_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/lightGrey"
+                    android:clickable="true"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/close"
+                    android:tint="@color/dark_dark_brown">
+
+                </ImageButton>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:autoSizeMaxTextSize="15dp"
-             android:autoSizeTextType="uniform"
-            android:background="@color/glassBeige"
-            android:fontFamily="@font/prata"
-            android:textColor="@color/brown"
+            android:orientation="vertical">
 
-            tools:ignore="MissingConstraints,Suspicious0dp">
+            <TextView
+                android:id="@+id/element_list_museum_exhibits_author_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeTextType="uniform"
+                android:background="@color/glassBeige"
+                android:fontFamily="@font/prata"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="5dp"
+                android:text="Поленов Василий Дмитриевич"
+                android:textAlignment="center"
+                android:textColor="@color/brown"
+                tools:ignore="MissingConstraints,Suspicious0dp">
 
-        </TextView>
+            </TextView>
 
-        <TextView
-            android:id="@+id/element_list_museum_exhibits_author_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:autoSizeMaxTextSize="15sp"
-            android:autoSizeTextType="uniform"
-            android:background="@color/glassBeige"
-            android:fontFamily="@font/prata"
-            android:textColor="@color/brown"
-            tools:ignore="MissingConstraints,Suspicious0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+android:gravity="center_vertical"
+                android:layout_weight="1">
 
-        </TextView>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/glassBeige"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="Дата создания: "
+                    android:textAlignment="center"
+                    android:textColor="@color/brown"
+                    android:textSize="12sp"
+                    tools:ignore="MissingConstraints,Suspicious0dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/element_list_museum_exhibits_data_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="15sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@color/glassBeige"
+                    android:fontFamily="@font/prata"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="1858-1898"
+                    android:textAlignment="center"
+                    android:textColor="@color/brown"
+                    tools:ignore="MissingConstraints,Suspicious0dp">
+
+                </TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

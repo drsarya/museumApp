@@ -1,8 +1,6 @@
-package com.example.museums.view.fragments.museum.MainInfoMuseumEditPage.DialogChangeImageMuseum;
+package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -11,8 +9,6 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.R;
-
-import java.io.ByteArrayOutputStream;
 
 public class QueryChangeMuseumImage {
 

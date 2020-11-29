@@ -63,11 +63,11 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
 
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel));
         holder.image.setImageBitmap(mDataset.get(position).photo);
         holder.nameOfExhbr.setText(mDataset.get(position).name);
         holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, mDataset.get(position), position));
-        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, createExhibition, holder.optionalPanel, position, mDataset));
+        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, createExhibition, createExhibition.getContext(), holder.optionalPanel, position, 0 ));
     }
 
     public void updateAll(List<NewExhibitModel> exhibits) {

@@ -30,7 +30,7 @@
             android:windowSoftInputMode="adjustUnspecified" />
         <activity
             android:name=".view.activities.tabs.MuseumTab"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustUnspecified" />
 
 
     </application>

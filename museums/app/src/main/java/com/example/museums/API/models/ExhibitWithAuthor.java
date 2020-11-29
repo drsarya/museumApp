@@ -4,46 +4,31 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-
-        foreignKeys = {
-                @ForeignKey(entity = Author.class, parentColumns = "id_author", childColumns = "authorId")
-        },
-
-        tableName = "exhibit", indices = {@Index(value = {"authorId"}, unique = false)})
-
-public class Exhibit {
+public class ExhibitWithAuthor {
     @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @NonNull
-    @ColumnInfo(name = "authorId")
-    public int authorId;
+    @ColumnInfo(name = "id_author")
+     public int id_author;
 
-    @NonNull
+    @ColumnInfo(name = "fullName")
+    public String fullName;
+
     @ColumnInfo(name = "name")
     public String name;
 
-    @NonNull
     @ColumnInfo(name = "photo")
     public Bitmap photo;
 
-    @NonNull
     @ColumnInfo(name = "description")
     public String description;
 
-    @NonNull
     @ColumnInfo(name = "dateOfCreate")
     public String dateOfCreate;
 
 
     @ColumnInfo(name = "tags")
     public String tags;
-
 }

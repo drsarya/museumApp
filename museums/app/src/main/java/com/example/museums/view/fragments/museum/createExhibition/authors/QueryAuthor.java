@@ -5,8 +5,7 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 import com.example.museums.API.models.Author;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.CreateExhibit;
-
-import org.w3c.dom.ls.LSOutput;
+import com.example.museums.view.fragments.museum.createExhibition.editExhibit.EditExhibit;
 
 import java.util.List;
 
@@ -14,19 +13,32 @@ public class QueryAuthor {
     private AuthorFacadeImpl authorFacade;
     private MuseumDao museumDao;
     private CreateExhibit activity;
-    private String author;
+    private EditExhibit editExhibit;
+
 
     public QueryAuthor(CreateExhibit activity) {
         this.activity = activity;
     }
 
+    public QueryAuthor(EditExhibit activity) {
+        this.editExhibit = activity;
+    }
+
     public void onSuccess(List<Author> list) {
-        activity.refreshAllList(list);
-        System.out.println("dfdfdfdfdfdfdf"+ list.size());
+        if (activity != null) {
+            activity.refreshAllList(list);
+        } else {
+            editExhibit.refreshAllList(list);
+
+        }
     }
 
     public void getQuery() {
-        museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        if (activity != null) {
+            museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        } else {
+            museumDao = ((AppDelegate) editExhibit.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        }
         authorFacade = new AuthorFacadeImpl(museumDao, this);
         authorFacade.getAuthors();
     }

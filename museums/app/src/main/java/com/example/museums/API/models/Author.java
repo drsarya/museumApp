@@ -10,9 +10,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "author", indices = {@Index(value = {"fullName"}, unique = true)})
 
 public class Author {
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "id_author")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int id_author;
 
     @NonNull
     @ColumnInfo(name = "fullName")
