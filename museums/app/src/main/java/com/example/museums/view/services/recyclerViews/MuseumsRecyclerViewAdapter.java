@@ -21,16 +21,11 @@ import java.util.List;
 public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecyclerViewAdapter.MuseumsViewHolder> {
     public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
-
-
         public MuseumsViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.element_of_list_museum);
-
-
         }
     }
-
 
     public void updateAll(List<Museum> museum) {
         mDataset = new ArrayList<>();

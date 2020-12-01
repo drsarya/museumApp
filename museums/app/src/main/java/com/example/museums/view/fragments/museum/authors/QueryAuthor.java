@@ -19,7 +19,6 @@ public class QueryAuthor {
     public QueryAuthor(CreateExhibit activity) {
         this.activity = activity;
     }
-
     public QueryAuthor(EditExhibit activity) {
         this.editExhibit = activity;
     }
@@ -29,7 +28,6 @@ public class QueryAuthor {
             activity.refreshAllList(list);
         } else {
             editExhibit.refreshAllList(list);
-
         }
     }
 
@@ -42,6 +40,4 @@ public class QueryAuthor {
         authorFacade = new AuthorFacadeImpl(museumDao, this);
         authorFacade.getAuthors();
     }
-
-
 }

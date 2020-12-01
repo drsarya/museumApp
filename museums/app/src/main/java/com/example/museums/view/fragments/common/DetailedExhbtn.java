@@ -53,7 +53,6 @@ public class DetailedExhbtn extends Fragment {
         allExhibits = (Button) getActivity().findViewById(R.id.detailed_exhbtn_all_exhbts_btn);
         setListeners();
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
-
     }
 
     @Nullable
@@ -67,28 +66,22 @@ public class DetailedExhbtn extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
-     private void setListeners() {
+    private void setListeners() {
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
-        museumInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment myFragment = new MainInfoMuseum();
-                mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
-            }
+        museumInfo.setOnClickListener(v -> {
+            Fragment myFragment = new MainInfoMuseum();
+            mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
         });
         exhbtnDescriptionBtn.setOnClickListener(
-                new ClickListenerHideDescription(exhbtnDescriptionTextView )
+                new ClickListenerHideDescription(exhbtnDescriptionTextView)
         );
         allExhibits.setOnClickListener(v -> {
-
             List<Exhibit> lisr = new ArrayList<>();
             lisr.add(new Exhibit());
             lisr.add(new Exhibit());
             lisr.add(new Exhibit());
             lisr.add(new Exhibit());
             lisr.add(new Exhibit());
-
-            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ExhibitViewPager exhibitViewPager = new ExhibitViewPager(lisr);
             mth.replaceFragment(exhibitViewPager, v, (AppCompatActivity) v.getContext());
 

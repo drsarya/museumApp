@@ -29,18 +29,18 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
             nameOfExhibtn = view.findViewById(R.id.element_of_list_author_text_view);
         }
     }
-
     private List<Author> mDataset;
     private EditText authorEditText;
     private RecyclerView recyclerView;
+
     public AuthorsRecyclerViewAdapter(List<Author> myDataset, EditText authorEditText, RecyclerView recyclerView) {
         mDataset = myDataset;
         this.authorEditText = authorEditText;
         this.recyclerView = recyclerView;
     }
 
-    public void updateAll(List<Author> authors){
-        mDataset =new ArrayList<>();
+    public void updateAll(List<Author> authors) {
+        mDataset = new ArrayList<>();
         mDataset.addAll(authors);
         notifyDataSetChanged();
     }
@@ -58,11 +58,8 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull AuthorsRecyclerViewAdapter.AuthorsViewHolder holder, int position) {
-
-        holder.nameOfExhibtn.setText(mDataset.get(position).fullName  );
+        holder.nameOfExhibtn.setText(mDataset.get(position).fullName);
         holder.itemView.setOnClickListener(new ClickListenerSetChosenData(mDataset.get(position), authorEditText, recyclerView));
-
-
     }
 
     public void updateList(List<Author> list) {
@@ -75,6 +72,5 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
     public int getItemCount() {
         return mDataset.size();
     }
-
 
 }

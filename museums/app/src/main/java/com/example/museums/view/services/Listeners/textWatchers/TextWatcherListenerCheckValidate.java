@@ -15,7 +15,6 @@ public class TextWatcherListenerCheckValidate implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override
@@ -28,7 +27,6 @@ public class TextWatcherListenerCheckValidate implements TextWatcher {
                 textFieldBoxes.setError("Поле содержит запрещённые символы", false);
             } else {
                 textFieldBoxes.removeError();
-
             }
         }
     }

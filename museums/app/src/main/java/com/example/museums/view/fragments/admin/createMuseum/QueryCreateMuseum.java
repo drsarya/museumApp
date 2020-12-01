@@ -15,6 +15,7 @@ public class QueryCreateMuseum {
     private MuseumFacadeImpl museumFacade;
     private MuseumDao memsDao;
     private CreateMuseum activity;
+    private String curogin;
 
     public QueryCreateMuseum(CreateMuseum fragment) {
         this.activity = fragment;
@@ -41,7 +42,6 @@ public class QueryCreateMuseum {
 
     }
 
-    private String curogin;
 
     public void getQuery(String login, String name, String address) {
         activity.progressBar.setVisibility(View.GONE);

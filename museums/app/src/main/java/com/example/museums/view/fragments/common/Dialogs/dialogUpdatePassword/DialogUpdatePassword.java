@@ -39,7 +39,6 @@ public class DialogUpdatePassword extends DialogFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             loginMuseum = bundle.getString(ID_MUSEUM_KEY);
-
         }
         setListeners();
         return rootView;
@@ -63,12 +62,9 @@ public class DialogUpdatePassword extends DialogFragment {
                     !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && loginMuseum != null) {
                 QueryUpdatePassword updatePassword = new QueryUpdatePassword(this);
                 updatePassword.getQuery(loginMuseum, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
-
             } else {
-                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
 }

@@ -33,7 +33,6 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, holder.textView);
             ctimte.start();
-
         }
     }
 }

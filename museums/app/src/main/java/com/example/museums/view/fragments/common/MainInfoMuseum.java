@@ -32,10 +32,6 @@ public class MainInfoMuseum extends Fragment {
         return rootView;
     }
 
-     private Float downx = null;
-    private Float downy = null;
-
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -47,7 +43,6 @@ public class MainInfoMuseum extends Fragment {
         museumDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(museumDescriptionTextView)
         );
-
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 }

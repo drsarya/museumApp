@@ -50,10 +50,7 @@ public class Exhibitions extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-
-
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_exhibitons);
-
         List<Exhibition> in = new ArrayList<>();
         in.add(new Exhibition());
         in.add(new Exhibition());
@@ -65,7 +62,6 @@ public class Exhibitions extends Fragment {
         in.add(new Exhibition());
         in.add(new Exhibition());
         in.add(new Exhibition());
-
         mAdapter = new ExhibitionsRecyclerViewAdapter(in);
         recyclerView.setAdapter(mAdapter);
     }

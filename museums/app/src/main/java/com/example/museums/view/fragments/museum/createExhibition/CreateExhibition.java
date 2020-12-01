@@ -118,13 +118,13 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
 //
 //        }
 
-         switch (requestCode) {
+        switch (requestCode) {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-  //                      Bundle b = getArguments();
+                        //                      Bundle b = getArguments();
 //                        if (b != null) {
 //                            b.putParcelable("image", bitmap);
 //                            System.out.println("gjkj;bhsbdsbdshdshbd");
@@ -134,7 +134,6 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 }
         }
     }
@@ -149,7 +148,6 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
         initViews(rootView);
         setListeners();
         getArgumentsFromBundle();
-
         return rootView;
     }
 
@@ -210,12 +208,10 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                 hideKeyboard();
                 QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
                 queryCreateExhibition.getQuery(login, exhibition, exhibits);
-
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 
@@ -237,7 +233,9 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
 
 
     @Override
-    public void deletePosition(int position,  int id) {
+    public void deletePosition(int position, int id) {
         exhibits.remove(position);
+        mAdapter.notifyItemRemoved(position);
+        mAdapter.notifyItemRangeChanged(position, exhibits.size());
     }
 }

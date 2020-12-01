@@ -22,7 +22,6 @@ public class QueryCreateExhibition {
     private ExhibitionFacadeImpl exhibitionFacade;
     private MuseumFacadeImpl museumFacade;
     private ExhibitFacadeImpl exhibitFacade;
-
     private MuseumDao museumDao;
     private CreateExhibition activity;
     private Exhibition exhibition;
@@ -43,11 +42,9 @@ public class QueryCreateExhibition {
         exhibition2.idMuseum = exhibition.idMuseum;
         exhibition2.lastDate = exhibition.lastDate;
         exhibition2.firstDate = exhibition.firstDate;
-
         exhibitionFacade.insertExhbtn(exhibition2);
 
     }
-
 
     public void onError() {
         Toast.makeText(activity.getContext(),
@@ -66,7 +63,7 @@ public class QueryCreateExhibition {
     public void onSuccessInsertsExhbtToExhbtn(Long[] ids) {
 
         Toast.makeText(activity.getContext(),
-                "Успешное добавление выставки"  , Toast.LENGTH_SHORT).show();
+                "Успешное добавление выставки", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
     }
 
@@ -74,13 +71,9 @@ public class QueryCreateExhibition {
         Toast.makeText(activity.getContext(),
                 "Ошибка получения индекса музея", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-        //обновить ресайкл вью во фрагменте всех выставок и всех экспонатов
     }
 
     /*
-
-     *
-     *
      * Получаем id музея для доьавления выставки ,
      * добавляем выставку
      * добавлем экспонаты  в бд
@@ -94,10 +87,9 @@ public class QueryCreateExhibition {
         List<Exhibit> list = new ArrayList<>();
         for (NewExhibitModel model : exhibits) {
             Exhibit exhibit = new Exhibit();
+            System.out.println(model.idAuthor);
             exhibit.authorId = model.idAuthor.intValue();
             exhibit.tags = model.tags;
-
-
             Bitmap bmp2 = model.photo.copy(model.photo.getConfig(), true);
             exhibit.photo = bmp2;
             exhibit.dateOfCreate = model.dateOfCreate;
@@ -107,13 +99,11 @@ public class QueryCreateExhibition {
         }
         exhibitFacade.insertExhibits(list);
 
-
     }
 
     public void onSuccessInsertsExhibits(Long[] ids) {
 
         List<ExhibitToExhbtn> list = new ArrayList<>();
-
         for (Long i : ids) {
             ExhibitToExhbtn exhibitToExhbtn = new ExhibitToExhbtn();
             exhibitToExhbtn.idExhibit = i.intValue();
@@ -128,7 +118,6 @@ public class QueryCreateExhibition {
         Toast.makeText(activity.getContext(),
                 "Ошибка добавления экспонатов", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void getQuery(String login, Exhibition exhibition, List<NewExhibitModel> exhibits) {
@@ -138,12 +127,7 @@ public class QueryCreateExhibition {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         exhibitionFacade = new ExhibitionFacadeImpl(museumDao, this);
-
         museumFacade = new MuseumFacadeImpl(museumDao, this);
         museumFacade.getMuseumIDByLogin(login);
-
-
     }
-
-
 }

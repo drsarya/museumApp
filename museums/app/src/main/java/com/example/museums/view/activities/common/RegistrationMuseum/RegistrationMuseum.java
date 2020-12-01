@@ -104,6 +104,4 @@ public class RegistrationMuseum extends AppCompatActivity {
             return mDetector.onTouchEvent(event);
         });
     }
-
-
 }

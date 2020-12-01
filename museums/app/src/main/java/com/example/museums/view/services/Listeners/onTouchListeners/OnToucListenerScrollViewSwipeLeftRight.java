@@ -29,7 +29,6 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
                 downy = event.getY();
                 System.out.println("нажала");
                 downx = event.getX();
-
                 break;
             }
             case MotionEvent.ACTION_UP: {
@@ -48,11 +47,6 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
                                 ll.startAnimation(animate);
                                 ll.setVisibility(View.VISIBLE);
                             } else {
-//                                TranslateAnimation animate = new TranslateAnimation(0, 0,  -ll.getHeight(), 0);
-//                                animate.setDuration(500);
-//                                animate.setFillAfter(false);
-//                                ll.startAnimation(animate);
-//                                System.out.println("видно");
                                 ll.setVisibility(View.VISIBLE);
                             }
                         }
@@ -65,24 +59,15 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
                                 ll.startAnimation(animate);
                                 ll.setVisibility(View.GONE);
                             } else {
-//                                TranslateAnimation animate = new TranslateAnimation(0, 0, 0, -ll.getHeight());
-//                                animate.setDuration(500);
-//                                animate.setFillAfter(false);
-//                                ll.startAnimation(animate);
-//                                System.out.println("не видно");
                                 ll.setVisibility(View.GONE);
                             }
                         }
                     }
-
                     downy = null;
                     break;
-
                 }
             }
         }
         return false;
     }
-
-
 }

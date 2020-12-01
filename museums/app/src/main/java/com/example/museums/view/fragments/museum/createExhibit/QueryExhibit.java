@@ -8,8 +8,8 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 
 public class QueryExhibit {
-     private CreateExhibit activity;
-     private AuthorFacadeImpl authorFacade;
+    private CreateExhibit activity;
+    private AuthorFacadeImpl authorFacade;
     private MuseumDao museumDao;
     private NewExhibitModel newExhibitModel;
 
@@ -17,7 +17,7 @@ public class QueryExhibit {
         this.activity = exhibit;
     }
 
- //Сам экспонат пока что хранится просто в списке активити
+    //Сам экспонат пока что хранится просто в списке активити
     public void onSuccessInsert(Integer id) {
         activity.progressBar.setVisibility(View.GONE);
         newExhibitModel.setIdAuthor(id.longValue());
@@ -26,7 +26,6 @@ public class QueryExhibit {
     }
 
     public void onSuccess(Integer id) {
-
         if (id != null) {
             activity.progressBar.setVisibility(View.GONE);
             newExhibitModel.setIdAuthor(id.longValue());
@@ -35,7 +34,6 @@ public class QueryExhibit {
         }
     }
 
-
     public void getQuery(NewExhibitModel model) {
         newExhibitModel = model;
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
@@ -43,7 +41,6 @@ public class QueryExhibit {
         authorFacade = new AuthorFacadeImpl(museumDao, this);
         authorFacade.getAuthorByName(model.author);
     }
-
     public void onError() {
         authorFacade.insertAuthor(newExhibitModel.author);
     }
@@ -51,7 +48,6 @@ public class QueryExhibit {
     public void onErrorInsert() {
         authorFacade.insertAuthor(newExhibitModel.author);
         Toast.makeText(activity.getContext(), "Ошибка добавления", Toast.LENGTH_SHORT).show();
-
     }
 
 }

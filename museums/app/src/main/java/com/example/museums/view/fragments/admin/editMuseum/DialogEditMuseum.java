@@ -24,19 +24,13 @@ public class DialogEditMuseum extends DialogFragment {
     public final String KEY_NAME_MUSEUM = "key_name_museum";
     public final String KEY_ID_CODE = "key_id_code";
     public final String KEY_ADDRESS = "key_address";
-    private EditText nameEditText;
-    private EditText addressEditText;
+    private EditText nameEditText, addressEditText;
     private TextView idCodeEditText;
-    private String address;
-    private String name;
-    private String idCode;
+    private String address, name, idCode;
     private Button updateInfo;
     public ProgressBar progressBar;
     private QueryEditMuseum queryEditMuseum;
-
-
-    private TextFieldBoxes nameTextFieldBoxes;
-    private TextFieldBoxes addressTextFieldBoxes;
+    private TextFieldBoxes nameTextFieldBoxes, addressTextFieldBoxes;
 
     @Nullable
     @Override
@@ -46,7 +40,6 @@ public class DialogEditMuseum extends DialogFragment {
                 inflater.inflate(R.layout.dialog_detailed_museum_edit, container, false);
         initViews(rootView);
         getData();
-
         setListeners();
         return rootView;
     }
@@ -62,7 +55,6 @@ public class DialogEditMuseum extends DialogFragment {
     }
 
     private void initViews(View rootView) {
-
         nameEditText = rootView.findViewById(R.id.dialog_museum_edit_name_edit_text);
         addressEditText = rootView.findViewById(R.id.dialog_museum_edit_address_edit_text);
         progressBar = rootView.findViewById(R.id.dialog_museum_edit_progress_bar);
@@ -92,7 +84,6 @@ public class DialogEditMuseum extends DialogFragment {
             } else {
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 }

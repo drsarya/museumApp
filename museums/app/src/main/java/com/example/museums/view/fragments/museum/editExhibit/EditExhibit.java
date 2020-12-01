@@ -59,28 +59,26 @@ public class EditExhibit extends Fragment {
     private Bitmap bitmap;
     static final String EXHIBIT_DATA_MODEL = "exhibit_data_model";
     public ProgressBar progressBar;
+    static final String AUTHOR_ID = "author_id_model";
 
     static final String EXHIBIT_NAME_MODEL = "exhibit_name_model";
     static final String EXHIBIT_DESCRIPTION_MODEL = "exhibit_description_model";
     static final String EXHIBIT_IMAGE_MODEL = "exhibit_image_model";
     static final String EXHIBIT_TAGS_MODEL = "exhibit_tags_model";
     static final String EXHIBIT_POSITION_MODEL = "exhibit_position_model";
-    static final String   EXHIBIT_ID_KEY= "id_exhibit";
+    static final String EXHIBIT_ID_KEY = "id_exhibit";
     private RecyclerView authorRecyclerView;
     private AuthorsRecyclerViewAdapter authorAdapter;
 
     static final String EXHIBIT_AUTHOR_MODEL = "exhibit_author_model";
-    private NewExhibitModel exhibitModel;
     private ImageView mainImageView;
     private Button createBtn;
-    private int idExhibit ;
+    private int idExhibit;
     private int positionExh;
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
 
-    public EditExhibit newInstance(String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
-
-
+    public EditExhibit newInstance(String dateOfCreate, String tags, String author, int idAuthor, String name, Parcelable photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
         args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
@@ -88,17 +86,14 @@ public class EditExhibit extends Fragment {
         args.putString(EXHIBIT_TAGS_MODEL, tags);
         args.putString(EXHIBIT_AUTHOR_MODEL, author);
         args.putString(EXHIBIT_NAME_MODEL, name);
-        args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
         args.putString(EXHIBIT_DATA_MODEL, dateOfCreate);
         args.putInt(EXHIBIT_POSITION_MODEL, positionExh);
-
-
+        args.putInt(AUTHOR_ID, idAuthor);
         myFragment.setArguments(args);
         return myFragment;
     }
+
     public EditExhibit newInstance(int idExhibit, String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
-
-
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
         args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
@@ -110,11 +105,11 @@ public class EditExhibit extends Fragment {
         args.putString(EXHIBIT_DATA_MODEL, dateOfCreate);
         args.putInt(EXHIBIT_POSITION_MODEL, positionExh);
         args.putInt(EXHIBIT_ID_KEY, idExhibit);
-
-
         myFragment.setArguments(args);
         return myFragment;
     }
+
+    private int authorIdCreateExhibition;
 
     @Nullable
     @Override
@@ -134,7 +129,7 @@ public class EditExhibit extends Fragment {
             if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
                 mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
             }
-
+            authorIdCreateExhibition = arguments.getInt(AUTHOR_ID);
             idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
             dateOfCreateEditText.setText(arguments.getString(EXHIBIT_DATA_MODEL));
             positionExh = arguments.getInt(EXHIBIT_POSITION_MODEL);
@@ -142,12 +137,8 @@ public class EditExhibit extends Fragment {
         }
         return rootView;
     }
-    public void updateExhibit(NewExhibitModel newEx) {
-    //    authorAdapter.notifyItemChanged();
-//        CreateExhibition c = (CreateExhibition) getTargetFragment();
-//        c.addNewExhibit(newEx);
 
-    }
+
     private void initViews(View rootView) {
         nameEditText = rootView.findViewById(R.id.create_exhibit_name_edit_text);
         authorEditText = rootView.findViewById(R.id.create_exhibit_author_edit_text);
@@ -164,9 +155,7 @@ public class EditExhibit extends Fragment {
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         createBtn.setText("Обновить");
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
-
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
-
 
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
@@ -177,26 +166,25 @@ public class EditExhibit extends Fragment {
     }
 
     public void refreshAllList(List<Author> authors) {
-        System.out.println(authors.size()+"refresh");
+        System.out.println(authors.size() + "refresh");
         authorList = new ArrayList<>();
         authorList.addAll(authors);
         authorAdapter.updateAll(authors);
         authorRecyclerView.setVisibility(View.GONE);
-
     }
+
     private void setListeners() {
         choosePhotoBtn.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
-        System.out.println(authorList.size()+"перед листенером");
+        System.out.println(authorList.size() + "перед листенером");
 
-         authorEditText.addTextChangedListener(new TextWatcher() {
+        authorEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 authorRecyclerView.setVisibility(View.GONE);
-
             }
 
             @Override
@@ -227,31 +215,24 @@ public class EditExhibit extends Fragment {
                     && !wordKeysEditText.getText().toString().isEmpty()) {
                 BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
-
                 NewExhibitModel ex = new NewExhibitModel(
                         dateOfCreateEditText.getText().toString(),
                         wordKeysEditText.getText().toString(),
                         authorEditText.getText().toString(), nameEditText.getText().toString()
                         , bitmap, descriptionEditText.getText().toString()
                 );
-                System.out.println( getTargetFragment().getClass().toString());
 
                 if (getTargetFragment().getClass().toString().equals(CreateExhibition.class.toString())) {
-                     CreateExhibition c = (CreateExhibition) getTargetFragment();
-                    System.out.println("is   CreateExhibition ");
-
+                    CreateExhibition c = (CreateExhibition) getTargetFragment();
+                    ex.setIdAuthor(new Long(authorIdCreateExhibition));
                     c.updateExhibit(positionExh, ex);
                     Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
                     MuseumExhibits c = (MuseumExhibits) getTargetFragment();
-                    System.out.println("is not CreateExhibition " +idExhibit );
                     QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);
                     authorRecyclerView.setVisibility(View.GONE);
-
                     queryUpdateExhibit.getQuery(ex, idExhibit);
-
-                    ///апрос к бд на обновление
                 }
 
             } else {
@@ -261,6 +242,7 @@ public class EditExhibit extends Fragment {
 
         });
     }
+
     private boolean containsString(String fullName, String currText) {
         String newName = fullName.toLowerCase();
         String newCurrText = currText.toLowerCase();
@@ -305,5 +287,4 @@ public class EditExhibit extends Fragment {
                 }
         }
     }
-
 }

@@ -11,7 +11,7 @@
     >
 
     <LinearLayout
-         android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hasClearButton="true"
-            app:labelText="Поиск"
             app:isResponsiveIconColor="true"
+            app:labelText="Поиск"
 
             >
 
@@ -34,33 +34,37 @@
 
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-        <ProgressBar
-            android:id="@+id/museum_exhibits_recycler_progress_bar"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="bottom"
-            android:visibility="gone"
-            android:layout_width="match_parent" />
 
 
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/museum_exhibits_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:orientation="vertical"
-        android:textAlignment="gravity"
+        android:layout_height="match_parent">
 
-        app:column_count_portrait="1"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:spanCount="1"
+        <ProgressBar
+            android:id="@+id/museum_exhibits_recycler_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="visible" />
 
-        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/museum_exhibits_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:textAlignment="gravity"
 
-    </androidx.recyclerview.widget.RecyclerView>
+            app:column_count_portrait="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="1"
+
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
 
 
 </LinearLayout>

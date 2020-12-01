@@ -20,12 +20,9 @@ import com.example.museums.API.models.Exhibit;
 import java.util.List;
 
 public class ExhibitViewPager extends Fragment {
-
-
     private ViewPager mPager;
     private List<Exhibit> mDataset;
     private PagerAdapter pagerAdapter;
-
     public ExhibitViewPager(List<Exhibit> mDataset) {
         this.mDataset = mDataset;
     }
@@ -34,7 +31,6 @@ public class ExhibitViewPager extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
-
         View rootView =
                 inflater.inflate(R.layout.fragment_screen_slide_exhibits_from_exhbtn, container, false);
         return rootView;

@@ -16,8 +16,6 @@ import java.util.List;
 public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Exhibit> mDataset;
-
-
     public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<Exhibit> mDataset) {
         super(fm);
         this.mDataset = mDataset;
@@ -31,13 +29,7 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
         DetailedExhibitWithoutListeners dtn = new DetailedExhibitWithoutListeners();
         Bundle arguments = new Bundle();
         arguments.putString(dtn.PAINT_DESCRIPTIONS, Integer.toString(position) + "название");
-
-        //    arguments.putString(dtn.PAINT_DESCRIPTIONS, mDataset.get(position) );
-
-
         dtn.setArguments(arguments);
-
-
         return dtn;
     }
 

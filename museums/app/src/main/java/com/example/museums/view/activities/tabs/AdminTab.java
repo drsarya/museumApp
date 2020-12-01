@@ -49,13 +49,12 @@ public class AdminTab extends AppCompatActivity {
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                     menuTab.getMenu().findItem(R.id.admin_tab_menu_create).setChecked(true);
                     break;
-
-
             }
             return false;
         });
 
     }
+
     private void setInitialPage() {
 
         if (!currState) {
@@ -65,10 +64,6 @@ public class AdminTab extends AppCompatActivity {
                     .addToBackStack(AllMuseums.class.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
             menuTab.getMenu().findItem(R.id.admin_tab_menu_all_museums).setChecked(true);
-
-
         }
-
-
     }
 }

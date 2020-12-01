@@ -73,7 +73,6 @@ public class DetailedExhibitWithListeners extends Fragment {
             description = getArguments().getString(DESCRIPTION_KEY);
             image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
             idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
-
             mainImageImageView.setImageBitmap(image);
             authorTextView.setText(author);
             dateTextView.setText(date);
@@ -88,7 +87,6 @@ public class DetailedExhibitWithListeners extends Fragment {
         super.onActivityCreated(savedInstanceState);
         super.setRetainInstance(true);
         state = true;
-
         setListeners();
     }
 
@@ -101,7 +99,6 @@ public class DetailedExhibitWithListeners extends Fragment {
         authorTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_author_text_view);
         dateTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_date_of_create_text_view);
         descriptionTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_description_text_view);
-
     }
 
 

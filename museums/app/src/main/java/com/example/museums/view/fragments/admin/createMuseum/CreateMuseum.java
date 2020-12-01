@@ -50,17 +50,15 @@ public class CreateMuseum extends Fragment {
         nameTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_name_of_museum_text_field);
         addressTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_address_of_museum_text_field);
         progressBar = getActivity().findViewById(R.id.admin_create_museum_progress_bar);
-
     }
 
     private void setListeners() {
         logEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(logTextFieldBoxes));
-         regMuseumBtn.setOnClickListener(
-
+        regMuseumBtn.setOnClickListener(
                 v -> {
                     queryCreateMuseum = new QueryCreateMuseum(this);
                     if (!addressTextFieldBoxes.isOnError() && !nameTextFieldBoxes.isOnError() && !logTextFieldBoxes.isOnError() &&
-                            !logEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !addressEditText.getText().toString().isEmpty() ) {
+                            !logEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !addressEditText.getText().toString().isEmpty()) {
                         queryCreateMuseum.getQuery(logEditText.getText().toString(), nameEditText.getText().toString(), addressEditText.getText().toString());
                     } else {
                         Toast.makeText(getContext(), "Проверьте поля", Toast.LENGTH_SHORT).show();

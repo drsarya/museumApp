@@ -64,8 +64,7 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
         if (arguments != null) {
             login = arguments.getString(LOGIN_KEY);
             description = arguments.getString(DESCRIPTION_SOURCE_KEY);
-            if(!description.equals(MainInfoMuseumPageEdit.descriptionIsEmpty)){
-
+            if (!description.equals(MainInfoMuseumPageEdit.descriptionIsEmpty)) {
                 descriptionEditText.setText(description);
             }
 

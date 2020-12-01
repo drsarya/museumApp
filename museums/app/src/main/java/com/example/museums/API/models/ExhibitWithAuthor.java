@@ -15,7 +15,7 @@ public class ExhibitWithAuthor {
     public int id;
 
     @ColumnInfo(name = "id_author")
-     public int id_author;
+    public int id_author;
 
     @ColumnInfo(name = "fullName")
     public String fullName;
@@ -34,20 +34,34 @@ public class ExhibitWithAuthor {
     @ColumnInfo(name = "tags")
     public String tags;
 
+    @Override
+    public String toString() {
+        return "ExhibitWithAuthor{" +
+                "id=" + id +
+                ", id_author=" + id_author +
+                ", fullName='" + fullName + '\'' +
+                ", name='" + name + '\'' +
+                ", photo=" + photo +
+                ", description='" + description + '\'' +
+                ", dateOfCreate='" + dateOfCreate + '\'' +
+                ", tags='" + tags + '\'' +
+                '}';
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
         ExhibitWithAuthor that = (ExhibitWithAuthor) o;
         return id == that.id &&
                 id_author == that.id_author &&
-                Objects.equals(fullName, that.fullName) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(photo, that.photo) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(dateOfCreate, that.dateOfCreate) &&
-                Objects.equals(tags, that.tags);
+                fullName.equals(that.fullName) &&
+                name.equals(that.name) &&
+
+                description.equals(that.description) &&
+                dateOfCreate.equals(that.dateOfCreate) &&
+                tags.equals(that.tags);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
 
-        UserFacadeImpl i = new UserFacadeImpl(memsDao );
+        UserFacadeImpl i = new UserFacadeImpl(memsDao);
         i.insertUser("1111", "1111", true);
         i.insertUser("2222", "1111", false);
         i.insertUser("3333", "1111", false);

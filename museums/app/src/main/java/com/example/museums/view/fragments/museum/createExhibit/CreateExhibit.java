@@ -43,17 +43,8 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class CreateExhibit extends Fragment {
     private ScrollView view;
-    private NewExhibitModel newExhibitModel;
-    private EditText nameEditText;
-    private EditText authorEditText;
-    private EditText dateOfCreateEditText;
-    private EditText wordKeysEditText;
-    private EditText descriptionEditText;
-    private TextFieldBoxes nameTextFieldBoxes;
-    private TextFieldBoxes authorTextFieldBoxes;
-    private TextFieldBoxes dateOfCreateTextFieldBoxes;
-    private TextFieldBoxes wordKeysTextFieldBoxes;
-    private TextFieldBoxes descriptionTextFieldBoxes;
+    private EditText nameEditText, authorEditText, dateOfCreateEditText, wordKeysEditText, descriptionEditText;
+    private TextFieldBoxes nameTextFieldBoxes, authorTextFieldBoxes, dateOfCreateTextFieldBoxes, wordKeysTextFieldBoxes, descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
     private List<Author> authorList = new ArrayList<>();
@@ -70,7 +61,6 @@ public class CreateExhibit extends Fragment {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_create_exhibit, container, false);
-
         initViews(rootView);
         setListeners();
 
@@ -104,7 +94,7 @@ public class CreateExhibit extends Fragment {
     }
 
     public void refreshAllList(List<Author> authors) {
-          authorList = new ArrayList<>();
+        authorList = new ArrayList<>();
         authorList.addAll(authors);
         authorAdapter.updateAll(authors);
     }
@@ -136,7 +126,6 @@ public class CreateExhibit extends Fragment {
                 }
                 filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -164,26 +153,21 @@ public class CreateExhibit extends Fragment {
                 );
 
                 hideKeyboard();
+                authorRecyclerView.setVisibility(View.GONE);
                 QueryExhibit queryExhibit = new QueryExhibit(this);
                 queryExhibit.getQuery(ex);
-
 
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
-
-
         });
-
     }
 
     public void insertNewExhibit(NewExhibitModel newEx) {
         CreateExhibition c = (CreateExhibition) getTargetFragment();
         c.addNewExhibit(newEx);
-
     }
-
 
 
     private boolean containsString(String fullName, String currText) {
@@ -230,5 +214,4 @@ public class CreateExhibit extends Fragment {
                 }
         }
     }
-
 }

@@ -22,7 +22,7 @@ public class HandlerTimerCountDown extends Handler {
         if (msg.arg1 == 20) {
             view.setVisibility(View.VISIBLE);
         } else if (msg.arg1 == 50 && view.getVisibility() != View.GONE) {
-             TranslateAnimation animate;
+            TranslateAnimation animate;
             if (view.getClass().toString().equals(LinearLayout.class.toString())) {
                 animate = new TranslateAnimation(0, 0, 0, -view.getHeight());
             } else {

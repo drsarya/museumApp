@@ -53,6 +53,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
         return rootView;
     }
+
     public MainInfoMuseumPageEdit newInstance(String login) {
         final MainInfoMuseumPageEdit myFragment = new MainInfoMuseumPageEdit();
         final Bundle args = new Bundle(1);
@@ -67,15 +68,6 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         }
     }
 
-
-    /*
-     * Название музея nameOfMuseumTextView
-     * Фото музея imageViewMainImage
-     * Описани музея descriptionTextView
-     * Адрес музея addressTextView
-     *
-     * */
-
     private void initViews() {
         chooseImageTextView = getActivity().findViewById(R.id.main_info_museum_edit_choose_photo_text_view);
         progressBar = getActivity().findViewById(R.id.main_info_museum_edit_progress_bar);
@@ -86,8 +78,6 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         descriptionBtn = getActivity().findViewById(R.id.main_info_museum_edit_hide_description_btn);
         descriptionTextView = getActivity().findViewById(R.id.main_info_museum_edit_description_text_view);
         addressTextView = getActivity().findViewById(R.id.main_info_museum_edit_address_text_view);
-
-
     }
 
     public void showPopup(View view) {
@@ -107,39 +97,29 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         initViews();
         setListeners();
         getArgumentsFromBundle();
-
         updateImageView();
     }
 
     public void updateImageView() {
         QueryMainInfoMuseumPageEdit q = new QueryMainInfoMuseumPageEdit(this);
         q.getImageQuery(login);
-
     }
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
         descriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTextView));
         imageViewMainImage.setOnClickListener(v -> {
-
-
             BitmapDrawable drawable = (BitmapDrawable) imageViewMainImage.getDrawable();
             Bitmap bitmap = drawable.getBitmap();
             DialogChangeMuseumPhoto dialogUpdatePassword = new DialogChangeMuseumPhoto().newInstance(bitmap, login);
-
             final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
             dialogUpdatePassword.show(ft1, "dialog3");
 
-
         });
         imageViewEditDescription.setOnClickListener(v -> {
-
             DialogChangeDescriptionMuseum dialogUpdatePassword = new DialogChangeDescriptionMuseum().newInstance(descriptionTextView.getText().toString(), login);
             final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
-
             dialogUpdatePassword.show(ft1, "dialog4");
-
-
         });
     }
 

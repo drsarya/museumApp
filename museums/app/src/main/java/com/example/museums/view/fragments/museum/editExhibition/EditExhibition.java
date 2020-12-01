@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.museums.R;
 
 
-public class EditExhibition extends Fragment   {
+public class EditExhibition extends Fragment {
 
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -25,8 +25,8 @@ public class EditExhibition extends Fragment   {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
-         // получить список экспонатов
-        //получить инфу об выставке
+        // получить список экспонатов
+        //получить инфу о  выставке
         // установить в адаптере
         //при нажатии на редактирование и удаление экспоната - открыть edit exhibit
         return rootView;

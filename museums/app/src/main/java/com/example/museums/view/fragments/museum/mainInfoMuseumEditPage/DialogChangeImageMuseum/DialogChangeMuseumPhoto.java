@@ -35,13 +35,12 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     static final String ID_MUSEUM_KEY = "login_key";
     static final String IMAGE_SOURCE_KEY = "image_source_key";
     private Bitmap bitmap;
+
     public DialogChangeMuseumPhoto() {
 
     }
 
     public DialogChangeMuseumPhoto newInstance(final Parcelable image, final String login) {
-
-
         final DialogChangeMuseumPhoto myFragment = new DialogChangeMuseumPhoto();
         final Bundle args = new Bundle(2);
         args.putParcelable(IMAGE_SOURCE_KEY, image);
@@ -53,14 +52,12 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.dialog_change_photo_museum, container, false);
         Bundle arguments = getArguments();
         if (arguments != null) {
             login = arguments.getString(ID_MUSEUM_KEY);
             lastImage = (Bitmap) arguments.getParcelable(IMAGE_SOURCE_KEY);
-
         }
         initViews(rootView);
         setListeners();
@@ -78,7 +75,6 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
             getArguments().clear();
         }
     }
-
 
 
     @Override

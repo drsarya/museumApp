@@ -46,7 +46,6 @@ public class QueryUpdateExhibit {
     }
 
     public void onSuccess(Integer id) {
-
         // автор есть
         activity.progressBar.setVisibility(View.GONE);
         newExhibitModel.setIdAuthor(id.longValue());
@@ -65,21 +64,18 @@ public class QueryUpdateExhibit {
     }
 
     public void onSuccessUpdate(int count) {
-
         Toast.makeText(activity.getContext(), "Успешное обновление экпоната", Toast.LENGTH_SHORT).show();
         // activity.updateExhibits(newExhibitModel);
         museumExhibits.refreshAllList();
     }
 
     public void onErrorUpdate() {
-
         Toast.makeText(activity.getContext(), "Ошибка обновления", Toast.LENGTH_SHORT).show();
-
     }
 
     private int id;
 
-    public void getQuery(NewExhibitModel model, int id ) {
+    public void getQuery(NewExhibitModel model, int id) {
         newExhibitModel = model;
         this.id = id;
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
@@ -97,7 +93,6 @@ public class QueryUpdateExhibit {
     public void onErrorInsert() {
         authorFacade.insertAuthor(newExhibitModel.author);
         Toast.makeText(activity.getContext(), "Ошибка добавления", Toast.LENGTH_SHORT).show();
-
     }
 
 }

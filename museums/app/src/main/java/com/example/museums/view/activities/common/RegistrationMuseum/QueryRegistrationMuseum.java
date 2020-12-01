@@ -31,12 +31,11 @@ public class QueryRegistrationMuseum {
 
     }
 
-    public void getQuery(String login, String password,boolean type , int idCode) {
+    public void getQuery(String login, String password, boolean type, int idCode) {
         System.out.println(1);
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
-        museumFacade.getMuseumByLoginAndIdCode(login, idCode, password,type ) ;
-
+        museumFacade.getMuseumByLoginAndIdCode(login, idCode, password, type);
     }
 }

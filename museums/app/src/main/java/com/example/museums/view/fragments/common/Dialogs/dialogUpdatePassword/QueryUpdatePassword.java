@@ -26,18 +26,15 @@ public class QueryUpdatePassword {
         Toast.makeText(activity.getContext(),
                 "Пароль успешно обновлён", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void onError() {
         Toast.makeText(activity.getContext(),
                 "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void getQuery(String login, String password, String newPass) {
-
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);

@@ -26,7 +26,6 @@ public class QueryAuthorization {
 
     public QueryAuthorization(Authorization context) {
         this.activity = context;
-
     }
 
     public void setUserInfo(String login, String password) {
@@ -43,7 +42,6 @@ public class QueryAuthorization {
     }
 
     public void isUser() {
-
         activity.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(activity.getApplicationContext(), UserTab.class);
         intent.putExtra(UserTab.LOGIN_KEY_USER, login);
@@ -67,7 +65,6 @@ public class QueryAuthorization {
         Toast.makeText(activity.getApplicationContext(),
                 "ошибка входа", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
 
@@ -77,8 +74,6 @@ public class QueryAuthorization {
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
         userFacade.getUser(login, password);
-
     }
-
 
 }

@@ -22,7 +22,6 @@ public class QueryAllMuseums {
     public void onSuccess(List<Museum> listM) {
         activity.progressBar.setVisibility(View.GONE);
         activity.refreshAllList(listM);
-
     }
 
     public void onError() {
@@ -33,7 +32,6 @@ public class QueryAllMuseums {
     }
 
     public void getQuery() {
-
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);

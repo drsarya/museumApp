@@ -55,10 +55,6 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     }
 
     private void updateRecyclerView() {
-        adapter.notifyItemRemoved(position);
-     //   adapter.notifyDataSetChanged();
-        //Вызвать метод класса родителя
         iDeletePosition.deletePosition(position, id);
-        //  newExhibitsModelList.remove(position);
     }
 }

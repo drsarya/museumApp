@@ -18,27 +18,20 @@ public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
         this.mDataset = mDataset;
         this.mExhbn = mExhbn;
     }
-
     private List<Exhibition> mExhbn;
     private List<Exhibit> mDataset;
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-
         Fragment fragment;
         if (position == 0) {
             fragment = new LikedExhibits();
-
         } else {
             fragment = new LikedExhbtns();
-
         }
-
-
         return fragment;
     }
-
     @Override
     public int getCount() {
         return 2;

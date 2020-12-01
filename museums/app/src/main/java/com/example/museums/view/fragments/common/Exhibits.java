@@ -44,6 +44,7 @@ public class Exhibits extends Fragment {
             login = getArguments().getString(LOGIN_KEY_USER);
         }
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class Exhibits extends Fragment {
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibits, container, false);
         getArgumentsFromBundle();
-         return rootView;
+        return rootView;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -76,7 +77,6 @@ public class Exhibits extends Fragment {
         in.add(new Exhibit());
         mAdapter = new ExhibitsRecyclerViewAdapter(in);
         recyclerView.setAdapter(mAdapter);
-
         horizontalAdapter = new TagsRecyclerViewAdapter(names);
         listView.setAdapter(horizontalAdapter);
 

@@ -45,7 +45,6 @@ public class QueryChangeMuseumImage {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(museumDao, this);
-
         museumFacade.updateMuseumImage(login, image);
     }
 }

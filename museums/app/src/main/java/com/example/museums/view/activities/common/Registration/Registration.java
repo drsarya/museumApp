@@ -82,8 +82,6 @@ public class Registration extends AppCompatActivity {
             }
             return mDetector.onTouchEvent(event);
         });
-
-
     }
 
 
@@ -97,7 +95,6 @@ public class Registration extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void textFieldsListeners() {

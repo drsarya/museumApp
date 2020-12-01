@@ -15,8 +15,6 @@ import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
 
-
-
 public class Authorization extends AppCompatActivity {
     private Button regPerson;
     private Button reMuseum;
@@ -26,18 +24,13 @@ public class Authorization extends AppCompatActivity {
     private QueryAuthorization queryAuthorization;
     public ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
         initViews();
         setListeners();
-
-
-
     }
-
 
     private void initViews() {
         progressBar = (ProgressBar) findViewById(R.id.authorization_progress_bar);
@@ -62,11 +55,9 @@ public class Authorization extends AppCompatActivity {
             if (!logEditText.getText().toString().isEmpty() && !passEditText.getText().toString().isEmpty()) {
                 queryAuthorization.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
                 queryAuthorization.getQuery();
-            }else{
+            } else {
                 Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }

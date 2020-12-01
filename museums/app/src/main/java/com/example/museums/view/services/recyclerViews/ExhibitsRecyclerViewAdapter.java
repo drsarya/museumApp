@@ -24,21 +24,16 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
         public TextView textView;
         public ImageView image;
 
-
         public ExhibitsViewHolder(View view) {
             super(view);
-
             image = view.findViewById(R.id.elemt_exhbt_image_view);
             textView = view.findViewById(R.id.elemt_exhbt_text_view);
-
         }
     }
 
     private List<Exhibit> mDataset;
-
     public ExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
         this.mDataset = myDataset;
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -47,14 +42,12 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     public ExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_exhibits, parent, false);
-
         ExhibitsViewHolder vh = new ExhibitsViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
-
         holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
         if (position % 3 == 0) {
             holder.image.setImageResource(R.drawable.image2);

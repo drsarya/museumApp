@@ -25,19 +25,17 @@ public class TextWatcherForFirstPass implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         if (!s.toString().equals(passSecondEditText.getText().toString()) && !passSecondEditText.getText().toString().isEmpty()) {
             textSecondFieldBoxes.setError("Пароли не совпадают", false);
         } else {
             textSecondFieldBoxes.removeError();
         }
-          if (s.toString().isEmpty()) {
+        if (s.toString().isEmpty()) {
             textSecondFieldBoxes.setError("Поле обязательно для заполнения", false);
         } else if (s.toString().contains(" ")) {
             textFirstFieldBoxes.setError("Пароль содержит недопустимый символ", false);
         } else {
             textFirstFieldBoxes.removeError();
-
         }
     }
 

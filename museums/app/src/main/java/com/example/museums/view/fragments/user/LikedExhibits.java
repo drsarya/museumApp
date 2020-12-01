@@ -26,9 +26,6 @@ public class LikedExhibits extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,7 +56,6 @@ public class LikedExhibits extends Fragment {
         in.add(new Exhibit());
         mAdapter = new ExhibitsRecyclerViewAdapter(in);
         recyclerView.setAdapter(mAdapter);
-
 
 
     }

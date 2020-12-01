@@ -25,20 +25,16 @@ public class MethodsWithFragment {
 
         String backStateName = myFragment.getClass().getName();
         final FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-
-        //getShortClassName
-         if (activity.getComponentName().getClassName().equals(UserTab.class.getTypeName())) {
+        if (activity.getComponentName().getClassName().equals(UserTab.class.getTypeName())) {
             ft.replace(R.id.container_tab_user, myFragment)
                     .addToBackStack(backStateName)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
-        } else if (activity.getComponentName().getClassName().equals(MuseumTab.class.getTypeName())){
+        } else if (activity.getComponentName().getClassName().equals(MuseumTab.class.getTypeName())) {
             ft.replace(R.id.container_tab_museum, myFragment)
                     .addToBackStack(backStateName)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
-
         }
-
     }
 }

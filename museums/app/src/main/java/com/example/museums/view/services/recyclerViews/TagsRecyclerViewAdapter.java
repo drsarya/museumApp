@@ -25,14 +25,12 @@ public class TagsRecyclerViewAdapter extends RecyclerView.Adapter<TagsRecyclerVi
     }
 
     private List<String> mDataset;
-
     public TagsRecyclerViewAdapter(List<String> myDataset) {
         this.mDataset = myDataset;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TagsViewHolder holder, int position) {
-
         holder.textView.setText(mDataset.get(position));
     }
 
@@ -43,14 +41,9 @@ public class TagsRecyclerViewAdapter extends RecyclerView.Adapter<TagsRecyclerVi
 
     public static class TagsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
-
-
         public TagsViewHolder(View view) {
             super(view);
-
             textView = view.findViewById(R.id.elemt_of_list_tags);
-
         }
     }
-
 }

@@ -32,12 +32,10 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
             nameOfEMuseum = view.findViewById(R.id.detailed_exhbtn_name_museum);
         }
     }
-
     private List<Exhibition> mDataset;
 
     public ExhibitionsRecyclerViewAdapter(List<Exhibition> myDataset) {
         mDataset = myDataset;
-
     }
 
     @NonNull
@@ -45,7 +43,6 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
     public ExhibitionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_exhbtn, parent, false);
-
         ExhibitionsRecyclerViewAdapter.ExhibitionsViewHolder vh = new ExhibitionsRecyclerViewAdapter.ExhibitionsViewHolder(v);
         return vh;
     }
@@ -62,6 +59,5 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
     public int getItemCount() {
         return mDataset.size();
     }
-
 
 }

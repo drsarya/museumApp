@@ -43,9 +43,7 @@ public class DetailedExhibitWithoutListeners extends Fragment {
         if (arguments != null) {
             String catName = arguments.getString(PAINT_DESCRIPTIONS);
             displayValues(rootView, catName);
-
         }
-
         return rootView;
     }
 
@@ -60,7 +58,6 @@ public class DetailedExhibitWithoutListeners extends Fragment {
         view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
         name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -72,12 +69,7 @@ public class DetailedExhibitWithoutListeners extends Fragment {
         ll = (LinearLayout) v.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         close = (ImageButton) v.findViewById(R.id.detailed_exhb_view_pager);
         view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(), ll, true));
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        close.setOnClickListener(v1 -> getActivity().onBackPressed());
         name.setText(s);
     }
 

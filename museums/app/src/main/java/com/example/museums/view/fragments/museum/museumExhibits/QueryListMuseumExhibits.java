@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
- import com.example.museums.API.models.Exhibit;
+import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitWithAuthor;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class QueryListMuseumExhibits {
     private MuseumExhibits activity;
     private ExhibitFacadeImpl exhibitFacadel;
-     private MuseumDao museumDao;
+    private MuseumDao museumDao;
 
     public QueryListMuseumExhibits(MuseumExhibits museumExhibits) {
         this.activity = museumExhibits;
@@ -23,7 +23,6 @@ public class QueryListMuseumExhibits {
     public void onSuccess(List<ExhibitWithAuthor> exhibits) {
         activity.refreshAllList(exhibits);
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
 
@@ -31,7 +30,6 @@ public class QueryListMuseumExhibits {
         Toast.makeText(activity.getContext(),
                 "Ошибка получения данных", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void getQuery(String login) {
