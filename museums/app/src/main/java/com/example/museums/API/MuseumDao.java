@@ -36,28 +36,16 @@ import io.reactivex.Single;
 public interface MuseumDao {
 
 
-    @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
-            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit WHERE idExhibition = :exhbtnId")
-    List<Exhibit> getExhibitsByExhdtnId(String exhbtnId);
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long[]> insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 
     @Query("SELECT * FROM exhibit")
     List<Exhibit> getAllExhibits();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long[]> insertExhibits(List<Exhibit> exhibit);
 
     @Query("SELECT * FROM exhibition")
     List<Exhibition> getAllExhibitions();
 
-    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2  WHERE idMuseum =:id")
-    Flowable<List<ExhibitionWithMuseumName>> getExhbtnByMuseumId(Integer id);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long> insertExhbtn(Exhibition exhibition);
 
     @Query("SELECT Count (*) FROM `like` WHERE idExhb =:exhbtId")
     String getLikesByExhId(String exhbtId);
@@ -68,8 +56,36 @@ public interface MuseumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertLike(Like like);
 
+
+    /*EXHIBITION*/
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<Long> insertExhbtn(Exhibition exhibition);
+
+    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2  WHERE idMuseum =:id")
+    Flowable<List<ExhibitionWithMuseumName>> getExhbtnByMuseumId(Integer id);
+
+
+    /*DELETE*/
+
+    @Query("DELETE FROM exhibition   WHERE id = :id")
+    Single<Integer> deleteExhibition(int id);
+
+
+
     /*EXHIBIT*/
     /*GET*/
+
+    @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
+            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit WHERE idExhibition = :exhbtnId")
+    List<Exhibit> getExhibitsByExhdtnId(String exhbtnId);
+
+    @Query("delete from exhibit where id in  (select idExhibit from exhibit_to_exhbtn  " +
+            "   where idExhibition =:idExhibitiob )")
+    Single<Integer> deleteExhibits(int idExhibitiob);
+
+//    @Query("delete from exhibit where id in (:ids)")
+//    Flowable<List<Integer>> deleteExhibits(List<Integer> ids);
+
     @Query("SELECT  * FROM" +
 
             "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
@@ -84,6 +100,9 @@ public interface MuseumDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibitInfo(Exhibit exhibit);
 
+    /*INSERT*/
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<Long[]> insertExhibits(List<Exhibit> exhibit);
 
     /*MUSEUM*/
     /*GET*/

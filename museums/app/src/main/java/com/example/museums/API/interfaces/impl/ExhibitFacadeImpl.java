@@ -7,11 +7,16 @@ import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
+import com.example.museums.view.fragments.museum.editExhibition.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
 
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
+import io.reactivex.FlowableSubscriber;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -23,6 +28,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
     private QueryDeleteMuseumExhibit queryDeleteMuseumExhibit;
     private QueryListMuseumExhibits queryListMuseumExhibits;
     private QueryUpdateExhibit queryUpdateExhibit;
+    private QueryDeleteExhibition queryDeleteExhibition;
 
     public ExhibitFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -31,6 +37,11 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
         this.museumDao = museumDao;
         this.queryCreateExhibition = queryCreateExhibition;
+    }
+
+    public ExhibitFacadeImpl(MuseumDao museumDao, QueryDeleteExhibition queryDeleteExhibition) {
+        this.museumDao = museumDao;
+        this.queryDeleteExhibition = queryDeleteExhibition;
     }
 
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryUpdateExhibit queryUpdateExhibit) {
@@ -62,6 +73,23 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(museums -> queryListMuseumExhibits.onSuccess(museums));
+    }
+
+    @Override
+    public void deleteExhibits(int idExhibition) {
+        museumDao.deleteExhibits(idExhibition)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        queryDeleteExhibition.onSuccess();
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryDeleteExhibition.onError();
+                    }
+                });
     }
 
     @Override
@@ -114,7 +142,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     @Override
                     public void onSuccess(@NonNull Integer museum) {
 
-                        queryUpdateExhibit.onSuccessUpdate( museum);
+                        queryUpdateExhibit.onSuccessUpdate(museum);
                     }
 
                     @Override

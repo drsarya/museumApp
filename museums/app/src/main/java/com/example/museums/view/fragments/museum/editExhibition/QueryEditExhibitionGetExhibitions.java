@@ -10,12 +10,12 @@ import com.example.museums.API.models.ExhibitionWithMuseumName;
 
 import java.util.List;
 
-public class QueryEditExhibition {
+public class QueryEditExhibitionGetExhibitions {
     private EditExhibition activity;
     private ExhibitionFacadeImpl exhibitionFacade;
     private MuseumDao museumDao;
 
-    public QueryEditExhibition(EditExhibition museumExhibits) {
+    public QueryEditExhibitionGetExhibitions(EditExhibition museumExhibits) {
         this.activity = museumExhibits;
     }
 

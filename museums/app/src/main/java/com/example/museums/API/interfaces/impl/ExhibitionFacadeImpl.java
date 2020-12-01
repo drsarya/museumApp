@@ -5,15 +5,12 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitionFacade;
 import com.example.museums.API.models.Exhibition;
-import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
-import com.example.museums.view.fragments.museum.editExhibition.QueryEditExhibition;
-
-import org.reactivestreams.Subscriber;
+import com.example.museums.view.fragments.museum.editExhibition.QueryDeleteExhibition;
+import com.example.museums.view.fragments.museum.editExhibition.QueryEditExhibitionGetExhibitions;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -23,7 +20,8 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
     private MuseumDao museumDao;
     private QueryCreateExhibition queryCreateExhibition;
-    private QueryEditExhibition queryEditExhibition;
+    private QueryEditExhibitionGetExhibitions queryEditExhibitionGetExhibitions;
+    private QueryDeleteExhibition queryDeleteExhibition;
 
     public ExhibitionFacadeImpl(MuseumDao museumDao) {
         museumDao = museumDao;
@@ -34,9 +32,13 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
         this.queryCreateExhibition = queryCreateExhibition;
     }
 
-    public ExhibitionFacadeImpl(MuseumDao museumDao, QueryEditExhibition queryEditExhibition) {
+    public ExhibitionFacadeImpl(MuseumDao museumDao, QueryEditExhibitionGetExhibitions queryEditExhibitionGetExhibitions) {
         this.museumDao = museumDao;
-        this.queryEditExhibition = queryEditExhibition;
+        this.queryEditExhibitionGetExhibitions = queryEditExhibitionGetExhibitions;
+    }
+    public ExhibitionFacadeImpl(MuseumDao museumDao, QueryDeleteExhibition queryDeleteExhibition) {
+        this.museumDao = museumDao;
+        this.queryDeleteExhibition = queryDeleteExhibition;
     }
 
     @Override
@@ -55,11 +57,11 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer integer) {
-                        queryEditExhibition.onSuccess(integer);
+                        queryEditExhibitionGetExhibitions.onSuccess(integer);
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        queryEditExhibition.onError();
+                        queryEditExhibitionGetExhibitions.onError();
                     }
                 })
         ;
@@ -91,6 +93,26 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
         museumDao.getExhbtnByMuseumId(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(museums -> queryEditExhibition.onSuccessGetExhbtn(museums));
+                .subscribe(museums -> queryEditExhibitionGetExhibitions.onSuccessGetExhbtn(museums));
+    }
+
+    @Override
+    public void deleteExhibition(int id) {
+
+
+        museumDao.deleteExhibition(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        queryDeleteExhibition.onSuccessDeleteExhibition();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryDeleteExhibition.onError();
+                    }
+                });
     }
 }

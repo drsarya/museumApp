@@ -14,19 +14,18 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
-import com.example.museums.view.fragments.common.Exhibitions;
+import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAdapter;
 
 import java.util.List;
 
 
-public class EditExhibition extends Fragment {
+public class EditExhibition extends Fragment implements IDeletePosition {
     public ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter();
+    private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
     public static final String LOGIN_KEY_USER = "login_key";
     private String login;
 
@@ -42,7 +41,7 @@ public class EditExhibition extends Fragment {
 
         initViews(rootView);
         System.out.println(login);
-         //получить инфу о  выставке
+        //получить инфу о  выставке
         // установить в адаптере
         //при нажатии на редактирование и удаление экспоната - открыть edit exhibit
         return rootView;
@@ -68,12 +67,14 @@ public class EditExhibition extends Fragment {
 
     }
 
+    private QueryDeleteExhibition queryDeleteExhibition;
+
     private void initViews(View rootView) {
         progressBar = rootView.findViewById(R.id.edit_exhibitions_progress_bar);
         recyclerView = rootView.findViewById(R.id.recycler_view_edit_exhibitions);
-        QueryEditExhibition queryEditExhibition = new QueryEditExhibition(this);
-        queryEditExhibition.getQuery(login);
-        System.out.println("запрос!!!!!!!");
+        QueryEditExhibitionGetExhibitions queryEditExhibitionGetExhibitions = new QueryEditExhibitionGetExhibitions(this);
+        queryEditExhibitionGetExhibitions.getQuery(login);
+        queryDeleteExhibition = new QueryDeleteExhibition(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -82,4 +83,8 @@ public class EditExhibition extends Fragment {
         adapter.submitList(exhibitWithAuthors);
     }
 
+    @Override
+    public void deletePosition(int position, int id) {
+        queryDeleteExhibition.getQuery(id);
+    }
 }

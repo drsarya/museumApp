@@ -12,4 +12,5 @@ public interface ExhibitionFacade {
     void insertExhbtn(Exhibition exhibition);
 
     void getExhibitionByMuseumId(int id);
+    void deleteExhibition(int id);
 }
