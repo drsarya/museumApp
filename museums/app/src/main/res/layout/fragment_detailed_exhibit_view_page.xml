@@ -25,7 +25,7 @@
 
 
                 <ImageView
-                    android:id="@+id/detailed_exhibit_main_image"
+                    android:id="@+id/detailed_exhibit_main_image_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/detailed_exhibition">
@@ -40,7 +40,7 @@
                     android:background="@color/darkBeige">
 
                     <TextView
-                        android:id="@+id/detailed_exhibit_name_of_paint"
+                        android:id="@+id/detailed_exhibit_name_of_paint_text_view"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"

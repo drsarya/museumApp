@@ -1,7 +1,6 @@
 package com.example.museums.view.services.recyclerViews;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitWithAuthor;
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
-import com.example.museums.view.services.oop.IDeletePosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +46,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         }
     }
 
-    private List<ExhibitWithAuthor> exhibits;
+    private static List<ExhibitWithAuthor> exhibits;
     private MuseumExhibits museumExhibits;
 
     public MuseumExhibitsRecyclerAdapter(List<ExhibitWithAuthor> exhibits, MuseumExhibits museumExhibits) {
@@ -69,23 +65,39 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
 
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
-        holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(exhibits.get(position), position, museumExhibits));
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel));
+        holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(exhibits.get(holder.getAdapterPosition()), holder.getAdapterPosition(), museumExhibits));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibits.get(holder.getAdapterPosition())));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
-                holder.optionalPanel, position, exhibits.get(position).id));
+                holder.optionalPanel, holder.getAdapterPosition(), exhibits.get(holder.getAdapterPosition()).id));
 
-        holder.authorTextView.setText(exhibits.get(position).fullName);
-        holder.mainImage.setImageBitmap(exhibits.get(position).photo);
-        holder.nameTextView.setText(exhibits.get(position).name);
-        holder.dataTextView.setText(exhibits.get(position).dateOfCreate);
+        holder.authorTextView.setText(exhibits.get(holder.getAdapterPosition()).fullName);
+        holder.mainImage.setImageBitmap(exhibits.get(holder.getAdapterPosition()).photo);
+        holder.nameTextView.setText(exhibits.get(holder.getAdapterPosition()).name);
+        holder.dataTextView.setText(exhibits.get(holder.getAdapterPosition()).dateOfCreate);
     }
 
     public void updateAll(List<ExhibitWithAuthor> museum) {
+//        if (!exhibits.isEmpty()) {
+//            System.out.println(museum.size());
+//            System.out.println(exhibits.size());
+//
+//            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(museum, this.exhibits));
+//            diffResult.dispatchUpdatesTo(this);
+//        } else {
+//            System.out.println("updateALLLLLLLLLL");
+
         exhibits = new ArrayList<>();
         exhibits.addAll(museum);
-        notifyDataSetChanged();
+       notifyDataSetChanged();
+
+
+        //    }
     }
-    public void updateAll( ) {
+
+    public void updateAll() {
+//         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffCallback(museum, this.exhibits ));
+//        diffResult.dispatchUpdatesTo(this);
+        System.out.println("update By successfull updateeee");
 
         notifyDataSetChanged();
     }

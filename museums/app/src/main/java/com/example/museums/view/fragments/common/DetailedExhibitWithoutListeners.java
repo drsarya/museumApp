@@ -59,13 +59,13 @@ public class DetailedExhibitWithoutListeners extends Fragment {
         ll = (LinearLayout) getActivity().findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
-        name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint);
+        name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
 
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void displayValues(View v, String s) {
-        name = (TextView) v.findViewById(R.id.detailed_exhibit_name_of_paint);
+        name = (TextView) v.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
         like = (ImageButton) v.findViewById(R.id.detailed_exhibit_like_btn);
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         view = (ScrollView) v.findViewById(R.id.detailed_exhibit_description_scroll_view);

@@ -5,8 +5,6 @@ import com.example.museums.API.interfaces.ExhibitionFacade;
 import com.example.museums.API.models.Exhibition;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

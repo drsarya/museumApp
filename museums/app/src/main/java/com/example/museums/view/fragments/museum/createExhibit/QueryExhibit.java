@@ -1,13 +1,11 @@
-package com.example.museums.view.fragments.museum.createExhibition.CreateExhibit;
+package com.example.museums.view.fragments.museum.createExhibit;
 
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
 
 public class QueryExhibit {
      private CreateExhibit activity;

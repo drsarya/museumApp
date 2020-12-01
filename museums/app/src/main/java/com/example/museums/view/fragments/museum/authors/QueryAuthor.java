@@ -1,11 +1,11 @@
-package com.example.museums.view.fragments.museum.createExhibition.authors;
+package com.example.museums.view.fragments.museum.authors;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 import com.example.museums.API.models.Author;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.CreateExhibit;
-import com.example.museums.view.fragments.museum.createExhibition.editExhibit.EditExhibit;
+import com.example.museums.view.fragments.museum.createExhibit.CreateExhibit;
+import com.example.museums.view.fragments.museum.editExhibit.EditExhibit;
 
 import java.util.List;
 

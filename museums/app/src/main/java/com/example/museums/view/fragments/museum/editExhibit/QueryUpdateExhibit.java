@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.createExhibition.editExhibit;
+package com.example.museums.view.fragments.museum.editExhibit;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -9,9 +9,10 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
 import com.example.museums.API.models.Exhibit;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
-import com.example.museums.view.fragments.museum.createExhibition.editExhibit.EditExhibit;
+import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
+
+import java.util.List;
 
 public class QueryUpdateExhibit {
     private EditExhibit activity;
@@ -64,7 +65,7 @@ public class QueryUpdateExhibit {
     }
 
     public void onSuccessUpdate(int count) {
-        System.out.println(count+"количсетво обновленных строчек!!!!!!!!!!!!!!!!!!!!!!!!");
+
         Toast.makeText(activity.getContext(), "Успешное обновление экпоната", Toast.LENGTH_SHORT).show();
         // activity.updateExhibits(newExhibitModel);
         museumExhibits.refreshAllList();
@@ -78,7 +79,7 @@ public class QueryUpdateExhibit {
 
     private int id;
 
-    public void getQuery(NewExhibitModel model, int id) {
+    public void getQuery(NewExhibitModel model, int id ) {
         newExhibitModel = model;
         this.id = id;
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();

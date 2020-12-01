@@ -8,8 +8,8 @@ import androidx.annotation.RequiresApi;
 import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
-import com.example.museums.view.fragments.museum.createExhibition.editExhibit.EditExhibit;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
+import com.example.museums.view.fragments.museum.editExhibit.EditExhibit;
+import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.MethodsWithFragment;
 

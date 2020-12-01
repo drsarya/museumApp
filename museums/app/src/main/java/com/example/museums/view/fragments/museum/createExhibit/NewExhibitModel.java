@@ -1,7 +1,6 @@
-package com.example.museums.view.fragments.museum.createExhibition;
+package com.example.museums.view.fragments.museum.createExhibit;
 
 import android.graphics.Bitmap;
-
 
 
 public class NewExhibitModel {
@@ -31,13 +30,6 @@ public class NewExhibitModel {
         this.photo = photo;
         this.description = description;
     }
-
-
-
-
-
-
-
 
 
 }

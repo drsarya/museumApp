@@ -1,7 +1,6 @@
 package com.example.museums.view.fragments.museum.createExhibition;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.API.models.Exhibition;
+import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
 
 import java.util.ArrayList;
 import java.util.List;

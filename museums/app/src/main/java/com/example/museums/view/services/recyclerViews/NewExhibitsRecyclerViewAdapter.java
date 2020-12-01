@@ -11,15 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
+import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +60,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
 
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel , mDataset.get(position)));
         holder.image.setImageBitmap(mDataset.get(position).photo);
         holder.nameOfExhbr.setText(mDataset.get(position).name);
         holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, mDataset.get(position), position));

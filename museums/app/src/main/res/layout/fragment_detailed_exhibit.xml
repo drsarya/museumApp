@@ -25,10 +25,13 @@
 
 
                 <ImageView
-                    android:id="@+id/detailed_exhibit_main_image"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:id="@+id/detailed_exhibit_main_image_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/detailed_exhibition">
+
+                     >
 
                 </ImageView>
 
@@ -40,14 +43,14 @@
                     android:background="@color/darkBeige">
 
                     <TextView
-                        android:id="@+id/detailed_exhibit_name_of_paint"
+                        android:id="@+id/detailed_exhibit_name_of_paint_text_view"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/prata"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="Явление Христа народу"
-                        android:textAlignment="center"
+                         android:textAlignment="center"
                         android:textColor="@color/dark_dark_brown"
                         android:textSize="25sp">
 
@@ -60,7 +63,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
                         android:gravity="end|center_vertical"
-                        android:text="Александр Иванов"
+                         android:id="@+id/detailed_exhibit_author_text_view"
                         android:textColor="@color/black"
                         android:textSize="15sp">
 
@@ -97,7 +100,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
                         android:gravity="end|center_vertical"
-                        android:text="1890 год"
+                         android:id="@+id/detailed_exhibit_date_of_create_text_view"
                         android:textColor="@color/black"
                         android:textSize="15sp">
 
@@ -113,13 +116,13 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/detailed_exhibit_description_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
                     android:fontFamily="@font/prata"
                     android:gravity="center_horizontal"
-                    android:text="@string/_600_20_https_www_culture_ru_materials_38436_iisus_dolzhen_byt_odin_sovershenno"
-                    android:textAlignment="center"
+                     android:textAlignment="center"
                     android:textColor="@color/brown"
                     android:textSize="16sp">
 

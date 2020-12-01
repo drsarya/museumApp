@@ -6,7 +6,7 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
-import com.example.museums.view.fragments.museum.createExhibition.editExhibit.QueryUpdateExhibit;
+import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
 

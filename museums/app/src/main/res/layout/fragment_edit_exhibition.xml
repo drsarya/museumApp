@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        style="@style/textBoxOuter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hasClearButton="true"
+        app:labelText="Поиск"
+        app:isResponsiveIconColor="true"
+
+        >
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColor="@color/dark_dark_brown"
+
+            app:helperText="@string/password" />
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_edit_exhibitions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:textAlignment="gravity"
+
+        app:column_count_portrait="2"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="1"
+
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

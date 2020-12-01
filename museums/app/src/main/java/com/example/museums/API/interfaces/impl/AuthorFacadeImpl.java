@@ -5,21 +5,13 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.AuthorFacade;
 import com.example.museums.API.models.Author;
-import com.example.museums.API.models.Like;
-import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibit.QueryExhibit;
+import com.example.museums.view.fragments.museum.createExhibit.QueryExhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
-import com.example.museums.view.fragments.museum.createExhibition.authors.QueryAuthor;
-import com.example.museums.view.fragments.museum.createExhibition.editExhibit.QueryUpdateExhibit;
-
-import org.reactivestreams.Subscription;
-import org.w3c.dom.ls.LSOutput;
+import com.example.museums.view.fragments.museum.authors.QueryAuthor;
+import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
 
 import java.util.List;
-import java.util.function.DoubleToIntFunction;
 
-import io.reactivex.FlowableSubscriber;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;

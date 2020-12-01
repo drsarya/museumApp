@@ -1,18 +1,11 @@
 package com.example.museums.view.fragments.museum.museumExhibits;
 
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.interfaces.impl.ExhibitionFacadeImpl;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
-import com.example.museums.API.models.Exhibition;
-import com.example.museums.view.fragments.museum.createExhibition.NewExhibitModel;
-
-import java.util.List;
 
 public class QueryDeleteMuseumExhibit {
     private MuseumExhibits activity;
