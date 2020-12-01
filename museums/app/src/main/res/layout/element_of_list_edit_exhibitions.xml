@@ -1,132 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="5dp"
 
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:background="@color/darkBeige">
-
-            <TextView
-                android:id="@+id/detailed_edit_exhibition_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autoSizeTextType="uniform"
-                android:layout_marginHorizontal="80dp"
-                android:fontFamily="@font/prata"
-                android:gravity="center_horizontal"
-                android:text="Атлас \n   Маяковский"
-                android:textAlignment="center"
-                android:textColor="@color/dark_dark_brown">
-
-            </TextView>
-            <LinearLayout
-                android:id="@+id/element_list_edit_exhibition_linear_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:baselineAligned="true"
-                android:orientation="horizontal"
-                 >
-
-
-                <ImageButton
-                    android:id="@+id/element_list_edit_exhibition_edit_exhibit_image_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/lightGrey"
-                    android:clickable="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/edit"
-                    android:layout_marginRight="5dp"
-                    android:tint="@color/dark_dark_brown">
-
-                </ImageButton>
-
-                <ImageButton
-                    android:id="@+id/element_list_edit_exhibition_delete_exhibit_image_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/lightGrey"
-                    android:clickable="true"
-                    android:layout_marginRight="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/close"
-                    android:tint="@color/dark_dark_brown">
-
-                </ImageButton>
-            </LinearLayout>
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:background="@color/brown"
+            android:layout_height="350dp"
+            android:layout_marginTop="5dp"
+
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5">
 
-                <ImageView
-                    android:id="@+id/detailed_edit_exhibition_image"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="matrix"
-                    android:src="@drawable/detailed_exhibition">
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    android:background="@color/darkBeige">
 
-                </ImageView>
-            </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/detailed_edit_exhibition_name_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="80dp"
+
+                        android:autoSizeMaxTextSize="20dp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/prata"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textAlignment="center"
+                        android:textColor="@color/dark_dark_brown">
+
+                    </TextView>
+
+
+                    <LinearLayout
+                        android:id="@+id/element_list_edit_exhibition_linear_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:baselineAligned="true"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+
+                        <ImageButton
+                            android:id="@+id/element_list_edit_exhibition_edit_exhibit_image_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/lightGrey"
+                            android:clickable="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/edit"
+                            android:tint="@color/dark_dark_brown">
+
+                        </ImageButton>
+
+                        <ImageButton
+                            android:id="@+id/element_list_edit_exhibition_delete_exhibit_image_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/lightGrey"
+                            android:clickable="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/close"
+                            android:tint="@color/dark_dark_brown">
+
+                        </ImageButton>
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="end"
+                android:layout_weight="4"
+                android:background="@color/brown"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/detailed_edit_exhibition_date"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5">
+
+                    <ImageView
+                        android:id="@+id/detailed_edit_exhibition_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop">
+
+                    </ImageView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/prata"
-                    android:gravity="end|bottom"
-                    android:text="5.05-30.06"
-                    android:textAlignment="textEnd"
-                    android:textStyle="bold">
+                    android:gravity="end"
+                    android:orientation="vertical">
 
-                </TextView>
+                    <TextView
+                        android:id="@+id/detailed_edit_exhibition_date_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/prata"
+                        android:gravity="end|bottom"
 
-                <TextView
-                    android:id="@+id/detailed_edit_exhibition_name_museum"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/prata"
-                    android:gravity="end|top"
-                    android:text="Воронежская галерея">
+                        android:textAlignment="textEnd"
+                        android:textStyle="bold">
 
-                </TextView>
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/detailed_edit_exhibition_name_museum"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="17dp"
+
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/prata"
+                        android:gravity="end|top">
+
+                    </TextView>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
 </LinearLayout>

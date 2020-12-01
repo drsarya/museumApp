@@ -150,7 +150,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     @Override
     public void updateMuseumInfoByAdmin(String name, String address, int id) {
         Museum museum = new Museum();
-        museum.name = name;
+        museum.nameMuseum = name;
         museum.address = address;
         museumDao.updateMuseumInfo(name, address, id)
                 .subscribeOn(Schedulers.io())
@@ -238,7 +238,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
         Museum m = new Museum();
         m.login = login;
         m.address = address;
-        m.name = name;
+        m.nameMuseum = name;
         m.description = null;
         m.image = null;
         museumDao.insertMuseum(m)

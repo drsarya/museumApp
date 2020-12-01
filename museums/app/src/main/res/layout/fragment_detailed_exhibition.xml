@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/detailed_exhbtn_name_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autoSizeMaxTextSize="30sp"
@@ -34,10 +35,14 @@
             </TextView>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/detailed_exhbtn_image_image_view"
+
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/darkBeige"
-                android:src="@drawable/image1">
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/museum_photo">
 
             </ImageView>
 
@@ -50,14 +55,16 @@
                 <LinearLayout
                     android:id="@+id/detailed_exhibition_option_pane_lin_lay"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="55dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/white"
-                    android:paddingVertical="5dp">
+                    >
 
                     <LinearLayout
+                        android:paddingTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="vertical">
 
                         <ImageButton
@@ -67,6 +74,7 @@
                             android:layout_height="30dp"
                             android:scaleType="fitCenter"
                             android:background="@color/glass"
+                            android:gravity="center_vertical"
 
                             android:src="@drawable/like"
                             android:textColor="@color/brown"
@@ -103,11 +111,13 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:autoSizeMaxTextSize="25sp"
+                            android:autoSizeMaxTextSize="17sp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/prata"
                             android:gravity="center_horizontal|center_vertical"
                             android:text="5.05-30.06"
+                            android:id="@+id/detailed_exhbtn_date_text_view"
+
                             android:textAlignment="center"
                             android:textColor="@color/dark_dark_brown">
 

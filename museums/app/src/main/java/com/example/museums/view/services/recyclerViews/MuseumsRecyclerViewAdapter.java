@@ -3,7 +3,6 @@ package com.example.museums.view.services.recyclerViews;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,7 +53,7 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     @Override
     public void onBindViewHolder(@NonNull MuseumsViewHolder holder, int position) {
         holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, mDataset.get(position), allMuseums));
-        holder.textView.setText(mDataset.get(position).name);
+        holder.textView.setText(mDataset.get(position).nameMuseum);
     }
 
     @Override

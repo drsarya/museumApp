@@ -11,6 +11,7 @@ import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
+import com.example.museums.view.fragments.museum.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +25,7 @@ public class MuseumTab extends AppCompatActivity {
     private CreateExhibition detailedExhibitWithListeners;
     private MuseumExhibits exhibits;
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
-    private Exhibitions exhibitions;
+    private EditExhibition exhibitions;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -35,12 +36,12 @@ public class MuseumTab extends AppCompatActivity {
 
         if (b != null) {
             login = b.getString(LOGIN_KEY_USER);
-            exhibitions = new Exhibitions().newInstance(login);
+            exhibitions = new EditExhibition().newInstance(login);
             mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(login);
             exhibits = new MuseumExhibits().newInstance(login);
             detailedExhibitWithListeners = new CreateExhibition().newInstance(login);
         } else {
-            exhibitions = new Exhibitions();
+            exhibitions = new EditExhibition();
             mainInfoMuseumPage = new MainInfoMuseumPageEdit();
             exhibits = new MuseumExhibits();
             detailedExhibitWithListeners = new CreateExhibition();

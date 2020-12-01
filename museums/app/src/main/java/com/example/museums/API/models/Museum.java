@@ -9,7 +9,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "museum", indices = {@Index(value = {"login"}, unique = true),
-        @Index(value = {"name"}, unique = true), @Index(value = {"address"}, unique = true)})
+        @Index(value = {"nameMuseum"}, unique = true), @Index(value = {"address"}, unique = true)})
 
 public class Museum {
     @ColumnInfo(name = "id")
@@ -20,9 +20,9 @@ public class Museum {
     @NonNull
     public String login;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "nameMuseum")
     @NonNull
-    public String name;
+    public String nameMuseum;
 
 
     @ColumnInfo(name = "address")

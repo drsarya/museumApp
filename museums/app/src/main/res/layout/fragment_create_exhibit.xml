@@ -70,6 +70,7 @@
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:hasClearButton="true"
 
                 android:layout_marginVertical="5dp"
                 app:labelText="Название экспоната">
@@ -135,6 +136,7 @@
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:hasClearButton="true"
 
                 android:layout_marginVertical="5dp"
                 app:labelText="Дата создания ">
@@ -155,6 +157,7 @@
                 style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:hasClearButton="true"
 
                 android:layout_marginVertical="5dp"
                 app:labelText="Ключевые слова для поиска">
@@ -176,6 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
+                app:hasClearButton="true"
 
                 app:labelText="История создания">
 

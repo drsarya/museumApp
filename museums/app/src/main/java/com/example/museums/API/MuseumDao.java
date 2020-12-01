@@ -19,6 +19,7 @@ import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.API.models.Exhibition;
+import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.MuseumInfoWithoutImage;
@@ -33,9 +34,6 @@ import io.reactivex.Single;
 
 @Dao
 public interface MuseumDao {
-
-
-
 
 
     @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
@@ -55,8 +53,8 @@ public interface MuseumDao {
     @Query("SELECT * FROM exhibition")
     List<Exhibition> getAllExhibitions();
 
-    @Query("SELECT * FROM  exhibition WHERE idMuseum =:id")
-    List<Exhibition> getExhbtnByMuseumId(String id);
+    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2  WHERE idMuseum =:id")
+    Flowable<List<ExhibitionWithMuseumName>> getExhbtnByMuseumId(Integer id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertExhbtn(Exhibition exhibition);
@@ -78,12 +76,13 @@ public interface MuseumDao {
             "JOIN author as a1 ON a1.id_author = ex3.authorId" +
             " WHERE  m1.login = :login   ")
     Flowable<List<ExhibitWithAuthor>> getExhibitsByMuseumId(String login);
+
     /*DELETE*/
     @Query("DELETE FROM exhibit WHERE id = :id")
     Single<Integer> deleteExhibit(int id);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-       Single<Integer> updateExhibitInfo(Exhibit exhibit);
+    Single<Integer> updateExhibitInfo(Exhibit exhibit);
 
 
     /*MUSEUM*/
@@ -99,7 +98,7 @@ public interface MuseumDao {
     Single<Bitmap> getMuseumImage(String login);
 
 
-    @Query("SELECT id, name, address, description  FROM museum WHERE login =:login")
+    @Query("SELECT id, nameMuseum, address, description  FROM museum WHERE login =:login")
     Single<MuseumInfoWithoutImage> getMuseumInfo(String login);
 
     @Query("SELECT * FROM museum WHERE login =:login AND id = :idCode")
@@ -113,7 +112,7 @@ public interface MuseumDao {
     Single<Long> insertMuseum(Museum museum);
 
     /*UPDATE*/
-    @Query("UPDATE museum SET  address = :address  , name = :name where id= :id ")
+    @Query("UPDATE museum SET  address = :address  , nameMuseum = :name where id= :id ")
     Single<Integer> updateMuseumInfo(String name, String address, int id);
 
     @Transaction

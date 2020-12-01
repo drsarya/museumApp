@@ -7,21 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Objects;
 
+public class ExhibitionWithMuseumName {
 
-@Entity(foreignKeys = {
-        @ForeignKey(entity = Museum.class, parentColumns = "id", childColumns = "idMuseum")
-
-
-}, tableName = "exhibition", indices = {@Index(value = {"idMuseum"}, unique = false)})
-
-public class Exhibition {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -47,23 +38,24 @@ public class Exhibition {
     @ColumnInfo(name = "lastDate")
     public String lastDate;
 
+    @ColumnInfo(name = "nameMuseum")
+    @NonNull
+    public String nameMuseum;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Exhibition that = (Exhibition) o;
+        ExhibitionWithMuseumName that = (ExhibitionWithMuseumName) o;
         return id == that.id &&
                 name.equals(that.name) &&
                 idMuseum.equals(that.idMuseum) &&
-                image.equals(that.image) &&
-                description.equals(that.description) &&
-                lastDate.equals(that.lastDate) &&
-                firstDate.equals(that.firstDate);
-
+                 description.equals(that.description) &&
+                Objects.equals(firstDate, that.firstDate) &&
+                Objects.equals(lastDate, that.lastDate) &&
+                nameMuseum.equals(that.nameMuseum);
     }
-
 
 
 }

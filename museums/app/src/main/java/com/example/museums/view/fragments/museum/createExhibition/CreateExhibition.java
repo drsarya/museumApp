@@ -199,7 +199,7 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                             && !dateOfStartET.getText().toString().isEmpty()
                             && !dateOfStartET.getText().toString().isEmpty()) {
                         exhibition.firstDate = dateOfStartET.getText().toString();
-                        exhibition.lastDate = dateOfStartET.getText().toString();
+                        exhibition.lastDate = dateOfEndET.getText().toString();
 
                     } else {
                         Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();

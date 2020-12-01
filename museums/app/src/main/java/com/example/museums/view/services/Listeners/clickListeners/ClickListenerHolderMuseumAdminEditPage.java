@@ -33,7 +33,7 @@ public class ClickListenerHolderMuseumAdminEditPage implements View.OnClickListe
         Bundle bd = new Bundle();
         bd.putString(myFragment.KEY_ADDRESS, museum.address);
         bd.putString(myFragment.KEY_ID_CODE, Integer.toString(museum.id));
-        bd.putString(myFragment.KEY_NAME_MUSEUM, museum.name);
+        bd.putString(myFragment.KEY_NAME_MUSEUM, museum.nameMuseum);
         myFragment.setArguments(bd);
         final FragmentTransaction ft = allMuseums.getFragmentManager().beginTransaction().addToBackStack(AllMuseums.class.toString());
         myFragment.show(ft, "dialog");

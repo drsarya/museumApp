@@ -1,12 +1,19 @@
 package com.example.museums.API.interfaces.impl;
 
+import android.annotation.SuppressLint;
+
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitionFacade;
 import com.example.museums.API.models.Exhibition;
+import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.editExhibition.QueryEditExhibition;
+
+import org.reactivestreams.Subscriber;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -16,6 +23,7 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
     private MuseumDao museumDao;
     private QueryCreateExhibition queryCreateExhibition;
+    private QueryEditExhibition queryEditExhibition;
 
     public ExhibitionFacadeImpl(MuseumDao museumDao) {
         museumDao = museumDao;
@@ -26,16 +34,35 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
         this.queryCreateExhibition = queryCreateExhibition;
     }
 
+    public ExhibitionFacadeImpl(MuseumDao museumDao, QueryEditExhibition queryEditExhibition) {
+        this.museumDao = museumDao;
+        this.queryEditExhibition = queryEditExhibition;
+    }
+
     @Override
     public List<Exhibition> getAllExhibitions() {
         List<Exhibition> list = museumDao.getAllExhibitions();
         return list;
     }
 
+
     @Override
-    public List<Exhibition> getExhbtnByMuseumId(String id) {
-        List<Exhibition> list = museumDao.getExhbtnByMuseumId(id);
-        return list;
+    public void getMuseumByLogin(String login) {
+        museumDao.getMuseumByLogin(login)
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        queryEditExhibition.onSuccess(integer);
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryEditExhibition.onError();
+                    }
+                })
+        ;
     }
 
     @Override
@@ -56,5 +83,14 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
                 })
         ;
 
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getExhibitionByMuseumId(int id) {
+        museumDao.getExhbtnByMuseumId(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(museums -> queryEditExhibition.onSuccessGetExhbtn(museums));
     }
 }

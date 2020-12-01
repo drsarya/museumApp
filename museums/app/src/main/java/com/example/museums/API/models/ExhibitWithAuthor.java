@@ -34,6 +34,7 @@ public class ExhibitWithAuthor {
     @ColumnInfo(name = "tags")
     public String tags;
 
+
     @Override
     public String toString() {
         return "ExhibitWithAuthor{" +

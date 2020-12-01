@@ -7,8 +7,9 @@ import java.util.List;
 public interface ExhibitionFacade {
     List<Exhibition> getAllExhibitions();
 
-    List<Exhibition> getExhbtnByMuseumId(String id);
+    void getMuseumByLogin(String login);
 
     void insertExhbtn(Exhibition exhibition);
 
+    void getExhibitionByMuseumId(int id);
 }
