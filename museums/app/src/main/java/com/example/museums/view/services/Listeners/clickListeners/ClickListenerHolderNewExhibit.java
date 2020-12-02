@@ -44,7 +44,7 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
                 myFragment = new DetailedExhibitWithListeners();
             }
             MuseumTab activity = (MuseumTab) v.getContext();
-            mth.replaceFragment(myFragment, v, activity);
+            mth.replaceFragment(myFragment,   activity);
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, view);
             ctimte.start();

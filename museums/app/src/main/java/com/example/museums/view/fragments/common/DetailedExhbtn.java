@@ -117,7 +117,7 @@ private Bitmap bitmap ;
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         museumInfo.setOnClickListener(v -> {
             Fragment myFragment = new MainInfoMuseum();
-            mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
+            mth.replaceFragment(myFragment,  (AppCompatActivity) v.getContext());
         });
         exhbtnDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(exhbtnDescriptionTextView)
@@ -130,7 +130,7 @@ private Bitmap bitmap ;
             lisr.add(new Exhibit());
             lisr.add(new Exhibit());
             ExhibitViewPager exhibitViewPager = new ExhibitViewPager(lisr);
-            mth.replaceFragment(exhibitViewPager, v, (AppCompatActivity) v.getContext());
+            mth.replaceFragment(exhibitViewPager,   (AppCompatActivity) v.getContext());
 
         });
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));

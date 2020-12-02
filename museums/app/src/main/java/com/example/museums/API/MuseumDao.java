@@ -24,6 +24,7 @@ import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.MuseumInfoWithoutImage;
 import com.example.museums.API.models.User;
+import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
 
 import java.util.List;
 
@@ -75,16 +76,16 @@ public interface MuseumDao {
     /*EXHIBIT*/
     /*GET*/
 
-    @Query("SELECT extn2.id,  extn2.authorId , extn2.name  ,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
-            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit WHERE idExhibition = :exhbtnId")
-    List<Exhibit> getExhibitsByExhdtnId(String exhbtnId);
+
+    @Query("SELECT extn2.id,  extn2.authorId , extn2.name ,a1.fullName,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
+            "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit  JOIN author as a1 on  extn2.authorId = a1.id_author WHERE idExhibition = :exhbtnId")
+    Flowable<List<NewExhibitModel>> getExhibitsByExhibitionId(String exhbtnId);
 
     @Query("delete from exhibit where id in  (select idExhibit from exhibit_to_exhbtn  " +
             "   where idExhibition =:idExhibitiob )")
     Single<Integer> deleteExhibits(int idExhibitiob);
 
-//    @Query("delete from exhibit where id in (:ids)")
-//    Flowable<List<Integer>> deleteExhibits(List<Integer> ids);
+
 
     @Query("SELECT  * FROM" +
 
@@ -99,6 +100,8 @@ public interface MuseumDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibitInfo(Exhibit exhibit);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    Single<Integer> updateExhibits(List<Exhibit> exhibit);
 
     /*INSERT*/
     @Insert(onConflict = OnConflictStrategy.REPLACE)

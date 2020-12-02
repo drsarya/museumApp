@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.editExhibition;
+package com.example.museums.view.fragments.museum.museumExhibitions;
 
 import android.view.View;
 import android.widget.Toast;
@@ -7,20 +7,17 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
 import com.example.museums.API.interfaces.impl.ExhibitionFacadeImpl;
-import com.example.museums.API.models.ExhibitionWithMuseumName;
-
-import java.util.List;
 
 public class QueryDeleteExhibition {
 
-    private EditExhibition activity;
+    private MuseumExhibitions activity;
     private ExhibitFacadeImpl exhibitFacade;
 
     private ExhibitionFacadeImpl exhibitionFacade;
     private MuseumDao museumDao;
 
-    public QueryDeleteExhibition(EditExhibition editExhibition) {
-        this.activity = editExhibition;
+    public QueryDeleteExhibition(MuseumExhibitions museumExhibitions) {
+        this.activity = museumExhibitions;
     }
 
     public void onSuccess() {

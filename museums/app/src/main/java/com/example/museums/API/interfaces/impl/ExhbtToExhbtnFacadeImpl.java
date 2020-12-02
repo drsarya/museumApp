@@ -1,10 +1,12 @@
 package com.example.museums.API.interfaces.impl;
 
+import android.annotation.SuppressLint;
+
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhbtToExbtnFacade;
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
     private MuseumDao museumDao;
     private QueryCreateExhibition queryCreateExhibition;
-
+    private QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition;
     public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
     }
@@ -25,13 +27,20 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
         this.museumDao = museumDao;
         this.queryCreateExhibition = queryCreateExhibition;
     }
-
-    @Override
-    public List<Exhibit> getExhibitsByExhdtnId(String ixhbtnId) {
-
-        List<Exhibit> list = museumDao.getExhibitsByExhdtnId(ixhbtnId);
-        return list;
+    public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao, QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition) {
+        this.museumDao = museumDao;
+        this.queryGetExhibitsFromExhibition = queryGetExhibitsFromExhibition;
     }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getExhibitsByExhdtnId(String ixhbtnId) {
+
+       museumDao.getExhibitsByExhibitionId(ixhbtnId)
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(museums -> queryGetExhibitsFromExhibition.onSuccess(museums));;
+     }
 
     @Override
     public void insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns) {

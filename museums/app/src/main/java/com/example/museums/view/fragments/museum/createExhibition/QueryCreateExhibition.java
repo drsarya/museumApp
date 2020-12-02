@@ -42,6 +42,7 @@ public class QueryCreateExhibition {
         exhibition2.idMuseum = exhibition.idMuseum;
         exhibition2.lastDate = exhibition.lastDate;
         exhibition2.firstDate = exhibition.firstDate;
+        exhibition2.id = exhibition.id;
         exhibitionFacade.insertExhbtn(exhibition2);
 
     }
@@ -84,20 +85,39 @@ public class QueryCreateExhibition {
         exhibitionId = id.intValue();
 
         exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
-        List<Exhibit> list = new ArrayList<>();
+        List<Exhibit> listInsert = new ArrayList<>();
+        List<Exhibit> listUpdate = new ArrayList<>();
+
         for (NewExhibitModel model : exhibits) {
+
             Exhibit exhibit = new Exhibit();
-            System.out.println(model.idAuthor);
-            exhibit.authorId = model.idAuthor.intValue();
+            exhibit.authorId = model.idAuthor;
             exhibit.tags = model.tags;
-            Bitmap bmp2 = model.photo.copy(model.photo.getConfig(), true);
+             Bitmap bmp2 = model.photo.copy(model.photo.getConfig(), true);
             exhibit.photo = bmp2;
             exhibit.dateOfCreate = model.dateOfCreate;
             exhibit.name = model.name;
             exhibit.description = model.description;
-            list.add(exhibit);
+            System.out.println(model.toString()); ;
+            if (new Integer(model.exhibitId) != -1) {
+                exhibit.id = model.exhibitId;
+                listUpdate.add(exhibit);
+
+            } else {
+                listInsert.add(exhibit);
+
+            }
+
         }
-        exhibitFacade.insertExhibits(list);
+        System.out.println(listInsert.size()+"inseryeeeeeeeeeeeeeeeeeeeeeeee");
+
+        System.out.println(listUpdate.size()+"udaaaaaaaaaaateeeeeeeee");
+        exhibitFacade.insertExhibits(listInsert);
+        exhibitFacade.updateExhibits(listUpdate);
+
+    }
+    public void onSuccessUpdate(){
+
 
     }
 

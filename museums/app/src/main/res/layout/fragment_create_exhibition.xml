@@ -25,6 +25,7 @@
                 android:background="@color/brown"
                 android:fontFamily="@font/prata"
                 android:gravity="center_horizontal"
+                android:id="@+id/create_exhibition_first_word_text_view"
                 android:text="Новая выставка"
                 android:textAlignment="center"
                 android:textColor="@color/darkBeige"

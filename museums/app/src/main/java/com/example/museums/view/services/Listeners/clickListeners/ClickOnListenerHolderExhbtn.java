@@ -18,6 +18,6 @@ public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Fragment myFragment = new DetailedExhbtn();
-        mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
+        mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
     }
 }

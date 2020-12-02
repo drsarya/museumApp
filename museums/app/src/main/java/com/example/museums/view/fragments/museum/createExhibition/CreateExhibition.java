@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.createExhibit.CreateExhibit;
 import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
+import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IDeletePosition;
@@ -45,30 +47,33 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class CreateExhibition extends Fragment implements IDeletePosition {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private NewExhibitsRecyclerViewAdapter mAdapter;
+    private NewExhibitsRecyclerViewAdapter mAdapter ;
     public static final String LOGIN_KEY_USER = "login_key";
-    private String login;
-    public static List<NewExhibitModel> exhibits = new ArrayList<>();
+    private static String login;
+    public   List<NewExhibitModel> exhibits = new ArrayList<>();
     private Bitmap bitmap;
-    private TextView plusExhbt;
     private RecyclerView recyclerView;
     private static CheckBox onlineCheckBox;
-    private TextFieldBoxes dateOfStartTFB;
-    private TextFieldBoxes dateOfEndTFB;
-    private TextFieldBoxes nameTFB;
-    private TextFieldBoxes descriptionTFB;
-    private EditText dateOfStartET;
-    private EditText dateOfEndET;
-    private EditText nameET;
-    private EditText descriptionET;
+    private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
+    private EditText dateOfStartET, dateOfEndET, nameET, descriptionET;
     private static ImageView currImageImageView;
-    private TextView chooseImageTextView;
-
-    private Button hideDescriptionBtn;
+    private TextView chooseImageTextView, plusExhbt;
+    private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
-    private Button createExhibitionBtn;
+    private TextView firstLineTextView;
     static final int GALLERY_REQUEST = 1;
+    public static final String IMAGE_KEY = "image_key";
+    public static final String NAME_KEY = "name_key";
+    public static final String DATE_START_KEY = "date_key";
+    public static final String DATE_END_KEY = "date_end_key";
+    public static final String DESCRIPTION_KEY = "description_key";
+    public static final String ID_EXHIBITION_KEY = "id_key";
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAdapter = new NewExhibitsRecyclerViewAdapter(this);
+    }
 
     public CreateExhibition newInstance(String login) {
         final CreateExhibition myFragment = new CreateExhibition();
@@ -78,9 +83,56 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
         return myFragment;
     }
 
+
+    public CreateExhibition newInstance(String login, int id, Parcelable image, String name, String dataStart, String dataEnd, String description) {
+        final CreateExhibition myFragment = new CreateExhibition();
+        final Bundle args = new Bundle();
+        args.putString(NAME_KEY, name);
+        args.putString(DATE_START_KEY, dataStart);
+        args.putString(LOGIN_KEY_USER, login);
+        args.putString(DATE_END_KEY, dataEnd);
+        args.putString(DESCRIPTION_KEY, description);
+        args.putInt(ID_EXHIBITION_KEY, id);
+        args.putParcelable(IMAGE_KEY, image);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private int idExhibition;
+
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
+            if(getArguments().getString(LOGIN_KEY_USER)!=null){
+                login = new String(getArguments().getString(LOGIN_KEY_USER));
+
+            }
+            createExhibitionBtn.setText("Создать");
+            firstLineTextView.setText("Создать выставку");
+            System.out.println(login);
+            if (getArguments().getString(DESCRIPTION_KEY) != null) {
+
+                nameET.setText(getArguments().getString(NAME_KEY));
+                if (getArguments().getString(DATE_START_KEY) != null) {
+                    dateOfStartET.setText(getArguments().getString(DATE_START_KEY));
+                    dateOfEndET.setText(getArguments().getString(DATE_END_KEY));
+                } else {
+
+                    onlineCheckBox.setChecked(true);
+                }
+                descriptionET.setText(getArguments().getString(DESCRIPTION_KEY));
+                idExhibition = getArguments().getInt(ID_EXHIBITION_KEY);
+                Bitmap b = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
+                bitmap = b.copy(b.getConfig(), true);
+                currImageImageView.setImageBitmap(bitmap);
+getArguments().clear();
+                QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this);
+                q.getQuery(idExhibition);
+// получаем лист экпонатов
+            }
+            if (getTargetFragment()!=null){
+                createExhibitionBtn.setText("Обновить");
+                firstLineTextView.setText("Обновить выставку");
+            }
         }
     }
 
@@ -101,7 +153,8 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
         plusExhbt = rootView.findViewById(R.id.create_new_exhibition_text_view);
         recyclerView = rootView.findViewById(R.id.create_exhibition_recycler_view);
-        mAdapter = new NewExhibitsRecyclerViewAdapter(exhibits, this);
+        firstLineTextView = rootView.findViewById(R.id.create_exhibition_first_word_text_view);
+        //mAdapter = new NewExhibitsRecyclerViewAdapter(exhibits, this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -109,28 +162,13 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (getArguments().getParcelable("image") != null) {
-//
-//            Bitmap n = (Bitmap) data.getParcelableExtra("image");
-//            currImageImageView.setImageBitmap(n);
-//            getArguments().clear();
-//
-//        }
-
         switch (requestCode) {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        //                      Bundle b = getArguments();
-//                        if (b != null) {
-//                            b.putParcelable("image", bitmap);
-//                            System.out.println("gjkj;bhsbdsbdshdshbd");
-//                        }
                         currImageImageView.setImageBitmap(bitmap);
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -160,7 +198,7 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
             Fragment myFragment = new CreateExhibit();
             myFragment.setTargetFragment(CreateExhibition.this, 0);
             MuseumTab activity = (MuseumTab) v.getContext();
-            mth.replaceFragment(myFragment, v, activity);
+            mth.replaceFragment(myFragment, activity);
         });
         onlineCheckBox.setOnCheckedChangeListener((button, state) -> {
 
@@ -206,8 +244,18 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                     }
                 }
                 hideKeyboard();
-                QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
-                queryCreateExhibition.getQuery(login, exhibition, exhibits);
+               // if (getTargetFragment() == null) {
+                    //создаем выставку с нуля
+                exhibition.id = idExhibition;
+                System.out.println(login+"перед обноалением!!!!!!!!!!!!!!");
+                    QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
+                    queryCreateExhibition.getQuery(login, exhibition, exhibits);
+               // } else {
+
+                    //обновляем сведения
+
+
+              //  }
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
@@ -222,13 +270,25 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
 
     public void addNewExhibit(NewExhibitModel exhibit) {
         exhibits.add(exhibit);
-        mAdapter.updateAll(exhibits);
+
+        //mAdapter.updateAll(exhibits);
+        mAdapter.submitList(exhibits);
+
+    }
+
+    public void updateListExhibits(List<NewExhibitModel> exhibit) {
+        exhibits.addAll(exhibit);
+
+         mAdapter.submitList(exhibits);
+
     }
 
     public void updateExhibit(int position, NewExhibitModel exhibit) {
         exhibits.remove(position);
         exhibits.add(position, exhibit);
-        mAdapter.updateAll(exhibits);
+
+        // mAdapter.updateAll(exhibits);
+        mAdapter.submitList(exhibits);
     }
 
 

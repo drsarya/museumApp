@@ -29,7 +29,7 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
     public void onClick(View v) {
         if (holder.textView.getVisibility() == View.VISIBLE) {
             Fragment myFragment = new DetailedExhibitWithListeners();
-            mth.replaceFragment(myFragment, v, (AppCompatActivity) v.getContext());
+            mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, holder.textView);
             ctimte.start();

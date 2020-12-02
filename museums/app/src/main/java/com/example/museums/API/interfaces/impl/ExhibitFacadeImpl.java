@@ -7,16 +7,12 @@ import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
-import com.example.museums.view.fragments.museum.editExhibition.QueryDeleteExhibition;
+import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
 
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
-import io.reactivex.FlowableSubscriber;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -148,6 +144,24 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryUpdateExhibit.onErrorUpdate();
+                    }
+                });
+    }
+
+    @Override
+    public void updateExhibits(List<Exhibit> exhibit) {
+        museumDao.updateExhibits(exhibit).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer museum) {
+
+                        queryCreateExhibition.onSuccessUpdate( );
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryCreateExhibition.onError();
                     }
                 });
     }

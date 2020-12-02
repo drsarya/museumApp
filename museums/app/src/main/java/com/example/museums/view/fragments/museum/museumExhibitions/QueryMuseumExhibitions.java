@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.editExhibition;
+package com.example.museums.view.fragments.museum.museumExhibitions;
 
 import android.view.View;
 import android.widget.Toast;
@@ -10,12 +10,12 @@ import com.example.museums.API.models.ExhibitionWithMuseumName;
 
 import java.util.List;
 
-public class QueryEditExhibitionGetExhibitions {
-    private EditExhibition activity;
+public class QueryMuseumExhibitions {
+    private MuseumExhibitions activity;
     private ExhibitionFacadeImpl exhibitionFacade;
     private MuseumDao museumDao;
 
-    public QueryEditExhibitionGetExhibitions(EditExhibition museumExhibits) {
+    public QueryMuseumExhibitions(MuseumExhibitions museumExhibits) {
         this.activity = museumExhibits;
     }
 

@@ -1,5 +1,7 @@
 package com.example.museums.view.services.recyclerViews;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.AsyncListDiffer;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
@@ -23,8 +29,7 @@ import java.util.List;
 
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
-    private List<NewExhibitModel> mDataset;
-    private CreateExhibition createExhibition;
+     private CreateExhibition createExhibition;
 
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
@@ -43,11 +48,27 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         }
     }
 
-    public NewExhibitsRecyclerViewAdapter(List<NewExhibitModel> myDataset, CreateExhibition createExhibition) {
-        mDataset = myDataset;
+    public NewExhibitsRecyclerViewAdapter(  CreateExhibition createExhibition) {
+
         this.createExhibition = createExhibition;
     }
 
+    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+
+    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+
+            return oldProduct.dateOfCreate == newProduct.dateOfCreate;
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+            return oldProduct.equals(newProduct);
+        }
+    };
 
     @NonNull
     @Override
@@ -61,22 +82,28 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
 
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, mDataset.get(position)));
-        holder.image.setImageBitmap(mDataset.get(position).photo);
-        holder.nameOfExhbr.setText(mDataset.get(position).name);
-        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, mDataset.get(position), position));
+        final NewExhibitModel exhibition = differ.getCurrentList().get(position);
+
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel,exhibition));
+        holder.image.setImageBitmap(exhibition.photo);
+        holder.nameOfExhbr.setText(exhibition.name);
+        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, exhibition, position));
         holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, createExhibition, createExhibition.getContext(), holder.optionalPanel, position, 0));
     }
 
     public void updateAll(List<NewExhibitModel> exhibits) {
-        mDataset = new ArrayList<>();
-        mDataset.addAll(exhibits);
+//        mDataset = new ArrayList<>();
+//        mDataset.addAll(exhibits);
         notifyDataSetChanged();
+    }
+
+    public void submitList(List<NewExhibitModel> products) {
+        differ.submitList(products);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return differ.getCurrentList().size();
     }
 
 

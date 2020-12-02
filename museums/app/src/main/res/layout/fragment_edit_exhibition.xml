@@ -30,14 +30,14 @@
         android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/edit_exhibitions_progress_bar"
+        android:id="@+id/museum_exhibitions_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_edit_exhibitions"
+        android:id="@+id/recycler_view_museum_exhibitions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"

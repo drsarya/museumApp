@@ -11,7 +11,7 @@ import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
-import com.example.museums.view.fragments.museum.editExhibition.EditExhibition;
+import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,10 +22,10 @@ public class MuseumTab extends AppCompatActivity {
     public static final String LOGIN_KEY_USER = "login_key";
     private boolean currState = false;
     private String login;
-    private CreateExhibition detailedExhibitWithListeners;
+    private CreateExhibition createExhibition;
     private MuseumExhibits exhibits;
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
-    private EditExhibition exhibitions;
+    private MuseumExhibitions exhibitions;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -36,15 +36,17 @@ public class MuseumTab extends AppCompatActivity {
 
         if (b != null) {
             login = b.getString(LOGIN_KEY_USER);
-            exhibitions = new EditExhibition().newInstance(login);
+            exhibitions = new MuseumExhibitions().newInstance(login);
+
             mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(login);
             exhibits = new MuseumExhibits().newInstance(login);
-            detailedExhibitWithListeners = new CreateExhibition().newInstance(login);
+            createExhibition = new CreateExhibition().newInstance(login);
+
         } else {
-            exhibitions = new EditExhibition();
+            exhibitions = new MuseumExhibitions();
             mainInfoMuseumPage = new MainInfoMuseumPageEdit();
             exhibits = new MuseumExhibits();
-            detailedExhibitWithListeners = new CreateExhibition();
+            createExhibition = new CreateExhibition();
         }
 
 
@@ -55,7 +57,7 @@ public class MuseumTab extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.menu_fr_create_exhbtn:
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.container_tab_museum, detailedExhibitWithListeners)
+                    ft.replace(R.id.container_tab_museum, createExhibition)
                             .addToBackStack(CreateExhibition.class.toString())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                     menuTab.getMenu().findItem(R.id.menu_fr_create_exhbtn).setChecked(true);

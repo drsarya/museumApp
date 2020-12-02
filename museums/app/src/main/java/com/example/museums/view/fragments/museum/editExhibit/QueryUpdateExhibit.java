@@ -32,9 +32,9 @@ public class QueryUpdateExhibit {
     public void onSuccessInsert(Integer id) {
         // автора не было и его имя пришлось добавить -
         activity.progressBar.setVisibility(View.GONE);
-        newExhibitModel.setIdAuthor(id.longValue());
+        newExhibitModel.setIdAuthor(id );
         Exhibit exhibit = new Exhibit();
-        exhibit.authorId = newExhibitModel.idAuthor.intValue();
+        exhibit.authorId = newExhibitModel.idAuthor;
         exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;
@@ -48,9 +48,9 @@ public class QueryUpdateExhibit {
     public void onSuccess(Integer id) {
         // автор есть
         activity.progressBar.setVisibility(View.GONE);
-        newExhibitModel.setIdAuthor(id.longValue());
+        newExhibitModel.setIdAuthor(id );
         Exhibit exhibit = new Exhibit();
-        exhibit.authorId = newExhibitModel.idAuthor.intValue();
+        exhibit.authorId = newExhibitModel.idAuthor ;
         exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;

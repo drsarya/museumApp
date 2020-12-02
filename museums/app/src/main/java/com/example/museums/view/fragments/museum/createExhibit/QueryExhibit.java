@@ -20,7 +20,7 @@ public class QueryExhibit {
     //Сам экспонат пока что хранится просто в списке активити
     public void onSuccessInsert(Integer id) {
         activity.progressBar.setVisibility(View.GONE);
-        newExhibitModel.setIdAuthor(id.longValue());
+        newExhibitModel.setIdAuthor(id );
         Toast.makeText(activity.getContext(), "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
         activity.insertNewExhibit(newExhibitModel);
     }
@@ -28,7 +28,7 @@ public class QueryExhibit {
     public void onSuccess(Integer id) {
         if (id != null) {
             activity.progressBar.setVisibility(View.GONE);
-            newExhibitModel.setIdAuthor(id.longValue());
+            newExhibitModel.setIdAuthor(id );
             Toast.makeText(activity.getContext(), "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
             activity.insertNewExhibit(newExhibitModel);
         }

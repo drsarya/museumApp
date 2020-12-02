@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ExhbtToExbtnFacade {
 
-    List<Exhibit> getExhibitsByExhdtnId(String ixhbtnId);
+    void getExhibitsByExhdtnId(String ixhbtnId);
 
     void insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
 

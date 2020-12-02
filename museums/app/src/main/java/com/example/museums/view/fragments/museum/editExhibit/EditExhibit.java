@@ -122,7 +122,7 @@ public class EditExhibit extends Fragment {
         setListeners();
         Bundle arguments = getArguments();
         if (arguments != null) {
-            nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
+             nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
             authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
             descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
             wordKeysEditText.setText(arguments.getString(EXHIBIT_TAGS_MODEL));
@@ -224,11 +224,11 @@ public class EditExhibit extends Fragment {
 
                 if (getTargetFragment().getClass().toString().equals(CreateExhibition.class.toString())) {
                     CreateExhibition c = (CreateExhibition) getTargetFragment();
-                    ex.setIdAuthor(new Long(authorIdCreateExhibition));
+                    ex.setIdAuthor( authorIdCreateExhibition );
                     c.updateExhibit(positionExh, ex);
                     Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
 
-                } else {
+                } else{
                     MuseumExhibits c = (MuseumExhibits) getTargetFragment();
                     QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);
                     authorRecyclerView.setVisibility(View.GONE);

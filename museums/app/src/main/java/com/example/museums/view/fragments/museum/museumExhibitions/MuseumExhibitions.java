@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.editExhibition;
+package com.example.museums.view.fragments.museum.museumExhibitions;
 
 
 import android.os.Build;
@@ -22,12 +22,12 @@ import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAda
 import java.util.List;
 
 
-public class EditExhibition extends Fragment implements IDeletePosition {
+public class MuseumExhibitions extends Fragment implements IDeletePosition {
     public ProgressBar progressBar;
     private RecyclerView recyclerView;
     private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
     public static final String LOGIN_KEY_USER = "login_key";
-    private String login;
+    public String login;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
@@ -47,8 +47,8 @@ public class EditExhibition extends Fragment implements IDeletePosition {
         return rootView;
     }
 
-    public EditExhibition newInstance(String login) {
-        final EditExhibition myFragment = new EditExhibition();
+    public MuseumExhibitions newInstance(String login) {
+        final MuseumExhibitions myFragment = new MuseumExhibitions();
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
         myFragment.setArguments(args);
@@ -70,10 +70,10 @@ public class EditExhibition extends Fragment implements IDeletePosition {
     private QueryDeleteExhibition queryDeleteExhibition;
 
     private void initViews(View rootView) {
-        progressBar = rootView.findViewById(R.id.edit_exhibitions_progress_bar);
-        recyclerView = rootView.findViewById(R.id.recycler_view_edit_exhibitions);
-        QueryEditExhibitionGetExhibitions queryEditExhibitionGetExhibitions = new QueryEditExhibitionGetExhibitions(this);
-        queryEditExhibitionGetExhibitions.getQuery(login);
+        progressBar = rootView.findViewById(R.id.museum_exhibitions_progress_bar);
+        recyclerView = rootView.findViewById(R.id.recycler_view_museum_exhibitions);
+        QueryMuseumExhibitions queryMuseumExhibitions = new QueryMuseumExhibitions(this);
+        queryMuseumExhibitions.getQuery(login);
         queryDeleteExhibition = new QueryDeleteExhibition(this);
         recyclerView.setAdapter(adapter);
     }
