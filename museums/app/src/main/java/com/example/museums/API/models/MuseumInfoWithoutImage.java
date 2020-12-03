@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 public class MuseumInfoWithoutImage {
     @ColumnInfo(name = "id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name = "name")
     public String name;

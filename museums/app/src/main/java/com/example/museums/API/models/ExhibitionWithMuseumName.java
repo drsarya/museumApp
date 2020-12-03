@@ -15,7 +15,7 @@ public class ExhibitionWithMuseumName {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -42,20 +42,26 @@ public class ExhibitionWithMuseumName {
     @NonNull
     public String nameMuseum;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExhibitionWithMuseumName that = (ExhibitionWithMuseumName) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 name.equals(that.name) &&
                 idMuseum.equals(that.idMuseum) &&
-                 description.equals(that.description) &&
+                description.equals(that.description) &&
                 Objects.equals(firstDate, that.firstDate) &&
                 Objects.equals(lastDate, that.lastDate) &&
                 nameMuseum.equals(that.nameMuseum);
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, idMuseum, image, description, firstDate, lastDate, nameMuseum);
+    }
 }

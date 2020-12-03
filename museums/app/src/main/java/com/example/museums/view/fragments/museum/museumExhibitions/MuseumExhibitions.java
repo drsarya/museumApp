@@ -84,7 +84,7 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     }
 
     @Override
-    public void deletePosition(int position, int id) {
+    public void deletePosition(int position, Integer id) {
         queryDeleteExhibition.getQuery(id);
     }
 }

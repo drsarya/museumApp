@@ -20,11 +20,11 @@ import androidx.room.PrimaryKey;
 public class Exhibit {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
 
     @NonNull
     @ColumnInfo(name = "authorId")
-    public int authorId;
+    public Integer authorId;
 
     @NonNull
     @ColumnInfo(name = "name")

@@ -19,10 +19,10 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     private IDeletePosition iDeletePosition;
     private Context context;
     private View view;
-    private int id;
+    private Integer id;
 
     public ClickListenerHolderDeletePosition(RecyclerView.Adapter adapter, IDeletePosition iDeletePosition, Context context,
-                                             View view, int position, int id) {
+                                             View view, int position, Integer id) {
         this.adapter = adapter;
         this.context = context;
         this.iDeletePosition = iDeletePosition;
@@ -55,6 +55,7 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     }
 
     private void updateRecyclerView() {
+        System.out.println(id);
         iDeletePosition.deletePosition(position, id);
     }
 }

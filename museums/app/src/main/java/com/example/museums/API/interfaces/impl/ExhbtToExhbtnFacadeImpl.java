@@ -56,7 +56,7 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        System.out.println(e.toString());
                         queryCreateExhibition.onErrorInsertsExhbtToExhbtn();
 
                     }

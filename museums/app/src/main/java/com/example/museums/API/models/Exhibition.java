@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Exhibition {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
 
     @NonNull
     @ColumnInfo(name = "name")

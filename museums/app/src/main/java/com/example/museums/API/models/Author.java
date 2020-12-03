@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 public class Author {
     @ColumnInfo(name = "id_author")
     @PrimaryKey(autoGenerate = true)
-    public int id_author;
+    public Integer id_author;
 
     @NonNull
     @ColumnInfo(name = "fullName")

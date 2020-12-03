@@ -10,7 +10,7 @@ public interface ExhibitionFacade {
     void getMuseumByLogin(String login);
 
     void insertExhbtn(Exhibition exhibition);
-
+void updateExhibition(Exhibition exhibition);
     void getExhibitionByMuseumId(int id);
     void deleteExhibition(int id);
 }

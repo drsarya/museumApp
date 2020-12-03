@@ -7,7 +7,7 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhbtToExhbtnFacadeImpl;
 import com.example.museums.API.models.Exhibition;
-import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 
 import java.util.List;
@@ -23,7 +23,6 @@ public class QueryEditExhibition {
     }
 
     public void onSuccess(List<NewExhibitModel> list) {
-        activity.updateListExhibits(list);
         activity.progressBar.setVisibility(View.GONE);
 
     }

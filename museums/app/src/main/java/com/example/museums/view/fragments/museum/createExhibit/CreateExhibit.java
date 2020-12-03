@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Author;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.authors.QueryAuthor;
@@ -145,7 +146,7 @@ public class CreateExhibit extends Fragment {
                 BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
-                NewExhibitModel ex = new NewExhibitModel(
+                NewExhibitModel ex = new NewExhibitModel(null,
                         dateOfCreateEditText.getText().toString(),
                         wordKeysEditText.getText().toString(),
                         authorEditText.getText().toString(), nameEditText.getText().toString()

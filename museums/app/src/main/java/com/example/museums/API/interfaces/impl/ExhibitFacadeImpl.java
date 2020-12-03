@@ -155,12 +155,14 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer museum) {
-
+                        System.out.println("updateeeeeeeee");
                         queryCreateExhibition.onSuccessUpdate( );
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        System.out.println(e.toString());
+
                         queryCreateExhibition.onError();
                     }
                 });

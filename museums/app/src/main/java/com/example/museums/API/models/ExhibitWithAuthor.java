@@ -12,10 +12,10 @@ import java.util.Objects;
 
 public class ExhibitWithAuthor {
     @ColumnInfo(name = "id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name = "id_author")
-    public int id_author;
+    public Integer id_author;
 
     @ColumnInfo(name = "fullName")
     public String fullName;

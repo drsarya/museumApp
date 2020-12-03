@@ -14,6 +14,7 @@
         android:fontFamily="@font/prata"
         android:gravity="center_horizontal"
         android:text="Новый экспонат"
+        android:id="@+id/create_exhibit_first_line_text_view"
         android:textAlignment="center"
         android:textColor="@color/darkBeige"
         android:textSize="20sp">

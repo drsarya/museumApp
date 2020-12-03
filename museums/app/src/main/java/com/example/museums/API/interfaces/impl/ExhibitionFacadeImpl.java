@@ -90,6 +90,21 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
     }
 
+    @Override
+    public void updateExhibition(Exhibition exhibition) {
+        museumDao.updateExhibition(exhibition).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DisposableSingleObserver<Integer>() {
+            @Override
+            public void onSuccess(@NonNull Integer integer) {
+                queryCreateExhibition.onSuccessUpdateExhibiton();
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                queryCreateExhibition.onErrorUpdateExhibiton();
+            }
+        });
+    }
+
     @SuppressLint("CheckResult")
     @Override
     public void getExhibitionByMuseumId(int id) {

@@ -3,9 +3,6 @@ package com.example.museums.API;
 
 import android.graphics.Bitmap;
 
-import androidx.annotation.IntegerRes;
-import androidx.constraintlayout.helper.widget.Flow;
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,7 +21,7 @@ import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.MuseumInfoWithoutImage;
 import com.example.museums.API.models.User;
-import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
+import com.example.museums.API.models.NewExhibitModel;
 
 import java.util.List;
 
@@ -59,8 +56,10 @@ public interface MuseumDao {
 
 
     /*EXHIBITION*/
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     Single<Long> insertExhbtn(Exhibition exhibition);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    Single<Integer> updateExhibition(Exhibition exhibit);
 
     @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2  WHERE idMuseum =:id")
     Flowable<List<ExhibitionWithMuseumName>> getExhbtnByMuseumId(Integer id);
@@ -100,7 +99,7 @@ public interface MuseumDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibitInfo(Exhibit exhibit);
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
     Single<Integer> updateExhibits(List<Exhibit> exhibit);
 
     /*INSERT*/

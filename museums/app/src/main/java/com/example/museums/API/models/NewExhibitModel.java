@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.createExhibit;
+package com.example.museums.API.models;
 
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -19,11 +19,11 @@ public class NewExhibitModel {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public int exhibitId = -1;
+    public Integer exhibitId  ;
 
     @NonNull
     @ColumnInfo(name = "authorId")
-    public int idAuthor;
+    public Integer idAuthor;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -46,21 +46,37 @@ public class NewExhibitModel {
     public String tags;
 
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        NewExhibitModel that = (NewExhibitModel) o;
+//        return
+//
+//                Objects.equals(author, that.author) &&
+//                name.equals(that.name) &&
+//                description.equals(that.description) &&
+//                dateOfCreate.equals(that.dateOfCreate) &&
+//                Objects.equals(tags, that.tags);
+//    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
+        System.out.println("ssdsdsdsdsdsdssdsssssssssssssssssssssssss");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewExhibitModel that = (NewExhibitModel) o;
-        return
-
-                Objects.equals(author, that.author) &&
+        return Objects.equals(author, that.author) &&
+                Objects.equals(exhibitId, that.exhibitId) &&
+                idAuthor.equals(that.idAuthor) &&
                 name.equals(that.name) &&
                 description.equals(that.description) &&
                 dateOfCreate.equals(that.dateOfCreate) &&
                 Objects.equals(tags, that.tags);
     }
-
 
 
     public int getIdAuthor() {
@@ -71,13 +87,14 @@ public class NewExhibitModel {
         this.idAuthor = idAuthor;
     }
 
-    public NewExhibitModel(String dateOfCreate, String tags, String author, String name, Bitmap photo, String description) {
+    public NewExhibitModel(Integer exhibitId, String dateOfCreate, String tags, String author, String name, Bitmap photo, String description) {
         // модель для только что созданного экпоната create_exhibit
         this.dateOfCreate = dateOfCreate;
         this.tags = tags;
         this.author = author;
         this.name = name;
         this.photo = photo;
+        this.exhibitId = exhibitId;
         this.description = description;
     }
 

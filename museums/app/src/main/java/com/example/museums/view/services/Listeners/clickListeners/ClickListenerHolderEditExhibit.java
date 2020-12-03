@@ -9,7 +9,7 @@ import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.editExhibit.EditExhibit;
-import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.MethodsWithFragment;
 
@@ -44,7 +44,7 @@ public class ClickListenerHolderEditExhibit implements View.OnClickListener {
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment,   activity);
         } else {
-            EditExhibit myFragment = new EditExhibit().newInstance(model.dateOfCreate, model.tags
+            EditExhibit myFragment = new EditExhibit().newInstance(model.exhibitId, model.dateOfCreate, model.tags
                     , model.author, model.idAuthor , model.name, model.photo, model.description, position);
             myFragment.setTargetFragment(fragment, 0);
             MuseumTab activity = (MuseumTab) v.getContext();

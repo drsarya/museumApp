@@ -31,8 +31,9 @@ import com.example.museums.API.models.Exhibition;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.createExhibit.CreateExhibit;
-import com.example.museums.view.fragments.museum.createExhibit.NewExhibitModel;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
+import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IDeletePosition;
@@ -47,10 +48,10 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class CreateExhibition extends Fragment implements IDeletePosition {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private NewExhibitsRecyclerViewAdapter mAdapter ;
+    private NewExhibitsRecyclerViewAdapter mAdapter;
     public static final String LOGIN_KEY_USER = "login_key";
     private static String login;
-    public   List<NewExhibitModel> exhibits = new ArrayList<>();
+    public List<NewExhibitModel> exhibits = new ArrayList<>();
     private Bitmap bitmap;
     private RecyclerView recyclerView;
     private static CheckBox onlineCheckBox;
@@ -98,11 +99,11 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
         return myFragment;
     }
 
-    private int idExhibition;
+    private Integer idExhibition;
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            if(getArguments().getString(LOGIN_KEY_USER)!=null){
+            if (getArguments().getString(LOGIN_KEY_USER) != null) {
                 login = new String(getArguments().getString(LOGIN_KEY_USER));
 
             }
@@ -124,13 +125,16 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                 Bitmap b = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
                 bitmap = b.copy(b.getConfig(), true);
                 currImageImageView.setImageBitmap(bitmap);
-getArguments().clear();
-                QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this);
-                q.getQuery(idExhibition);
-// получаем лист экпонатов
-            }
-            if (getTargetFragment()!=null){
-                createExhibitionBtn.setText("Обновить");
+                getArguments().clear();
+                if (exhibits.isEmpty()) {
+
+                    QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this);
+                    q.getQuery(idExhibition);
+                } else {
+                }
+             }
+            if (getTargetFragment() != null) {
+                createExhibitionBtn.setText("Сохранить изменения");
                 firstLineTextView.setText("Обновить выставку");
             }
         }
@@ -244,18 +248,17 @@ getArguments().clear();
                     }
                 }
                 hideKeyboard();
-               // if (getTargetFragment() == null) {
-                    //создаем выставку с нуля
+                // if (getTargetFragment() == null) {
+                //создаем выставку с нуля
                 exhibition.id = idExhibition;
-                System.out.println(login+"перед обноалением!!!!!!!!!!!!!!");
-                    QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
-                    queryCreateExhibition.getQuery(login, exhibition, exhibits);
-               // } else {
+                QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
+                queryCreateExhibition.getQuery(login, exhibition, exhibits);
+                // } else {
 
-                    //обновляем сведения
+                //обновляем сведения
 
 
-              //  }
+                //  }
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
@@ -270,32 +273,41 @@ getArguments().clear();
 
     public void addNewExhibit(NewExhibitModel exhibit) {
         exhibits.add(exhibit);
-
-        //mAdapter.updateAll(exhibits);
         mAdapter.submitList(exhibits);
 
     }
 
     public void updateListExhibits(List<NewExhibitModel> exhibit) {
-        exhibits.addAll(exhibit);
 
-         mAdapter.submitList(exhibits);
+        if (exhibits.size() == 0) {
+            exhibits.addAll(exhibit);
+        }
+        mAdapter.submitList(exhibits);
 
     }
 
     public void updateExhibit(int position, NewExhibitModel exhibit) {
         exhibits.remove(position);
         exhibits.add(position, exhibit);
-
-        // mAdapter.updateAll(exhibits);
         mAdapter.submitList(exhibits);
     }
 
 
+    private QueryDeleteMuseumExhibit queryDeleteMuseumExhibit = new QueryDeleteMuseumExhibit(this);
+
     @Override
-    public void deletePosition(int position, int id) {
-        exhibits.remove(position);
-        mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, exhibits.size());
+    public void deletePosition(int position, Integer id) {
+        if (id != null) {
+            System.out.println("delete");
+            queryDeleteMuseumExhibit.getQuery(id);
+            exhibits.remove(position);
+            mAdapter.notifyItemRemoved(position);
+
+        } else {
+            exhibits.remove(position);
+            mAdapter.notifyItemRemoved(position);
+            mAdapter.notifyItemRangeChanged(position, exhibits.size());
+
+        }
     }
 }

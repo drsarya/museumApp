@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
+import com.example.museums.API.models.NewExhibitModel;
 
 public class QueryExhibit {
     private CreateExhibit activity;

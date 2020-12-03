@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
 public class Museum {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name = "login")
     @NonNull

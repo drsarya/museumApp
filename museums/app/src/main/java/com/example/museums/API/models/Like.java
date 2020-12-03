@@ -15,7 +15,7 @@ public class Like {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public   int id;
+    public   Integer id;
 
     @ColumnInfo(name = "login")
     @NonNull
