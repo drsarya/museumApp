@@ -25,6 +25,8 @@
 
 
                 <ImageView
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     android:id="@+id/detailed_exhibit_main_image_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,11 +47,12 @@
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/prata"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="Явление Христа народу"
                         android:textAlignment="center"
                         android:textColor="@color/dark_dark_brown"
-                        android:textSize="25sp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -59,6 +62,7 @@
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
+                        android:id="@+id/detailed_exhibit_view_page_author_text_view"
                         android:gravity="end|center_vertical"
                         android:text="Александр Иванов"
                         android:textColor="@color/black"
@@ -96,6 +100,7 @@
                         android:fontFamily="@font/prata"
                         android:gravity="end|center_vertical"
                         android:text="1890 год"
+                        android:id="@+id/detailed_exhibit_view_page_date_text_view"
                         android:textColor="@color/black"
                         android:textSize="15sp">
 
@@ -111,6 +116,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/detailed_exhibit_view_page_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"

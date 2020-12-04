@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.common.DetailedExhibitWithListeners;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
@@ -15,9 +16,11 @@ import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapt
 
 
 public class ClickListenerHolderExhibitis implements View.OnClickListener {
-    public ClickListenerHolderExhibitis(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder) {
+    public ClickListenerHolderExhibitis(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder, NewExhibitModel model) {
         this.holder = holder;
+        this.model = model;
     }
+    private  NewExhibitModel model;
 
     private CountDownTimer ctimte = null;
     private MethodsWithFragment mth = new MethodsWithFragment();
@@ -28,7 +31,8 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (holder.textView.getVisibility() == View.VISIBLE) {
-            Fragment myFragment = new DetailedExhibitWithListeners();
+            Fragment myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, model.photo,
+                    model.name, model.author, model.dateOfCreate, model.description);;
             mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, holder.textView);

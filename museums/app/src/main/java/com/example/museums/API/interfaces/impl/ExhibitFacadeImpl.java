@@ -5,15 +5,20 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
+import com.example.museums.API.models.Like;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
 import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
+import com.example.museums.view.fragments.user.exhibits.QueryExhibits;
 
 import java.util.List;
 
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -27,14 +32,14 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
     private QueryUpdateExhibit queryUpdateExhibit;
     private QueryDeleteExhibition queryDeleteExhibition;
     private QueryInsertExhibit queryInsertExhibit;
-
+    private QueryExhibits queryExhibits;
     public ExhibitFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
     }
 
-    public ExhibitFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
+    public ExhibitFacadeImpl(MuseumDao museumDao, QueryExhibits queryExhibits) {
         this.museumDao = museumDao;
-        this.queryCreateExhibition = queryCreateExhibition;
+        this.queryExhibits = queryExhibits;
     }
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryInsertExhibit queryInsertExhibit) {
         this.museumDao = museumDao;
@@ -61,10 +66,18 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
         this.queryListMuseumExhibits = queryListMuseumExhibits;
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    public List<Exhibit> getAllExhibits() {
-        List<Exhibit> list = museumDao.getAllExhibits();
-        return list;
+    public void getAllExhibits() {
+         museumDao.getAllExhibits().observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+         .subscribe( exhibitModels -> {
+
+             queryExhibits.onSuccess(exhibitModels);
+         }, error ->{
+             queryExhibits.onError();
+
+         });
+
     }
 
     @SuppressLint("CheckResult")

@@ -29,26 +29,9 @@ public class Museum {
     @NonNull
     public String address;
 
-
-//    @ColumnInfo(name = "country")
-//    @NonNull
-//    public String country;
-
-//    @ColumnInfo(name = "city")
-//    @NonNull
-//    public String city;
-//
-//    @ColumnInfo(name = "street")
-//    @NonNull
-//    public String street;
-//
-//    @ColumnInfo(name = "build")
-//    @NonNull
-//    public String build;
-
     @ColumnInfo(name = "description")
     public String description;
-    @ColumnInfo(name = "image" )
+    @ColumnInfo(name = "image")
     public Bitmap image;
 
 }

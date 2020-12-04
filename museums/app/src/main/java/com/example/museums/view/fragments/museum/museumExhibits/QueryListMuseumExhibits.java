@@ -8,6 +8,8 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
 import com.example.museums.API.models.NewExhibitModel;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.List;
 
 public class QueryListMuseumExhibits {
@@ -20,6 +22,7 @@ public class QueryListMuseumExhibits {
     }
 
     public void onSuccess(List<NewExhibitModel> exhibits) {
+        System.out.println("sizeeeeeeeeee"+exhibits.size());
         activity.refreshAllList(exhibits);
         activity.progressBar.setVisibility(View.GONE);
     }

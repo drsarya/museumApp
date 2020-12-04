@@ -58,6 +58,7 @@
                 android:id="@+id/authorization_log_text_view"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
+                android:text="1111"
                 android:imeOptions="actionDone"
 
                  app:helperText="@string/password" />
@@ -79,7 +80,7 @@
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
                 android:imeOptions="actionDone"
-
+                android:text="1111"
                  android:id="@+id/authorization_password_text_view"
 
                 app:helperText="@string/password" />

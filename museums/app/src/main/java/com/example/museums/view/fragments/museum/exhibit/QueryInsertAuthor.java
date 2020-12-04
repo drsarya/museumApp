@@ -35,13 +35,14 @@ public class QueryInsertAuthor {
     }
 
     public void onSuccess(Integer id) {
-        if(id !=null){
-        if (queryInsertExhibit != null) {
-            queryInsertExhibit.onSuccessInsertAuthor(id.intValue());
+        if (id != null) {
+            if (queryInsertExhibit != null) {
+                queryInsertExhibit.onSuccessInsertAuthor(id.intValue());
 
+            } else {
+                queryUpdateExhibit.onSuccessInsertAuthor(id.intValue());
+            }
         } else {
-            queryUpdateExhibit.onSuccessInsertAuthor(id.intValue());
-        }}else{
 
             authorFacade.insertAuthor(authorName);
 
@@ -64,7 +65,7 @@ public class QueryInsertAuthor {
 
     public void getQuery(NewExhibitModel model) {
         authorName = model.author;
-         authorFacade = new AuthorFacadeImpl(museumDao, this);
+        authorFacade = new AuthorFacadeImpl(museumDao, this);
         authorFacade.getAuthorByName(model.author);
 
     }

@@ -21,24 +21,19 @@ public class NewExhibitModel {
     @PrimaryKey(autoGenerate = true)
     public Integer exhibitId  ;
 
-    @NonNull
-    @ColumnInfo(name = "authorId")
+     @ColumnInfo(name = "authorId")
     public Integer idAuthor;
 
-    @NonNull
-    @ColumnInfo(name = "name")
+     @ColumnInfo(name = "name")
     public String name;
 
-    @NonNull
-    @ColumnInfo(name = "photo")
+     @ColumnInfo(name = "photo")
     public Bitmap photo;
 
-    @NonNull
-    @ColumnInfo(name = "description")
+     @ColumnInfo(name = "description")
     public String description;
 
-    @NonNull
-    @ColumnInfo(name = "dateOfCreate")
+     @ColumnInfo(name = "dateOfCreate")
     public String dateOfCreate;
 
 

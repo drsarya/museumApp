@@ -24,8 +24,7 @@
                 android:layout_height="match_parent"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/prata"
-                android:gravity="center_horizontal"
-                android:text="Атлас \n В. Маяковский"
+                android:autoSizeMaxTextSize="20dp"                android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@color/dark_dark_brown">
 
@@ -48,8 +47,9 @@
                     android:id="@+id/detailed_exhbtn_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="matrix"
-                    android:src="@drawable/detailed_exhibition">
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+            >
 
                 </ImageView>
             </LinearLayout>
@@ -66,12 +66,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMaxTextSize="20sp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="end|bottom"
-                    android:text="5.05-30.06"
-                    android:textAlignment="textEnd"
+                     android:textAlignment="textEnd"
                     android:textStyle="bold">
 
                 </TextView>
@@ -81,11 +80,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMaxTextSize="17dp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="end|top"
-                    android:text="Воронежская галерея">
+                    >
 
                 </TextView>
             </LinearLayout>

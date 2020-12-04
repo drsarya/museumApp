@@ -67,12 +67,16 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
         final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
+//        if(museumExhibits.getBitmapFromMemCache(purchaseList.exhibitId+purchaseList.name)!=null){
+//            holder.mainImage.setImageBitmap(museumExhibits.getBitmapFromMemCache(purchaseList.exhibitId.toString()+purchaseList.name));
+//        }
+        holder.mainImage.setImageBitmap(purchaseList.photo);
+
         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), purchaseList.exhibitId));
         holder.authorTextView.setText(purchaseList.author);
-        holder.mainImage.setImageBitmap(purchaseList.photo);
         holder.nameTextView.setText(purchaseList.name);
         holder.dataTextView.setText(purchaseList.dateOfCreate);
     }
@@ -83,7 +87,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
         @Override
         public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            return oldProduct.exhibitId == newProduct.exhibitId;
+            return oldProduct.exhibitId.equals(newProduct.exhibitId);
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -96,11 +100,6 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
 
     public void submitList(List<NewExhibitModel> products) {
         differ.submitList(products);
-    }
-
-    public List<NewExhibitModel> getList() {
-
-        return differ.getCurrentList();
     }
 
 

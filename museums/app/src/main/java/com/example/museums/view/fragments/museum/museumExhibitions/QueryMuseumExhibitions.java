@@ -7,6 +7,7 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitionFacadeImpl;
 import com.example.museums.API.models.ExhibitionWithMuseumName;
+import com.example.museums.view.services.CacheManager;
 
 import java.util.List;
 
@@ -20,8 +21,9 @@ public class QueryMuseumExhibitions {
     }
 
     public void onSuccess(int idMuseum) {
+
         exhibitionFacade.getExhibitionByMuseumId(idMuseum);
-     }
+    }
 
 
     public void onError() {
@@ -32,6 +34,7 @@ public class QueryMuseumExhibitions {
     }
 
     public void onSuccessGetExhbtn(List<ExhibitionWithMuseumName> exhibitions) {
+
         activity.updateAll(exhibitions);
         activity.progressBar.setVisibility(View.GONE);
 

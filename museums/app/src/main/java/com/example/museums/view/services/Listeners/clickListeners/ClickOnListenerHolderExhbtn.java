@@ -7,17 +7,33 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.view.fragments.common.DetailedExhbtn;
 import com.example.museums.view.services.MethodsWithFragment;
 
 public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     private MethodsWithFragment mth = new MethodsWithFragment();
+    private ExhibitionWithMuseumName exhibitionWithMuseumName;
 
+    public ClickOnListenerHolderExhbtn( ExhibitionWithMuseumName exhibitionWithMuseumName) {
+        this.exhibitionWithMuseumName = exhibitionWithMuseumName;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-        Fragment myFragment = new DetailedExhbtn();
-        mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
+        Fragment myFragment;
+             if (exhibitionWithMuseumName.firstDate == null) {
+
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                        "", exhibitionWithMuseumName.description);
+            } else {
+
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum),exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                        exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
+
+            }
+
+            mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
     }
 }

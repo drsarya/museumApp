@@ -79,7 +79,7 @@ public class EditExhibit extends Fragment {
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
 
-    public EditExhibit newInstance(Integer id, String dateOfCreate, String tags, String author,  String name, Parcelable photo, String description, int positionExh) {
+    public EditExhibit newInstance(Integer id, String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
         args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
@@ -94,11 +94,9 @@ public class EditExhibit extends Fragment {
         args.putString(EXHIBIT_NAME_MODEL, name);
         args.putString(EXHIBIT_DATA_MODEL, dateOfCreate);
         args.putInt(EXHIBIT_POSITION_MODEL, positionExh);
-         myFragment.setArguments(args);
+        myFragment.setArguments(args);
         return myFragment;
     }
-
-
 
 
     @Nullable
@@ -218,14 +216,10 @@ public class EditExhibit extends Fragment {
                 );
 
                 if (getTargetFragment().getClass().toString().equals(EditExhibtion.class.toString())) {
-
-
-
-                        EditExhibtion c = (EditExhibtion) getTargetFragment();
-
-                        QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c );
-                        authorRecyclerView.setVisibility(View.GONE);
-                        queryUpdateExhibit.getQuery(ex, idExhibit, positionExh);
+                    EditExhibtion c = (EditExhibtion) getTargetFragment();
+                    QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);
+                    authorRecyclerView.setVisibility(View.GONE);
+                    queryUpdateExhibit.getQuery(ex, idExhibit, positionExh);
 
                 } else {
                     MuseumExhibits c = (MuseumExhibits) getTargetFragment();

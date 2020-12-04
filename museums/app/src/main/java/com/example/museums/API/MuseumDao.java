@@ -38,12 +38,12 @@ public interface MuseumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long > insertExhbToExbtn( ExhibitToExhbtn  exhbtns);
 
-    @Query("SELECT * FROM exhibit")
-    List<Exhibit> getAllExhibits();
+    @Query("SELECT * FROM exhibit as e1 JOIN author as a1 ON a1.id_author = e1.authorId ")
+    Flowable<List<NewExhibitModel>> getAllExhibits();
 
 
-    @Query("SELECT * FROM exhibition")
-    List<Exhibition> getAllExhibitions();
+    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2 on  m2.id = e1.idMuseum  ")
+    Flowable<List<ExhibitionWithMuseumName>> getAllExhibitions();
 
 
     @Query("SELECT Count (*) FROM `like` WHERE idExhb =:exhbtId")
@@ -62,7 +62,7 @@ public interface MuseumDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibition(Exhibition exhibit);
 
-    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2  WHERE idMuseum =:id")
+    @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2 on  m2.id = e1.idMuseum WHERE e1.idMuseum =:id")
     Flowable<List<ExhibitionWithMuseumName>> getExhbtnByMuseumId(Integer id);
 
 

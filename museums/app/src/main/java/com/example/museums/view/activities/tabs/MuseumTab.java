@@ -9,12 +9,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.createExhibition.CreateExhibition;
-import com.example.museums.view.fragments.common.Exhibitions;
-import com.example.museums.view.fragments.common.Exhibits;
+import com.example.museums.view.fragments.user.exhibitions.Exhibitions;
+import com.example.museums.view.fragments.user.exhibits.Exhibits;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
+import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 
 public class MuseumTab extends AppCompatActivity {
@@ -27,17 +30,22 @@ public class MuseumTab extends AppCompatActivity {
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
     private MuseumExhibitions exhibitions;
 
+    private void initViews() {
+        menuTab =  findViewById(R.id.museum_bnview);
+        KeyboardVisibilityEvent.setEventListener(this, new KeyboardListenerHideOptionalBlock(menuTab));
+
+    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle b = getIntent().getExtras();
+        setContentView(R.layout.activity_tab_museum);
 
         if (b != null) {
             login = b.getString(LOGIN_KEY_USER);
             exhibitions = new MuseumExhibitions().newInstance(login);
-
             mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(login);
             exhibits = new MuseumExhibits().newInstance(login);
             createExhibition = new CreateExhibition().newInstance(login);
@@ -49,9 +57,7 @@ public class MuseumTab extends AppCompatActivity {
             createExhibition = new CreateExhibition();
         }
 
-
-        setContentView(R.layout.activity_tab_museum);
-        menuTab = (BottomNavigationView) findViewById(R.id.museum_bnview);
+        initViews();
         setInitialPage();
         menuTab.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {

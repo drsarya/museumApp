@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.museums.API.models.Exhibition;
 import com.example.museums.R;
+import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
@@ -46,11 +47,11 @@ public class CreateExhibition extends Fragment {
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
     private EditText dateOfStartET, dateOfEndET, nameET, descriptionET;
     private static ImageView currImageImageView;
-    private TextView chooseImageTextView ;
+    private TextView chooseImageTextView;
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
-     static final int GALLERY_REQUEST = 1;
-
+    static final int GALLERY_REQUEST = 1;
+    private CacheManager cacheManager = new CacheManager();
 
     public CreateExhibition newInstance(String login) {
         final CreateExhibition myFragment = new CreateExhibition();
@@ -81,7 +82,7 @@ public class CreateExhibition extends Fragment {
         chooseImageTextView = rootView.findViewById(R.id.create_exhibition_choose_image_btn);
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
-     }
+    }
 
 
     @Override
@@ -93,7 +94,10 @@ public class CreateExhibition extends Fragment {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        currImageImageView.setImageBitmap(bitmap);
+                        cacheManager.deleteItem("newExhibition");
+                        cacheManager.addBitmapToMemoryCache("newExhibition", bitmap);
+                        currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -110,8 +114,16 @@ public class CreateExhibition extends Fragment {
                 inflater.inflate(R.layout.fragment_create_exhibition, container, false);
         getArgumentsFromBundle();
         initViews(rootView);
+        setData();
         setListeners();
         return rootView;
+    }
+
+    private void setData() {
+        if (cacheManager.getBitmapFromMemCache("newExhibition") != null) {
+            currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
+        }
+
     }
 
 

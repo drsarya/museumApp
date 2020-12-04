@@ -22,18 +22,17 @@ public class QueryDeleteMuseumExhibit {
     public void onSuccess() {
         Toast.makeText(activity.getContext(),
                 "Успешное удаление", Toast.LENGTH_SHORT).show();
-     }
+    }
 
 
     public void onError() {
         Toast.makeText(activity.getContext(),
                 "Ошибка удаления", Toast.LENGTH_SHORT).show();
-
     }
 
     public void getQuery(int id) {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
-         exhibitFacadel = new ExhibitFacadeImpl(museumDao, this);
+        exhibitFacadel = new ExhibitFacadeImpl(museumDao, this);
         exhibitFacadel.deleteExhibit(id);
     }
 

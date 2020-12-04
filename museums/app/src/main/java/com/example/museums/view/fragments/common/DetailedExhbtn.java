@@ -20,17 +20,22 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.exhibitFromExhibition.ExhibitViewPager;
+import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.QueryGetExhibitsFromExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.MethodsWithFragment;
-import com.example.museums.API.models.Exhibit;
+import com.example.museums.view.services.oop.IUpdateList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailedExhbtn extends Fragment {
+public class DetailedExhbtn extends Fragment implements IUpdateList {
+    private static final String ID_MUSEUM_KEY = "museum_key";
     private ImageButton like;
     private Button museumInfo;
     private Button allExhibits;
@@ -40,9 +45,9 @@ public class DetailedExhbtn extends Fragment {
     private MethodsWithFragment mth = new MethodsWithFragment();
     private ScrollView scrollView;
     private boolean state = true;
-    private boolean stateDescription = true;
     private TextView nameTextView, dateTextView;
     private ImageView imageView;
+    private ExhibitViewPager exhibitViewPager;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -53,26 +58,28 @@ public class DetailedExhbtn extends Fragment {
         setListeners();
     }
 
-private Bitmap bitmap ;
+    private Bitmap bitmap;
     public static final String IMAGE_KEY = "image_key";
     public static final String NAME_KEY = "name_key";
     public static final String DATE_KEY = "date_key";
     public static final String DESCRIPTION_KEY = "description_key";
     public static final String ID_EXHIBIT_KEY = "id_key";
 
-    public DetailedExhbtn newInstance(int id, Parcelable image, String name, String date, String description) {
+    public DetailedExhbtn newInstance(int id, int museumId,Parcelable image, String name, String date, String description) {
         final DetailedExhbtn myFragment = new DetailedExhbtn();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
         args.putString(DATE_KEY, date);
         args.putString(DESCRIPTION_KEY, description);
         args.putInt(ID_EXHIBIT_KEY, id);
+        args.putInt(ID_MUSEUM_KEY, museumId);
         args.putParcelable(IMAGE_KEY, image);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private int idExhibition;
+    private int idMuseum;
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
@@ -80,9 +87,11 @@ private Bitmap bitmap ;
             dateTextView.setText(getArguments().getString(DATE_KEY));
             exhbtnDescriptionTextView.setText(getArguments().getString(DESCRIPTION_KEY));
             idExhibition = getArguments().getInt(ID_EXHIBIT_KEY);
+            idMuseum = getArguments().getInt(ID_MUSEUM_KEY);
+
             bitmap = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
             imageView.setImageBitmap(bitmap);
-          //  getArguments().clear();
+            //  getArguments().clear();
         }
     }
 
@@ -111,29 +120,39 @@ private Bitmap bitmap ;
         return rootView;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
     private void setListeners() {
         like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
         museumInfo.setOnClickListener(v -> {
-            Fragment myFragment = new MainInfoMuseum();
-            mth.replaceFragment(myFragment,  (AppCompatActivity) v.getContext());
+            Fragment myFragment = new MainInfoMuseum().newInstance(idMuseum);
+            mth.replaceFragment(myFragment, (AppCompatActivity) v.getContext());
         });
         exhbtnDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(exhbtnDescriptionTextView)
         );
         allExhibits.setOnClickListener(v -> {
-            List<Exhibit> lisr = new ArrayList<>();
-            lisr.add(new Exhibit());
-            lisr.add(new Exhibit());
-            lisr.add(new Exhibit());
-            lisr.add(new Exhibit());
-            lisr.add(new Exhibit());
-            ExhibitViewPager exhibitViewPager = new ExhibitViewPager(lisr);
-            mth.replaceFragment(exhibitViewPager,   (AppCompatActivity) v.getContext());
+            QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition = new QueryGetExhibitsFromExhibition(this, this);
+            queryGetExhibitsFromExhibition.getQuery(idExhibition);
+            List<NewExhibitModel> list = new ArrayList<>();
+
+            exhibitViewPager = new ExhibitViewPager(list);
+            mth.replaceFragment(exhibitViewPager, (AppCompatActivity) v.getContext());
 
         });
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
 
+    }
+
+    private List<NewExhibitModel> newExhibitModels = new ArrayList<>();
+
+    @Override
+    public void updateList(List<NewExhibitModel> list) {
+        if (newExhibitModels.size() == 0) {
+            System.out.println(list.size()+"result");
+            newExhibitModels.addAll(list);
+        }
+        exhibitViewPager.setNewData(newExhibitModels);
     }
 }

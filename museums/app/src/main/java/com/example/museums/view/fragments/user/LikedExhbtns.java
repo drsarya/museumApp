@@ -58,7 +58,7 @@ public class LikedExhbtns extends Fragment {
         in.add(new Exhibition());
         in.add(new Exhibition());
 
-        mAdapter = new ExhibitionsRecyclerViewAdapter(in);
+        mAdapter = new ExhibitionsRecyclerViewAdapter( );
         recyclerView.setAdapter(mAdapter);
 
 

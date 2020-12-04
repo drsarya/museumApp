@@ -30,6 +30,7 @@ public class QueryMainInfoMuseumPageEdit {
     public void onSuccess(MuseumInfoWithoutImage museumInfoWithoutImage) {
 
         activity.addressTextView.setText(museumInfoWithoutImage.address);
+         System.out.println(museumInfoWithoutImage.toString());
         activity.nameOfMuseumTextView.setText(museumInfoWithoutImage.name);
         if (museumInfoWithoutImage.description != null) {
             activity.descriptionTextView.setText(museumInfoWithoutImage.description);

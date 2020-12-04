@@ -54,7 +54,7 @@ public class LikedExhibits extends Fragment {
         in.add(new Exhibit());
         in.add(new Exhibit());
         in.add(new Exhibit());
-        mAdapter = new ExhibitsRecyclerViewAdapter(in);
+        mAdapter = new ExhibitsRecyclerViewAdapter();
         recyclerView.setAdapter(mAdapter);
 
 

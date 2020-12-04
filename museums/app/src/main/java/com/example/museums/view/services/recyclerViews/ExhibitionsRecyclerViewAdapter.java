@@ -1,5 +1,7 @@
 package com.example.museums.view.services.recyclerViews;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.AsyncListDiffer;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerOpenExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
 import com.example.museums.API.models.Exhibition;
 
@@ -32,10 +42,31 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
             nameOfEMuseum = view.findViewById(R.id.detailed_exhbtn_name_museum);
         }
     }
-    private List<Exhibition> mDataset;
 
-    public ExhibitionsRecyclerViewAdapter(List<Exhibition> myDataset) {
-        mDataset = myDataset;
+    private AsyncListDiffer<ExhibitionWithMuseumName> differ = new AsyncListDiffer<ExhibitionWithMuseumName>(this, DIFF_CALLBACK);
+
+    private static final DiffUtil.ItemCallback<ExhibitionWithMuseumName> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExhibitionWithMuseumName>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
+            return oldProduct.id == newProduct.id;
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        public boolean areContentsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
+            return oldProduct.equals(newProduct);
+        }
+    };
+
+
+    public void submitList(List<ExhibitionWithMuseumName> products) {
+        differ.submitList(products);
+    }
+
+    @Override
+    public int getItemCount() {
+        return differ.getCurrentList().size();
     }
 
     @NonNull
@@ -49,15 +80,20 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
 
     @Override
     public void onBindViewHolder(@NonNull ExhibitionsViewHolder holder, int position) {
-        holder.dateOfExhbtn.setText("30.05-20.08");
-        holder.nameOfExhibtn.setText("Выставка" + position);
-        holder.nameOfEMuseum.setText("Третьяковская галерея");
-        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn());
+        final ExhibitionWithMuseumName exhibition = differ.getCurrentList().get(position);
+
+        holder.image.setImageBitmap(exhibition.image);
+        if (exhibition.firstDate == null) {
+            holder.dateOfExhbtn.setVisibility(View.GONE);
+        } else {
+            holder.dateOfExhbtn.setVisibility(View.VISIBLE);
+            holder.dateOfExhbtn.setText(exhibition.firstDate + " - " + exhibition.lastDate);
+        }
+
+        holder.nameOfExhibtn.setText(exhibition.name);
+        holder.nameOfEMuseum.setText(exhibition.nameMuseum);
+        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition));
     }
 
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
-    }
 
 }

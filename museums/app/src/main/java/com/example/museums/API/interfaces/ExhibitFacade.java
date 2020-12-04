@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ExhibitFacade {
 
-    List<Exhibit> getAllExhibits();
+    void getAllExhibits();
 
     void getExhibitsByMuseumLogin(String login);
 

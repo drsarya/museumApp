@@ -31,11 +31,11 @@ public class ClickListenerOpenExhibition implements View.OnClickListener {
         if (view.getVisibility() == View.VISIBLE) {
             if (exhibitionWithMuseumName.firstDate == null) {
 
-                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                         "", exhibitionWithMuseumName.description);
             } else {
 
-                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum),exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                         exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
 
             }

@@ -113,7 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeMaxTextSize="20sp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/prata"
                         android:gravity="end|bottom"

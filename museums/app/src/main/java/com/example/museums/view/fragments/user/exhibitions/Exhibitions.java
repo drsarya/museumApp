@@ -1,7 +1,5 @@
-package com.example.museums.view.fragments.museum.museumExhibitions;
+package com.example.museums.view.fragments.user.exhibitions;
 
-
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,46 +7,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.services.oop.IDeletePosition;
-import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAdapter;
+import com.example.museums.view.fragments.user.exhibits.QueryExhibits;
+import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
+import com.example.museums.API.models.Exhibition;
+import com.example.museums.view.services.recyclerViews.TagsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class MuseumExhibitions extends Fragment implements IDeletePosition {
-    public ProgressBar progressBar;
+public class Exhibitions extends Fragment {
     private RecyclerView recyclerView;
-    private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
+    private ExhibitionsRecyclerViewAdapter mAdapter = new ExhibitionsRecyclerViewAdapter();
     public static final String LOGIN_KEY_USER = "login_key";
-    public String login;
-private EditText searchText;
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private String login;
+    private EditText searchEditText;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
-                inflater.inflate(R.layout.fragment_museum_exhibitions, container, false);
+                inflater.inflate(R.layout.fragment_main_exhibitions, container, false);
         getArgumentsFromBundle();
         initViews(rootView);
         setListeners();
         return rootView;
     }
 
-    public MuseumExhibitions newInstance(String login) {
-        final MuseumExhibitions myFragment = new MuseumExhibitions();
+    public  static Exhibitions newInstance(String login) {
+        final Exhibitions myFragment = new Exhibitions();
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
         myFragment.setArguments(args);
@@ -61,23 +56,20 @@ private EditText searchText;
         }
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-    private List<ExhibitionWithMuseumName> exhibitions = new ArrayList<>() ;
-
-    private QueryDeleteExhibition queryDeleteExhibition;
-
     private void initViews(View rootView) {
-        progressBar = rootView.findViewById(R.id.museum_exhibitions_progress_bar);
-        recyclerView = rootView.findViewById(R.id.recycler_view_museum_exhibitions);
-        QueryMuseumExhibitions queryMuseumExhibitions = new QueryMuseumExhibitions(this);
-        queryMuseumExhibitions.getQuery(login);
-        queryDeleteExhibition = new QueryDeleteExhibition(this);
-        recyclerView.setAdapter(adapter);
-        searchText = rootView.findViewById(R.id.museum_exhibitions_search_exhibition);
+        recyclerView = rootView.findViewById(R.id.recycler_view_exhibitons);
+        searchEditText = rootView.findViewById(R.id.main_exhibitions_search_edit_tsxt);
+        recyclerView.setAdapter(mAdapter);
+        QueryExhibitions queryExhibitions = new QueryExhibitions(this);
+        queryExhibitions.getQuery();
+    }
+
+
+    List<ExhibitionWithMuseumName> newExhibitModels = new ArrayList<>();
+
+    public void refreshAllList(List<ExhibitionWithMuseumName> exhibitModels) {
+        this.newExhibitModels = exhibitModels;
+        mAdapter.submitList(exhibitModels);
     }
 
     private boolean containsString(String fullName, String currText) {
@@ -87,8 +79,9 @@ private EditText searchText;
             return true;
         } else return false;
     }
+
     private void setListeners() {
-        searchText.addTextChangedListener(new TextWatcher() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -106,24 +99,14 @@ private EditText searchText;
         });
 
     }
+
     private void filter(String text) {
         List<ExhibitionWithMuseumName> temp = new ArrayList();
-         for (ExhibitionWithMuseumName d : exhibitions) {
-            if (containsString(d.name, text)  ) {
+        for (ExhibitionWithMuseumName d : newExhibitModels) {
+            if (containsString(d.name, text)) {
                 temp.add(d);
             }
         }
-        adapter.submitList(temp);
-    }
-
-
-    public void updateAll(List<ExhibitionWithMuseumName> exhibitions) {
-        this.exhibitions = exhibitions;
-         adapter.submitList(exhibitions);
-    }
-
-    @Override
-    public void deletePosition(int position, Integer id) {
-        queryDeleteExhibition.getQuery(id);
+        mAdapter.submitList(temp);
     }
 }

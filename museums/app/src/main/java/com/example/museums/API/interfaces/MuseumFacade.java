@@ -14,6 +14,7 @@ public interface MuseumFacade {
     void getMuseumIDByLogin(String login);
 
     void getMuseumInfoByLogin(String login);
+    void getMuseumInfoById(Integer id);
 
 
 

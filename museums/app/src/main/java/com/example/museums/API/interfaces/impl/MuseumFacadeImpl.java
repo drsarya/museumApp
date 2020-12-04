@@ -12,6 +12,7 @@ import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegist
 import com.example.museums.view.fragments.admin.allMuseums.QueryAllMuseums;
 import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.admin.editMuseum.QueryEditMuseum;
+import com.example.museums.view.fragments.common.museumInfo.QueryMuseumInfo;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeDescriptionMuseum.QueryDialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
@@ -33,6 +34,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     private QueryDialogChangeDescriptionMuseum queryDialogChangeDescriptionMuseum;
     private QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit;
     private QueryCreateExhibition queryCreateExhibition;
+    private QueryMuseumInfo queryMuseumInfo;
 
     public MuseumFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -41,6 +43,11 @@ public class MuseumFacadeImpl implements MuseumFacade {
     public MuseumFacadeImpl(MuseumDao mDao, QueryAuthorization queryAuthorization) {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
+    }
+
+    public MuseumFacadeImpl(MuseumDao mDao, QueryMuseumInfo queryMuseumInfo) {
+        museumDao = mDao;
+        this.queryMuseumInfo = queryMuseumInfo;
     }
 
 
@@ -229,6 +236,24 @@ public class MuseumFacadeImpl implements MuseumFacade {
         ;
     }
 
+    @Override
+    public void getMuseumInfoById(Integer id) {
+        museumDao.getMuseumById(id).
+                subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Museum>() {
+                    @Override
+                    public void onSuccess(@NonNull Museum museum) {
+                        queryMuseumInfo.onSuccess(museum);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        queryMuseumInfo.onError();
+                    }
+                })
+        ;
+    }
 
 
     //    public void insertMuseum(String login, String name, String country, String city, String street, String build) {

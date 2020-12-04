@@ -1,19 +1,20 @@
 package com.example.museums.view.fragments.common;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
@@ -23,14 +24,45 @@ import com.example.museums.view.services.Listeners.onTouchListeners.OnToucListen
 public class DetailedExhibitWithoutListeners extends Fragment {
     public ScrollView view;
     public LinearLayout ll;
-    public ImageButton like;
-    public TextView name;
-    public ImageButton close;
+    public ImageButton likeImageButton;
+    public TextView nameTextView, descriptionTextView, authorTextView, dateTextView;
+    public ImageButton closeImageButton;
 
     private boolean state = false;
     private ScrollView scrollView;
+    private ImageView imageView;
+    public static final String IMAGE_KEY = "image_key";
+    public static final String NAME_KEY = "name_key";
+    public static final String DESCRIPTION_KEY = "description_key";
+    public static final String AUTHOR_KEY = "author_key";
+    public static final String DATE_OF_CREATE_KEY = "date_key";
 
-    public static final String PAINT_DESCRIPTIONS = "paint_descriptions";
+    public DetailedExhibitWithoutListeners newInstance(  Parcelable image, String name, String author, String date, String description) {
+        final DetailedExhibitWithoutListeners myFragment = new DetailedExhibitWithoutListeners();
+        final Bundle args = new Bundle();
+        args.putString(NAME_KEY, name);
+        args.putString(DATE_OF_CREATE_KEY, date);
+        args.putString(AUTHOR_KEY, author);
+        args.putString(DESCRIPTION_KEY, description);
+        args.putParcelable(IMAGE_KEY, image);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private String name, date, author, description;
+    private Bitmap image;
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            name = getArguments().getString(NAME_KEY);
+            System.out.println(name);
+            date = getArguments().getString(DATE_OF_CREATE_KEY);
+            author = getArguments().getString(AUTHOR_KEY);
+            description = getArguments().getString(DESCRIPTION_KEY);
+            image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
+            getArguments().clear();
+        }
+    }
 
     @Nullable
     @Override
@@ -39,38 +71,41 @@ public class DetailedExhibitWithoutListeners extends Fragment {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibit_view_page, container, false);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String catName = arguments.getString(PAINT_DESCRIPTIONS);
-            displayValues(rootView, catName);
-        }
+
+        initViews(rootView);
+        setListeners();
+        getArgumentsFromBundle();
+        setData();
         return rootView;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        super.setRetainInstance(true);
-        state = true;
-        ll = (LinearLayout) getActivity().findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
-        view = (ScrollView) getActivity().findViewById(R.id.detailed_exhibit_description_scroll_view);
-        like = (ImageButton) getActivity().findViewById(R.id.detailed_exhibit_like_btn);
-        name = (TextView) getActivity().findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
+    private void setData() {
+        imageView.setImageBitmap(image);
+        authorTextView.setText(author);
+        dateTextView.setText(date);
+        descriptionTextView.setText(description);
+        nameTextView.setText(name);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void displayValues(View v, String s) {
-        name = (TextView) v.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
-        like = (ImageButton) v.findViewById(R.id.detailed_exhibit_like_btn);
-        like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
-        view = (ScrollView) v.findViewById(R.id.detailed_exhibit_description_scroll_view);
-        ll = (LinearLayout) v.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
-        close = (ImageButton) v.findViewById(R.id.detailed_exhb_view_pager);
+    private void initViews(View rootView) {
+        ll = rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
+        view = rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
+        likeImageButton = rootView.findViewById(R.id.detailed_exhibit_like_btn);
+        nameTextView = rootView.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
+        closeImageButton = rootView.findViewById(R.id.detailed_exhb_view_pager);
+        imageView = rootView.findViewById(R.id.detailed_exhibit_main_image_image_view);
+        dateTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_date_text_view);
+        authorTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_author_text_view);
+        descriptionTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_description);
+    }
+
+    private void setListeners() {
+        likeImageButton.setOnClickListener(new ClickListenerChangeColorLike(state, likeImageButton, getActivity()));
         view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(), ll, true));
-        close.setOnClickListener(v1 -> getActivity().onBackPressed());
-        name.setText(s);
+        closeImageButton.setOnClickListener(v1 -> getActivity().onBackPressed());
+
+
     }
+
 
 }

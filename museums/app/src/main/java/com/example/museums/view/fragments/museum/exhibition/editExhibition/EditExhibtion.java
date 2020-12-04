@@ -33,9 +33,11 @@ import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.CreateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
+import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IDeletePosition;
+import com.example.museums.view.services.oop.IUpdateList;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 import java.io.IOException;
@@ -44,7 +46,7 @@ import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class EditExhibtion extends Fragment implements IDeletePosition {
+public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateList {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
     private NewExhibitsRecyclerViewAdapter mAdapter;
@@ -60,7 +62,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
     private TextView chooseImageTextView, plusExhbt;
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
-    private TextView firstLineTextView;
     static final int GALLERY_REQUEST = 1;
     public static final String IMAGE_KEY = "image_key";
     public static final String NAME_KEY = "name_key";
@@ -69,7 +70,8 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
     public static final String DESCRIPTION_KEY = "description_key";
     public static final String ID_EXHIBITION_KEY = "id_key";
     public static final String ID_MUSEUM_KEY = "museum_id";
-    private String museumId;
+    private static String museumId;
+    private CacheManager cacheManager = new CacheManager();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,9 +98,8 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
         args.putString(DESCRIPTION_KEY, description);
         args.putInt(ID_EXHIBITION_KEY, id);
         args.putString(ID_MUSEUM_KEY, museumId);
+        args.putParcelable(IMAGE_KEY, image);
 
-        args.putParcelable(IMAGE_KEY, image);
-        args.putParcelable(IMAGE_KEY, image);
 
         myFragment.setArguments(args);
         return myFragment;
@@ -109,33 +110,41 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
             if (getArguments().getString(LOGIN_KEY_USER) != null) {
-                login = new String(getArguments().getString(LOGIN_KEY_USER));
-
+                login = getArguments().getString(LOGIN_KEY_USER);
             }
-            museumId = getArguments().getString(ID_MUSEUM_KEY);
-            System.out.println(login);
-            if (getArguments().getString(DESCRIPTION_KEY) != null) {
+            if (getArguments().getString(ID_MUSEUM_KEY) != null) {
+                museumId = getArguments().getString(ID_MUSEUM_KEY);
+            }
 
-                nameET.setText(getArguments().getString(NAME_KEY));
+            if (getArguments().getString(DESCRIPTION_KEY) != null) {
+                String name = getArguments().getString(NAME_KEY);
+                nameET.setText(name);
                 if (getArguments().getString(DATE_START_KEY) != null) {
                     dateOfStartET.setText(getArguments().getString(DATE_START_KEY));
                     dateOfEndET.setText(getArguments().getString(DATE_END_KEY));
                 } else {
-
                     onlineCheckBox.setChecked(true);
                 }
                 descriptionET.setText(getArguments().getString(DESCRIPTION_KEY));
                 idExhibition = getArguments().getInt(ID_EXHIBITION_KEY);
+
+
+                System.out.println("не из кэша");
                 Bitmap b = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
                 bitmap = b.copy(b.getConfig(), true);
                 currImageImageView.setImageBitmap(bitmap);
+                cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
                 getArguments().clear();
                 if (exhibits.isEmpty()) {
 
-                    QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this);
+                    QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this, this);
                     q.getQuery(idExhibition);
                 }
             }
+
+        }
+        if (cacheManager.getBitmapFromMemCache(Integer.toString(idExhibition) + "  ") != null) {
+            currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache(Integer.toString(idExhibition) + "  "));
 
         }
     }
@@ -157,7 +166,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
         plusExhbt = rootView.findViewById(R.id.create_new_exhibition_text_view);
         recyclerView = rootView.findViewById(R.id.create_exhibition_recycler_view);
-        firstLineTextView = rootView.findViewById(R.id.create_exhibition_first_word_text_view);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -171,6 +179,9 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                        cacheManager.deleteItem(Integer.toString(idExhibition) + "  ");
+                        cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
+
                         currImageImageView.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -187,8 +198,9 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
         View rootView =
                 inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
         initViews(rootView);
-        setListeners();
         getArgumentsFromBundle();
+
+        setListeners();
         return rootView;
     }
 
@@ -247,7 +259,7 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
                     }
                 }
                 hideKeyboard();
-                exhibition.idMuseum = museumId ;
+                exhibition.idMuseum = museumId;
                 exhibition.id = idExhibition;
                 QueryEditExhibition queryCreateExhibition = new QueryEditExhibition(this);
                 queryCreateExhibition.getQuery(exhibition);
@@ -270,14 +282,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
 
     }
 
-    public void updateListExhibits(List<NewExhibitModel> exhibit) {
-
-        if (exhibits.size() == 0) {
-            exhibits.addAll(exhibit);
-        }
-        mAdapter.submitList(exhibits);
-
-    }
 
     public void updateExhibit(int position, NewExhibitModel exhibit) {
         exhibits.remove(position);
@@ -302,5 +306,14 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
             mAdapter.notifyItemRangeChanged(position, exhibits.size());
 
         }
+    }
+
+    @Override
+    public void updateList(List<NewExhibitModel> list) {
+        if (exhibits.size() == 0) {
+            exhibits.addAll(list);
+        }
+        mAdapter.submitList(exhibits);
+
     }
 }

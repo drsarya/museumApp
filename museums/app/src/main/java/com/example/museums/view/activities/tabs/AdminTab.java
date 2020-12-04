@@ -1,9 +1,7 @@
 package com.example.museums.view.activities.tabs;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.admin.createMuseum.CreateMuseum;
-import com.example.museums.view.fragments.common.Exhibits;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AdminTab extends AppCompatActivity {

@@ -26,6 +26,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.fragments.user.exhibits.Exhibits;
 import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapter;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
@@ -46,18 +47,33 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
         this.mDataset = mDataset;
         this.mExhbn = mExhbn;
     }
+    public LikedExhbViewPager( ) {
 
+    }
+    public static LikedExhbViewPager newInstance(String login) {
+        final LikedExhbViewPager myFragment = new LikedExhbViewPager();
+        final Bundle args = new Bundle(1);
+        args.putString(LOGIN_KEY_USER, login);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            login = getArguments().getString(LOGIN_KEY_USER);
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            login = arguments.getString(LOGIN_KEY_USER);
-        }
+         getArgumentsFromBundle();
         View rootView =
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
         return rootView;
+    }
+    public void newInstance(){
+
     }
 
 

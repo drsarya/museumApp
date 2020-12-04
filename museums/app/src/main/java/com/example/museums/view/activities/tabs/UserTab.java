@@ -1,24 +1,20 @@
 package com.example.museums.view.activities.tabs;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.museums.R;
-import com.example.museums.view.fragments.common.Exhibitions;
-import com.example.museums.view.fragments.common.Exhibits;
-import com.example.museums.view.fragments.user.LikedExhbViewPager;
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.Exhibition;
+import com.example.museums.R;
+import com.example.museums.view.fragments.user.exhibitions.Exhibitions;
+import com.example.museums.view.fragments.user.exhibits.Exhibits;
+import com.example.museums.view.fragments.user.LikedExhbViewPager;
+import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 public class UserTab extends AppCompatActivity {
 
@@ -26,37 +22,43 @@ public class UserTab extends AppCompatActivity {
     public static final String LOGIN_KEY_USER = "login_key";
     private String loginUser;
     private boolean currState = false;
+    private Exhibits exhibits;
+    private Exhibitions exhibitions;
+    private LikedExhbViewPager likedExhbViewPager;
+
+    private void initViews() {
+        menuTab = (BottomNavigationView) findViewById(R.id.user_btn_nav_menu);
+        KeyboardVisibilityEvent.setEventListener(this, new KeyboardListenerHideOptionalBlock(menuTab));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_user);
+        initViews();
         Bundle b = getIntent().getExtras();
         if (b != null) {
             loginUser = b.getString(LOGIN_KEY_USER);
+            likedExhbViewPager = LikedExhbViewPager.newInstance(loginUser);
+            exhibits = Exhibits.newInstance(loginUser);
+            exhibitions = Exhibitions.newInstance(loginUser);
         }
 
-
-        menuTab = (BottomNavigationView) findViewById(R.id.user_btn_nav_menu);
         setInitialPage();
-        Bundle bundle = new Bundle();
+
         menuTab.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.menu_user_exhibits:
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    Exhibits detailedExhibitWithListeners = new Exhibits();
-                    bundle.putString(detailedExhibitWithListeners.LOGIN_KEY_USER, loginUser);
-                    detailedExhibitWithListeners.setArguments(bundle);
-                    ft.replace(R.id.container_tab_user, detailedExhibitWithListeners)
+
+                    ft.replace(R.id.container_tab_user, exhibits)
                             .addToBackStack(Exhibits.class.toString())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                     menuTab.getMenu().findItem(R.id.menu_user_exhibits).setChecked(true);
                     break;
                 case R.id.menu_user_exhibitions:
                     final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-                    Exhibitions exhibitions = new Exhibitions();
-                    bundle.putString(exhibitions.LOGIN_KEY_USER, loginUser);
-                    exhibitions.setArguments(bundle);
+
                     ft1.replace(R.id.container_tab_user, exhibitions)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(Exhibitions.class.toString()).commit();
@@ -64,12 +66,9 @@ public class UserTab extends AppCompatActivity {
                     break;
                 case R.id.menu_user_home:
                     final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-                    List<Exhibit> list = new ArrayList<>();
-                    List<Exhibition> list2 = new ArrayList<>();
-                    LikedExhbViewPager exhibits = new LikedExhbViewPager(list, list2);
-                    bundle.putString(exhibits.LOGIN_KEY_USER, loginUser);
-                    exhibits.setArguments(bundle);
-                    ft2.replace(R.id.container_tab_user, exhibits)
+
+
+                    ft2.replace(R.id.container_tab_user, likedExhbViewPager)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(LikedExhbViewPager.class.toString()).commit();
                     menuTab.getMenu().findItem(R.id.menu_user_home).setChecked(true);
@@ -83,11 +82,8 @@ public class UserTab extends AppCompatActivity {
         if (!currState) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             currState = true;
-            Exhibits detailedExhibitWithListeners = new Exhibits();
-            Bundle bundle = new Bundle();
-            bundle.putString(detailedExhibitWithListeners.LOGIN_KEY_USER, loginUser);
-            detailedExhibitWithListeners.setArguments(bundle);
-            ft.replace(R.id.container_tab_user, detailedExhibitWithListeners).addToBackStack(Exhibits.class.toString())
+
+            ft.replace(R.id.container_tab_user, exhibits).addToBackStack(Exhibits.class.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
             menuTab.getMenu().findItem(R.id.menu_user_exhibits).setChecked(true);
         }

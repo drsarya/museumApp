@@ -71,7 +71,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     private void initViews() {
         chooseImageTextView = getActivity().findViewById(R.id.main_info_museum_edit_choose_photo_text_view);
         progressBar = getActivity().findViewById(R.id.main_info_museum_edit_progress_bar);
-        nameOfMuseumTextView = getView().findViewById(R.id.main_info_museum_edit_name_of_museum_text_view);
+        nameOfMuseumTextView = getActivity().findViewById(R.id.main_info_museum_edit_name_of_museum_text_view);
         imageViewEditDescription = getActivity().findViewById(R.id.main_info_museum_edit_description_image_view);
         imageViewMainImage = getActivity().findViewById(R.id.main_info_museum_edit_image_view);
         imbtn = getActivity().findViewById(R.id.main_info_museum_edit_menu_popup);

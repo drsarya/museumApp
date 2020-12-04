@@ -1,6 +1,7 @@
 package com.example.museums.view.services.recyclerViews;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.AsyncListDiffer;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibitis;
 import com.example.museums.API.models.Exhibit;
@@ -31,10 +36,32 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
         }
     }
 
-    private List<Exhibit> mDataset;
-    public ExhibitsRecyclerViewAdapter(List<Exhibit> myDataset) {
-        this.mDataset = myDataset;
+    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+
+    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+            return oldProduct.exhibitId.equals(newProduct.exhibitId);
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+            return oldProduct.equals(newProduct);
+        }
+    };
+
+    public void submitList(List<NewExhibitModel> products) {
+        differ.submitList(products);
     }
+
+
+    @Override
+    public int getItemCount() {
+        return differ.getCurrentList().size();
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     @NonNull
@@ -48,20 +75,12 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
 
     @Override
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder));
-        if (position % 3 == 0) {
-            holder.image.setImageResource(R.drawable.image2);
-        } else if (position % 2 == 0) {
-            holder.image.setImageResource(R.drawable.detailed_exhibition);
-        } else {
-            holder.image.setImageResource(R.drawable.image3);
-        }
-        holder.textView.setText("add linear layout and then you add" + position);
+        final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
+
+        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder, purchaseList));
+        holder.image.setImageBitmap(purchaseList.photo);
+        holder.textView.setText(purchaseList.name);
     }
 
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
-    }
 
 }

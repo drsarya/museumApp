@@ -10,7 +10,7 @@
 
 
     <FrameLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
@@ -25,23 +25,23 @@
 
             </ImageView>
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/elemt_exhbt_text_view"
-                android:layout_gravity="bottom|center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                 android:autoSizeMaxTextSize="30sp"
-                android:autoSizeTextType="uniform"
-                android:background="@color/lightGrey"
-                android:fontFamily="@font/prata"
-                android:gravity="bottom"
-                android:text="Портрет сестёр Шишмарёвых"
-                android:textColor="@color/dark_dark_brown"
-                tools:ignore="RtlCompat">
+        <TextView
+            android:id="@+id/elemt_exhbt_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/lightGrey"
+            android:fontFamily="@font/prata"
+            android:gravity="bottom"
+            android:text="Портрет сестёр Шишмарёвых"
+            android:textAlignment="center"
+            android:textColor="@color/dark_dark_brown"
+            android:visibility="gone"
+            tools:ignore="RtlCompat">
 
-            </TextView>
+        </TextView>
 
 
 

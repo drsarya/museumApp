@@ -1,46 +1,46 @@
-package com.example.museums.view.fragments.museum.museumExhibits;
+package com.example.museums.view.fragments.user.exhibits;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Author;
 import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.exhibit.editExhibit.EditExhibit;
-import com.example.museums.view.services.oop.IDeletePosition;
-import com.example.museums.view.services.recyclerViews.MuseumExhibitsRecyclerAdapter;
+import com.example.museums.view.fragments.common.museumInfo.QueryMuseumInfo;
+import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
+import com.example.museums.view.services.recyclerViews.TagsRecyclerViewAdapter;
+import com.example.museums.API.models.Exhibit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MuseumExhibits extends Fragment implements IDeletePosition {
+public class Exhibits extends Fragment {
+
     private RecyclerView recyclerView;
-    private MuseumExhibitsRecyclerAdapter mAdapter = new MuseumExhibitsRecyclerAdapter(this);
+    private ExhibitsRecyclerViewAdapter mAdapter = new ExhibitsRecyclerViewAdapter();
+    ;
+    private RecyclerView.Adapter horizontalAdapter;
+    public RecyclerView listView;
     public static final String LOGIN_KEY_USER = "login_key";
     private String login;
-    public ProgressBar progressBar;
-    private QueryDeleteMuseumExhibit queryDeleteMuseumExhibit;
-    private static QueryListMuseumExhibits queryListMuseumExhibits;
     private EditText searchEditText;
-    private List<NewExhibitModel> newExhibitModels;
+    private List<String> names = Arrays.asList("Природа", "Скульптура", "Графика", "Животные", "Живопись", "Люди");
+    private List<Exhibit> in = new ArrayList<>();
 
 
-    public MuseumExhibits newInstance(String login) {
-        final MuseumExhibits myFragment = new MuseumExhibits();
+    public static Exhibits newInstance(String login) {
+        final Exhibits myFragment = new Exhibits();
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
         myFragment.setArguments(args);
@@ -53,20 +53,44 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         }
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =
-                inflater.inflate(R.layout.fragment_museum_exhibits, container, false);
-
-
-
+                inflater.inflate(R.layout.fragment_main_exhibits, container, false);
+        initViews(rootView);
         getArgumentsFromBundle();
-        initView(rootView);
         setListeners();
         return rootView;
+    }
+
+    private void initViews(View rootView) {
+
+        horizontalAdapter = new TagsRecyclerViewAdapter(names);
+        recyclerView = rootView.findViewById(R.id.recycler_view_exhibits);
+        listView = rootView.findViewById(R.id.main_exhibits_recycler_view);
+        recyclerView.setAdapter(mAdapter);
+        listView.setAdapter(horizontalAdapter);
+        searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
+
+        QueryExhibits queryExhibits = new QueryExhibits(this);
+        queryExhibits.getQuery();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
+
+    }
+
+    List<NewExhibitModel> newExhibitModels = new ArrayList<>();
+
+    public void refreshAllList(List<NewExhibitModel> exhibitModels) {
+        this.newExhibitModels = exhibitModels;
+        mAdapter.submitList(exhibitModels);
     }
 
     private void setListeners() {
@@ -89,7 +113,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     }
 
-
     private boolean containsString(String fullName, String currText) {
         String newName = fullName.toLowerCase();
         String newCurrText = currText.toLowerCase();
@@ -100,7 +123,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     private void filter(String text) {
         List<NewExhibitModel> temp = new ArrayList();
-        System.out.println(newExhibitModels.size());
         for (NewExhibitModel d : newExhibitModels) {
             if (containsString(d.name, text) || containsString(d.author, text)) {
                 temp.add(d);
@@ -108,46 +130,4 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         }
         mAdapter.submitList(temp);
     }
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-
-    private void initView(View rootView) {
-        searchEditText = rootView.findViewById(R.id.museum_exhibits_search_edit_text);
-        recyclerView = rootView.findViewById(R.id.museum_exhibits_recycler_view);
-        progressBar = rootView.findViewById(R.id.museum_exhibits_recycler_progress_bar);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setHasFixedSize(true);
-        queryListMuseumExhibits = new QueryListMuseumExhibits(this);
-        queryDeleteMuseumExhibit = new QueryDeleteMuseumExhibit(this);
-        queryListMuseumExhibits.getQuery(login);
-    }
-
-
-    public void refreshAllList(List<NewExhibitModel> exhibitModels) {
-        this.newExhibitModels = exhibitModels;
-//        for (NewExhibitModel i:exhibitModels) {
-//             addBitmapToMemoryCache(i.exhibitId.toString()+i.name, i.photo);
-//        }
-        mAdapter.submitList(exhibitModels);
-    }
-
-    public void refreshAllList() {
-        queryListMuseumExhibits.getQuery(login);
-    }
-
-    @Override
-    public void deletePosition(int position, Integer id) {
-        queryDeleteMuseumExhibit.getQuery(id);
-    }
-
-
-
-
-
 }
