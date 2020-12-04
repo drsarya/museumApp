@@ -67,7 +67,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
         final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
-         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()  ));
+        holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), purchaseList.exhibitId));
@@ -85,6 +85,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
             return oldProduct.exhibitId == newProduct.exhibitId;
         }
+
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -95,6 +96,11 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
 
     public void submitList(List<NewExhibitModel> products) {
         differ.submitList(products);
+    }
+
+    public List<NewExhibitModel> getList() {
+
+        return differ.getCurrentList();
     }
 
 

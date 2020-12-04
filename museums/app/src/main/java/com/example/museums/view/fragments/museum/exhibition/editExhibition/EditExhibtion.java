@@ -158,7 +158,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
         plusExhbt = rootView.findViewById(R.id.create_new_exhibition_text_view);
         recyclerView = rootView.findViewById(R.id.create_exhibition_recycler_view);
         firstLineTextView = rootView.findViewById(R.id.create_exhibition_first_word_text_view);
-        //mAdapter = new NewExhibitsRecyclerViewAdapter(exhibits, this);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -250,7 +249,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition {
                 hideKeyboard();
                 exhibition.idMuseum = museumId ;
                 exhibition.id = idExhibition;
-                System.out.println(idExhibition + "idddddddddddddddddddddddddddd");
                 QueryEditExhibition queryCreateExhibition = new QueryEditExhibition(this);
                 queryCreateExhibition.getQuery(exhibition);
 
