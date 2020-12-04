@@ -99,7 +99,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
             holder.dateOfCreateTextView.setText(exhibition.firstDate + " - " + exhibition.lastDate);
         }
 
-        System.out.println(museumExhibitions.login+"looooooooooooogiiiiiiiiinnnnnnnnnnnnnnn");
         CreateExhibition c = new CreateExhibition().newInstance(museumExhibitions.login , exhibition.id, exhibition.image, exhibition.name, exhibition.firstDate, exhibition.lastDate, exhibition.description);
         c.setTargetFragment(museumExhibitions,0 );
         holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c,  (AppCompatActivity) museumExhibitions.getContext()));

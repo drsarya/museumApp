@@ -13,6 +13,7 @@ public interface ExhibitFacade {
     void deleteExhibits(int idExhibition);
 
     void insertExhibits(List<Exhibit> exhibits);
+    void insertExhibit( Exhibit  exhibit);
 
     void deleteExhibit(int id);
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.museums.R;
 import com.example.museums.view.services.Handlers.HandlerTimerCountDown;
 import com.example.museums.view.services.oop.IDeletePosition;
+import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAdapter;
 
 public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     private RecyclerView.Adapter adapter;
@@ -36,11 +37,15 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-
+        String message = "Вы точно хотите удалить данный экспонат";
+        if (adapter.getClass().toString().equals(EditExhibitionRecyclerAdapter.class.toString())) {
+            message = "Вы точно хотите удалить данную выставку? " +
+                    "При удалении все экпонаты из этой выставки будут удалены";
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AboutDialog);
         builder.setTitle("Удалить?")
 
-                .setMessage("Вы точно хотите удалить данный экспонат")
+                .setMessage(message)
                 .setPositiveButton("да", (dialog, id) -> {
                     sendMessageToCountDownTimer();
                     updateRecyclerView();

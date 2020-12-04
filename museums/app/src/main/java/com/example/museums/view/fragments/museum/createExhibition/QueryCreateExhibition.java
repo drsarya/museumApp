@@ -14,6 +14,7 @@ import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.API.models.Exhibition;
 import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,17 +85,18 @@ public class QueryCreateExhibition {
     }
 
     public void onSuccessInsertsExhbtToExhbtn(Long[] ids) {
-        if (exhibitionId == null) {
+        QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(activity);
+        activity.exhibits = new ArrayList<>();
+        q.getQuery(exhibitionId);
             Toast.makeText(activity.getContext(),
-                    "Успешное добавление выставки", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(activity.getContext(),
-                    "Успешное обновление выставки", Toast.LENGTH_SHORT).show();
-        }
+                    "Успешно", Toast.LENGTH_SHORT).show();
+
         activity.progressBar.setVisibility(View.GONE);
     }
 
     public void onErrorInsertsExhbtToExhbtn() {
+        //обновить полность список экпонатов
+
         Toast.makeText(activity.getContext(),
                 "Ошибка доавления экпонатов с выставками", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
@@ -112,6 +114,7 @@ public class QueryCreateExhibition {
             exhibitionId = id.intValue();
 
         }
+       activity. setExhibitionId(id.intValue());
         exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
         List<Exhibit> listInsert = new ArrayList<>();
         List<Exhibit> listUpdate = new ArrayList<>();

@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
+import com.example.museums.API.models.Like;
+import com.example.museums.view.fragments.museum.createExhibit.QueryInsertExhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
@@ -25,6 +27,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
     private QueryListMuseumExhibits queryListMuseumExhibits;
     private QueryUpdateExhibit queryUpdateExhibit;
     private QueryDeleteExhibition queryDeleteExhibition;
+    private QueryInsertExhibit queryInsertExhibit;
 
     public ExhibitFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -33,6 +36,10 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
         this.museumDao = museumDao;
         this.queryCreateExhibition = queryCreateExhibition;
+    }
+    public ExhibitFacadeImpl(MuseumDao museumDao, QueryInsertExhibit queryInsertExhibit) {
+        this.museumDao = museumDao;
+        this.queryInsertExhibit = queryInsertExhibit;
     }
 
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryDeleteExhibition queryDeleteExhibition) {
@@ -105,6 +112,29 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     public void onError(@NonNull Throwable e) {
 
                         queryCreateExhibition.onErrorInsertsExhibits();
+
+                    }
+                })
+        ;
+
+    }
+
+    @Override
+    public void insertExhibit(Exhibit exhibit) {
+        museumDao.insertExhibit(exhibit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Long>() {
+                    @Override
+                    public void onSuccess(@NonNull Long listIds) {
+                        queryInsertExhibit.onSuccess(listIds.intValue());
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                        queryInsertExhibit.onError();
 
                     }
                 })

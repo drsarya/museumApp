@@ -236,11 +236,21 @@ public class EditExhibit extends Fragment {
                 );
 
                 if (getTargetFragment().getClass().toString().equals(CreateExhibition.class.toString())) {
-                    CreateExhibition c = (CreateExhibition) getTargetFragment();
-                    ex.setIdAuthor(authorIdCreateExhibition);
-                    c.updateExhibit(positionExh, ex);
-                    Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
 
+
+                    if(idExhibit==null){
+                        CreateExhibition c = (CreateExhibition) getTargetFragment();
+                        ex.setIdAuthor(authorIdCreateExhibition);
+                        c.updateExhibit(positionExh, ex);
+
+                        Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
+                    }else {
+                        CreateExhibition c = (CreateExhibition) getTargetFragment();
+
+                        QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c );
+                        authorRecyclerView.setVisibility(View.GONE);
+                        queryUpdateExhibit.getQuery(ex, idExhibit, positionExh);
+                    }
                 } else {
                     MuseumExhibits c = (MuseumExhibits) getTargetFragment();
                     QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);

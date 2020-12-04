@@ -40,7 +40,8 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
                 myFragment = new DetailedExhibitWithListeners().newInstance(exhibitWithAuthor.id, exhibitWithAuthor.photo,
                         exhibitWithAuthor.name, exhibitWithAuthor.fullName, exhibitWithAuthor.dateOfCreate, exhibitWithAuthor.description);
             } else {
-                myFragment = new DetailedExhibitWithListeners();
+                myFragment = new DetailedExhibitWithListeners().newInstance(newExhibitModel.exhibitId, newExhibitModel.photo,
+                        newExhibitModel.name, newExhibitModel.author, newExhibitModel.dateOfCreate, newExhibitModel.description);;
             }
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment,   activity);

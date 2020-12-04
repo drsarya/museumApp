@@ -34,7 +34,7 @@ public class DetailedExhibitWithListeners extends Fragment {
     public static final String DESCRIPTION_KEY = "description_key";
     public static final String ID_EXHIBIT_KEY = "id_key";
     private String name, author, date, description;
-    private int idExhibit;
+    private Integer idExhibit;
     private Bitmap image;
     private ImageView mainImageImageView;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
@@ -52,14 +52,18 @@ public class DetailedExhibitWithListeners extends Fragment {
         return rootView;
     }
 
-    public DetailedExhibitWithListeners newInstance(int id, Parcelable image, String name, String author, String date, String description) {
+    public DetailedExhibitWithListeners newInstance(Integer id, Parcelable image, String name, String author, String date, String description) {
         final DetailedExhibitWithListeners myFragment = new DetailedExhibitWithListeners();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
         args.putString(DATE_OF_CREATE, date);
         args.putString(AUTHOR_KEY, author);
         args.putString(DESCRIPTION_KEY, description);
-        args.putInt(ID_EXHIBIT_KEY, id);
+        if (id == null) {
+            args.putInt(ID_EXHIBIT_KEY, -1);
+        } else {
+            args.putInt(ID_EXHIBIT_KEY, id);
+        }
         args.putParcelable(IMAGE_KEY, image);
         myFragment.setArguments(args);
         return myFragment;
@@ -72,7 +76,14 @@ public class DetailedExhibitWithListeners extends Fragment {
             date = getArguments().getString(DATE_OF_CREATE);
             description = getArguments().getString(DESCRIPTION_KEY);
             image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
-            idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
+            if (getArguments().getInt(ID_EXHIBIT_KEY) == -1) {
+                idExhibit = null;
+                ll.setVisibility(View.GONE);
+            } else {
+                idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
+                ll.setVisibility(View.VISIBLE);
+
+            }
             mainImageImageView.setImageBitmap(image);
             authorTextView.setText(author);
             dateTextView.setText(date);

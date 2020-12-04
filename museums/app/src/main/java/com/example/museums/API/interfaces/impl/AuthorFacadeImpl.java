@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.AuthorFacade;
 import com.example.museums.API.models.Author;
-import com.example.museums.view.fragments.museum.createExhibit.QueryExhibit;
+import com.example.museums.view.fragments.museum.createExhibit.QueryAddExhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.authors.QueryAuthor;
 import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
@@ -21,10 +21,9 @@ public class AuthorFacadeImpl implements AuthorFacade {
     private MuseumDao museumDao;
     private QueryAuthor queryAuthor;
     private QueryCreateExhibition queryCreateExhibition;
-    private QueryExhibit queryExhibit;
+    private QueryAddExhibit queryAddExhibit;
     private QueryUpdateExhibit queryUpdateExhibit;
-
-    public AuthorFacadeImpl(MuseumDao museumDao) {
+     public AuthorFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
     }
 
@@ -38,10 +37,11 @@ public class AuthorFacadeImpl implements AuthorFacade {
         this.queryUpdateExhibit = queryUpdateExhibit;
     }
 
-    public AuthorFacadeImpl(MuseumDao museumDao, QueryExhibit queryExhibit) {
+    public AuthorFacadeImpl(MuseumDao museumDao, QueryAddExhibit queryAddExhibit) {
         this.museumDao = museumDao;
-        this.queryExhibit = queryExhibit;
+        this.queryAddExhibit = queryAddExhibit;
     }
+
 
     public AuthorFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
         this.museumDao = museumDao;
@@ -66,8 +66,8 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer aLong) {
-                        if (queryExhibit != null) {
-                            queryExhibit.onSuccess(aLong);
+                        if (queryAddExhibit != null) {
+                            queryAddExhibit.onSuccess(aLong);
                         } else {
                             queryUpdateExhibit.onSuccess(aLong);
                         }
@@ -75,8 +75,8 @@ public class AuthorFacadeImpl implements AuthorFacade {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (queryExhibit != null) {
-                            queryExhibit.onError();
+                        if (queryAddExhibit != null) {
+                            queryAddExhibit.onError();
                         } else {
                             queryUpdateExhibit.onError();
                         }
@@ -95,8 +95,8 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        if (queryExhibit != null) {
-                            queryExhibit.onSuccessInsert(aLong.intValue());
+                        if (queryAddExhibit != null) {
+                            queryAddExhibit.onSuccessInsert(aLong.intValue());
                         } else {
                             queryUpdateExhibit.onSuccessInsert(aLong.intValue());
                         }
@@ -104,8 +104,8 @@ public class AuthorFacadeImpl implements AuthorFacade {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (queryExhibit != null) {
-                            queryExhibit.onErrorInsert();
+                        if (queryAddExhibit != null) {
+                            queryAddExhibit.onErrorInsert();
                         } else {
                             queryUpdateExhibit.onErrorInsert();
                         }

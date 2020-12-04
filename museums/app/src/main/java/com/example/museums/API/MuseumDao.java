@@ -36,6 +36,8 @@ public interface MuseumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long[]> insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<Long > insertExhbToExbtn( ExhibitToExhbtn  exhbtns);
 
     @Query("SELECT * FROM exhibit")
     List<Exhibit> getAllExhibits();
@@ -105,6 +107,8 @@ public interface MuseumDao {
     /*INSERT*/
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long[]> insertExhibits(List<Exhibit> exhibit);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Single<Long> insertExhibit( Exhibit  exhibit);
 
     /*MUSEUM*/
     /*GET*/

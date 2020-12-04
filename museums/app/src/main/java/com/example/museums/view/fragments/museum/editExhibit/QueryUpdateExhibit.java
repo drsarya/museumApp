@@ -10,6 +10,7 @@ import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 
 public class QueryUpdateExhibit {
@@ -19,18 +20,23 @@ public class QueryUpdateExhibit {
     private NewExhibitModel newExhibitModel;
     private ExhibitFacadeImpl exhibitFacade;
     private MuseumExhibits museumExhibits;
+    private CreateExhibition createExhibition;
 
     public QueryUpdateExhibit(EditExhibit exhibit, MuseumExhibits museumExhibits) {
         this.activity = exhibit;
         this.museumExhibits = museumExhibits;
 
     }
+    public QueryUpdateExhibit(EditExhibit exhibit, CreateExhibition createExhibition) {
+        this.activity = exhibit;
+        this.createExhibition = createExhibition;
 
+    }
 
     public void onSuccessInsert(Integer id) {
         // автора не было и его имя пришлось добавить -
         activity.progressBar.setVisibility(View.GONE);
-        newExhibitModel.setIdAuthor(id );
+        newExhibitModel.setIdAuthor(id);
         Exhibit exhibit = new Exhibit();
         exhibit.authorId = newExhibitModel.idAuthor;
         exhibit.tags = newExhibitModel.tags;
@@ -46,9 +52,9 @@ public class QueryUpdateExhibit {
     public void onSuccess(Integer id) {
         // автор есть
         activity.progressBar.setVisibility(View.GONE);
-        newExhibitModel.setIdAuthor(id );
+        newExhibitModel.setIdAuthor(id);
         Exhibit exhibit = new Exhibit();
-        exhibit.authorId = newExhibitModel.idAuthor ;
+        exhibit.authorId = newExhibitModel.idAuthor;
         exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;
@@ -63,7 +69,11 @@ public class QueryUpdateExhibit {
 
     public void onSuccessUpdate(int count) {
         Toast.makeText(activity.getContext(), "Успешное обновление экпоната", Toast.LENGTH_SHORT).show();
-        museumExhibits.refreshAllList();
+        if (museumExhibits != null) {
+            museumExhibits.refreshAllList();
+        }else{
+             createExhibition.updateExhibit(  posId, newExhibitModel);
+        }
     }
 
     public void onErrorUpdate() {
@@ -82,7 +92,18 @@ public class QueryUpdateExhibit {
         authorFacade.getAuthorByName(model.author);
 
     }
+    private int posId;
+    public void getQuery(NewExhibitModel model, int id, int posId) {
+        newExhibitModel = model;
+        this.id = id;
+        this.posId = posId;
+        museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        activity.progressBar.setVisibility(View.VISIBLE);
+        authorFacade = new AuthorFacadeImpl(museumDao, this);
+        exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
+        authorFacade.getAuthorByName(model.author);
 
+    }
     public void onError() {
         authorFacade.insertAuthor(newExhibitModel.author);
     }

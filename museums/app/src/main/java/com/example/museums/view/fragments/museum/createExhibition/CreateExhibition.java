@@ -130,7 +130,6 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
 
                     QueryGetExhibitsFromExhibition q = new QueryGetExhibitsFromExhibition(this);
                     q.getQuery(idExhibition);
-                } else {
                 }
              }
             if (getTargetFragment() != null) {
@@ -138,6 +137,9 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
                 firstLineTextView.setText("Обновить выставку");
             }
         }
+    }
+    public void setExhibitionId(Integer id){
+        idExhibition = id;
     }
 
     private void initViews(View rootView) {
@@ -199,7 +201,7 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
     private void setListeners() {
         hideDescriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTFB));
         plusExhbt.setOnClickListener(v -> {
-            Fragment myFragment = new CreateExhibit();
+            Fragment myFragment = new CreateExhibit().newInstance(idExhibition);
             myFragment.setTargetFragment(CreateExhibition.this, 0);
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment, activity);
@@ -224,7 +226,7 @@ public class CreateExhibition extends Fragment implements IDeletePosition {
         createExhibitionBtn.setOnClickListener(v -> {
 
             if (currImageImageView.getDrawable() != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
-                    && !exhibits.isEmpty() && !nameET.getText().toString().isEmpty()
+                    && !nameET.getText().toString().isEmpty()
                     && !descriptionET.getText().toString().isEmpty()
             ) {
                 Exhibition exhibition = new Exhibition();

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhbtToExbtnFacade;
 import com.example.museums.API.models.ExhibitToExhbtn;
+import com.example.museums.view.fragments.museum.createExhibit.QueryInsertExhibit;
 import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
 
@@ -18,6 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
     private MuseumDao museumDao;
     private QueryCreateExhibition queryCreateExhibition;
+    private QueryInsertExhibit queryInsertExhibit;
+
     private QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition;
     public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -31,7 +34,10 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
         this.museumDao = museumDao;
         this.queryGetExhibitsFromExhibition = queryGetExhibitsFromExhibition;
     }
-
+    public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao, QueryInsertExhibit queryInsertExhibit) {
+        this.museumDao = museumDao;
+        this.queryInsertExhibit = queryInsertExhibit;
+    }
     @SuppressLint("CheckResult")
     @Override
     public void getExhibitsByExhdtnId(String ixhbtnId) {
@@ -63,6 +69,26 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
                 })
         ;
 
+    }
+
+    @Override
+    public void insertExhbToExbtn(ExhibitToExhbtn exhbtns) {
+        museumDao.insertExhbToExbtn(exhbtns)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Long >() {
+                    @Override
+                    public void onSuccess(@NonNull Long  listIds) {
+                        queryInsertExhibit.onSuccessInsertExhbtToExhbn();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                         queryInsertExhibit.onErrorInsertExhbtToExhbn();
+
+                    }
+                })
+        ;
     }
 
 

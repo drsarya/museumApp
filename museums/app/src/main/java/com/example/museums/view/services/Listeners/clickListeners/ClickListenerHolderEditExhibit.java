@@ -44,6 +44,7 @@ public class ClickListenerHolderEditExhibit implements View.OnClickListener {
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment,   activity);
         } else {
+            System.out.println(model.toString());
             EditExhibit myFragment = new EditExhibit().newInstance(model.exhibitId, model.dateOfCreate, model.tags
                     , model.author, model.idAuthor , model.name, model.photo, model.description, position);
             myFragment.setTargetFragment(fragment, 0);

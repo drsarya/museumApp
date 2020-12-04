@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +33,7 @@ import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.museum.authors.QueryAuthor;
+import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
@@ -55,6 +57,30 @@ public class CreateExhibit extends Fragment {
     public ProgressBar progressBar;
     private TextView choosePhotoBtn;
     private RecyclerView authorRecyclerView;
+    public static final String ID_EXHIBITION = "exhibition_id_key";
+    private Integer exhibitionId;
+
+    public CreateExhibit newInstance(Integer idExhibition) {
+        final CreateExhibit myFragment = new CreateExhibit();
+        final Bundle args = new Bundle();
+        if (idExhibition == null) {
+            args.putInt(ID_EXHIBITION, -1);
+        } else {
+            args.putInt(ID_EXHIBITION, idExhibition);
+        }
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            if (getArguments().getInt(ID_EXHIBITION) == -1) {
+                exhibitionId = null;
+            } else {
+                exhibitionId = getArguments().getInt(ID_EXHIBITION);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -64,6 +90,7 @@ public class CreateExhibit extends Fragment {
                 inflater.inflate(R.layout.fragment_create_exhibit, container, false);
         initViews(rootView);
         setListeners();
+        getArgumentsFromBundle();
 
         return rootView;
     }
@@ -127,6 +154,7 @@ public class CreateExhibit extends Fragment {
                 }
                 filter(s.toString());
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -155,8 +183,8 @@ public class CreateExhibit extends Fragment {
 
                 hideKeyboard();
                 authorRecyclerView.setVisibility(View.GONE);
-                QueryExhibit queryExhibit = new QueryExhibit(this);
-                queryExhibit.getQuery(ex);
+                QueryAddExhibit queryAddExhibit = new QueryAddExhibit(this);
+                queryAddExhibit.getQuery(ex, exhibitionId);
 
             } else {
                 hideKeyboard();

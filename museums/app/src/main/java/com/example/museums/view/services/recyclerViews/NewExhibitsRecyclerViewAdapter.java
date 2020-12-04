@@ -111,9 +111,12 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public void submitList(List<NewExhibitModel> products) {
         System.out.println("products" + products.size());
         System.out.println("products efore current" +   differ.getCurrentList().size());
-
+        for (NewExhibitModel a :  products
+             ) {
+            System.out.println(a.toString());
+        }
         differ.submitList(products);
-        differ.getCurrentList().size();
+
     }
 
     @Override

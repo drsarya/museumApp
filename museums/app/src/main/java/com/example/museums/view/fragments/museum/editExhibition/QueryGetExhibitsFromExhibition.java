@@ -25,6 +25,10 @@ public class QueryGetExhibitsFromExhibition {
     public void onSuccess(List<NewExhibitModel> list) {
         System.out.println("gettttttttttttExhibittstststtsttstts");
          activity.updateListExhibits(list);
+        for (NewExhibitModel a:
+                list) {
+            System.out.println(a.toString());
+        }
         activity.progressBar.setVisibility(View.GONE);
 
     }
