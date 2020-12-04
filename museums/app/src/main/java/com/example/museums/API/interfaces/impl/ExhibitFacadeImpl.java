@@ -5,10 +5,9 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.Like;
-import com.example.museums.view.fragments.museum.createExhibit.QueryInsertExhibit;
-import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
-import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
+import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
@@ -95,29 +94,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                 });
     }
 
-    @Override
-    public void insertExhibits(List<Exhibit> exhibits) {
 
-        museumDao.insertExhibits(exhibits)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Long[]>() {
-                    @Override
-                    public void onSuccess(@NonNull Long[] listIds) {
-                        queryCreateExhibition.onSuccessInsertsExhibits(listIds);
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                        queryCreateExhibition.onErrorInsertsExhibits();
-
-                    }
-                })
-        ;
-
-    }
 
     @Override
     public void insertExhibit(Exhibit exhibit) {
@@ -133,7 +110,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        System.out.println(e.toString());
                         queryInsertExhibit.onError();
 
                     }
@@ -178,23 +155,5 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                 });
     }
 
-    @Override
-    public void updateExhibits(List<Exhibit> exhibit) {
-        museumDao.updateExhibits(exhibit).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Integer>() {
-                    @Override
-                    public void onSuccess(@NonNull Integer museum) {
-                        System.out.println("updateeeeeeeee");
-                        queryCreateExhibition.onSuccessUpdate( );
-                    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        System.out.println(e.toString());
-
-                        queryCreateExhibition.onError();
-                    }
-                });
-    }
 }

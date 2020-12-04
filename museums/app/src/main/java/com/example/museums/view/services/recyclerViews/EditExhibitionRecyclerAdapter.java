@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerOpenExhibition;
@@ -99,7 +99,7 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
             holder.dateOfCreateTextView.setText(exhibition.firstDate + " - " + exhibition.lastDate);
         }
 
-        CreateExhibition c = new CreateExhibition().newInstance(museumExhibitions.login , exhibition.id, exhibition.image, exhibition.name, exhibition.firstDate, exhibition.lastDate, exhibition.description);
+        EditExhibtion c = new EditExhibtion().newInstance(museumExhibitions.login , exhibition.id,exhibition.idMuseum, exhibition.image, exhibition.name, exhibition.firstDate, exhibition.lastDate, exhibition.description);
         c.setTargetFragment(museumExhibitions,0 );
         holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c,  (AppCompatActivity) museumExhibitions.getContext()));
         holder.nameOfExhibitionTextView.setText(exhibition.name);

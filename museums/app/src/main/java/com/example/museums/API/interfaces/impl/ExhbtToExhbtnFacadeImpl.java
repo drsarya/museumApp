@@ -5,11 +5,9 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhbtToExbtnFacade;
 import com.example.museums.API.models.ExhibitToExhbtn;
-import com.example.museums.view.fragments.museum.createExhibit.QueryInsertExhibit;
-import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
-import com.example.museums.view.fragments.museum.editExhibition.QueryGetExhibitsFromExhibition;
-
-import java.util.List;
+import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.QueryGetExhibitsFromExhibition;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -48,28 +46,7 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
                .subscribe(museums -> queryGetExhibitsFromExhibition.onSuccess(museums));;
      }
 
-    @Override
-    public void insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns) {
-        museumDao.insertExhbToExbtn(exhbtns)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Long[]>() {
-                    @Override
-                    public void onSuccess(@NonNull Long[] listIds) {
-                        queryCreateExhibition.onSuccessInsertsExhbtToExhbtn(listIds);
 
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        System.out.println(e.toString());
-                        queryCreateExhibition.onErrorInsertsExhbtToExhbtn();
-
-                    }
-                })
-        ;
-
-    }
 
     @Override
     public void insertExhbToExbtn(ExhibitToExhbtn exhbtns) {

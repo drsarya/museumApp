@@ -35,7 +35,7 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =
-                inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
+                inflater.inflate(R.layout.fragment_museum_exhibitions, container, false);
         getArgumentsFromBundle();
 
 

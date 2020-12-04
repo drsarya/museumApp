@@ -12,11 +12,9 @@ public interface ExhibitFacade {
 
     void deleteExhibits(int idExhibition);
 
-    void insertExhibits(List<Exhibit> exhibits);
-    void insertExhibit( Exhibit  exhibit);
+     void insertExhibit( Exhibit  exhibit);
 
     void deleteExhibit(int id);
 
     void updateExhibit(Exhibit exhibit);
-    void updateExhibits(List<Exhibit> exhibit);
-}
+ }

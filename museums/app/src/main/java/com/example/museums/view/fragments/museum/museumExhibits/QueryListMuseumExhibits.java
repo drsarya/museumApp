@@ -6,8 +6,7 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.ExhibitWithAuthor;
+import com.example.museums.API.models.NewExhibitModel;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class QueryListMuseumExhibits {
         this.activity = museumExhibits;
     }
 
-    public void onSuccess(List<ExhibitWithAuthor> exhibits) {
+    public void onSuccess(List<NewExhibitModel> exhibits) {
         activity.refreshAllList(exhibits);
         activity.progressBar.setVisibility(View.GONE);
     }

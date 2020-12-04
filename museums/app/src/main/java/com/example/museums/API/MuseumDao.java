@@ -14,8 +14,7 @@ import androidx.room.Update;
 import com.example.museums.API.models.Author;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
-import com.example.museums.API.models.ExhibitWithAuthor;
-import com.example.museums.API.models.Exhibition;
+ import com.example.museums.API.models.Exhibition;
 import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
@@ -93,7 +92,7 @@ public interface MuseumDao {
             "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
             "JOIN author as a1 ON a1.id_author = ex3.authorId" +
             " WHERE  m1.login = :login   ")
-    Flowable<List<ExhibitWithAuthor>> getExhibitsByMuseumId(String login);
+    Flowable<List<NewExhibitModel>> getExhibitsByMuseumId(String login);
 
     /*DELETE*/
     @Query("DELETE FROM exhibit WHERE id = :id")
@@ -101,12 +100,10 @@ public interface MuseumDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibitInfo(Exhibit exhibit);
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    Single<Integer> updateExhibits(List<Exhibit> exhibit);
+
 
     /*INSERT*/
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long[]> insertExhibits(List<Exhibit> exhibit);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertExhibit( Exhibit  exhibit);
 

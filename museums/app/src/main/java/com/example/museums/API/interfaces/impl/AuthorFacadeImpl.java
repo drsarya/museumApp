@@ -5,10 +5,10 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.AuthorFacade;
 import com.example.museums.API.models.Author;
-import com.example.museums.view.fragments.museum.createExhibit.QueryAddExhibit;
-import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.authors.QueryAuthor;
-import com.example.museums.view.fragments.museum.editExhibit.QueryUpdateExhibit;
+import com.example.museums.view.fragments.museum.exhibit.QueryInsertAuthor;
+import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
 
 import java.util.List;
 
@@ -21,9 +21,10 @@ public class AuthorFacadeImpl implements AuthorFacade {
     private MuseumDao museumDao;
     private QueryAuthor queryAuthor;
     private QueryCreateExhibition queryCreateExhibition;
-    private QueryAddExhibit queryAddExhibit;
     private QueryUpdateExhibit queryUpdateExhibit;
-     public AuthorFacadeImpl(MuseumDao museumDao) {
+    private QueryInsertAuthor queryInsertAuthor;
+
+    public AuthorFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
     }
 
@@ -32,14 +33,14 @@ public class AuthorFacadeImpl implements AuthorFacade {
         this.queryAuthor = queryAuthor;
     }
 
+    public AuthorFacadeImpl(MuseumDao museumDao, QueryInsertAuthor queryInsertAuthor) {
+        this.museumDao = museumDao;
+        this.queryInsertAuthor = queryInsertAuthor;
+    }
+
     public AuthorFacadeImpl(MuseumDao museumDao, QueryUpdateExhibit queryUpdateExhibit) {
         this.museumDao = museumDao;
         this.queryUpdateExhibit = queryUpdateExhibit;
-    }
-
-    public AuthorFacadeImpl(MuseumDao museumDao, QueryAddExhibit queryAddExhibit) {
-        this.museumDao = museumDao;
-        this.queryAddExhibit = queryAddExhibit;
     }
 
 
@@ -66,20 +67,16 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer aLong) {
-                        if (queryAddExhibit != null) {
-                            queryAddExhibit.onSuccess(aLong);
-                        } else {
-                            queryUpdateExhibit.onSuccess(aLong);
-                        }
+
+                        queryInsertAuthor.onSuccess(aLong);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        if (queryAddExhibit != null) {
-                            queryAddExhibit.onError();
-                        } else {
-                            queryUpdateExhibit.onError();
-                        }
+
+                        queryInsertAuthor.onError();
+
                     }
                 });
 
@@ -95,20 +92,18 @@ public class AuthorFacadeImpl implements AuthorFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        if (queryAddExhibit != null) {
-                            queryAddExhibit.onSuccessInsert(aLong.intValue());
+                        if (aLong == null) {
+                            queryInsertAuthor.onSuccess(null);
                         } else {
-                            queryUpdateExhibit.onSuccessInsert(aLong.intValue());
+                            queryInsertAuthor.onSuccess(aLong.intValue());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        if (queryAddExhibit != null) {
-                            queryAddExhibit.onErrorInsert();
-                        } else {
-                            queryUpdateExhibit.onErrorInsert();
-                        }
+
+                        queryInsertAuthor.onErrorInsert();
+
                     }
                 });
     }

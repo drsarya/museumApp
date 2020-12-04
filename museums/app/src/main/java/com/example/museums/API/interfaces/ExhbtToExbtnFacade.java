@@ -9,8 +9,7 @@ public interface ExhbtToExbtnFacade {
 
     void getExhibitsByExhdtnId(String ixhbtnId);
 
-    void insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
-    void insertExhbToExbtn( ExhibitToExhbtn  exhbtns);
+     void insertExhbToExbtn( ExhibitToExhbtn  exhbtns);
 
 }
 

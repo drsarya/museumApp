@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.editExhibition;
+package com.example.museums.view.fragments.museum.exhibition.editExhibition;
 
 import android.view.View;
 import android.widget.Toast;
@@ -6,23 +6,28 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.ExhbtToExhbtnFacadeImpl;
-import com.example.museums.API.models.Exhibition;
 import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 
 import java.util.List;
 
-public class QueryEditExhibition {
-    private CreateExhibition activity;
+public class QueryGetExhibitsFromExhibition {
+
+    private EditExhibtion activity;
 
     private ExhbtToExhbtnFacadeImpl exhibitionFacade;
     private MuseumDao museumDao;
 
-    public QueryEditExhibition(CreateExhibition createExhibition) {
-        this.activity = createExhibition;
+    public QueryGetExhibitsFromExhibition(EditExhibtion editExhibtion) {
+        this.activity = editExhibtion;
     }
 
     public void onSuccess(List<NewExhibitModel> list) {
+        System.out.println("gettttttttttttExhibittstststtsttstts");
+         activity.updateListExhibits(list);
+        for (NewExhibitModel a:
+                list) {
+            System.out.println(a.toString());
+        }
         activity.progressBar.setVisibility(View.GONE);
 
     }
@@ -36,10 +41,11 @@ public class QueryEditExhibition {
     }
 
 
-    public void getQuery(Exhibition exhibition, List<NewExhibitModel> exhibits) {
+    public void getQuery(int id) {
+        System.out.println(Thread.currentThread()+"кто-то вызывает ");
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
-      ///  exhibitionFacade = new ExhbtToExhbtnFacadeImpl(museumDao, this);
-    ///    exhibitionFacade.getExhibitsByExhdtnId(Integer.toString(id));
+        exhibitionFacade = new ExhbtToExhbtnFacadeImpl(museumDao, this);
+        exhibitionFacade.getExhibitsByExhdtnId(Integer.toString(id));
     }
 }

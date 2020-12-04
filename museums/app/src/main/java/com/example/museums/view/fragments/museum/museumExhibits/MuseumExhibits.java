@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitWithAuthor;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.MuseumExhibitsRecyclerAdapter;
@@ -74,7 +74,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         queryListMuseumExhibits.getQuery(login);
     }
 
-    public void refreshAllList(List<ExhibitWithAuthor> exhibitWithAuthors) {
+    public void refreshAllList(List<NewExhibitModel> exhibitWithAuthors) {
         mAdapter.submitList(exhibitWithAuthors);
     }
 

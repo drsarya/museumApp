@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.museum.createExhibit;
+package com.example.museums.view.fragments.museum.exhibit.createExhibit;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -11,14 +11,15 @@ import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
 import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.view.fragments.museum.exhibit.QueryInsertAuthor;
 
 
 public class QueryInsertExhibit {
-    private CreateExhibit activity;
+    public CreateExhibit activity;
     private MuseumDao museumDao;
     private NewExhibitModel newExhibitModel;
     private Integer idExhibition;
-    private ExhibitFacadeImpl exhibitFacade;
+    private ExhibitFacadeImpl exhibitFacade  ;
 
     public QueryInsertExhibit(CreateExhibit exhibit) {
         this.activity = exhibit;
@@ -30,32 +31,28 @@ public class QueryInsertExhibit {
         ExhibitToExhbtn exhibitToExhbtn = new ExhibitToExhbtn();
         exhibitToExhbtn.idExhibit = idExhibit;
         exhibitToExhbtn.idExhibition = idExhibition;
-
         exhbtnFacade.insertExhbToExbtn(exhibitToExhbtn);
-
-    }
+     }
 
     public void onSuccessInsertExhbtToExhbn() {
+        activity.insertNewExhibit(newExhibitModel);
+
         Toast.makeText(activity.getContext(),
                 "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
 
-        activity.insertNewExhibit(newExhibitModel);
-    }
+     }
 
     public void onErrorInsertExhbtToExhbn() {
+
         Toast.makeText(activity.getContext(),
                 "Ошибка создания экспоната", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
 
     }
 
-    public void getQuery(NewExhibitModel model, Integer idExhibition) {
-        newExhibitModel = model;
-        this.idExhibition = idExhibition;
-        museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
-        activity.progressBar.setVisibility(View.VISIBLE);
-        exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
+
+    public void   onSuccessInsertAuthor(Integer id){
         Exhibit exhibit = new Exhibit();
         exhibit.authorId = newExhibitModel.idAuthor;
         exhibit.tags = newExhibitModel.tags;
@@ -64,10 +61,24 @@ public class QueryInsertExhibit {
         exhibit.dateOfCreate = newExhibitModel.dateOfCreate;
         exhibit.name = newExhibitModel.name;
         exhibit.description = newExhibitModel.description;
-
+        exhibit.authorId = id;
+        exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
         exhibitFacade.insertExhibit(exhibit);
+
     }
 
+    public void getQuery(NewExhibitModel model, int idExhibition) {
+        newExhibitModel = model;
+        this.idExhibition = idExhibition;
+        museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        QueryInsertAuthor q= new QueryInsertAuthor(museumDao, this);
+        q.getQuery(model);
+
+    }
     public void onError() {
+        Toast.makeText(activity.getContext(),
+                "Ошибка создания экспоната", Toast.LENGTH_SHORT).show();
+        activity.progressBar.setVisibility(View.GONE);
+
     }
 }

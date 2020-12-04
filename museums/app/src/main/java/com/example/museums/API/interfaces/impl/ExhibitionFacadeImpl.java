@@ -5,7 +5,8 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitionFacade;
 import com.example.museums.API.models.Exhibition;
-import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.QueryEditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryMuseumExhibitions;
 
@@ -22,7 +23,7 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
     private QueryCreateExhibition queryCreateExhibition;
     private QueryMuseumExhibitions queryMuseumExhibitions;
     private QueryDeleteExhibition queryDeleteExhibition;
-
+    private QueryEditExhibition queryEditExhibition;
     public ExhibitionFacadeImpl(MuseumDao museumDao) {
         museumDao = museumDao;
     }
@@ -30,6 +31,10 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
     public ExhibitionFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
         this.museumDao = museumDao;
         this.queryCreateExhibition = queryCreateExhibition;
+    }
+    public ExhibitionFacadeImpl(MuseumDao museumDao, QueryEditExhibition queryEditExhibition) {
+        this.museumDao = museumDao;
+        this.queryEditExhibition = queryEditExhibition;
     }
 
     public ExhibitionFacadeImpl(MuseumDao museumDao, QueryMuseumExhibitions queryMuseumExhibitions) {
@@ -95,12 +100,13 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
         museumDao.updateExhibition(exhibition).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DisposableSingleObserver<Integer>() {
             @Override
             public void onSuccess(@NonNull Integer integer) {
-                queryCreateExhibition.onSuccessUpdateExhibiton();
+                queryEditExhibition.onSuccess();
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                queryCreateExhibition.onErrorUpdateExhibiton();
+                System.out.println(e.toString());
+                queryEditExhibition.onError();
             }
         });
     }

@@ -15,7 +15,7 @@ import com.example.museums.view.fragments.admin.editMuseum.QueryEditMuseum;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeDescriptionMuseum.QueryDialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
-import com.example.museums.view.fragments.museum.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;

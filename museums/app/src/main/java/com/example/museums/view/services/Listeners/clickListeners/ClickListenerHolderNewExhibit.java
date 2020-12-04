@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.ExhibitWithAuthor;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.common.DetailedExhibitWithListeners;
 import com.example.museums.API.models.NewExhibitModel;
@@ -15,20 +14,15 @@ import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 
 public class ClickListenerHolderNewExhibit implements View.OnClickListener {
-    public ClickListenerHolderNewExhibit(View view, ExhibitWithAuthor exhibitWithAuthor) {
-        this.view = view;
-        this.exhibitWithAuthor = exhibitWithAuthor;
-    }
-
     public ClickListenerHolderNewExhibit(View view, NewExhibitModel newExhibitModel) {
         this.view = view;
-        this.newExhibitModel = newExhibitModel;
+        this.model = newExhibitModel;
     }
+
 
     private CountDownTimer ctimte = null;
     private View view;
-    private ExhibitWithAuthor exhibitWithAuthor;
-    private NewExhibitModel newExhibitModel;
+    private NewExhibitModel model;
     private MethodsWithFragment mth = new MethodsWithFragment();
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -36,15 +30,11 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
     public void onClick(View v) {
         Fragment myFragment;
         if (view.getVisibility() == View.VISIBLE) {
-            if (exhibitWithAuthor != null) {
-                myFragment = new DetailedExhibitWithListeners().newInstance(exhibitWithAuthor.id, exhibitWithAuthor.photo,
-                        exhibitWithAuthor.name, exhibitWithAuthor.fullName, exhibitWithAuthor.dateOfCreate, exhibitWithAuthor.description);
-            } else {
-                myFragment = new DetailedExhibitWithListeners().newInstance(newExhibitModel.exhibitId, newExhibitModel.photo,
-                        newExhibitModel.name, newExhibitModel.author, newExhibitModel.dateOfCreate, newExhibitModel.description);;
-            }
+            myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, model.photo,
+                    model.name, model.author, model.dateOfCreate, model.description);
+
             MuseumTab activity = (MuseumTab) v.getContext();
-            mth.replaceFragment(myFragment,   activity);
+            mth.replaceFragment(myFragment, activity);
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, view);
             ctimte.start();

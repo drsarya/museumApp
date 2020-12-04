@@ -17,20 +17,18 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
 import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
-
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 import java.util.Objects;
 
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
-    private CreateExhibition createExhibition;
+    private EditExhibtion editExhibtion;
 
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
@@ -49,9 +47,9 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         }
     }
 
-    public NewExhibitsRecyclerViewAdapter(CreateExhibition createExhibition) {
+    public NewExhibitsRecyclerViewAdapter(EditExhibtion editExhibtion) {
 
-        this.createExhibition = createExhibition;
+        this.editExhibtion = editExhibtion;
     }
 
     private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
@@ -98,8 +96,8 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition));
         holder.image.setImageBitmap(exhibition.photo);
         holder.nameOfExhbr.setText(exhibition.name);
-        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(createExhibition, exhibition, position));
-        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, createExhibition, createExhibition.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibition.exhibitId));
+        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibition, position));
+        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibition.exhibitId));
     }
 
 //    public void updateAll(List<NewExhibitModel> exhibits) {

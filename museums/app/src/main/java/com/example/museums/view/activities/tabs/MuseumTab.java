@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.createExhibition.CreateExhibition;
+import com.example.museums.view.fragments.museum.exhibition.createExhibition.CreateExhibition;
 import com.example.museums.view.fragments.common.Exhibitions;
 import com.example.museums.view.fragments.common.Exhibits;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
