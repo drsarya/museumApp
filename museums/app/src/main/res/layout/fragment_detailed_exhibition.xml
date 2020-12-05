@@ -85,6 +85,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="25566"
+                            android:id="@+id/detailed_exhibition_count_likes_text_view"
                             android:textAlignment="center"
                             android:textColor="@color/dark_dark_brown">
 

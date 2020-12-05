@@ -14,12 +14,13 @@ import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 
 public class ClickListenerHolderNewExhibit implements View.OnClickListener {
-    public ClickListenerHolderNewExhibit(View view, NewExhibitModel newExhibitModel) {
+    public ClickListenerHolderNewExhibit(View view, NewExhibitModel newExhibitModel, Integer userId) {
         this.view = view;
+        this.userId = userId;
         this.model = newExhibitModel;
     }
 
-
+    private Integer userId;
     private CountDownTimer ctimte = null;
     private View view;
     private NewExhibitModel model;
@@ -30,7 +31,7 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
     public void onClick(View v) {
         Fragment myFragment;
         if (view.getVisibility() == View.VISIBLE) {
-            myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, model.photo,
+            myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, userId, model.photo,
                     model.name, model.author, model.dateOfCreate, model.description);
 
             MuseumTab activity = (MuseumTab) v.getContext();

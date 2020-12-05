@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.museums.API.models.Exhibition;
 import com.example.museums.R;
 import com.example.museums.view.fragments.user.exhibitions.Exhibitions;
 import com.example.museums.view.fragments.user.exhibits.Exhibits;
@@ -18,9 +17,12 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 public class UserTab extends AppCompatActivity {
 
+    public static final String LOGIN_USER_KEY = "login_key";
     private BottomNavigationView menuTab;
-    public static final String LOGIN_KEY_USER = "login_key";
-    private String loginUser;
+    public static final String ID_USER_KEY = "user_key";
+    private Integer idUser;
+    private String login;
+
     private boolean currState = false;
     private Exhibits exhibits;
     private Exhibitions exhibitions;
@@ -38,10 +40,11 @@ public class UserTab extends AppCompatActivity {
         initViews();
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            loginUser = b.getString(LOGIN_KEY_USER);
-            likedExhbViewPager = LikedExhbViewPager.newInstance(loginUser);
-            exhibits = Exhibits.newInstance(loginUser);
-            exhibitions = Exhibitions.newInstance(loginUser);
+            idUser = b.getInt(ID_USER_KEY);
+            login = b.getString(LOGIN_USER_KEY);
+            likedExhbViewPager = LikedExhbViewPager.newInstance(login);
+            exhibits = Exhibits.newInstance(idUser);
+            exhibitions = Exhibitions.newInstance(idUser);
         }
 
         setInitialPage();

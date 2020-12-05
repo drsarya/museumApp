@@ -14,7 +14,7 @@ import androidx.room.Update;
 import com.example.museums.API.models.Author;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.ExhibitToExhbtn;
- import com.example.museums.API.models.Exhibition;
+import com.example.museums.API.models.Exhibition;
 import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.API.models.Like;
 import com.example.museums.API.models.Museum;
@@ -35,8 +35,9 @@ public interface MuseumDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long[]> insertExhbToExbtn(List<ExhibitToExhbtn> exhbtns);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long > insertExhbToExbtn( ExhibitToExhbtn  exhbtns);
+    Single<Long> insertExhbToExbtn(ExhibitToExhbtn exhbtns);
 
     @Query("SELECT * FROM exhibit as e1 JOIN author as a1 ON a1.id_author = e1.authorId ")
     Flowable<List<NewExhibitModel>> getAllExhibits();
@@ -46,19 +47,26 @@ public interface MuseumDao {
     Flowable<List<ExhibitionWithMuseumName>> getAllExhibitions();
 
 
-    @Query("SELECT Count (*) FROM `like` WHERE idExhb =:exhbtId")
-    String getLikesByExhId(String exhbtId);
+    @Query("SELECT Count (*) FROM `like` WHERE idExhb =:exhbtId AND type =:type")
+    Single<String> getLikesByExhId(String exhbtId, boolean type);
 
-    @Delete
-    int deleteLikesByExhbtId(Like like);
+    @Query("SELECT * FROM `like` WHERE id_user_fk =:userId and  idExhb = :idExh AND type =:type")
+    Single<Like> getLikeByUserId(Integer userId, String idExh, boolean type);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertLike(Like like);
+
+
+
+    @Query("DELETE FROM `like`   WHERE id_user_fk = :userId AND idExhb =:idExhbt AND type =:type ")
+    Single<Integer> deleteLikesByExhbtId(Integer userId, String idExhbt, boolean type);
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    Single<Long> insertLike(Like like);
 
 
     /*EXHIBITION*/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Single<Long> insertExhbtn(Exhibition exhibition);
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     Single<Integer> updateExhibition(Exhibition exhibit);
 
@@ -86,7 +94,6 @@ public interface MuseumDao {
     Single<Integer> deleteExhibits(int idExhibitiob);
 
 
-
     @Query("SELECT  * FROM" +
 
             "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
@@ -105,7 +112,7 @@ public interface MuseumDao {
     /*INSERT*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Single<Long> insertExhibit( Exhibit  exhibit);
+    Single<Long> insertExhibit(Exhibit exhibit);
 
     /*MUSEUM*/
     /*GET*/
@@ -153,6 +160,9 @@ public interface MuseumDao {
 
     @Query("SELECT * FROM user WHERE login =:login AND password=:password")
     Single<User> getUser(String login, String password);
+
+    @Query("SELECT * FROM user WHERE login =:login And password is NULL  ")
+    Single<User> getUser(String login);
 
     /*UPDATE*/
     @Query("UPDATE user SET  password = :password  where login= :login ")

@@ -29,27 +29,27 @@ public class Exhibits extends Fragment {
 
     private RecyclerView recyclerView;
     private ExhibitsRecyclerViewAdapter mAdapter = new ExhibitsRecyclerViewAdapter();
-    ;
     private RecyclerView.Adapter horizontalAdapter;
     public RecyclerView listView;
     public static final String LOGIN_KEY_USER = "login_key";
-    private String login;
+
+    private Integer userId;
     private EditText searchEditText;
     private List<String> names = Arrays.asList("Природа", "Скульптура", "Графика", "Животные", "Живопись", "Люди");
     private List<Exhibit> in = new ArrayList<>();
 
 
-    public static Exhibits newInstance(String login) {
+    public static Exhibits newInstance(Integer idUser) {
         final Exhibits myFragment = new Exhibits();
         final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
+        args.putInt(LOGIN_KEY_USER, idUser);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
+            userId = getArguments().getInt(LOGIN_KEY_USER);
         }
     }
 
@@ -59,8 +59,9 @@ public class Exhibits extends Fragment {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_main_exhibits, container, false);
-        initViews(rootView);
         getArgumentsFromBundle();
+        initViews(rootView);
+
         setListeners();
         return rootView;
     }
@@ -73,7 +74,7 @@ public class Exhibits extends Fragment {
         recyclerView.setAdapter(mAdapter);
         listView.setAdapter(horizontalAdapter);
         searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
-
+        mAdapter.setUserId(userId);
         QueryExhibits queryExhibits = new QueryExhibits(this);
         queryExhibits.getQuery();
     }
@@ -83,7 +84,6 @@ public class Exhibits extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-
     }
 
     List<NewExhibitModel> newExhibitModels = new ArrayList<>();
@@ -110,7 +110,6 @@ public class Exhibits extends Fragment {
 
             }
         });
-
     }
 
     private boolean containsString(String fullName, String currText) {

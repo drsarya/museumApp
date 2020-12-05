@@ -73,7 +73,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         holder.mainImage.setImageBitmap(purchaseList.photo);
 
         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), purchaseList.exhibitId));
         holder.authorTextView.setText(purchaseList.author);

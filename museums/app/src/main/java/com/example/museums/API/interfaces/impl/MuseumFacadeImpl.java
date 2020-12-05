@@ -303,13 +303,16 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .subscribe(new DisposableSingleObserver<Museum>() {
                     @Override
                     public void onSuccess(@NonNull Museum museum) {
-                        System.out.println(1);
+
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
-                        userFacade.insertUserMuseum(login, password, type);
-                    }
+                        System.out.println(museum.login);
+                        userFacade.getUser(museum.login );
+                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e)
+                    {
+                        System.out.println("1"+ e.toString());
                         queryRegistrationMuseum.onError();
                     }
                 });

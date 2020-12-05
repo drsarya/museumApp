@@ -20,10 +20,13 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.likes.QueryGetLikes;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.oop.ILike;
 
-public class DetailedExhibitWithListeners extends Fragment {
+public class DetailedExhibitWithListeners extends Fragment implements ILike {
+    private static final String USER_ID_KEY = "id_user_key";
     private ScrollView view;
     private LinearLayout ll;
     private ImageButton like;
@@ -39,6 +42,8 @@ public class DetailedExhibitWithListeners extends Fragment {
     private ImageView mainImageImageView;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
     private boolean state = false;
+    private TextView textViewCountLikes;
+    private Integer userId;
 
     @Nullable
     @Override
@@ -46,28 +51,26 @@ public class DetailedExhibitWithListeners extends Fragment {
         super.setRetainInstance(true);
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibit, container, false);
-
-        initView(rootView);
         getArgumentsFromBundle();
+        initView(rootView);
+        setData();
         return rootView;
     }
 
-    public DetailedExhibitWithListeners newInstance(Integer id, Parcelable image, String name, String author, String date, String description) {
+    public DetailedExhibitWithListeners newInstance(Integer idExhibit, Integer userId, Parcelable image, String name, String author, String date, String description) {
         final DetailedExhibitWithListeners myFragment = new DetailedExhibitWithListeners();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
         args.putString(DATE_OF_CREATE, date);
         args.putString(AUTHOR_KEY, author);
         args.putString(DESCRIPTION_KEY, description);
-        if (id == null) {
-            args.putInt(ID_EXHIBIT_KEY, -1);
-        } else {
-            args.putInt(ID_EXHIBIT_KEY, id);
-        }
+        args.putInt(USER_ID_KEY, userId);
+        args.putInt(ID_EXHIBIT_KEY, idExhibit);
         args.putParcelable(IMAGE_KEY, image);
         myFragment.setArguments(args);
         return myFragment;
     }
+
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
@@ -76,20 +79,18 @@ public class DetailedExhibitWithListeners extends Fragment {
             date = getArguments().getString(DATE_OF_CREATE);
             description = getArguments().getString(DESCRIPTION_KEY);
             image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
-            if (getArguments().getInt(ID_EXHIBIT_KEY) == -1) {
-                idExhibit = null;
-                ll.setVisibility(View.GONE);
-            } else {
-                idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
-                ll.setVisibility(View.VISIBLE);
+            idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
+            userId = getArguments().getInt(USER_ID_KEY);
 
-            }
-            mainImageImageView.setImageBitmap(image);
-            authorTextView.setText(author);
-            dateTextView.setText(date);
-            descriptionTextView.setText(description);
-            nameTextView.setText(name);
         }
+    }
+
+    private void setData() {
+        mainImageImageView.setImageBitmap(image);
+        authorTextView.setText(author);
+        dateTextView.setText(date);
+        descriptionTextView.setText(description);
+        nameTextView.setText(name);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -101,7 +102,10 @@ public class DetailedExhibitWithListeners extends Fragment {
         setListeners();
     }
 
+    private QueryGetLikes queryGetLikes;
+
     private void initView(View rootView) {
+        textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_of_likes_text_view);
         ll = (LinearLayout) rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = (ScrollView) rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = (ImageButton) rootView.findViewById(R.id.detailed_exhibit_like_btn);
@@ -110,15 +114,53 @@ public class DetailedExhibitWithListeners extends Fragment {
         authorTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_author_text_view);
         dateTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_date_of_create_text_view);
         descriptionTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_description_text_view);
+        queryGetLikes = new QueryGetLikes(this, this);
+
+        if (userId != -1) {
+            queryGetLikes.setData(userId, idExhibit, true);
+            queryGetLikes.getCountLikes();
+            queryGetLikes.getState();
+        } else {
+            queryGetLikes.setData(idExhibit, true);
+            queryGetLikes.getCountLikes();
+        }
     }
 
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setListeners() {
-
-        like.setOnClickListener(new ClickListenerChangeColorLike(state, like, getActivity()));
+        if (userId != null && userId!=-1) {
+            like.setOnClickListener(new ClickListenerChangeColorLike(queryGetLikes));
+        }
         view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
     }
 
+    public void setCountLikesTextView(String str) {
+
+        textViewCountLikes.setText(str);
+    }
+
+    public void setLiked() {
+        state = true;
+        like.setColorFilter(getActivity().getResources().getColor(R.color.pink));
+    }
+
+    public void setDontLiked() {
+        state = false;
+        like.setColorFilter(getActivity().getResources().getColor(R.color.brown));
+    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        System.out.println("разрушение"+ idExhibit);
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        System.out.println("разрушение2"+ idExhibit);
+//
+//
+//    }
 }

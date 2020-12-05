@@ -93,7 +93,7 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
         final NewExhibitModel exhibition = differ.getCurrentList().get(position);
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition,-1));
         holder.image.setImageBitmap(exhibition.photo);
         holder.nameOfExhbr.setText(exhibition.name);
         holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibition, position));

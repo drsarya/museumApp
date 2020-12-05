@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.API.models.User;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitViewPagerAdapter;
 import com.example.museums.API.models.Exhibit;
@@ -26,9 +27,12 @@ public class ExhibitViewPager extends Fragment {
     private ViewPager mPager;
     private List<NewExhibitModel> mDataset;
     private ExhibitViewPagerAdapter pagerAdapter;
+    private Integer userId;
 
-    public ExhibitViewPager(List<NewExhibitModel> mDataset) {
+    public ExhibitViewPager(List<NewExhibitModel> mDataset, Integer userId) {
         this.mDataset = mDataset;
+        this.userId = userId;
+
     }
 
     public void setNewData(List<NewExhibitModel> mDataset) {
@@ -54,7 +58,7 @@ public class ExhibitViewPager extends Fragment {
     }
 
     private void initViews(View rootView) {
-        pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset);
+        pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset, userId);
 
         mPager = rootView.findViewById(R.id.exhibits_from_exhbtn_pager);
         mPager.setAdapter(pagerAdapter);

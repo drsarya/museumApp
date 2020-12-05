@@ -19,9 +19,9 @@ public class ClickListenerOpenExhibition implements View.OnClickListener {
     private MethodsWithFragment mth = new MethodsWithFragment();
     private CountDownTimer ctimte = null;
 
-    public ClickListenerOpenExhibition(View view, ExhibitionWithMuseumName exhibitionWithMuseumName) {
+    public ClickListenerOpenExhibition(View view, ExhibitionWithMuseumName exhibitionWithMuseumName ) {
         this.view = view;
-        this.exhibitionWithMuseumName = exhibitionWithMuseumName;
+         this.exhibitionWithMuseumName = exhibitionWithMuseumName;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -31,11 +31,11 @@ public class ClickListenerOpenExhibition implements View.OnClickListener {
         if (view.getVisibility() == View.VISIBLE) {
             if (exhibitionWithMuseumName.firstDate == null) {
 
-                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), -1,exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                         "", exhibitionWithMuseumName.description);
             } else {
 
-                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum),exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
+                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum),-1,exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                         exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
 
             }

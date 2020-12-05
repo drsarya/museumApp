@@ -32,7 +32,7 @@ public class QueryExhibits {
 
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
-        exhibitFacade.getAllExhibits( );
+        exhibitFacade.getAllExhibits();
 
     }
 }

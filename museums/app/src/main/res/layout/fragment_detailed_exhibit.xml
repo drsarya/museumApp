@@ -159,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="256"
+                 android:id="@+id/detailed_exhibit_count_of_likes_text_view"
                 android:textAlignment="center"
                 android:textColor="@color/dark_dark_brown">
 

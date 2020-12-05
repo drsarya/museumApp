@@ -28,7 +28,7 @@ public class Exhibitions extends Fragment {
     private RecyclerView recyclerView;
     private ExhibitionsRecyclerViewAdapter mAdapter = new ExhibitionsRecyclerViewAdapter();
     public static final String LOGIN_KEY_USER = "login_key";
-    private String login;
+    private Integer userId;
     private EditText searchEditText;
 
     @Nullable
@@ -42,17 +42,17 @@ public class Exhibitions extends Fragment {
         return rootView;
     }
 
-    public  static Exhibitions newInstance(String login) {
+    public static Exhibitions newInstance(Integer userId) {
         final Exhibitions myFragment = new Exhibitions();
         final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
+        args.putInt(LOGIN_KEY_USER, userId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
+            userId = getArguments().getInt(LOGIN_KEY_USER);
         }
     }
 
@@ -60,6 +60,7 @@ public class Exhibitions extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycler_view_exhibitons);
         searchEditText = rootView.findViewById(R.id.main_exhibitions_search_edit_tsxt);
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setUserId(userId);
         QueryExhibitions queryExhibitions = new QueryExhibitions(this);
         queryExhibitions.getQuery();
     }

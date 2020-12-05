@@ -8,6 +8,7 @@ import com.example.museums.API.models.User;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
 import com.example.museums.view.activities.common.Registration.QueryRegistration;
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
+import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -25,10 +26,16 @@ public class UserFacadeImpl implements UserFacade {
     private QueryRegistration queryRegistration;
     private QueryRegistrationMuseum queryRegistrationMuseum;
     private QueryUpdatePassword queryUpdatePassword;
+    private QueryCreateMuseum queryCreateMuseum;
 
     public UserFacadeImpl(MuseumDao mDao, QueryAuthorization queryAuthorization) {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
+    }
+
+    public UserFacadeImpl(MuseumDao mDao, QueryCreateMuseum queryCreateMuseum) {
+        museumDao = mDao;
+        this.queryCreateMuseum = queryCreateMuseum;
     }
 
     public UserFacadeImpl(MuseumDao mDao, QueryUpdatePassword queryUpdatePassword) {
@@ -48,6 +55,33 @@ public class UserFacadeImpl implements UserFacade {
 
     public UserFacadeImpl(MuseumDao mDao) {
         museumDao = mDao;
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getUser(String login) {
+
+        museumDao.getUser(login)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<User>() {
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+
+                        queryRegistrationMuseum.updateMuseumPassword();
+
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                        queryRegistrationMuseum.onError();
+
+                    }
+                })
+        ;
+
     }
 
     @SuppressLint("CheckResult")
@@ -127,12 +161,12 @@ public class UserFacadeImpl implements UserFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        queryRegistrationMuseum.onSuccess();
+                        queryCreateMuseum.insertMuseum();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        queryRegistrationMuseum.onError();
+                        queryCreateMuseum.onError();
                     }
                 });
     }
@@ -146,12 +180,22 @@ public class UserFacadeImpl implements UserFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer user) {
-                        queryUpdatePassword.onSuccess();
+                        if (queryUpdatePassword != null) {
+                            queryUpdatePassword.onSuccess();
+                        } else {
+
+                            queryRegistrationMuseum.onSuccess();
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        queryUpdatePassword.onError();
+                        if (queryUpdatePassword != null) {
+                            queryUpdatePassword.onError();
+                        } else {
+                            System.out.println(e.toString() + " 3");
+                            queryRegistrationMuseum.onSuccess();
+                        }
                     }
                 });
     }

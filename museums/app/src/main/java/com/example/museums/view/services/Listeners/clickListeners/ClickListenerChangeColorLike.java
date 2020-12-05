@@ -6,29 +6,20 @@ import android.widget.ImageButton;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.likes.QueryGetLikes;
 
 public class ClickListenerChangeColorLike implements View.OnClickListener {
-    public ClickListenerChangeColorLike(Boolean state, ImageButton like, FragmentActivity activity) {
-        this.like = like;
-        this.state = state;
-        this.activity = activity;
+    public ClickListenerChangeColorLike(QueryGetLikes queryGetLikes) {
+        this.queryGetLikes = queryGetLikes;
+
+
     }
 
-    private FragmentActivity activity;
-
-    private Boolean state;
-    private ImageButton like;
+    private QueryGetLikes queryGetLikes;
 
     @Override
     public void onClick(View v) {
-
-        if (state) {
-            like.setColorFilter(activity.getResources().getColor(R.color.brown));
-            state = false;
-        } else {
-            like.setColorFilter(activity.getResources().getColor(R.color.pink));
-            state = true;
-        }
+        queryGetLikes.getInsertLike();
     }
 
 

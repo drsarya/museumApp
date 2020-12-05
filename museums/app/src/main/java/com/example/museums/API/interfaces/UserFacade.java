@@ -5,6 +5,7 @@ public interface UserFacade {
 
     /*GET*/
     void getUser(String login, String password);
+    void getUser(String login );
 
     void getUser(String login, String password, String oldpassword);
 

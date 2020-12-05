@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
+import com.example.museums.API.interfaces.impl.UserFacadeImpl;
 
 public class QueryCreateMuseum {
     private MuseumFacadeImpl museumFacade;
@@ -42,14 +43,27 @@ public class QueryCreateMuseum {
 
     }
 
+    String login, name, address;
+
+    public void insertMuseum() {
+
+        museumFacade.insertMuseum(login, name, address);
+
+    }
+
 
     public void getQuery(String login, String name, String address) {
+        this.login = login;
+        this.name = name;
+        this.address = address;
         activity.progressBar.setVisibility(View.GONE);
         curogin = login;
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
-        museumFacade.insertMuseum(login, name, address);
+        UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
+        userFacade.insertUserMuseum(login, null, false);
+
 
     }
 }

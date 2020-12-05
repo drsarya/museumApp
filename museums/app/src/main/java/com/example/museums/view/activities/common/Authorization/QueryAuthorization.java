@@ -8,7 +8,6 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.API.models.Museum;
 import com.example.museums.API.models.User;
 import com.example.museums.view.activities.tabs.AdminTab;
 import com.example.museums.view.activities.tabs.MuseumTab;
@@ -44,12 +43,15 @@ public class QueryAuthorization {
     public void isUser() {
         activity.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(activity.getApplicationContext(), UserTab.class);
-        intent.putExtra(UserTab.LOGIN_KEY_USER, login);
+        intent.putExtra(UserTab.ID_USER_KEY, idUser);
+        intent.putExtra(UserTab.LOGIN_USER_KEY, login);
+
         activity.startActivity(intent);
     }
 
-
+private Integer idUser;
     public void onSuccess(User user) {
+        idUser = user.userId;
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         if (user.type) {
             activity.progressBar.setVisibility(View.GONE);

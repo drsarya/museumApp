@@ -2,10 +2,11 @@ package com.example.museums.API.interfaces;
 
 public interface LikeFacade {
 
-    String getLikesByExhId(String exhbtnId);
+    void getLikesByExhId(String exhbtnId, boolean type);
+    void getLikeByUserId(Integer userId, String idExh, boolean type);
 
-    int deleteLikesByExhbtId(String iduser, String idExhb);
+    void deleteLikesByExhbtId(Integer iduser, String idExhb, boolean type);
 
-    long insertLike(String iduser, String idExhb);
+    void insertLike(Integer iduser, String idExhb, boolean type);
 
 }

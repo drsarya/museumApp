@@ -45,44 +45,40 @@
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
-            app:hasClearButton="true"
-            android:imeOptions="actionDone"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            app:hasClearButton="true"
             app:helperText="@string/login"
             app:labelText="@string/login">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/authorization_log_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
                 android:inputType="textEmailAddress"
-                android:id="@+id/authorization_log_text_view"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
-                android:text="1111"
-                android:imeOptions="actionDone"
-
-                 app:helperText="@string/password" />
+                app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hasClearButton="true"
             android:imeOptions="actionDone"
-             app:helperText="@string/password"
+            app:hasClearButton="true"
+            app:helperText="@string/password"
             app:labelText="@string/password">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/authorization_password_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
-                android:imeOptions="actionDone"
-                android:text="1111"
-                 android:id="@+id/authorization_password_text_view"
-
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -141,14 +137,14 @@
                     android:src="@drawable/image_for_btn">
 
                 </ImageView>
+
                 <ProgressBar
                     android:id="@+id/authorization_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"
                     android:layout_gravity="bottom"
-                    />
+                    android:visibility="gone" />
             </androidx.cardview.widget.CardView>
 
             <Button
@@ -185,10 +181,10 @@
                 android:layout_gravity="center"
                 android:background="@color/glass"
                 android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"
-
                 android:focusable="true"
+
                 android:fontFamily="@font/prata"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:text="Зарегистрироваться"
                 android:textAllCaps="false"
@@ -199,17 +195,17 @@
             </Button>
 
             <Button
+                android:id="@+id/authorization_reg_museum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/authorization_reg_museum"
-                android:foreground="?attr/selectableItemBackground"
-
                 android:layout_gravity="center"
+
                 android:background="@color/glass"
                 android:clickable="true"
-
                 android:focusable="true"
+
                 android:fontFamily="@font/prata"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:text="Представителю музея"
                 android:textAllCaps="false"

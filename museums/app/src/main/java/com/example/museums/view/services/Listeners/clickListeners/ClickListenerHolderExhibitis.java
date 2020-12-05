@@ -16,11 +16,13 @@ import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapt
 
 
 public class ClickListenerHolderExhibitis implements View.OnClickListener {
-    public ClickListenerHolderExhibitis(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder, NewExhibitModel model) {
+    public ClickListenerHolderExhibitis(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder, NewExhibitModel model, Integer userId) {
         this.holder = holder;
         this.model = model;
+        this.userId = userId;
     }
     private  NewExhibitModel model;
+    private  Integer userId;
 
     private CountDownTimer ctimte = null;
     private MethodsWithFragment mth = new MethodsWithFragment();
@@ -31,7 +33,8 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (holder.textView.getVisibility() == View.VISIBLE) {
-            Fragment myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, model.photo,
+            System.out.println(userId +"userid");
+            Fragment myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, userId, model.photo,
                     model.name, model.author, model.dateOfCreate, model.description);;
             mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
         } else {

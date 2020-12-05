@@ -51,6 +51,12 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
             return oldProduct.equals(newProduct);
         }
     };
+    private Integer userId;
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+
+    }
 
     public void submitList(List<NewExhibitModel> products) {
         differ.submitList(products);
@@ -77,7 +83,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
         final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder, purchaseList));
+        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder, purchaseList, userId));
         holder.image.setImageBitmap(purchaseList.photo);
         holder.textView.setText(purchaseList.name);
     }

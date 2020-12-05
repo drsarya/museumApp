@@ -59,7 +59,11 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         }
     };
 
+    private Integer userId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
 
+    }
     public void submitList(List<ExhibitionWithMuseumName> products) {
         differ.submitList(products);
     }
@@ -92,7 +96,7 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
 
         holder.nameOfExhibtn.setText(exhibition.name);
         holder.nameOfEMuseum.setText(exhibition.nameMuseum);
-        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition));
+        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition,userId ));
     }
 
 

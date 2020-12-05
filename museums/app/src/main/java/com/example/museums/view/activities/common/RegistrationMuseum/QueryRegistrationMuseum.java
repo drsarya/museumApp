@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
+import com.example.museums.API.interfaces.impl.UserFacadeImpl;
 
 public class QueryRegistrationMuseum {
 
@@ -31,8 +32,19 @@ public class QueryRegistrationMuseum {
 
     }
 
+    public void updateMuseumPassword() {
+        UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
+
+        userFacade.updateUserPassword(login, password);
+
+    }
+
+    private String password, login;
+
     public void getQuery(String login, String password, boolean type, int idCode) {
-        System.out.println(1);
+        this.login = login;
+        this.password = password;
+
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
