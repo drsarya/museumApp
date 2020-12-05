@@ -74,6 +74,7 @@ public class Exhibits extends Fragment {
         recyclerView.setAdapter(mAdapter);
         listView.setAdapter(horizontalAdapter);
         searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
+        System.out.println(userId+"user id из экпонатов");
         mAdapter.setUserId(userId);
         QueryExhibits queryExhibits = new QueryExhibits(this);
         queryExhibits.getQuery();

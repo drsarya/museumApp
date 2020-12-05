@@ -1,9 +1,13 @@
 package com.example.museums.API.interfaces.impl;
 
+import android.annotation.SuppressLint;
+
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.LikeFacade;
 import com.example.museums.API.models.Like;
 import com.example.museums.view.fragments.common.likes.QueryGetLikes;
+import com.example.museums.view.fragments.user.likedExhibitions.QueryLikedExhibits;
+import com.example.museums.view.fragments.user.likedExhibits.QueryLikedExhibitions;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -16,6 +20,8 @@ import io.reactivex.schedulers.Schedulers;
 public class LikefacadeImpl implements LikeFacade {
     private MuseumDao museumDao;
     private QueryGetLikes queryGetLikes;
+    private QueryLikedExhibits queryLikedExhibits;
+    private QueryLikedExhibitions queryLikedExhibitions;
 
     public LikefacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -27,9 +33,21 @@ public class LikefacadeImpl implements LikeFacade {
 
     }
 
+    public LikefacadeImpl(MuseumDao museumDao, QueryLikedExhibits queryLikedExhibits) {
+        this.museumDao = museumDao;
+        this.queryLikedExhibits = queryLikedExhibits;
+
+    }
+
+    public LikefacadeImpl(MuseumDao museumDao, QueryLikedExhibitions queryLikedExhibitions) {
+        this.museumDao = museumDao;
+        this.queryLikedExhibitions = queryLikedExhibitions;
+
+    }
+
     @Override
     public void getLikesByExhId(String exhbtnId, boolean type) {
-        museumDao.getLikesByExhId(exhbtnId,type)
+        museumDao.getLikesByExhId(exhbtnId, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<String>() {
@@ -108,5 +126,27 @@ public class LikefacadeImpl implements LikeFacade {
 
                     }
                 });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getExhibitsLikedByUser(Integer iduser) {
+        museumDao.getAllExhibitsLikedByUser(iduser, true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(v -> queryLikedExhibits.onSuccess(v)
+                );
+
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getExhibitionsLikedByUser(Integer iduser) {
+        museumDao.getAllExhibitionsLikedByUser(iduser, false)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(v -> queryLikedExhibitions.onSuccess(v)
+                );
+
     }
 }

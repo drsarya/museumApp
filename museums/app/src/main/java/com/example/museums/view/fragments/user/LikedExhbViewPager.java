@@ -35,6 +35,7 @@ import java.util.List;
 
 public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
+    private static final String ID_KEY_USER ="id_key_user" ;
     private ViewPager mPager;
     private List<Exhibit> mDataset;
     private List<Exhibition> mExhbn;
@@ -42,6 +43,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     private ImageButton imbtn;
     private String login;
     private PagerAdapter pagerAdapter;
+    private Integer userId;
 
     public LikedExhbViewPager(List<Exhibit> mDataset, List<Exhibition> mExhbn) {
         this.mDataset = mDataset;
@@ -50,10 +52,12 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     public LikedExhbViewPager( ) {
 
     }
-    public static LikedExhbViewPager newInstance(String login) {
+    public static LikedExhbViewPager newInstance(String login, Integer userId) {
         final LikedExhbViewPager myFragment = new LikedExhbViewPager();
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
+        args.putInt(ID_KEY_USER, userId);
+
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -61,6 +65,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
             login = getArguments().getString(LOGIN_KEY_USER);
+            userId = getArguments().getInt(ID_KEY_USER);
         }
     }
     @Nullable
@@ -72,9 +77,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
         return rootView;
     }
-    public void newInstance(){
 
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -87,7 +90,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
         imbtn.setOnClickListener(this::showPopup);
 
         mPager = (ViewPager) getActivity().findViewById(R.id.liked);
-        pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), mDataset, mExhbn);
+        pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), userId);
         mPager.setAdapter(pagerAdapter);
 
     }

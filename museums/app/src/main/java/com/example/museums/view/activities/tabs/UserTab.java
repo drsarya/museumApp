@@ -42,7 +42,7 @@ public class UserTab extends AppCompatActivity {
         if (b != null) {
             idUser = b.getInt(ID_USER_KEY);
             login = b.getString(LOGIN_USER_KEY);
-            likedExhbViewPager = LikedExhbViewPager.newInstance(login);
+            likedExhbViewPager = LikedExhbViewPager.newInstance(login, idUser);
             exhibits = Exhibits.newInstance(idUser);
             exhibitions = Exhibitions.newInstance(idUser);
         }

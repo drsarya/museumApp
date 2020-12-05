@@ -8,5 +8,7 @@ public interface LikeFacade {
     void deleteLikesByExhbtId(Integer iduser, String idExhb, boolean type);
 
     void insertLike(Integer iduser, String idExhb, boolean type);
+    void getExhibitsLikedByUser(Integer iduser );
+    void getExhibitionsLikedByUser(Integer iduser );
 
 }
