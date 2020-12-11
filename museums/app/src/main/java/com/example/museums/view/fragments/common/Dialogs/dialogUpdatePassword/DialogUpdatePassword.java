@@ -61,7 +61,11 @@ public class DialogUpdatePassword extends DialogFragment {
             if (!oldPassEditText.getText().toString().isEmpty() && !newPassEditText.getText().toString().isEmpty() &&
                     !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && loginMuseum != null) {
                 QueryUpdatePassword updatePassword = new QueryUpdatePassword(this);
-                updatePassword.getQuery(loginMuseum, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
+                try {
+                    updatePassword.getQuery(loginMuseum, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }

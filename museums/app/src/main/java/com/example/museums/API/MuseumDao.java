@@ -171,11 +171,11 @@ public interface MuseumDao {
     @Query("SELECT * FROM user where login = :login and type=:type and password = null ")
     Single<User> getUserByLoginAndType(String login, boolean type);
 
-    @Query("SELECT * FROM user WHERE login =:login AND password=:password")
-    Single<User> getUser(String login, String password);
+    @Query("SELECT * FROM user WHERE login =:login  ")
+     Single<User> getUser(String login );
 
     @Query("SELECT * FROM user WHERE login =:login And password is NULL  ")
-    Single<User> getUser(String login);
+    Single<User> getUserMuseum(String login);
 
     /*UPDATE*/
     @Query("UPDATE user SET  password = :password  where login= :login ")

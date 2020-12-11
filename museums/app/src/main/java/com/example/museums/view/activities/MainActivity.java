@@ -1,18 +1,41 @@
 package com.example.museums.view.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.R;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.API.models.User;
+import com.example.museums.view.services.ConfigEncrypt;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.ShortBufferException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import static androidx.core.util.ObjectsCompat.hash;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,21 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
         final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
 
-        UserFacadeImpl i = new UserFacadeImpl(memsDao);
-        i.insertUser("1111", "1111", true);
-        i.insertUser("2222", "1111", false);
-        i.insertUser("3333", "1111", false);
-        i.insertUser("4444", "1111", false);
-        i.insertUser("5555", "1111", false);
 
 
-        MuseumFacadeImpl i1 = new MuseumFacadeImpl(memsDao);
-        i1.insertMuseum("2222", "tretizkovskayay", "Russia  Moskow Novgorodskaya 56");
-        //final TypeOfExihibit t1 = new TypeOfExihibit();
-        i1.insertMuseum("3333", "tretizkovskayay", "Russia  Moskow Novgorodskaya 56");
 
 
-//        for (int i = 0; i < 3 ; i++) {
+        //        for (int i = 0; i < 3 ; i++) {
 //            final User u1 = new User();
 //            u1.login = "1111";
 //            u1.password = Integer.toString(i);

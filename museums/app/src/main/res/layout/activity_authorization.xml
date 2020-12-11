@@ -84,28 +84,28 @@
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="end"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/prata"
-                android:gravity="center_vertical"
-                android:text="@string/forgetPassword"
-                android:textColor="@color/darkBeige"
-                android:textSize="20sp"
-                android:theme="@style/ClickableView">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:fontFamily="@font/prata"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="@string/forgetPassword"-->
+<!--                android:textColor="@color/darkBeige"-->
+<!--                android:textSize="20sp"-->
+<!--                android:theme="@style/ClickableView">-->
 
-            </TextView>
-        </LinearLayout>
+<!--            </TextView>-->
+<!--        </LinearLayout>-->
 
     </LinearLayout>
 

@@ -27,4 +27,14 @@ public class User {
     @ColumnInfo(name = "type")
     @NonNull
     public boolean type;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

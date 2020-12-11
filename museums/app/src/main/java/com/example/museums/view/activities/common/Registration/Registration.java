@@ -90,7 +90,11 @@ public class Registration extends AppCompatActivity {
             if (!firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() &&
                     !loginEditText.getText().toString().isEmpty() && !passFirstEditText.getText().toString().isEmpty() && !passSecondEditText.getText().toString().isEmpty()) {
 
-                queryRegistration.getQuery(loginEditText.getText().toString(), passFirstEditText.getText().toString(), false);
+                try {
+                    queryRegistration.getQuery(loginEditText.getText().toString(), passFirstEditText.getText().toString(), false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }

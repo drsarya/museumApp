@@ -1,6 +1,7 @@
 package com.example.museums.view.activities.common.Authorization;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.museums.R;
@@ -24,7 +26,7 @@ public class Authorization extends AppCompatActivity {
     private QueryAuthorization queryAuthorization;
     public ProgressBar progressBar;
 
-    @Override
+     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
@@ -42,7 +44,7 @@ public class Authorization extends AppCompatActivity {
         passEditText = (EditText) findViewById(R.id.authorization_password_text_view);
     }
 
-    private void setListeners() {
+     private void setListeners() {
         reMuseum.setOnClickListener(v -> {
             Intent intent1 = new Intent(getApplication(), RegistrationMuseum.class);
             startActivity(intent1);

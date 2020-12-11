@@ -10,8 +10,7 @@ import com.example.museums.view.activities.common.Registration.QueryRegistration
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
 import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
-
-import java.util.concurrent.atomic.AtomicLong;
+import com.example.museums.view.services.ConfigEncrypt;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -59,9 +58,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @SuppressLint("CheckResult")
     @Override
-    public void getUser(String login) {
+    public void getUserMuseum(String login) {
 
-        museumDao.getUser(login)
+        museumDao.getUserMuseum(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<User>() {
@@ -88,17 +87,29 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public void getUser(String login, String password) {
 
-        museumDao.getUser(login, password)
+        museumDao.getUser(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        queryAuthorization.onSuccess(user);
+                        try {
+                            if (ConfigEncrypt.check(password, user.password)) {
+                                System.out.println("ssssssss");
+                                queryAuthorization.onSuccess(user);
+                            } else {
+                                System.out.println("ssssssssssssssssssssssssssssssssss");
+                                queryAuthorization.onError();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        System.out.println("ssssssssssssssssssssssssssssssssss");
+
                         queryAuthorization.onError();
                     }
                 })
@@ -108,13 +119,22 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void getUser(String login, String password, String newPassword) {
-        museumDao.getUser(login, password)
+        museumDao.getUser(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        updateUserPassword(login, newPassword);
+                        try {
+                            if (ConfigEncrypt.check(password, user.password)) {
+                                updateUserPassword(login, newPassword);
+
+                            } else {
+                                queryUpdatePassword.onError();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -139,12 +159,16 @@ public class UserFacadeImpl implements UserFacade {
                 .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
                     public void onSuccess(@NonNull Long aLong) {
-                        queryRegistration.onSuccess();
+                        if (queryRegistration != null) {
+                            queryRegistration.onSuccess();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        queryRegistration.onError();
+                        if (queryRegistration != null) {
+                            queryRegistration.onError();
+                        }
                     }
                 });
     }

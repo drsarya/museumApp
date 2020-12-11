@@ -7,6 +7,7 @@ import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
+import com.example.museums.view.services.ConfigEncrypt;
 
 public class QueryRegistrationMuseum {
 
@@ -41,13 +42,15 @@ public class QueryRegistrationMuseum {
 
     private String password, login;
 
-    public void getQuery(String login, String password, boolean type, int idCode) {
+    public void getQuery(String login, String password, boolean type, int idCode) throws Exception {
         this.login = login;
-        this.password = password;
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
-        museumFacade.getMuseumByLoginAndIdCode(login, idCode, password, type);
+        String newHashPassword = ConfigEncrypt.getSaltedHash(password);
+        this.password = newHashPassword;
+
+        museumFacade.getMuseumByLoginAndIdCode(login, idCode, newHashPassword, type);
     }
 }

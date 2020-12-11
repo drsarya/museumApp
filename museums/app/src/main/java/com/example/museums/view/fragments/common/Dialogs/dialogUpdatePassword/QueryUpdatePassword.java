@@ -10,6 +10,7 @@ import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
 import com.example.museums.API.models.Museum;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
+import com.example.museums.view.services.ConfigEncrypt;
 
 import java.util.List;
 
@@ -34,10 +35,11 @@ public class QueryUpdatePassword {
         activity.progressBar.setVisibility(View.GONE);
     }
 
-    public void getQuery(String login, String password, String newPass) {
+    public void getQuery(String login, String password, String newPass) throws Exception {
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.getUser(login, password, newPass);
+        String newPassHash = ConfigEncrypt.getSaltedHash(newPass);
+        userFacade.getUser(login,password,  newPassHash);
     }
 }

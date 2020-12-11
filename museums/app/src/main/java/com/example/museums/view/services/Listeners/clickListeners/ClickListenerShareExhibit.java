@@ -27,19 +27,30 @@ public class ClickListenerShareExhibit implements View.OnClickListener {
         this.image = image;
     }
 
+    public ClickListenerShareExhibit(Activity actibity, String newExhibitModel) {
+        this.actibity = actibity;
+        this.newExhibitModel = newExhibitModel;
+
+    }
 
 
     @Override
     public void onClick(View v) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        String bitmapPath = MediaStore.Images.Media.insertImage(actibity.getContentResolver(), image, "palette", "share palette");
-        Uri bitmapUri = Uri.parse(bitmapPath);
-        sendIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
         sendIntent.putExtra(Intent.EXTRA_TEXT, newExhibitModel);
-        sendIntent.setType("image/jpeg");
-        sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (image != null) {
+            String bitmapPath = MediaStore.Images.Media.insertImage(actibity.getContentResolver(), image, "palette", "share palette");
+            Uri bitmapUri = Uri.parse(bitmapPath);
+            sendIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
 
+            sendIntent.setType("image/jpeg");
+            sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+
+            sendIntent.setType("text/plain");
+
+        }
         if (sendIntent.resolveActivity(actibity.getPackageManager()) != null) {
             actibity.startActivity(sendIntent);
         }

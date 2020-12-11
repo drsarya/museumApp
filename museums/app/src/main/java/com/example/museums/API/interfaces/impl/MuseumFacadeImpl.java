@@ -324,7 +324,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
                         System.out.println(museum.login);
-                        userFacade.getUser(museum.login);
+                        userFacade.getUserMuseum(museum.login );
                     }
 
                     @Override
