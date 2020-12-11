@@ -55,7 +55,7 @@ public class QueryInsertExhibit {
     public void   onSuccessInsertAuthor(Integer id){
         Exhibit exhibit = new Exhibit();
         exhibit.authorId = newExhibitModel.idAuthor;
-        exhibit.tags = newExhibitModel.tags;
+       // exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;
         exhibit.dateOfCreate = newExhibitModel.dateOfCreate;

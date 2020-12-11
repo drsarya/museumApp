@@ -35,7 +35,7 @@ public class Exhibits extends Fragment {
 
     private Integer userId;
     private EditText searchEditText;
-    private List<String> names = Arrays.asList("Природа", "Скульптура", "Графика", "Животные", "Живопись", "Люди");
+    private List<String> names = Arrays.asList("Третьяковская галерея", "Воронежская галерея", "Графика", "Животные", "Живопись", "Люди");
     private List<Exhibit> in = new ArrayList<>();
 
 
@@ -74,7 +74,6 @@ public class Exhibits extends Fragment {
         recyclerView.setAdapter(mAdapter);
         listView.setAdapter(horizontalAdapter);
         searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
-        System.out.println(userId+"user id из экпонатов");
         mAdapter.setUserId(userId);
         QueryExhibits queryExhibits = new QueryExhibits(this);
         queryExhibits.getQuery();

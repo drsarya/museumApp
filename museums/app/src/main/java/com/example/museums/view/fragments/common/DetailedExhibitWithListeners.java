@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -125,7 +126,6 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
             queryGetLikes.getCountLikes();
         }
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.M)

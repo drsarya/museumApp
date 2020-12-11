@@ -16,51 +16,32 @@ public class NewExhibitModel {
     @ColumnInfo(name = "fullName")
     public String author;
 
-
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public Integer exhibitId  ;
+    public Integer exhibitId;
 
-     @ColumnInfo(name = "authorId")
+    @ColumnInfo(name = "authorId")
     public Integer idAuthor;
 
-     @ColumnInfo(name = "name")
+    @ColumnInfo(name = "name")
     public String name;
 
-     @ColumnInfo(name = "photo")
+    @ColumnInfo(name = "photo")
     public Bitmap photo;
 
-     @ColumnInfo(name = "description")
+    @ColumnInfo(name = "description")
     public String description;
 
-     @ColumnInfo(name = "dateOfCreate")
+    @ColumnInfo(name = "dateOfCreate")
     public String dateOfCreate;
-
 
     @ColumnInfo(name = "tags")
     public String tags;
 
 
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        NewExhibitModel that = (NewExhibitModel) o;
-//        return
-//
-//                Objects.equals(author, that.author) &&
-//                name.equals(that.name) &&
-//                description.equals(that.description) &&
-//                dateOfCreate.equals(that.dateOfCreate) &&
-//                Objects.equals(tags, that.tags);
-//    }
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
-        System.out.println("ssdsdsdsdsdsdssdsssssssssssssssssssssssss");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewExhibitModel that = (NewExhibitModel) o;
@@ -74,34 +55,19 @@ public class NewExhibitModel {
     }
 
 
-    public int getIdAuthor() {
-        return idAuthor;
-    }
+
 
     public void setIdAuthor(int idAuthor) {
         this.idAuthor = idAuthor;
     }
 
-    public NewExhibitModel(Integer exhibitId, String dateOfCreate, String tags, String author, String name, Bitmap photo, String description) {
-        // модель для только что созданного экпоната create_exhibit
+    public NewExhibitModel(Integer exhibitId, String dateOfCreate,   String author, String name, Bitmap photo, String description) {
         this.dateOfCreate = dateOfCreate;
-        this.tags = tags;
-        this.author = author;
-        this.name = name;
-        this.photo = photo;
-        this.exhibitId = exhibitId;
-        this.description = description;
-    }
 
-    public NewExhibitModel(int exhibitId, int authorId, String dateOfCreate, String tags, String author, String name, Bitmap photo, String description) {
-        // модель для уже созданных экпонатов edit_exhibition
-        this.dateOfCreate = dateOfCreate;
-        this.tags = tags;
         this.author = author;
         this.name = name;
         this.photo = photo;
         this.exhibitId = exhibitId;
-        this.idAuthor = authorId;
         this.description = description;
     }
 

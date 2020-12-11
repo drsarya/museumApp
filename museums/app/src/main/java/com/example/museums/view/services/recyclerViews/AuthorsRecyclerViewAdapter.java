@@ -21,9 +21,7 @@ import java.util.List;
 public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecyclerViewAdapter.AuthorsViewHolder> {
 
     public static class AuthorsViewHolder extends RecyclerView.ViewHolder {
-
         public TextView nameOfExhibtn;
-
         public AuthorsViewHolder(View view) {
             super(view);
             nameOfExhibtn = view.findViewById(R.id.element_of_list_author_text_view);

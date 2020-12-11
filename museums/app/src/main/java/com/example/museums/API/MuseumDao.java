@@ -4,7 +4,6 @@ package com.example.museums.API;
 import android.graphics.Bitmap;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -90,7 +89,7 @@ public interface MuseumDao {
     /*GET*/
 
 
-    @Query("SELECT extn2.id,  extn2.authorId , extn2.name ,a1.fullName,extn2.photo ,extn2.description, extn2.dateOfCreate , extn2.tags FROM exhibit_to_exhbtn AS ex1 \n" +
+    @Query("SELECT extn2.id,  extn2.authorId , extn2.name ,a1.fullName,extn2.photo ,extn2.description, extn2.dateOfCreate  FROM exhibit_to_exhbtn AS ex1 \n" +
             "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit  JOIN author as a1 on  extn2.authorId = a1.id_author WHERE idExhibition = :exhbtnId")
     Flowable<List<NewExhibitModel>> getExhibitsByExhibitionId(String exhbtnId);
 
@@ -193,4 +192,8 @@ public interface MuseumDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     Single<List<Long>> insertAuthors(List<Author> author);
+
+
+
+
 }
