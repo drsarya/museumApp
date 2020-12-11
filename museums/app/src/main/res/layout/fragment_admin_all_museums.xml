@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="text"
+                android:id="@+id/admin_all_museums_search_edit_text"
                 android:textColor="@color/dark_dark_brown"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>

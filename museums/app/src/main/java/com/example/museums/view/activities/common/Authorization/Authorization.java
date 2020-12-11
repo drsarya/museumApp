@@ -49,6 +49,7 @@ public class Authorization extends AppCompatActivity {
         });
         regPerson.setOnClickListener(v -> {
             Intent intent2 = new Intent(getApplication(), Registration.class);
+
             startActivity(intent2);
         });
         authBtn.setOnClickListener(v -> {

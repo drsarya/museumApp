@@ -37,18 +37,14 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
 
     private static final String ID_KEY_USER ="id_key_user" ;
     private ViewPager mPager;
-    private List<Exhibit> mDataset;
-    private List<Exhibition> mExhbn;
+
     public static final String LOGIN_KEY_USER = "login_key_user";
     private ImageButton imbtn;
     private String login;
     private PagerAdapter pagerAdapter;
     private Integer userId;
 
-    public LikedExhbViewPager(List<Exhibit> mDataset, List<Exhibition> mExhbn) {
-        this.mDataset = mDataset;
-        this.mExhbn = mExhbn;
-    }
+
     public LikedExhbViewPager( ) {
 
     }
@@ -57,7 +53,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
         args.putInt(ID_KEY_USER, userId);
-
+        System.out.println("2222222222222222222222222");
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -68,32 +64,38 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
             userId = getArguments().getInt(ID_KEY_USER);
         }
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
          getArgumentsFromBundle();
+        System.out.println("333333333333333333333333333333");
+
         View rootView =
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
+        initViews(rootView);
         return rootView;
     }
 
+    public void initViews( View rootView){
+
+        imbtn = rootView.findViewById(R.id.home_page_user_menu_popup);
+        mPager = rootView.findViewById(R.id.liked);
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        super.setRetainInstance(true);
-
-        imbtn = getActivity().findViewById(R.id.home_page_user_menu_popup);
         imbtn.setOnClickListener(this::showPopup);
 
-        mPager = (ViewPager) getActivity().findViewById(R.id.liked);
         pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), userId);
         mPager.setAdapter(pagerAdapter);
-
     }
+
+
 
     public void showPopup(View view) {
         Context wrapper = new ContextThemeWrapper(getActivity().getApplicationContext(), R.style.menuStyle);
@@ -128,4 +130,5 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
                 return false;
         }
     }
+
 }

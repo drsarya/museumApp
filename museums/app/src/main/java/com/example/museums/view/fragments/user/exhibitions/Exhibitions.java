@@ -14,12 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.ExhibitionWithMuseumName;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.fragments.user.exhibits.QueryExhibits;
 import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
-import com.example.museums.API.models.Exhibition;
-import com.example.museums.view.services.recyclerViews.TagsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

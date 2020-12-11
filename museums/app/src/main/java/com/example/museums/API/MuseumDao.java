@@ -93,6 +93,15 @@ public interface MuseumDao {
             "        JOIN exhibit AS extn2 ON extn2.id = ex1.idExhibit  JOIN author as a1 on  extn2.authorId = a1.id_author WHERE idExhibition = :exhbtnId")
     Flowable<List<NewExhibitModel>> getExhibitsByExhibitionId(String exhbtnId);
 
+
+
+    @Query("SELECT  * FROM" +
+
+            "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
+            "JOIN author as a1 ON a1.id_author = ex3.authorId" +
+            " WHERE  m1.id = :id   ")
+    Flowable<List<NewExhibitModel>> getExhibitsByMuseumId(Integer id);
+
     @Query("delete from exhibit where id in  (select idExhibit from exhibit_to_exhbtn  " +
             "   where idExhibition =:idExhibitiob )")
     Single<Integer> deleteExhibits(int idExhibitiob);
@@ -103,7 +112,7 @@ public interface MuseumDao {
             "  museum AS m1 JOIN exhibition as ex1 ON ex1.idMuseum = m1.id JOIN exhibit_to_exhbtn AS ex2 ON ex2.idExhibition = ex1.id JOIN exhibit as ex3 On ex3.id = ex2.idExhibit " +
             "JOIN author as a1 ON a1.id_author = ex3.authorId" +
             " WHERE  m1.login = :login   ")
-    Flowable<List<NewExhibitModel>> getExhibitsByMuseumId(String login);
+    Flowable<List<NewExhibitModel>> getExhibitsByMuseumLogin(String login);
 
     /*DELETE*/
     @Query("DELETE FROM exhibit WHERE id = :id")

@@ -49,11 +49,11 @@ public class EditExhibit extends Fragment {
     private EditText authorEditText;
     private EditText dateOfCreateEditText;
     private TextView firstLine;
-     private EditText descriptionEditText;
+    private EditText descriptionEditText;
     private TextFieldBoxes nameTextFieldBoxes;
     private TextFieldBoxes authorTextFieldBoxes;
     private TextFieldBoxes dateOfCreateTextFieldBoxes;
-     private TextFieldBoxes descriptionTextFieldBoxes;
+    private TextFieldBoxes descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
     static final String EXHIBIT_DATA_MODEL = "exhibit_data_model";
@@ -61,7 +61,6 @@ public class EditExhibit extends Fragment {
     static final String EXHIBIT_NAME_MODEL = "exhibit_name_model";
     static final String EXHIBIT_DESCRIPTION_MODEL = "exhibit_description_model";
     static final String EXHIBIT_IMAGE_MODEL = "exhibit_image_model";
-    static final String EXHIBIT_TAGS_MODEL = "exhibit_tags_model";
     static final String EXHIBIT_POSITION_MODEL = "exhibit_position_model";
     static final String EXHIBIT_ID_KEY = "id_exhibit";
     private RecyclerView authorRecyclerView;
@@ -76,12 +75,12 @@ public class EditExhibit extends Fragment {
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
 
-    public EditExhibit newInstance(Integer id, String dateOfCreate, String tags, String author, String name, Parcelable photo, String description, int positionExh) {
+    public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, Parcelable photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
         args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
         args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
-        args.putString(EXHIBIT_TAGS_MODEL, tags);
+
         args.putString(EXHIBIT_AUTHOR_MODEL, author);
         if (id != null) {
             args.putInt(EXHIBIT_ID_KEY, id);
@@ -110,7 +109,7 @@ public class EditExhibit extends Fragment {
             nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
             authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
             descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
-             if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
+            if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
                 mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
             }
             if (arguments.getInt(EXHIBIT_ID_KEY) == -1) {
@@ -130,15 +129,15 @@ public class EditExhibit extends Fragment {
         nameEditText = rootView.findViewById(R.id.create_exhibit_name_edit_text);
         authorEditText = rootView.findViewById(R.id.create_exhibit_author_edit_text);
         dateOfCreateEditText = rootView.findViewById(R.id.create_exhibit_date_of_create_edit_text);
-         descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
+        descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
         nameTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_name_text_field_box);
         authorTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_author_text_field_box);
         dateOfCreateTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_date_of_create_text_field_box);
-         descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
+        descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
         choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_text_view);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
-         createBtn.setText("Обновить");
+        createBtn.setText("Обновить");
         firstLine = rootView.findViewById(R.id.create_exhibit_first_line_text_view);
         firstLine.setText("Обновить информацию");
 
@@ -193,12 +192,12 @@ public class EditExhibit extends Fragment {
         authorEditText.addTextChangedListener(new TextWatcherEmptyField(authorTextFieldBoxes));
         descriptionEditText.addTextChangedListener(new TextWatcherEmptyField(descriptionTextFieldBoxes));
         dateOfCreateEditText.addTextChangedListener(new TextWatcherEmptyField(dateOfCreateTextFieldBoxes));
-         createBtn.setOnClickListener(v -> {
+        createBtn.setOnClickListener(v -> {
             if (mainImageView.getDrawable() != null && !nameTextFieldBoxes.isOnError() && !authorTextFieldBoxes.isOnError() && !descriptionTextFieldBoxes.isOnError()
                     && !dateOfCreateTextFieldBoxes.isOnError()
                     && !nameEditText.getText().toString().isEmpty() && !authorEditText.getText().toString().isEmpty()
                     && !descriptionEditText.getText().toString().isEmpty() && !dateOfCreateEditText.getText().toString().isEmpty()
-                    ) {
+            ) {
                 BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 NewExhibitModel ex = new NewExhibitModel(idExhibit,

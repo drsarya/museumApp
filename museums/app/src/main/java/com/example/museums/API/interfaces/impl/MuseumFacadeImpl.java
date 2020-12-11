@@ -17,6 +17,7 @@ import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogCh
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.QueryChangeMuseumImage;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.QueryMainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
+import com.example.museums.view.fragments.user.exhibits.QueryAllMuseumsHV;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -35,6 +36,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     private QueryMainInfoMuseumPageEdit queryMainInfoMuseumPageEdit;
     private QueryCreateExhibition queryCreateExhibition;
     private QueryMuseumInfo queryMuseumInfo;
+    private QueryAllMuseumsHV queryAllMuseumsHV;
 
     public MuseumFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
@@ -43,6 +45,11 @@ public class MuseumFacadeImpl implements MuseumFacade {
     public MuseumFacadeImpl(MuseumDao mDao, QueryAuthorization queryAuthorization) {
         museumDao = mDao;
         this.queryAuthorization = queryAuthorization;
+    }
+
+    public MuseumFacadeImpl(MuseumDao mDao, QueryAllMuseumsHV queryAllMuseumsHV) {
+        museumDao = mDao;
+        this.queryAllMuseumsHV = queryAllMuseumsHV;
     }
 
     public MuseumFacadeImpl(MuseumDao mDao, QueryMuseumInfo queryMuseumInfo) {
@@ -291,7 +298,18 @@ public class MuseumFacadeImpl implements MuseumFacade {
         museumDao.getAllMuseums()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(museums -> queryAllMuseums.onSuccess(museums))
+                .subscribe(museums ->
+                {
+                    if(queryAllMuseums!=null){
+
+                        queryAllMuseums.onSuccess(museums);
+                    }else{
+
+                        queryAllMuseumsHV.onSuccess(museums);
+
+                    }
+
+                })
         ;
     }
 
@@ -306,13 +324,12 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
                         System.out.println(museum.login);
-                        userFacade.getUser(museum.login );
-                     }
+                        userFacade.getUser(museum.login);
+                    }
 
                     @Override
-                    public void onError(@NonNull Throwable e)
-                    {
-                        System.out.println("1"+ e.toString());
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("1" + e.toString());
                         queryRegistrationMuseum.onError();
                     }
                 });

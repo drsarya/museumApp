@@ -3,11 +3,14 @@ package com.example.museums.view.fragments.admin.allMuseums;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -21,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Museum;
+import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.createMuseum.DialogMuseumCreated;
 import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
@@ -37,6 +41,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
     private ImageButton imbtn;
+    private EditText search;
 
     @Nullable
     @Override
@@ -47,10 +52,11 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     }
 
     private void initViews() {
+        search = getActivity().findViewById(R.id.admin_all_museums_search_edit_text);
         recyclerView = getActivity().findViewById(R.id.admin_all_museums_recyclerView);
         progressBar = getActivity().findViewById(R.id.admin_all_museums_progress_bar);
-        List<Museum> museums = new ArrayList<>();
-        mAdapter = new MuseumsRecyclerViewAdapter(museums, this);
+
+        mAdapter = new MuseumsRecyclerViewAdapter(  this);
         recyclerView.setAdapter(mAdapter);
         imbtn = getActivity().findViewById(R.id.admin_all_museums_menu_popup);
 
@@ -65,9 +71,26 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         setListMuseum();
         setListeners();
     }
+    List<Museum> newExhibitModels = new ArrayList<>();
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                recyclerView.setVisibility(View.VISIBLE);
+                filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void showPopup(View view) {
@@ -98,8 +121,26 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         queryAllMuseums = new QueryAllMuseums(this);
         queryAllMuseums.getQuery();
     }
+    private boolean containsString(String fullName, String currText) {
+        String newName = fullName.toLowerCase();
+        String newCurrText = currText.toLowerCase();
+        if (newName.contains(newCurrText)) {
+            return true;
+        } else return false;
+    }
 
+    private void filter(String text) {
+        List<Museum> temp = new ArrayList();
+        for (Museum d : newExhibitModels) {
+            if (containsString(d.nameMuseum, text) || containsString(d.address, text)) {
+                temp.add(d);
+            }
+        }
+        mAdapter.submitList(temp);
+    }
     public void refreshAllList(List<Museum> museums) {
-        mAdapter.updateAll(museums);
+
+        newExhibitModels = museums ;
+        mAdapter.submitList(museums);
     }
 }

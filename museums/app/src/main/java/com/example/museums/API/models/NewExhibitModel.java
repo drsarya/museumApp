@@ -35,8 +35,7 @@ public class NewExhibitModel {
     @ColumnInfo(name = "dateOfCreate")
     public String dateOfCreate;
 
-    @ColumnInfo(name = "tags")
-    public String tags;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -50,8 +49,7 @@ public class NewExhibitModel {
                 idAuthor.equals(that.idAuthor) &&
                 name.equals(that.name) &&
                 description.equals(that.description) &&
-                dateOfCreate.equals(that.dateOfCreate) &&
-                Objects.equals(tags, that.tags);
+                dateOfCreate.equals(that.dateOfCreate)  ;
     }
 
 
@@ -63,7 +61,6 @@ public class NewExhibitModel {
 
     public NewExhibitModel(Integer exhibitId, String dateOfCreate,   String author, String name, Bitmap photo, String description) {
         this.dateOfCreate = dateOfCreate;
-
         this.author = author;
         this.name = name;
         this.photo = photo;
@@ -76,7 +73,7 @@ public class NewExhibitModel {
     public String toString() {
         return "NewExhibitModel{" +
                 "dateOfCreate='" + dateOfCreate + '\'' +
-                ", tags='" + tags + '\'' +
+
                 ", id='" + exhibitId + '\'' +
                 ", author='" + author + '\'' +
                 ", idAuthor=" + idAuthor +

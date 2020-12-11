@@ -59,6 +59,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
+                android:text="123"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -79,6 +80,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
+                android:text="123"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 

@@ -2,8 +2,10 @@ package com.example.museums.view.fragments.common;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.likes.QueryGetLikes;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShareExhibit;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucListenerScrollViewSwipeLeftRight;
 import com.example.museums.view.services.oop.ILike;
 
@@ -33,7 +36,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
 
     private boolean state = false;
     private ScrollView scrollView;
-    private ImageView imageView;
+    private ImageView imageView, share;
     public static final String IMAGE_KEY = "image_key";
     public static final String NAME_KEY = "name_key";
     public static final String DESCRIPTION_KEY = "description_key";
@@ -106,7 +109,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
 
     private void initViews(View rootView) {
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_likes_text_view);
-
+share = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image_view);
         ll = rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = rootView.findViewById(R.id.detailed_exhibit_like_btn);
@@ -140,12 +143,24 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
         if (userId != null && userId!=-1) {
             like.setOnClickListener(new ClickListenerChangeColorLike(queryGetLikes));
         }
+        getArguments().clear();
         view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(), ll, true));
         closeImageButton.setOnClickListener(v1 -> getActivity().onBackPressed());
 
 
-    }
+        share.setOnClickListener(new ClickListenerShareExhibit(getActivity(),createMessage() , image));
 
+
+    }
+    private String createMessage() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(author + "     " + name + "\n");
+        stringBuilder.append(date + "\n");
+        stringBuilder.append(description + "\n");
+        stringBuilder.append("@App \"Выставочный зал\" by Darya" + "\n");
+
+        return stringBuilder.toString();
+    }
     public void setCountLikesTextView(String str) {
 
         textViewCountLikes.setText(str);

@@ -17,4 +17,5 @@ public interface ExhibitFacade {
     void deleteExhibit(int id);
 
     void updateExhibit(Exhibit exhibit);
+    void getExhibitsByMuseumId(Integer id);
  }

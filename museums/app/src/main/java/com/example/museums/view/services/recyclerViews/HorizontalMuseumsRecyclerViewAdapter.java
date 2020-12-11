@@ -15,52 +15,54 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Museum;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderMuseumAdminEditPage;
+import com.example.museums.view.fragments.user.exhibits.Exhibits;
 
-import java.util.ArrayList;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.List;
 
-public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecyclerViewAdapter.MuseumsViewHolder> {
-    public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
+public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder> {
+    public static class TagsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
-        public MuseumsViewHolder(View view) {
+
+        public TagsViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.element_of_list_museum);
+            textView = view.findViewById(R.id.elemt_of_list_tags);
         }
-    }
-
-
-
-
-    private AllMuseums allMuseums;
-
-    public MuseumsRecyclerViewAdapter(  AllMuseums allMuseums) {
-
-        this.allMuseums = allMuseums;
     }
 
     @NonNull
     @Override
-    public MuseumsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TagsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.element_of_list_museum, parent, false);
+                .inflate(R.layout.element_of_list_tags, parent, false);
 
-        MuseumsRecyclerViewAdapter.MuseumsViewHolder vh = new MuseumsRecyclerViewAdapter.MuseumsViewHolder(v);
+        HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder vh = new HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder(v);
         return vh;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MuseumsViewHolder holder, int position) {
 
-        final Museum purchaseList = differ.getCurrentList().get(position);
-        holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, purchaseList, allMuseums));
-        holder.textView.setText(purchaseList.nameMuseum);
+
+    private Exhibits exhibits;
+
+    public HorizontalMuseumsRecyclerViewAdapter(  Exhibits exhibits) {
+
+        this.exhibits = exhibits;
     }
 
 
+    @Override
+    public void onBindViewHolder(@NonNull TagsViewHolder holder, int position) {
+         Museum purchaseList = differ.getCurrentList().get(position);
+
+        holder.textView.setText(purchaseList.nameMuseum );
+        holder.itemView.setOnClickListener(v -> {
+            exhibits.clickHorizontalViewHolder(purchaseList.id);
+
+        });
+    }
     private AsyncListDiffer<Museum> differ = new AsyncListDiffer<Museum>(this, DIFF_CALLBACK);
 
     private static final DiffUtil.ItemCallback<Museum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Museum>() {
@@ -84,6 +86,7 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
+
 
 
 }

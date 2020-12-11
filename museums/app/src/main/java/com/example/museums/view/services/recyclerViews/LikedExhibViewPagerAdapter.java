@@ -16,6 +16,8 @@ public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
     public LikedExhibViewPagerAdapter(@NonNull FragmentManager fm, Integer userid) {
         super(fm);
         this.userId = userid;
+        System.out.println("4...........11111111111");
+
     }
 
     private Integer userId;
@@ -24,13 +26,16 @@ public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        System.out.println("sssssssssssssssssssssssssss");
         Fragment fragment;
 
         if (position == 0) {
-            fragment = LikedExhibits.newInstance(userId);
-            ;
+            System.out.println("44444444444444444444");
 
-        } else {
+            fragment = LikedExhibits.newInstance(userId);
+                 } else {
+            System.out.println("55555555555555555555555555");
+
             fragment = LikedExhbtns.newInstance(userId);
         }
         return fragment;

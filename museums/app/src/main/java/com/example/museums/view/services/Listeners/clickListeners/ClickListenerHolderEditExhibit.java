@@ -31,7 +31,7 @@ public class ClickListenerHolderEditExhibit implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        EditExhibit myFragment = new EditExhibit().newInstance(model.exhibitId, model.dateOfCreate, model.tags
+        EditExhibit myFragment = new EditExhibit().newInstance(model.exhibitId, model.dateOfCreate
                 , model.author,  model.name, model.photo, model.description, position);
         if (fragment.getClass().toString().equals(MuseumExhibits.class.toString())) {
             myFragment.setTargetFragment((MuseumExhibits) fragment, 0);

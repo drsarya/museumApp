@@ -169,8 +169,10 @@
 
         <ImageView
             android:layout_width="40dp"
-            android:layout_height="35dp"
+            android:layout_height="32dp"
             android:clickable="true"
+            android:id="@+id/detailed_exhibit_share_image_view"
+
             android:src="@drawable/share"
             app:tint="@color/brown">
 

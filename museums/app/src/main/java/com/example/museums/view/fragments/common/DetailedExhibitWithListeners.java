@@ -1,10 +1,14 @@
 package com.example.museums.view.fragments.common;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +22,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.R;
+import com.example.museums.view.activities.MainActivity;
 import com.example.museums.view.fragments.common.likes.QueryGetLikes;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShareExhibit;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.oop.ILike;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class DetailedExhibitWithListeners extends Fragment implements ILike {
     private static final String USER_ID_KEY = "id_user_key";
@@ -40,7 +51,7 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
     private String name, author, date, description;
     private Integer idExhibit;
     private Bitmap image;
-    private ImageView mainImageImageView;
+    private ImageView mainImageImageView, shareExhibit;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
     private boolean state = false;
     private TextView textViewCountLikes;
@@ -106,6 +117,7 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
     private QueryGetLikes queryGetLikes;
 
     private void initView(View rootView) {
+        shareExhibit = rootView.findViewById(R.id.detailed_exhibit_share_image_view);
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_of_likes_text_view);
         ll = (LinearLayout) rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = (ScrollView) rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
@@ -127,14 +139,29 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
         }
     }
 
+    private String createMessage() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(author + "     " + name + "\n");
+        stringBuilder.append(date + "\n");
+        stringBuilder.append(description + "\n");
+        stringBuilder.append("@App \"Выставочный зал\" by Darya" + "\n");
+
+        return stringBuilder.toString();
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setListeners() {
-        if (userId != null && userId!=-1) {
+        if (userId != null && userId != -1) {
             like.setOnClickListener(new ClickListenerChangeColorLike(queryGetLikes));
         }
+        getArguments().clear();
         view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
+
+
+        shareExhibit.setOnClickListener(new ClickListenerShareExhibit(getActivity(),createMessage() , image));
     }
+
 
     public void setCountLikesTextView(String str) {
 

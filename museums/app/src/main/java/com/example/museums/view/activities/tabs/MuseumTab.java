@@ -64,7 +64,7 @@ public class MuseumTab extends AppCompatActivity {
                 case R.id.menu_fr_create_exhbtn:
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.container_tab_museum, createExhibition)
-                            .addToBackStack(CreateExhibition.class.toString())
+
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                     menuTab.getMenu().findItem(R.id.menu_fr_create_exhbtn).setChecked(true);
 
@@ -72,24 +72,24 @@ public class MuseumTab extends AppCompatActivity {
                 case R.id.menu_fr_exhibitions:
                     final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                     ft1.replace(R.id.container_tab_museum, exhibitions)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(Exhibitions.class.toString()).commit();
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+
                     menuTab.getMenu().findItem(R.id.menu_fr_exhibitions).setChecked(true);
 
                     break;
                 case R.id.menu_fr_exhibits:
                     final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                     ft2.replace(R.id.container_tab_museum, exhibits)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(Exhibits.class.toString()).commit();
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+
                     menuTab.getMenu().findItem(R.id.menu_fr_exhibits).setChecked(true);
 
                     break;
                 case R.id.menu_fr_main_museum:
                     final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                     ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(MainInfoMuseumPageEdit.class.toString()).commit();
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+
                     menuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);
                     break;
             }
@@ -103,8 +103,8 @@ public class MuseumTab extends AppCompatActivity {
             currState = true;
             final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
             ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(MainInfoMuseumPageEdit.class.toString()).commit();
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
+
             menuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);
         }
     }

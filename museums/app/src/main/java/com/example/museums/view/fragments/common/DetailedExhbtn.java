@@ -28,10 +28,13 @@ import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.QueryGetExhibitsFromExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerChangeColorLike;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShareExhibit;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.ILike;
 import com.example.museums.view.services.oop.IUpdateList;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,7 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
     private ScrollView scrollView;
     private boolean state = true;
     private TextView nameTextView, dateTextView;
-    private ImageView imageView;
+    private ImageView imageView, share;
     private ExhibitViewPager exhibitViewPager;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -61,7 +64,7 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
         setListeners();
     }
 
-    private Bitmap bitmap;
+    private static Bitmap bitmap;
     public static final String IMAGE_KEY = "image_key";
     public static final String NAME_KEY = "name_key";
     public static final String DATE_KEY = "date_key";
@@ -84,22 +87,34 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
         return myFragment;
     }
 
-    private int idExhibition;
-    private int museumId;
-    private Integer userId;
+    private static int idExhibition;
+    private static int museumId;
+    private static Integer userId;
+    private static String name, date, description;
 
     private void getArgumentsFromBundle() {
-        if (getArguments() != null) {
-            nameTextView.setText(getArguments().getString(NAME_KEY));
-            dateTextView.setText(getArguments().getString(DATE_KEY));
-            exhbtnDescriptionTextView.setText(getArguments().getString(DESCRIPTION_KEY));
+        if (!getArguments().isEmpty()) {
+
+            name = getArguments().getString(NAME_KEY);
+            date = getArguments().getString(DATE_KEY);
+            description = getArguments().getString(DESCRIPTION_KEY);
             idExhibition = getArguments().getInt(ID_EXHIBIT_KEY);
             museumId = getArguments().getInt(ID_MUSEUM_KEY);
             userId = getArguments().getInt(ID_USER_KEY);
             bitmap = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
-            imageView.setImageBitmap(bitmap);
-            //  getArguments().clear();
+
+            getArguments().clear();
         }
+
+    }
+
+    private void setData() {
+        nameTextView.setText(name);
+        System.out.println(name);
+        dateTextView.setText(date);
+        exhbtnDescriptionTextView.setText(description);
+        imageView.setImageBitmap(bitmap);
+
     }
 
     private QueryGetLikes queryGetLikes;
@@ -115,7 +130,7 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
         dateTextView = rootView.findViewById(R.id.detailed_exhbtn_date_text_view);
         imageView = rootView.findViewById(R.id.detailed_exhbtn_image_image_view);
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibition_count_likes_text_view);
-
+        share = rootView.findViewById(R.id.detailed_exhibition_share_image_view);
     }
 
     @Nullable
@@ -126,7 +141,7 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
                 inflater.inflate(R.layout.fragment_detailed_exhibition, container, false);
         initViews(rootView);
         getArgumentsFromBundle();
-
+        setData();
         setDataLikes();
         return rootView;
     }
@@ -148,7 +163,7 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
     private void setListeners() {
-        if (userId != null && userId!=-1) {
+        if (userId != null && userId != -1) {
 
             like.setOnClickListener(new ClickListenerChangeColorLike(queryGetLikes));
         }
@@ -169,7 +184,17 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
 
         });
         scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        share.setOnClickListener(new ClickListenerShareExhibit(getActivity(), createMessage(), bitmap));
 
+    }
+
+    private String createMessage() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name + "\n");
+        stringBuilder.append(date + "\n");
+        stringBuilder.append(description + "\n");
+        stringBuilder.append("@App \"Выставочный зал\" by Darya" + "\n");
+        return stringBuilder.toString();
     }
 
     private List<NewExhibitModel> newExhibitModels = new ArrayList<>();
