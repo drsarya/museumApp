@@ -17,6 +17,7 @@ public class QueryCreateMuseum {
     private MuseumDao memsDao;
     private CreateMuseum activity;
     private String curogin;
+    String login, name, address;
 
     public QueryCreateMuseum(CreateMuseum fragment) {
         this.activity = fragment;
@@ -28,7 +29,6 @@ public class QueryCreateMuseum {
         Bundle bd = new Bundle();
         bd.putString(myFragment.CODE_KEY, idCode.toString());
         bd.putString(myFragment.LOGIN_KEY, curogin);
-
         myFragment.setArguments(bd);
         AppCompatActivity ss = (AppCompatActivity) activity.getContext();
         final FragmentTransaction ft = ss.getSupportFragmentManager().beginTransaction();
@@ -43,7 +43,6 @@ public class QueryCreateMuseum {
 
     }
 
-    String login, name, address;
 
     public void insertMuseum() {
 
@@ -63,7 +62,5 @@ public class QueryCreateMuseum {
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
         userFacade.insertUserMuseum(login, null, false);
-
-
     }
 }

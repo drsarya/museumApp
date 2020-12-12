@@ -36,7 +36,6 @@ import java.util.List;
 
 public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private QueryAllMuseums queryAllMuseums;
-
     public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -55,8 +54,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         search = getActivity().findViewById(R.id.admin_all_museums_search_edit_text);
         recyclerView = getActivity().findViewById(R.id.admin_all_museums_recyclerView);
         progressBar = getActivity().findViewById(R.id.admin_all_museums_progress_bar);
-
-        mAdapter = new MuseumsRecyclerViewAdapter(  this);
+        mAdapter = new MuseumsRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
         imbtn = getActivity().findViewById(R.id.admin_all_museums_menu_popup);
 
@@ -71,6 +69,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         setListMuseum();
         setListeners();
     }
+
     List<Museum> newExhibitModels = new ArrayList<>();
 
     private void setListeners() {
@@ -121,6 +120,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         queryAllMuseums = new QueryAllMuseums(this);
         queryAllMuseums.getQuery();
     }
+
     private boolean containsString(String fullName, String currText) {
         String newName = fullName.toLowerCase();
         String newCurrText = currText.toLowerCase();
@@ -138,9 +138,10 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         }
         mAdapter.submitList(temp);
     }
+
     public void refreshAllList(List<Museum> museums) {
 
-        newExhibitModels = museums ;
+        newExhibitModels = museums;
         mAdapter.submitList(museums);
     }
 }
