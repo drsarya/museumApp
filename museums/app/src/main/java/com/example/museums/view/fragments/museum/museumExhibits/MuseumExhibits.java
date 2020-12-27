@@ -37,6 +37,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     private static QueryListMuseumExhibits queryListMuseumExhibits;
     private EditText searchEditText;
     private List<NewExhibitModel> newExhibitModels;
+    private static String copySearch ="";
 
 
     public MuseumExhibits newInstance(String login) {
@@ -77,7 +78,9 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                copySearch="";
                 recyclerView.setVisibility(View.VISIBLE);
+                copySearch += s;
                 filter(s.toString());
             }
 
@@ -125,7 +128,12 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         recyclerView.setHasFixedSize(true);
         queryListMuseumExhibits = new QueryListMuseumExhibits(this);
         queryDeleteMuseumExhibit = new QueryDeleteMuseumExhibit(this);
-        queryListMuseumExhibits.getQuery(login);
+
+        if (copySearch.isEmpty()) {
+            queryListMuseumExhibits.getQuery(login);
+        } else {
+            filter(copySearch);
+        }
     }
 
 

@@ -17,17 +17,16 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.Museum;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.createMuseum.DialogMuseumCreated;
-import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -35,19 +34,36 @@ import java.util.List;
 
 
 public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
+    private static final String LOGIN_KEY_USER = "login_key_user";
     private QueryAllMuseums queryAllMuseums;
     public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
     private ImageButton imbtn;
     private EditText search;
+    private String login;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =
                 inflater.inflate(R.layout.fragment_admin_all_museums, container, false);
+        getArgumentsFromBundle();
         return rootView;
+    }
+
+    public static AllMuseums newInstance(String login) {
+        final AllMuseums myFragment = new AllMuseums();
+        final Bundle args = new Bundle(1);
+        args.putString(LOGIN_KEY_USER, login);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            login = getArguments().getString(LOGIN_KEY_USER);
+        }
     }
 
     private void initViews() {
@@ -66,7 +82,11 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         initViews();
-        setListMuseum();
+        if (search.getText().toString().isEmpty()) {
+            setListMuseum();
+        } else {
+            filter(search.getText().toString());
+        }
         setListeners();
     }
 
@@ -74,6 +94,8 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
+
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -96,7 +118,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         Context wrapper = new ContextThemeWrapper(getActivity().getApplicationContext(), R.style.menuStyle);
         PopupMenu popup = new PopupMenu(wrapper, view);
         MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_admin_logout, popup.getMenu());
+        inflater.inflate(R.menu.menu_logout_change_password, popup.getMenu());
         popup.setOnMenuItemClickListener(this);
         popup.show();
     }
@@ -105,15 +127,26 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_admin_page_logout:
+            case R.id.menu_item_page_logout:
                 DialogLogOut myFragment = new DialogLogOut();
                 final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 myFragment.show(ft, "dialog");
                 return true;
-
+            case R.id.menu_item_change_password:
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
+                Bundle bd = new Bundle();
+                if (login != null) {
+                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
+                    dialogUpdatePassword.setArguments(bd);
+                }
+                final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+                dialogUpdatePassword.show(ft1, "dialog2");
+                return true;
             default:
                 return false;
         }
+
+
     }
 
     private void setListMuseum() {

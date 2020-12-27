@@ -15,6 +15,7 @@ import com.example.museums.API.models.User;
 import com.example.museums.view.activities.tabs.AdminTab;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.activities.tabs.UserTab;
+import com.example.museums.view.services.ConfigEncrypt;
 
 import static java.util.Objects.hash;
 
@@ -55,22 +56,32 @@ public class QueryAuthorization {
         activity.startActivity(intent);
     }
 
-private Integer idUser;
+    private Integer idUser;
+
     public void onSuccess(User user) {
         idUser = user.userId;
-        System.out.println("333333333333333333333");
-        System.out.println(user.toString());
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         if (user.type) {
             activity.progressBar.setVisibility(View.GONE);
-            Intent intent = new Intent(activity.getApplicationContext(), AdminTab.class);
-            activity.startActivity(intent);
 
+            Intent intent = new Intent(activity.getApplicationContext(), AdminTab.class);
+            intent.putExtra(AdminTab.LOGIN_USER_KEY, login);
+            activity.startActivity(intent);
         } else {
             museumFacade.getMuseumByLogin(user.login);
         }
     }
+    public void onSuccessInsertAdmin() {
+        activity.progressBar.setVisibility(View.GONE);
+        Toast.makeText(activity.getApplicationContext(),
+                "Успешное добавление администратора", Toast.LENGTH_SHORT).show();
 
+    }
+    public void onErrorInsertAdmin() {
+        Toast.makeText(activity.getApplicationContext(),
+                "ошибка добавления администратора", Toast.LENGTH_SHORT).show();
+        activity.progressBar.setVisibility(View.GONE);
+    }
     public void onError() {
         Toast.makeText(activity.getApplicationContext(),
                 "ошибка входа", Toast.LENGTH_SHORT).show();
@@ -78,12 +89,23 @@ private Integer idUser;
     }
 
 
+    public void insertAdmin() throws Exception {
+
+        memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
+        activity.progressBar.setVisibility(View.VISIBLE);
+        userFacade = new UserFacadeImpl(memsDao, this);
+        String pass = "1111";
+        String newPass = ConfigEncrypt.getSaltedHash(pass);
+        userFacade.insertUser("1111", newPass, true);
+
+    }
+
     public void getQuery() {
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.getUser(login , password);
+        userFacade.getUser(login, password);
     }
 
 }

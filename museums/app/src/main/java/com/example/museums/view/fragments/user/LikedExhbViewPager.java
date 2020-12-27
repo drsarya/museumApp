@@ -2,7 +2,6 @@ package com.example.museums.view.fragments.user;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -13,7 +12,6 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.view.ContextThemeWrapper;
 
 import android.widget.PopupMenu;
@@ -24,14 +22,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
-import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
-import com.example.museums.view.fragments.user.exhibits.Exhibits;
+import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapter;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.Exhibition;
-
-import java.util.List;
 
 public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItemClickListener {
 

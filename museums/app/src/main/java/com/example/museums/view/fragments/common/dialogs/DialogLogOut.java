@@ -1,19 +1,16 @@
-package com.example.museums.view.fragments.common.Dialogs;
+package com.example.museums.view.fragments.common.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
-import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 public class DialogLogOut extends DialogFragment {
     @NonNull

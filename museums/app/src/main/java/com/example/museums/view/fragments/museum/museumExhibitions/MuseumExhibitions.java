@@ -33,6 +33,7 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
     public static final String LOGIN_KEY_USER = "login_key";
     public String login;
+    private static String copySearch ="";
 private EditText searchText;
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
@@ -64,7 +65,6 @@ private EditText searchText;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
     private List<ExhibitionWithMuseumName> exhibitions = new ArrayList<>() ;
 
@@ -74,10 +74,16 @@ private EditText searchText;
         progressBar = rootView.findViewById(R.id.museum_exhibitions_progress_bar);
         recyclerView = rootView.findViewById(R.id.recycler_view_museum_exhibitions);
         QueryMuseumExhibitions queryMuseumExhibitions = new QueryMuseumExhibitions(this);
-        queryMuseumExhibitions.getQuery(login);
+
+
         queryDeleteExhibition = new QueryDeleteExhibition(this);
         recyclerView.setAdapter(adapter);
         searchText = rootView.findViewById(R.id.museum_exhibitions_search_exhibition);
+        if (copySearch.isEmpty()) {
+            queryMuseumExhibitions.getQuery(login);
+        } else {
+            filter(copySearch);
+        }
     }
 
     private boolean containsString(String fullName, String currText) {
@@ -95,7 +101,9 @@ private EditText searchText;
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                copySearch="";
                 recyclerView.setVisibility(View.VISIBLE);
+                copySearch += s;
                 filter(s.toString());
             }
 
@@ -118,6 +126,7 @@ private EditText searchText;
 
 
     public void updateAll(List<ExhibitionWithMuseumName> exhibitions) {
+
         this.exhibitions = exhibitions;
          adapter.submitList(exhibitions);
     }

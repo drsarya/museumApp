@@ -1,4 +1,4 @@
-package com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword;
+package com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

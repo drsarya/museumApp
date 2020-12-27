@@ -284,7 +284,8 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        queryCreateMuseum.onError();
+                        System.out.println(e);
+                        queryCreateMuseum.onErrorInsertMuseum();
                     }
                 })
         ;
@@ -300,10 +301,10 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(museums ->
                 {
-                    if(queryAllMuseums!=null){
+                    if (queryAllMuseums != null) {
 
                         queryAllMuseums.onSuccess(museums);
-                    }else{
+                    } else {
 
                         queryAllMuseumsHV.onSuccess(museums);
 
@@ -324,7 +325,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
                         System.out.println(museum.login);
-                        userFacade.getUserMuseum(museum.login );
+                        userFacade.getUserMuseum(museum.login);
                     }
 
                     @Override

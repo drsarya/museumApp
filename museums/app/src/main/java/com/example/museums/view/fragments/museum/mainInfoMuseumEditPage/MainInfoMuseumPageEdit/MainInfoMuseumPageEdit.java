@@ -24,8 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.common.Dialogs.DialogLogOut;
-import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeDescriptionMuseum.DialogChangeDescriptionMuseum;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;

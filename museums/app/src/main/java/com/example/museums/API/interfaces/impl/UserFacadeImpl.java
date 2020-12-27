@@ -9,7 +9,7 @@ import com.example.museums.view.activities.common.Authorization.QueryAuthorizati
 import com.example.museums.view.activities.common.Registration.QueryRegistration;
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
 import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
-import com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword.QueryUpdatePassword;
+import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.QueryUpdatePassword;
 import com.example.museums.view.services.ConfigEncrypt;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -74,7 +74,7 @@ public class UserFacadeImpl implements UserFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        System.out.println(e.toString());
                         queryRegistrationMuseum.onError();
 
                     }
@@ -162,6 +162,10 @@ public class UserFacadeImpl implements UserFacade {
                         if (queryRegistration != null) {
                             queryRegistration.onSuccess();
                         }
+                        if(queryAuthorization!=null){
+                            queryAuthorization.onSuccessInsertAdmin();
+
+                        }
                     }
 
                     @Override
@@ -169,6 +173,12 @@ public class UserFacadeImpl implements UserFacade {
                         if (queryRegistration != null) {
                             queryRegistration.onError();
                         }
+                        if(queryAuthorization!=null){
+                            System.out.println(e.toString());
+                            queryAuthorization.onErrorInsertAdmin();
+
+                        }
+
                     }
                 });
     }

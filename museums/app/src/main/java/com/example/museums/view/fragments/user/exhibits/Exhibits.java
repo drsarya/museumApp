@@ -37,6 +37,7 @@ public class Exhibits extends Fragment {
     private ImageView closeFilter;
     private Integer userId;
     private EditText searchEditText;
+    private static String copySearch ="";
 
 
     public static Exhibits newInstance(Integer idUser) {
@@ -67,7 +68,6 @@ public class Exhibits extends Fragment {
     }
 
     public void clickHorizontalViewHolder(Integer museumId) {
-        System.out.println(museumId);
 
         if (queryAllMuseumsHV != null) {
             queryAllMuseumsHV.getMuseumExhibits(museumId);
@@ -86,7 +86,13 @@ public class Exhibits extends Fragment {
         searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
         mAdapter.setUserId(userId);
         QueryExhibits queryExhibits = new QueryExhibits(this);
-        queryExhibits.getQuery();
+
+        if (copySearch.isEmpty()) {
+            queryExhibits.getQuery();
+        } else {
+            filter(copySearch);
+        }
+
         queryAllMuseumsHV = new QueryAllMuseumsHV(this);
         queryAllMuseumsHV.getQuery();
     }
@@ -126,7 +132,9 @@ public class Exhibits extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                copySearch="";
                 recyclerView.setVisibility(View.VISIBLE);
+                copySearch += s;
                 filter(s.toString());
             }
 

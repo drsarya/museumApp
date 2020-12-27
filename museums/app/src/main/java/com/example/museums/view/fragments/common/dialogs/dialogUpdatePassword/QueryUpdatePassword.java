@@ -1,18 +1,12 @@
-package com.example.museums.view.fragments.common.Dialogs.dialogUpdatePassword;
+package com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword;
 
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.UserFacade;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.API.models.Museum;
-import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.services.ConfigEncrypt;
-
-import java.util.List;
 
 public class QueryUpdatePassword {
     private DialogUpdatePassword activity;

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
+import com.example.museums.API.interfaces.impl.UserFacadeImpl;
+import com.example.museums.API.models.User;
 import com.example.museums.R;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
@@ -42,10 +44,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
 
 
+        try {
+            final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
 
+            User u = new User();
+            u.type =true;
+            u.login = "1111";
+            String pass = "1111";
+            String sssss =   ConfigEncrypt.getSaltedHash(pass);
+            UserFacadeImpl us = new UserFacadeImpl(memsDao);
+            us.insertUser("1111", sssss, true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         //        for (int i = 0; i < 3 ; i++) {

@@ -42,7 +42,12 @@ public class QueryCreateMuseum {
         activity.progressBar.setVisibility(View.GONE);
 
     }
+    public void onErrorInsertMuseum() {
+        Toast.makeText(activity.getContext(),
+                "Ошибка создания", Toast.LENGTH_SHORT).show();
+        activity.progressBar.setVisibility(View.GONE);
 
+    }
 
     public void insertMuseum() {
 
