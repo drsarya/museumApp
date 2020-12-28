@@ -1,3 +1,2 @@
-include ':services'
 include ':app'
 rootProject.name = "museums.app"

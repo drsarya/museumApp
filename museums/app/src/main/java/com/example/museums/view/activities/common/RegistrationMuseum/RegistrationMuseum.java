@@ -83,7 +83,7 @@ public class RegistrationMuseum extends AppCompatActivity {
             if (!idCodeTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() && !firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() &&
                     !idCodeEditText.getText().toString().isEmpty() && !loginEditText.getText().toString().isEmpty() && !firstPassEditText.getText().toString().isEmpty() && !secondPassEditText.getText().toString().isEmpty()) {
                 try {
-                    queryRegistrationMuseum.getQuery(loginEditText.getText().toString(), firstPassEditText.getText().toString(), false, Integer.parseInt(idCodeEditText.getText().toString()));
+                    queryRegistrationMuseum.getQuery(loginEditText.getText().toString(), firstPassEditText.getText().toString(),   Integer.parseInt(idCodeEditText.getText().toString()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

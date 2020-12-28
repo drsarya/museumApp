@@ -3,8 +3,12 @@ package com.example.museums.API.interfaces.impl;
 import android.annotation.SuppressLint;
 
 import com.example.museums.API.MuseumDao;
+import com.example.museums.API.RetrofitConnect;
+import com.example.museums.API.interfaces.UserApi;
 import com.example.museums.API.interfaces.UserFacade;
+import com.example.museums.API.models.NewUser;
 import com.example.museums.API.models.User;
+import com.example.museums.API.models.UserUpdate;
 import com.example.museums.view.activities.common.Authorization.QueryAuthorization;
 import com.example.museums.view.activities.common.Registration.QueryRegistration;
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
@@ -12,10 +16,14 @@ import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.QueryUpdatePassword;
 import com.example.museums.view.services.ConfigEncrypt;
 
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class UserFacadeImpl implements UserFacade {
@@ -56,30 +64,30 @@ public class UserFacadeImpl implements UserFacade {
         museumDao = mDao;
     }
 
+
     @SuppressLint("CheckResult")
     @Override
     public void getUserMuseum(String login) {
 
-        museumDao.getUserMuseum(login)
+
+        Retrofit retrofit = RetrofitConnect.create();
+        UserApi messagesApi = retrofit.create(UserApi.class);
+        messagesApi.getUserMuseum(login)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-
                         queryRegistrationMuseum.updateMuseumPassword();
-
-
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println(e.toString());
                         queryRegistrationMuseum.onError();
-
+                        System.out.println(e.toString());
                     }
-                })
-        ;
+                });
+
 
     }
 
@@ -87,138 +95,114 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public void getUser(String login, String password) {
 
-        museumDao.getUser(login)
+
+        NewUser nu = new NewUser(login, password, false);
+        Retrofit retrofit = RetrofitConnect.create();
+        UserApi messagesApi = retrofit.create(UserApi.class);
+        messagesApi.getUser(nu)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        try {
-                            if (ConfigEncrypt.check(password, user.password)) {
-                                System.out.println("ssssssss");
-                                queryAuthorization.onSuccess(user);
-                            } else {
-                                System.out.println("ssssssssssssssssssssssssssssssssss");
-                                queryAuthorization.onError();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        System.out.println(user + "dddddddddddddddddddddddddddddd");
+                        queryAuthorization.onSuccess(user);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println("ssssssssssssssssssssssssssssssssss");
-
                         queryAuthorization.onError();
                     }
-                })
-        ;
+                });
+
 
     }
 
-    @Override
-    public void getUser(String login, String password, String newPassword) {
-        museumDao.getUser(login)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<User>() {
-                    @Override
-                    public void onSuccess(@NonNull User user) {
-                        try {
-                            if (ConfigEncrypt.check(password, user.password)) {
-                                updateUserPassword(login, newPassword);
-
-                            } else {
-                                queryUpdatePassword.onError();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                        queryUpdatePassword.onError();
-                    }
-                })
-        ;
-    }
 
     @SuppressLint("CheckResult")
     @Override
     public void insertUser(String login, String password, boolean type) {
-        User user = new User();
-        user.login = login;
-        user.password = password;
-        user.type = type;
-        museumDao.insertUser(user)
+
+        NewUser nu = new NewUser(login, password, type);
+        Retrofit retrofit = RetrofitConnect.create();
+        UserApi messagesApi = retrofit.create(UserApi.class);
+        messagesApi.createUser(nu)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Long>() {
+                .subscribe(new DisposableSingleObserver<User>() {
                     @Override
-                    public void onSuccess(@NonNull Long aLong) {
+                    public void onSuccess(@NonNull User messages) {
                         if (queryRegistration != null) {
                             queryRegistration.onSuccess();
                         }
-                        if(queryAuthorization!=null){
+                        if (queryAuthorization != null) {
                             queryAuthorization.onSuccessInsertAdmin();
-
                         }
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         if (queryRegistration != null) {
                             queryRegistration.onError();
                         }
-                        if(queryAuthorization!=null){
+                        if (queryAuthorization != null) {
                             System.out.println(e.toString());
                             queryAuthorization.onErrorInsertAdmin();
-
                         }
-
                     }
                 });
     }
 
+
     @Override
     public void insertUserMuseum(String login, String password, boolean type) {
-        User user = new User();
-        user.login = login;
-        user.password = password;
-        user.type = type;
-        museumDao.insertUser(user)
+
+        NewUser nu = new NewUser(login, password, type);
+        Retrofit retrofit = RetrofitConnect.create();
+        UserApi messagesApi = retrofit.create(UserApi.class);
+        messagesApi.createUser(nu)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Long>() {
+                .subscribe(new DisposableSingleObserver<User>() {
                     @Override
-                    public void onSuccess(@NonNull Long aLong) {
+                    public void onSuccess(@NonNull User messages) {
                         queryCreateMuseum.insertMuseum();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         queryCreateMuseum.onError();
+
                     }
                 });
     }
 
     @Override
-    public void updateUserPassword(String login, String password) {
-
-        museumDao.updateUserPassword(login, password)
+    public void updateUserPassword(String login, String password, String newPassword) {
+        UserUpdate nu = new UserUpdate(null, login, newPassword, password);
+        Retrofit retrofit = RetrofitConnect.create();
+        UserApi messagesApi = retrofit.create(UserApi.class);
+        messagesApi.updatePassword(nu)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Integer>() {
+                .subscribe(new DisposableSingleObserver<Boolean>() {
                     @Override
-                    public void onSuccess(@NonNull Integer user) {
-                        if (queryUpdatePassword != null) {
-                            queryUpdatePassword.onSuccess();
+                    public void onSuccess(@NonNull Boolean messages) {
+                        System.out.println(messages);
+                        System.out.println("ssssssssssssssssssssssssssssssssssssssssssss");
+                        if (messages) {
+                            if (queryUpdatePassword != null) {
+                                queryUpdatePassword.onSuccess();
+                            } else {
+                                queryRegistrationMuseum.onSuccess();
+                            }
                         } else {
 
-                            queryRegistrationMuseum.onSuccess();
+                            if (queryUpdatePassword != null) {
+                                queryUpdatePassword.onError();
+                            } else {
+                                queryRegistrationMuseum.onSuccess();
+                            }
                         }
                     }
 
@@ -227,11 +211,13 @@ public class UserFacadeImpl implements UserFacade {
                         if (queryUpdatePassword != null) {
                             queryUpdatePassword.onError();
                         } else {
-                            System.out.println(e.toString() + " 3");
                             queryRegistrationMuseum.onSuccess();
                         }
                     }
                 });
+
+
     }
+
 
 }

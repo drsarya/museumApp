@@ -1,13 +1,8 @@
 package com.example.museums.view.services;
 
 
-
-
-
-
 import android.util.Base64;
 
-import org.w3c.dom.ls.LSOutput;
 
 import java.security.SecureRandom;
 
@@ -16,10 +11,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 public class ConfigEncrypt {
-    private static final int iterations = 20*1000;
+    private static final int iterations = 20 * 1000;
     private static final int saltLen = 32;
     private static final int desiredKeyLen = 256;
-
 
 
     public static String getSaltedHash(String password) throws Exception {
@@ -28,7 +22,7 @@ public class ConfigEncrypt {
     }
 
 
-    public static boolean check(String password, String stored) throws Exception{
+    public static boolean check(String password, String stored) throws Exception {
         String[] saltAndHash = stored.split("\\$");
         if (saltAndHash.length != 2) {
             throw new IllegalStateException(

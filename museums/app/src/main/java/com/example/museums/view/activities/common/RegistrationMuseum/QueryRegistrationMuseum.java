@@ -36,21 +36,20 @@ public class QueryRegistrationMuseum {
     public void updateMuseumPassword() {
         UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
 
-        userFacade.updateUserPassword(login, password);
+        userFacade.updateUserPassword(login,null, password);
 
     }
 
     private String password, login;
 
-    public void getQuery(String login, String password, boolean type, int idCode) throws Exception {
+    public void getQuery(String login, String password ,int idCode)  {
         this.login = login;
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
-        String newHashPassword = ConfigEncrypt.getSaltedHash(password);
-        this.password = newHashPassword;
+        this.password = password;
 
-        museumFacade.getMuseumByLoginAndIdCode(login, idCode, newHashPassword, type);
+        museumFacade.getMuseumByLoginAndIdCode(login, idCode );
     }
 }

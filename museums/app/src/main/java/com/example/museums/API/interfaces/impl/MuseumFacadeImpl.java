@@ -315,7 +315,7 @@ public class MuseumFacadeImpl implements MuseumFacade {
     }
 
     @Override
-    public void getMuseumByLoginAndIdCode(String login, int id, String password, boolean type) {
+    public void getMuseumByLoginAndIdCode(String login, int id) {
         museumDao.getMuseumByLoginAndIdCode(login, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -324,14 +324,13 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     public void onSuccess(@NonNull Museum museum) {
 
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
-                        System.out.println(museum.login);
+
                         userFacade.getUserMuseum(museum.login);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println("1" + e.toString());
-                        queryRegistrationMuseum.onError();
+                         queryRegistrationMuseum.onError();
                     }
                 });
     }

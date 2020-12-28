@@ -89,14 +89,14 @@ public class QueryAuthorization {
     }
 
 
-    public void insertAdmin() throws Exception {
+    public void insertAdmin()  {
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
         String pass = "1111";
-        String newPass = ConfigEncrypt.getSaltedHash(pass);
-        userFacade.insertUser("1111", newPass, true);
+
+        userFacade.insertUser("1111", pass, true);
 
     }
 

@@ -20,7 +20,7 @@ public interface MuseumFacade {
 
     void getAllMuseums();
 
-    void getMuseumByLoginAndIdCode(String login, int id, String password, boolean type);
+    void getMuseumByLoginAndIdCode(String login, int id );
 
     /*INSERT*/
     void insertMuseum(String login, String name, String address);

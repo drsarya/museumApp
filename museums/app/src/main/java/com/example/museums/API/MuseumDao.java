@@ -168,8 +168,6 @@ public interface MuseumDao {
     /*USER*/
 
     /*GET*/
-    @Query("SELECT * FROM user where login = :login and type=:type and password = null ")
-    Single<User> getUserByLoginAndType(String login, boolean type);
 
     @Query("SELECT * FROM user WHERE login =:login  ")
      Single<User> getUser(String login );

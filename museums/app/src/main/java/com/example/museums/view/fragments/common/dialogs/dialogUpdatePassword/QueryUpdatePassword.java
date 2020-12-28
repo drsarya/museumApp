@@ -33,7 +33,7 @@ public class QueryUpdatePassword {
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        String newPassHash = ConfigEncrypt.getSaltedHash(newPass);
-        userFacade.getUser(login,password,  newPassHash);
+
+        userFacade.updateUserPassword(login,password,  newPass);
     }
 }

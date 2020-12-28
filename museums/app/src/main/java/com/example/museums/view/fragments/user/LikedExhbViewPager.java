@@ -28,7 +28,7 @@ import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapte
 
 public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
-    private static final String ID_KEY_USER ="id_key_user" ;
+    private static final String ID_KEY_USER = "id_key_user";
     private ViewPager mPager;
 
     public static final String LOGIN_KEY_USER = "login_key_user";
@@ -38,15 +38,14 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     private Integer userId;
 
 
-    public LikedExhbViewPager( ) {
-
+    public LikedExhbViewPager() {
     }
+
     public static LikedExhbViewPager newInstance(String login, Integer userId) {
         final LikedExhbViewPager myFragment = new LikedExhbViewPager();
         final Bundle args = new Bundle(1);
         args.putString(LOGIN_KEY_USER, login);
         args.putInt(ID_KEY_USER, userId);
-        System.out.println("2222222222222222222222222");
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -67,27 +66,21 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
-         getArgumentsFromBundle();
-        System.out.println("333333333333333333333333333333");
-
+        getArgumentsFromBundle();
         View rootView =
                 inflater.inflate(R.layout.fragment_home_page_user, container, false);
         initViews(rootView);
         return rootView;
     }
 
-    public void initViews( View rootView){
+    public void initViews(View rootView) {
 
         imbtn = rootView.findViewById(R.id.home_page_user_menu_popup);
         mPager = rootView.findViewById(R.id.liked);
-
-
         imbtn.setOnClickListener(this::showPopup);
-
         pagerAdapter = new LikedExhibViewPagerAdapter(getChildFragmentManager(), userId);
         mPager.setAdapter(pagerAdapter);
     }
-
 
 
     public void showPopup(View view) {

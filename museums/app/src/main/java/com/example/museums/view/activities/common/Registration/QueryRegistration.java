@@ -40,7 +40,8 @@ public class QueryRegistration {
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
         String newHashPassword = ConfigEncrypt.getSaltedHash(password);
-        System.out.println(newHashPassword+"ddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-        userFacade.insertUser(login, newHashPassword, type);
+      //   userFacade.insertUser(login, newHashPassword, type);
+        userFacade.insertUser(login, password, type);
+
     }
 }
