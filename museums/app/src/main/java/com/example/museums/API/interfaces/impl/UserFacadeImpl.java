@@ -14,7 +14,6 @@ import com.example.museums.view.activities.common.Registration.QueryRegistration
 import com.example.museums.view.activities.common.RegistrationMuseum.QueryRegistrationMuseum;
 import com.example.museums.view.fragments.admin.createMuseum.QueryCreateMuseum;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.QueryUpdatePassword;
-import com.example.museums.view.services.ConfigEncrypt;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -94,8 +93,6 @@ public class UserFacadeImpl implements UserFacade {
     @SuppressLint("CheckResult")
     @Override
     public void getUser(String login, String password) {
-
-
         NewUser nu = new NewUser(login, password, false);
         Retrofit retrofit = RetrofitConnect.create();
         UserApi messagesApi = retrofit.create(UserApi.class);
@@ -105,7 +102,6 @@ public class UserFacadeImpl implements UserFacade {
                 .subscribe(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        System.out.println(user + "dddddddddddddddddddddddddddddd");
                         queryAuthorization.onSuccess(user);
                     }
 

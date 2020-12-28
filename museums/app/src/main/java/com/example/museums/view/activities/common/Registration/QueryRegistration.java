@@ -6,11 +6,7 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.view.activities.common.Authorization.Authorization;
-import com.example.museums.view.fragments.admin.createMuseum.CreateMuseum;
-import com.example.museums.view.services.ConfigEncrypt;
 
-import java.security.CryptoPrimitive;
 
 public class QueryRegistration {
     private Registration activity;
@@ -39,8 +35,6 @@ public class QueryRegistration {
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        String newHashPassword = ConfigEncrypt.getSaltedHash(password);
-      //   userFacade.insertUser(login, newHashPassword, type);
         userFacade.insertUser(login, password, type);
 
     }

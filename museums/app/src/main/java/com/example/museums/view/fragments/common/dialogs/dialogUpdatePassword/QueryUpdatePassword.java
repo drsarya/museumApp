@@ -6,7 +6,6 @@ import android.widget.Toast;
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.view.services.ConfigEncrypt;
 
 public class QueryUpdatePassword {
     private DialogUpdatePassword activity;

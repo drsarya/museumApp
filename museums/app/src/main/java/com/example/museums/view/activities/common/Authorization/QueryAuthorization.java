@@ -1,11 +1,8 @@
 package com.example.museums.view.activities.common.Authorization;
 
 import android.content.Intent;
-import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
 
 import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
@@ -15,9 +12,7 @@ import com.example.museums.API.models.User;
 import com.example.museums.view.activities.tabs.AdminTab;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.activities.tabs.UserTab;
-import com.example.museums.view.services.ConfigEncrypt;
 
-import static java.util.Objects.hash;
 
 public class QueryAuthorization {
 
@@ -59,7 +54,8 @@ public class QueryAuthorization {
     private Integer idUser;
 
     public void onSuccess(User user) {
-        idUser = user.userId;
+        idUser = user.id;
+        System.out.println(user.id +"dddddddddddddddddddddddddddddddddddddddddd");
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         if (user.type) {
             activity.progressBar.setVisibility(View.GONE);

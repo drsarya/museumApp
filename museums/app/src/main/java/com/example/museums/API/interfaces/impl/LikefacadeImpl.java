@@ -104,6 +104,7 @@ public class LikefacadeImpl implements LikeFacade {
     @Override
     public void insertLike(Integer iduser, String idExhb, boolean type) {
         Like like = new Like();
+        System.out.println(iduser+"idddddddddddddddddddddddddddddddddddddddddddd");
         like.idUserFk = iduser;
         like.idExhb = idExhb;
         like.type = type;

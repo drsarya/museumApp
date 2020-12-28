@@ -75,13 +75,13 @@ public class Authorization extends AppCompatActivity {
                 queryAuthorization.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
                 queryAuthorization.getQuery();
             } else {
-                if (time.isBefore(time.plusSeconds(10))) {
+                if (time.isBefore(time.plusSeconds(5))) {
                     count++;
                     if (count < 2) {
                         Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
                     } else {
                         if (count == 8) {
-                            Toast.makeText(getApplicationContext(), "До добавления учетной записи администратора 2 нажатие", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "До добавления учетной записи администратора 2 нажатия", Toast.LENGTH_SHORT).show();
                         }  else if (count == 10) {
                             try {
                                 time= null;

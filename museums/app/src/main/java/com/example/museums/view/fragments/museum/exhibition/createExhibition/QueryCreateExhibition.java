@@ -25,8 +25,10 @@ public class QueryCreateExhibition {
         System.out.println("sdsdsdsdssssssssssssss");
         exhibition.idMuseum = Integer.toString(id);
         Exhibition exhibition2 = new Exhibition();
-        Bitmap bmp2 = exhibition.image.copy(exhibition.image.getConfig(), true);
-        exhibition2.image = bmp2;
+        if (exhibition.image != null) {
+            Bitmap bmp2 = exhibition.image.copy(exhibition.image.getConfig(), true);
+            exhibition2.image = bmp2;
+        }
         exhibition2.name = exhibition.name;
         exhibition2.description = exhibition.description;
         exhibition2.idMuseum = exhibition.idMuseum;
@@ -49,8 +51,6 @@ public class QueryCreateExhibition {
         activity.progressBar.setVisibility(View.GONE);
 
     }
-
-
 
 
     public void onSuccessInsertExhbtn(Long id) {

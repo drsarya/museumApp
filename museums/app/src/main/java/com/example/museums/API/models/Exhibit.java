@@ -43,7 +43,5 @@ public class Exhibit {
     public String dateOfCreate;
 
 
-//    @ColumnInfo(name = "tags")
-//    public String tags;
 
 }

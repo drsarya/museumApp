@@ -13,7 +13,8 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(tableName = "museum", indices = {@Index(value = {"login"}, unique = true),
-        @Index(value = {"nameMuseum"}, unique = true), @Index(value = {"address"}, unique = true)})
+         @Index(value = {"nameMuseum", "address"}, unique = true)
+        })
 
 public class Museum {
     @ColumnInfo(name = "id")

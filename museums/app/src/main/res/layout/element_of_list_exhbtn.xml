@@ -42,7 +42,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5">
+                android:layout_weight="3">
 
                 <ImageView
                     android:id="@+id/detailed_exhbtn_image"
@@ -67,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:paddingRight="10dp"
                     android:autoSizeMaxTextSize="20sp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
@@ -81,10 +82,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+
+                    android:paddingRight="10dp"
                     android:autoSizeMaxTextSize="17dp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
-                    android:gravity="end|top"
+                    android:gravity="end|center_vertical"
                     >
 
                 </TextView>
