@@ -7,10 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "like", foreignKeys = {
-        @ForeignKey(entity = User.class, parentColumns = "id_user", childColumns = "id_user_fk"),
-
-}, indices = {@Index(value = {"id_user_fk", "idExhb", "type"}, unique = true)})
+@Entity(tableName = "like",   indices = {@Index(value = {"id_user_fk", "idExhb", "type"}, unique = true)})
 public class Like {
 
     @ColumnInfo(name = "id")

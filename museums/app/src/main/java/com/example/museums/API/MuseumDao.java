@@ -41,12 +41,12 @@ public interface MuseumDao {
     @Query("SELECT * FROM exhibit as e1 JOIN author as a1 ON a1.id_author = e1.authorId ")
     Flowable<List<NewExhibitModel>> getAllExhibits();
 
-    @Query("SELECT   * FROM     user as u1   JOIN `like` as l1 on l1.id_user_fk = u1.id_user JOIN exhibit as e1 ON e1.id = l1.idExhb" +
-            " JOIN author as a1 On a1.id_author = e1.authorId  WHERE u1.id_user = :userId AND l1.type = :type   ")
+    @Query("SELECT   * FROM       `like` as l1  JOIN exhibit as e1 ON e1.id = l1.idExhb" +
+            " JOIN author as a1 On a1.id_author = e1.authorId  WHERE l1.id_user_fk = :userId AND l1.type = :type   ")
     Flowable<List<NewExhibitModel>> getAllExhibitsLikedByUser(Integer userId, boolean type);
 
     @Query("SELECT   e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  " +
-            "FROM  user as u1   JOIN `like` as l1 on l1.id_user_fk = u1.id_user JOIN  exhibition as e1 on e1.id = l1.idExhb JOIN museum as m2 on  m2.id = e1.idMuseum   WHERE  u1.id_user = :userId AND l1.type  = :type")
+            "FROM   `like` as l1   JOIN  exhibition as e1 on e1.id = l1.idExhb JOIN museum as m2 on  m2.id = e1.idMuseum   WHERE  l1.id_user_fk = :userId AND l1.type  = :type")
     Flowable<List<ExhibitionWithMuseumName>> getAllExhibitionsLikedByUser(Integer userId, boolean type);
 
     @Query("SELECT e1.id,e1.name, e1.idMuseum, e1.image, e1.description, e1.firstDate, e1.lastDate, m2.nameMuseum  FROM  exhibition as e1 JOIN museum as m2 on  m2.id = e1.idMuseum  ")
@@ -165,23 +165,7 @@ public interface MuseumDao {
     Single<Integer> updateMuseumDescription(String description, String login);
 
 
-    /*USER*/
 
-    /*GET*/
-
-    @Query("SELECT * FROM user WHERE login =:login  ")
-     Single<User> getUser(String login );
-
-    @Query("SELECT * FROM user WHERE login =:login And password is NULL  ")
-    Single<User> getUserMuseum(String login);
-
-    /*UPDATE*/
-    @Query("UPDATE user SET  password = :password  where login= :login ")
-    Single<Integer> updateUserPassword(String login, String password);
-
-    /*INSERT*/
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    Single<Long> insertUser(User user);
 
     /*AUTHORS*/
 
