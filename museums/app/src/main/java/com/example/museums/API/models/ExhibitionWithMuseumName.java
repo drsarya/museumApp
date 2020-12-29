@@ -43,7 +43,6 @@ public class ExhibitionWithMuseumName {
     public String nameMuseum;
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {

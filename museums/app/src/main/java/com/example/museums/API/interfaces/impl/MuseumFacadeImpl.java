@@ -212,14 +212,10 @@ public class MuseumFacadeImpl implements MuseumFacade {
                     @Override
                     public void onSuccess(@NonNull Integer id) {
                         queryCreateExhibition.onSuccess(id);
-
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                         queryCreateExhibition.onError();
-
                     }
                 })
         ;
@@ -263,7 +259,6 @@ public class MuseumFacadeImpl implements MuseumFacade {
     }
 
 
-    //    public void insertMuseum(String login, String name, String country, String city, String street, String build) {
     @Override
     public void insertMuseum(String login, String name, String address) {
 
@@ -284,7 +279,6 @@ public class MuseumFacadeImpl implements MuseumFacade {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println(e);
                         queryCreateMuseum.onErrorInsertMuseum();
                     }
                 })
@@ -302,14 +296,10 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .subscribe(museums ->
                 {
                     if (queryAllMuseums != null) {
-
                         queryAllMuseums.onSuccess(museums);
                     } else {
-
                         queryAllMuseumsHV.onSuccess(museums);
-
                     }
-
                 })
         ;
     }
@@ -322,15 +312,12 @@ public class MuseumFacadeImpl implements MuseumFacade {
                 .subscribe(new DisposableSingleObserver<Museum>() {
                     @Override
                     public void onSuccess(@NonNull Museum museum) {
-
                         UserFacadeImpl userFacade = new UserFacadeImpl(museumDao, queryRegistrationMuseum);
-
                         userFacade.getUserMuseum(museum.login);
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
-                         queryRegistrationMuseum.onError();
+                        queryRegistrationMuseum.onError();
                     }
                 });
     }

@@ -6,7 +6,6 @@ import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitFacade;
 import com.example.museums.API.models.Exhibit;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
-import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.QueryDeleteMuseumExhibit;
@@ -21,21 +20,23 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ExhibitFacadeImpl implements ExhibitFacade {
     private MuseumDao museumDao;
-    private QueryCreateExhibition queryCreateExhibition;
     private QueryDeleteMuseumExhibit queryDeleteMuseumExhibit;
     private QueryListMuseumExhibits queryListMuseumExhibits;
     private QueryUpdateExhibit queryUpdateExhibit;
     private QueryDeleteExhibition queryDeleteExhibition;
     private QueryInsertExhibit queryInsertExhibit;
     private QueryExhibits queryExhibits;
-    private  QueryAllMuseumsHV queryAllMuseumsHV;
+    private QueryAllMuseumsHV queryAllMuseumsHV;
+
     public ExhibitFacadeImpl(MuseumDao museumDao) {
         this.museumDao = museumDao;
     }
+
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryExhibits queryExhibits) {
         this.museumDao = museumDao;
         this.queryExhibits = queryExhibits;
     }
+
     public ExhibitFacadeImpl(MuseumDao museumDao, QueryAllMuseumsHV queryAllMuseumsHV) {
         this.museumDao = museumDao;
         this.queryAllMuseumsHV = queryAllMuseumsHV;
@@ -89,6 +90,7 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(museums -> queryListMuseumExhibits.onSuccess(museums));
     }
+
     @SuppressLint("CheckResult")
     @Override
     public void getExhibitsByMuseumId(Integer id) {
@@ -109,7 +111,6 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     public void onSuccess(@NonNull Integer integer) {
                         queryDeleteExhibition.onSuccess();
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryDeleteExhibition.onError();
@@ -127,14 +128,12 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     @Override
                     public void onSuccess(@NonNull Long listIds) {
                         queryInsertExhibit.onSuccess(listIds.intValue());
-
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         System.out.println(e.toString());
                         queryInsertExhibit.onError();
-
                     }
                 })
         ;
@@ -176,6 +175,5 @@ public class ExhibitFacadeImpl implements ExhibitFacade {
                     }
                 });
     }
-
 
 }

@@ -20,16 +20,13 @@ public class QueryListMuseumExhibits {
     private MuseumDao museumDao;
 
     public QueryListMuseumExhibits(MuseumExhibits museumExhibits) {
-
         this.activity = museumExhibits;
     }
 
 
     public void onSuccess(List<NewExhibitModel> exhibits) {
-
         activity.refreshAllList(exhibits);
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
 
@@ -42,8 +39,6 @@ public class QueryListMuseumExhibits {
     public void getQuery(String login) {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
-
-
         exhibitFacadel = new ExhibitFacadeImpl(museumDao, this);
         exhibitFacadel.getExhibitsByMuseumLogin(login);
 

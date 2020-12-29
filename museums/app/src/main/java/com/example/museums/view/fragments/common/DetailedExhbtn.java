@@ -34,7 +34,6 @@ import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.ILike;
 import com.example.museums.view.services.oop.IUpdateList;
 
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +79,6 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
         args.putString(DESCRIPTION_KEY, description);
         args.putInt(ID_EXHIBIT_KEY, id);
         args.putInt(ID_USER_KEY, userId);
-
         args.putInt(ID_MUSEUM_KEY, museumId);
         args.putParcelable(IMAGE_KEY, image);
         myFragment.setArguments(args);
@@ -102,7 +100,6 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
             museumId = getArguments().getInt(ID_MUSEUM_KEY);
             userId = getArguments().getInt(ID_USER_KEY);
             bitmap = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
-
             getArguments().clear();
         }
 
@@ -114,7 +111,6 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
         dateTextView.setText(date);
         exhbtnDescriptionTextView.setText(description);
         imageView.setImageBitmap(bitmap);
-
     }
 
     private QueryGetLikes queryGetLikes;
@@ -209,7 +205,6 @@ public class DetailedExhbtn extends Fragment implements IUpdateList, ILike {
     }
 
     public void setCountLikesTextView(String str) {
-
         textViewCountLikes.setText(str);
     }
 

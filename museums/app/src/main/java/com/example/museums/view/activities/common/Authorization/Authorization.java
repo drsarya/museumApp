@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
 
-import java.sql.Time;
 import java.time.Instant;
 
 public class Authorization extends AppCompatActivity {
@@ -61,7 +58,6 @@ public class Authorization extends AppCompatActivity {
         });
         regPerson.setOnClickListener(v -> {
             Intent intent2 = new Intent(getApplication(), Registration.class);
-
             startActivity(intent2);
         });
 
@@ -69,7 +65,6 @@ public class Authorization extends AppCompatActivity {
             if (time == null) {
                 time = Instant.now();
             }
-
 
             if (!logEditText.getText().toString().isEmpty() && !passEditText.getText().toString().isEmpty()) {
                 queryAuthorization.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
@@ -82,9 +77,9 @@ public class Authorization extends AppCompatActivity {
                     } else {
                         if (count == 8) {
                             Toast.makeText(getApplicationContext(), "До добавления учетной записи администратора 2 нажатия", Toast.LENGTH_SHORT).show();
-                        }  else if (count == 10) {
+                        } else if (count == 10) {
                             try {
-                                time= null;
+                                time = null;
                                 count = 0;
                                 queryAuthorization.insertAdmin();
                             } catch (Exception e) {
@@ -92,8 +87,8 @@ public class Authorization extends AppCompatActivity {
                             }
                         }
                     }
-                }else{
-                    time= null;
+                } else {
+                    time = null;
                     count = 0;
                 }
             }

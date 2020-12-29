@@ -33,7 +33,6 @@ public class QueryDialogChangeDescriptionMuseum {
         Toast.makeText(activity.getContext(),
                 "Ошибка обновления", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void getQuery(String login, String description) {

@@ -9,8 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.createExhibition.CreateExhibition;
-import com.example.museums.view.fragments.user.exhibitions.Exhibitions;
-import com.example.museums.view.fragments.user.exhibits.Exhibits;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
@@ -31,9 +29,8 @@ public class MuseumTab extends AppCompatActivity {
     private MuseumExhibitions exhibitions;
 
     private void initViews() {
-        menuTab =  findViewById(R.id.museum_bnview);
+        menuTab = findViewById(R.id.museum_bnview);
         KeyboardVisibilityEvent.setEventListener(this, new KeyboardListenerHideOptionalBlock(menuTab));
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -49,7 +46,6 @@ public class MuseumTab extends AppCompatActivity {
             mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(login);
             exhibits = new MuseumExhibits().newInstance(login);
             createExhibition = new CreateExhibition().newInstance(login);
-
         } else {
             exhibitions = new MuseumExhibitions();
             mainInfoMuseumPage = new MainInfoMuseumPageEdit();
@@ -64,7 +60,6 @@ public class MuseumTab extends AppCompatActivity {
                 case R.id.menu_fr_create_exhbtn:
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.container_tab_museum, createExhibition)
-
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
                     menuTab.getMenu().findItem(R.id.menu_fr_create_exhbtn).setChecked(true);
 
@@ -73,7 +68,6 @@ public class MuseumTab extends AppCompatActivity {
                     final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                     ft1.replace(R.id.container_tab_museum, exhibitions)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-
                     menuTab.getMenu().findItem(R.id.menu_fr_exhibitions).setChecked(true);
 
                     break;
@@ -81,7 +75,6 @@ public class MuseumTab extends AppCompatActivity {
                     final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                     ft2.replace(R.id.container_tab_museum, exhibits)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-
                     menuTab.getMenu().findItem(R.id.menu_fr_exhibits).setChecked(true);
 
                     break;
@@ -89,7 +82,6 @@ public class MuseumTab extends AppCompatActivity {
                     final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                     ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-
                     menuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);
                     break;
             }
@@ -104,7 +96,6 @@ public class MuseumTab extends AppCompatActivity {
             final FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
             ft3.replace(R.id.container_tab_museum, mainInfoMuseumPage)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
-
             menuTab.getMenu().findItem(R.id.menu_fr_main_museum).setChecked(true);
         }
     }

@@ -23,9 +23,8 @@ public class QueryDeleteExhibition {
     public void onSuccess() {
         exhibitionFacade = new ExhibitionFacadeImpl(museumDao, this);
         exhibitionFacade.deleteExhibition(idExhibition);
-
-
     }
+
     public void onSuccessDeleteExhibition() {
 
         Toast.makeText(activity.getContext(),
@@ -39,7 +38,6 @@ public class QueryDeleteExhibition {
         Toast.makeText(activity.getContext(),
                 "Ошибка удаления", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     private int idExhibition;

@@ -29,12 +29,9 @@ public class QueryLikedExhibitions {
     }
 
     public void getQuery(Integer userId) {
-
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         exhibitFacade = new LikefacadeImpl(museumDao, this);
-
         exhibitFacade.getExhibitionsLikedByUser(userId);
-
     }
 
 }

@@ -37,7 +37,6 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     private Bitmap bitmap;
 
     public DialogChangeMuseumPhoto() {
-
     }
 
     public DialogChangeMuseumPhoto newInstance(final Parcelable image, final String login) {
@@ -98,7 +97,6 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
 
     private void setListeners() {
         imageView.setOnClickListener(v -> {
-
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);

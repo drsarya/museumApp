@@ -67,7 +67,6 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
             if (!description.equals(MainInfoMuseumPageEdit.descriptionIsEmpty)) {
                 descriptionEditText.setText(description);
             }
-
         }
         setListeners();
         return rootView;

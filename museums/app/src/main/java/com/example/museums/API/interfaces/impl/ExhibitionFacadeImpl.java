@@ -5,14 +5,12 @@ import android.annotation.SuppressLint;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.ExhibitionFacade;
 import com.example.museums.API.models.Exhibition;
-import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.view.fragments.museum.exhibition.createExhibition.QueryCreateExhibition;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.QueryEditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryDeleteExhibition;
 import com.example.museums.view.fragments.museum.museumExhibitions.QueryMuseumExhibitions;
 import com.example.museums.view.fragments.user.exhibitions.QueryExhibitions;
 
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -28,9 +26,6 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
     private QueryEditExhibition queryEditExhibition;
     private QueryExhibitions queryExhibitions;
 
-    public ExhibitionFacadeImpl(MuseumDao museumDao) {
-        museumDao = museumDao;
-    }
 
     public ExhibitionFacadeImpl(MuseumDao museumDao, QueryExhibitions queryExhibitions) {
         this.museumDao = museumDao;
@@ -78,7 +73,6 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
                 .subscribe(new DisposableSingleObserver<Integer>() {
                     @Override
                     public void onSuccess(@NonNull Integer integer) {
-                        System.out.println(integer);
                         queryMuseumExhibitions.onSuccess(integer);
                     }
 
@@ -111,18 +105,21 @@ public class ExhibitionFacadeImpl implements ExhibitionFacade {
 
     @Override
     public void updateExhibition(Exhibition exhibition) {
-        museumDao.updateExhibition(exhibition).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DisposableSingleObserver<Integer>() {
-            @Override
-            public void onSuccess(@NonNull Integer integer) {
-                queryEditExhibition.onSuccess();
-            }
+        museumDao.updateExhibition(exhibition)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Integer>() {
+                    @Override
+                    public void onSuccess(@NonNull Integer integer) {
+                        queryEditExhibition.onSuccess();
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                System.out.println(e.toString());
-                queryEditExhibition.onError();
-            }
-        });
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println(e.toString());
+                        queryEditExhibition.onError();
+                    }
+                });
     }
 
     @SuppressLint("CheckResult")

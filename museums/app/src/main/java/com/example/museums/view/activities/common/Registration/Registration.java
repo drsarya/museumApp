@@ -34,7 +34,6 @@ public class Registration extends AppCompatActivity {
     private Button registrationBtn;
     private TextFieldBoxes secondPassTextFieldBoxes;
     private TextFieldBoxes loginTextFieldBoxes;
-
     private TextFieldBoxes firstPassTextFieldBoxes;
     private QueryRegistration queryRegistration;
     public ProgressBar progressBar;
@@ -71,11 +70,8 @@ public class Registration extends AppCompatActivity {
     private void onTouchlistener() {
         GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
-
         view.setOnTouchListener((View v, MotionEvent event) -> {
-
             boolean b = mDetector.onTouchEvent(event);
-            System.out.println(b);
             if (b) {
                 Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);
@@ -89,7 +85,6 @@ public class Registration extends AppCompatActivity {
         registrationBtn.setOnClickListener(v -> {
             if (!firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() &&
                     !loginEditText.getText().toString().isEmpty() && !passFirstEditText.getText().toString().isEmpty() && !passSecondEditText.getText().toString().isEmpty()) {
-
                 try {
                     queryRegistration.getQuery(loginEditText.getText().toString(), passFirstEditText.getText().toString(), false);
                 } catch (Exception e) {

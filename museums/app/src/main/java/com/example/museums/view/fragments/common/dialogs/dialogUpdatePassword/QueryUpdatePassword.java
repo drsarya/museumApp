@@ -32,6 +32,6 @@ public class QueryUpdatePassword {
         memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
-        userFacade.updateUserPassword(login,password,  newPass);
+        userFacade.updateUserPassword(login, password, newPass);
     }
 }

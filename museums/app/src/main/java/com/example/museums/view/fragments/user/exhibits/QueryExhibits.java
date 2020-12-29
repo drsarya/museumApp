@@ -28,7 +28,7 @@ public class QueryExhibits {
                 "Ошибка получения данных", Toast.LENGTH_SHORT).show();
     }
 
-    public void getQuery( ) {
+    public void getQuery() {
 
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         exhibitFacade = new ExhibitFacadeImpl(museumDao, this);

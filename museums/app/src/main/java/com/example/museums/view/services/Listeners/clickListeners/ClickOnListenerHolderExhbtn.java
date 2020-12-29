@@ -27,14 +27,11 @@ public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     public void onClick(View v) {
         Fragment myFragment;
         if (exhibitionWithMuseumName.firstDate == null) {
-
             myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), userId, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                     "", exhibitionWithMuseumName.description);
         } else {
-
             myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), userId, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
                     exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
-
         }
 
         mth.replaceFragment(myFragment, (AppCompatActivity) v.getContext());

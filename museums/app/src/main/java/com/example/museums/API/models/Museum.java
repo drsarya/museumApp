@@ -13,8 +13,8 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(tableName = "museum", indices = {@Index(value = {"login"}, unique = true),
-         @Index(value = {"nameMuseum", "address"}, unique = true)
-        })
+        @Index(value = {"nameMuseum", "address"}, unique = true)
+})
 
 public class Museum {
     @ColumnInfo(name = "id")
@@ -50,7 +50,7 @@ public class Museum {
                 nameMuseum.equals(museum.nameMuseum) &&
                 address.equals(museum.address) &&
                 Objects.equals(description, museum.description)
-               ;
+                ;
     }
 
 

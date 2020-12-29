@@ -19,7 +19,7 @@ public class QueryInsertExhibit {
     private MuseumDao museumDao;
     private NewExhibitModel newExhibitModel;
     private Integer idExhibition;
-    private ExhibitFacadeImpl exhibitFacade  ;
+    private ExhibitFacadeImpl exhibitFacade;
 
     public QueryInsertExhibit(CreateExhibit exhibit) {
         this.activity = exhibit;
@@ -32,30 +32,26 @@ public class QueryInsertExhibit {
         exhibitToExhbtn.idExhibit = idExhibit;
         exhibitToExhbtn.idExhibition = idExhibition;
         exhbtnFacade.insertExhbToExbtn(exhibitToExhbtn);
-     }
+    }
 
     public void onSuccessInsertExhbtToExhbn() {
         activity.insertNewExhibit(newExhibitModel);
-
         Toast.makeText(activity.getContext(),
                 "Успешное создание экпоната", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
 
-     }
+    }
 
     public void onErrorInsertExhbtToExhbn() {
-
         Toast.makeText(activity.getContext(),
                 "Ошибка создания экспоната", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
 
-    public void   onSuccessInsertAuthor(Integer id){
+    public void onSuccessInsertAuthor(Integer id) {
         Exhibit exhibit = new Exhibit();
         exhibit.authorId = newExhibitModel.idAuthor;
-       // exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;
         exhibit.dateOfCreate = newExhibitModel.dateOfCreate;
@@ -71,10 +67,10 @@ public class QueryInsertExhibit {
         newExhibitModel = model;
         this.idExhibition = idExhibition;
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
-        QueryInsertAuthor q= new QueryInsertAuthor(museumDao, this);
+        QueryInsertAuthor q = new QueryInsertAuthor(museumDao, this);
         q.getQuery(model);
-
     }
+
     public void onError() {
         Toast.makeText(activity.getContext(),
                 "Ошибка создания экспоната", Toast.LENGTH_SHORT).show();

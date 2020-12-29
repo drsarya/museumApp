@@ -9,15 +9,12 @@ import androidx.fragment.app.FragmentActivity;
 
 public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListener {
     private Float downy = null;
-    private FragmentActivity activity;
-
     private LinearLayout ll;
     private Float downx = null;
-
     private boolean trof;
 
-    public OnToucListenerScrollViewSwipeLeftRight(FragmentActivity activity, LinearLayout ll, boolean trof) {
-        this.activity = activity;
+    public OnToucListenerScrollViewSwipeLeftRight(LinearLayout ll, boolean trof) {
+
         this.ll = ll;
         this.trof = trof;
     }
@@ -27,15 +24,12 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downy = event.getY();
-                System.out.println("нажала");
                 downx = event.getX();
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                System.out.println("отпустила");
                 if (downy != null) {
                     float upY = event.getY();
-                    float upX = event.getX();
                     float deltaY = downy - upY;
                     System.out.println(deltaY);
                     if (upY - downy > 0) {

@@ -21,7 +21,6 @@ public class QueryMuseumExhibitions {
     }
 
     public void onSuccess(int idMuseum) {
-
         exhibitionFacade.getExhibitionByMuseumId(idMuseum);
     }
 
@@ -30,7 +29,6 @@ public class QueryMuseumExhibitions {
         Toast.makeText(activity.getContext(),
                 "Ошибка удаления", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
-
     }
 
     public void onSuccessGetExhbtn(List<ExhibitionWithMuseumName> exhibitions) {
@@ -46,6 +44,5 @@ public class QueryMuseumExhibitions {
         exhibitionFacade = new ExhibitionFacadeImpl(museumDao, this);
         exhibitionFacade.getMuseumByLogin(login);
     }
-
 
 }

@@ -12,8 +12,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Objects;
-
 
 @Entity(foreignKeys = {
         @ForeignKey(entity = Museum.class, parentColumns = "id", childColumns = "idMuseum")
@@ -63,7 +61,6 @@ public class Exhibition {
                 firstDate.equals(that.firstDate);
 
     }
-
 
 
 }

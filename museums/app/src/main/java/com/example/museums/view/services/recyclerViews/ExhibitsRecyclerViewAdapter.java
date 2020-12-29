@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibitis;
-import com.example.museums.API.models.Exhibit;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibits;
 
 
 import java.util.List;
@@ -83,7 +82,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
         final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder, purchaseList, userId));
+        holder.itemView.setOnClickListener(new ClickListenerHolderExhibits(holder, purchaseList, userId));
         holder.image.setImageBitmap(purchaseList.photo);
         holder.textView.setText(purchaseList.name);
     }

@@ -55,9 +55,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
         args.putString(DESCRIPTION_KEY, description);
         args.putParcelable(IMAGE_KEY, image);
         args.putInt(USER_ID_KEY, userId);
-
         args.putInt(ID_EXHIBIT_KEY, id);
-
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -75,10 +73,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
             description = getArguments().getString(DESCRIPTION_KEY);
             image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
             userId = getArguments().getInt(USER_ID_KEY);
-
             getArguments().clear();
-
-
         }
     }
 
@@ -89,9 +84,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibit_view_page, container, false);
-
         initViews(rootView);
-
         getArgumentsFromBundle();
         setData();
         setDataLikes();
@@ -109,7 +102,7 @@ public class DetailedExhibitWithoutListeners extends Fragment implements ILike {
 
     private void initViews(View rootView) {
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_likes_text_view);
-share = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image_view);
+        share = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image_view);
         ll = rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
         view = rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
         like = rootView.findViewById(R.id.detailed_exhibit_like_btn);
@@ -127,7 +120,6 @@ share = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image
 
     private void setDataLikes() {
         queryGetLikes = new QueryGetLikes(this, this);
-
         if (userId != -1) {
             queryGetLikes.setData(userId, idExhibit, true);
             queryGetLikes.getCountLikes();
@@ -140,29 +132,25 @@ share = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image
 
     @SuppressLint("ClickableViewAccessibility")
     private void setListeners() {
-        if (userId != null && userId!=-1) {
+        if (userId != null && userId != -1) {
             like.setOnClickListener(new ClickListenerChangeColorLike(queryGetLikes));
         }
         getArguments().clear();
-        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(getActivity(), ll, true));
+        view.setOnTouchListener(new OnToucListenerScrollViewSwipeLeftRight(  ll, true));
         closeImageButton.setOnClickListener(v1 -> getActivity().onBackPressed());
-
-
-        share.setOnClickListener(new ClickListenerShareExhibit(getActivity(),createMessage() , image));
-
-
+        share.setOnClickListener(new ClickListenerShareExhibit(getActivity(), createMessage(), image));
     }
+
     private String createMessage() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(author + "     " + name + "\n");
         stringBuilder.append(date + "\n");
         stringBuilder.append(description + "\n");
         stringBuilder.append("@App \"Выставочный зал\" by Darya" + "\n");
-
         return stringBuilder.toString();
     }
-    public void setCountLikesTextView(String str) {
 
+    public void setCountLikesTextView(String str) {
         textViewCountLikes.setText(str);
     }
 

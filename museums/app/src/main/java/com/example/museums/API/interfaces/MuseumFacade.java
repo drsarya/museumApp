@@ -2,8 +2,6 @@ package com.example.museums.API.interfaces;
 
 import android.graphics.Bitmap;
 
-import com.example.museums.API.models.Museum;
-
 
 public interface MuseumFacade {
     /*GET*/
@@ -14,13 +12,13 @@ public interface MuseumFacade {
     void getMuseumIDByLogin(String login);
 
     void getMuseumInfoByLogin(String login);
-    void getMuseumInfoById(Integer id);
 
+    void getMuseumInfoById(Integer id);
 
 
     void getAllMuseums();
 
-    void getMuseumByLoginAndIdCode(String login, int id );
+    void getMuseumByLoginAndIdCode(String login, int id);
 
     /*INSERT*/
     void insertMuseum(String login, String name, String address);

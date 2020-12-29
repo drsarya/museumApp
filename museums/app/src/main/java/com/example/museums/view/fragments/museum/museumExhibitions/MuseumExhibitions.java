@@ -33,8 +33,9 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
     public static final String LOGIN_KEY_USER = "login_key";
     public String login;
-    private static String copySearch ="";
-private EditText searchText;
+    private static String copySearch = "";
+    private EditText searchText;
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
     @Override
@@ -66,7 +67,8 @@ private EditText searchText;
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-    private List<ExhibitionWithMuseumName> exhibitions = new ArrayList<>() ;
+
+    private List<ExhibitionWithMuseumName> exhibitions = new ArrayList<>();
 
     private QueryDeleteExhibition queryDeleteExhibition;
 
@@ -74,8 +76,6 @@ private EditText searchText;
         progressBar = rootView.findViewById(R.id.museum_exhibitions_progress_bar);
         recyclerView = rootView.findViewById(R.id.recycler_view_museum_exhibitions);
         QueryMuseumExhibitions queryMuseumExhibitions = new QueryMuseumExhibitions(this);
-
-
         queryDeleteExhibition = new QueryDeleteExhibition(this);
         recyclerView.setAdapter(adapter);
         searchText = rootView.findViewById(R.id.museum_exhibitions_search_exhibition);
@@ -93,31 +93,29 @@ private EditText searchText;
             return true;
         } else return false;
     }
+
     private void setListeners() {
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                copySearch="";
+                copySearch = "";
                 recyclerView.setVisibility(View.VISIBLE);
                 copySearch += s;
                 filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
-
     }
+
     private void filter(String text) {
         List<ExhibitionWithMuseumName> temp = new ArrayList();
-         for (ExhibitionWithMuseumName d : exhibitions) {
-            if (containsString(d.name, text)  ) {
+        for (ExhibitionWithMuseumName d : exhibitions) {
+            if (containsString(d.name, text)) {
                 temp.add(d);
             }
         }
@@ -126,9 +124,8 @@ private EditText searchText;
 
 
     public void updateAll(List<ExhibitionWithMuseumName> exhibitions) {
-
         this.exhibitions = exhibitions;
-         adapter.submitList(exhibitions);
+        adapter.submitList(exhibitions);
     }
 
     @Override

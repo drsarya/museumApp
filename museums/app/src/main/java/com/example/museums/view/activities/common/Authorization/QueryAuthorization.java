@@ -23,7 +23,6 @@ public class QueryAuthorization {
     private String login;
     private String password;
 
-
     public QueryAuthorization(Authorization context) {
         this.activity = context;
     }
@@ -55,7 +54,6 @@ public class QueryAuthorization {
 
     public void onSuccess(User user) {
         idUser = user.id;
-        System.out.println(user.id +"dddddddddddddddddddddddddddddddddddddddddd");
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         if (user.type) {
             activity.progressBar.setVisibility(View.GONE);
@@ -67,17 +65,20 @@ public class QueryAuthorization {
             museumFacade.getMuseumByLogin(user.login);
         }
     }
+
     public void onSuccessInsertAdmin() {
         activity.progressBar.setVisibility(View.GONE);
         Toast.makeText(activity.getApplicationContext(),
                 "Успешное добавление администратора", Toast.LENGTH_SHORT).show();
 
     }
+
     public void onErrorInsertAdmin() {
         Toast.makeText(activity.getApplicationContext(),
                 "ошибка добавления администратора", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
     }
+
     public void onError() {
         Toast.makeText(activity.getApplicationContext(),
                 "ошибка входа", Toast.LENGTH_SHORT).show();
@@ -85,19 +86,17 @@ public class QueryAuthorization {
     }
 
 
-    public void insertAdmin()  {
+    public void insertAdmin() {
 
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);
         String pass = "1111";
-
         userFacade.insertUser("1111", pass, true);
 
     }
 
     public void getQuery() {
-
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         userFacade = new UserFacadeImpl(memsDao, this);

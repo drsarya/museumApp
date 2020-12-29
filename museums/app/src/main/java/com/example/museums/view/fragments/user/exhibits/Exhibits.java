@@ -37,7 +37,7 @@ public class Exhibits extends Fragment {
     private ImageView closeFilter;
     private Integer userId;
     private EditText searchEditText;
-    private static String copySearch ="";
+    private static String copySearch = "";
 
 
     public static Exhibits newInstance(Integer idUser) {
@@ -62,7 +62,6 @@ public class Exhibits extends Fragment {
                 inflater.inflate(R.layout.fragment_main_exhibits, container, false);
         getArgumentsFromBundle();
         initViews(rootView);
-
         setListeners();
         return rootView;
     }
@@ -86,13 +85,11 @@ public class Exhibits extends Fragment {
         searchEditText = rootView.findViewById(R.id.main_exhibits_search_edit_text);
         mAdapter.setUserId(userId);
         QueryExhibits queryExhibits = new QueryExhibits(this);
-
         if (copySearch.isEmpty()) {
             queryExhibits.getQuery();
         } else {
             filter(copySearch);
         }
-
         queryAllMuseumsHV = new QueryAllMuseumsHV(this);
         queryAllMuseumsHV.getQuery();
     }
@@ -105,7 +102,6 @@ public class Exhibits extends Fragment {
     }
 
     List<NewExhibitModel> exhibitsByMuseum = new ArrayList<>();
-
     List<NewExhibitModel> newExhibitModels = new ArrayList<>();
     List<Museum> modelsMuseum = new ArrayList<>();
 
@@ -129,10 +125,9 @@ public class Exhibits extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                copySearch="";
+                copySearch = "";
                 recyclerView.setVisibility(View.VISIBLE);
                 copySearch += s;
                 filter(s.toString());
@@ -143,7 +138,7 @@ public class Exhibits extends Fragment {
 
             }
         });
-        closeFilter.setOnClickListener(v->refreshAllList(newExhibitModels));
+        closeFilter.setOnClickListener(v -> refreshAllList(newExhibitModels));
     }
 
     private boolean containsString(String fullName, String currText) {

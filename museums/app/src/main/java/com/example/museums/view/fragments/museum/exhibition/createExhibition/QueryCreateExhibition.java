@@ -22,7 +22,6 @@ public class QueryCreateExhibition {
     }
 
     public void onSuccess(int id) {
-        System.out.println("sdsdsdsdssssssssssssss");
         exhibition.idMuseum = Integer.toString(id);
         Exhibition exhibition2 = new Exhibition();
         if (exhibition.image != null) {
@@ -45,7 +44,6 @@ public class QueryCreateExhibition {
     }
 
     public void onErrorInsertExhbtn() {
-
         Toast.makeText(activity.getContext(),
                 "Ошибка обновления выставки", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);
@@ -54,7 +52,6 @@ public class QueryCreateExhibition {
 
 
     public void onSuccessInsertExhbtn(Long id) {
-
         Toast.makeText(activity.getContext(),
                 "Успешно", Toast.LENGTH_SHORT).show();
         activity.progressBar.setVisibility(View.GONE);

@@ -26,19 +26,16 @@ import java.util.List;
 public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecyclerViewAdapter.MuseumsViewHolder> {
     public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+
         public MuseumsViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.element_of_list_museum);
         }
     }
 
-
-
-
     private AllMuseums allMuseums;
 
-    public MuseumsRecyclerViewAdapter(  AllMuseums allMuseums) {
-
+    public MuseumsRecyclerViewAdapter(AllMuseums allMuseums) {
         this.allMuseums = allMuseums;
     }
 
@@ -60,7 +57,6 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
         holder.textView.setText(purchaseList.nameMuseum);
     }
 
-
     private AsyncListDiffer<Museum> differ = new AsyncListDiffer<Museum>(this, DIFF_CALLBACK);
 
     private static final DiffUtil.ItemCallback<Museum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Museum>() {
@@ -76,6 +72,7 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
             return oldProduct.equals(newProduct);
         }
     };
+
     public void submitList(List<Museum> products) {
         differ.submitList(products);
     }

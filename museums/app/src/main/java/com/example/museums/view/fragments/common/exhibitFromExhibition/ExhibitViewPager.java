@@ -1,26 +1,19 @@
 package com.example.museums.view.fragments.common.exhibitFromExhibition;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.API.models.User;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitViewPagerAdapter;
-import com.example.museums.API.models.Exhibit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExhibitViewPager extends Fragment {
@@ -32,13 +25,10 @@ public class ExhibitViewPager extends Fragment {
     public ExhibitViewPager(List<NewExhibitModel> mDataset, Integer userId) {
         this.mDataset = mDataset;
         this.userId = userId;
-
     }
 
     public void setNewData(List<NewExhibitModel> mDataset) {
-
         pagerAdapter.setNewData(mDataset);
-
     }
 
     @Nullable
@@ -59,7 +49,6 @@ public class ExhibitViewPager extends Fragment {
 
     private void initViews(View rootView) {
         pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset, userId);
-
         mPager = rootView.findViewById(R.id.exhibits_from_exhbtn_pager);
         mPager.setAdapter(pagerAdapter);
     }

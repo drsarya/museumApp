@@ -38,16 +38,14 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
     public TagsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_tags, parent, false);
-
         HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder vh = new HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder(v);
         return vh;
     }
 
 
-
     private Exhibits exhibits;
 
-    public HorizontalMuseumsRecyclerViewAdapter(  Exhibits exhibits) {
+    public HorizontalMuseumsRecyclerViewAdapter(Exhibits exhibits) {
 
         this.exhibits = exhibits;
     }
@@ -55,14 +53,14 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
 
     @Override
     public void onBindViewHolder(@NonNull TagsViewHolder holder, int position) {
-         Museum purchaseList = differ.getCurrentList().get(position);
+        Museum purchaseList = differ.getCurrentList().get(position);
 
-        holder.textView.setText(purchaseList.nameMuseum );
+        holder.textView.setText(purchaseList.nameMuseum);
         holder.itemView.setOnClickListener(v -> {
             exhibits.clickHorizontalViewHolder(purchaseList.id);
-
         });
     }
+
     private AsyncListDiffer<Museum> differ = new AsyncListDiffer<Museum>(this, DIFF_CALLBACK);
 
     private static final DiffUtil.ItemCallback<Museum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Museum>() {
@@ -70,7 +68,6 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
         public boolean areItemsTheSame(@NonNull Museum oldProduct, @NonNull Museum newProduct) {
             return oldProduct.id.equals(newProduct.id);
         }
-
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -78,6 +75,7 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
             return oldProduct.equals(newProduct);
         }
     };
+
     public void submitList(List<Museum> products) {
         differ.submitList(products);
     }
@@ -86,7 +84,6 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
-
 
 
 }

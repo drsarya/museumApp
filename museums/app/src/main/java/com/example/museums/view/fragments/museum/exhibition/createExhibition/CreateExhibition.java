@@ -39,7 +39,6 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class CreateExhibition extends Fragment {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private NewExhibitsRecyclerViewAdapter mAdapter;
     public static final String LOGIN_KEY_USER = "login_key";
     private static String login;
     private Bitmap bitmap;
@@ -123,7 +122,6 @@ public class CreateExhibition extends Fragment {
         if (cacheManager.getBitmapFromMemCache("newExhibition") != null) {
             currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
         }
-
     }
 
 
@@ -132,11 +130,9 @@ public class CreateExhibition extends Fragment {
     private void setListeners() {
         hideDescriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTFB));
         onlineCheckBox.setOnCheckedChangeListener((button, state) -> {
-
             if (state) {
                 dateOfStartTFB.setVisibility(View.GONE);
                 dateOfEndTFB.setVisibility(View.GONE);
-
             } else {
                 dateOfStartTFB.setVisibility(View.VISIBLE);
                 dateOfEndTFB.setVisibility(View.VISIBLE);
@@ -149,7 +145,6 @@ public class CreateExhibition extends Fragment {
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
         createExhibitionBtn.setOnClickListener(v -> {
-
             if (currImageImageView.getDrawable() != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
                     && !nameET.getText().toString().isEmpty()
                     && !descriptionET.getText().toString().isEmpty()

@@ -53,7 +53,6 @@ public class UserTab extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.menu_user_exhibits:
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
                     ft.replace(R.id.container_tab_user, exhibits)
                             .addToBackStack(Exhibits.class.toString())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
@@ -61,7 +60,6 @@ public class UserTab extends AppCompatActivity {
                     break;
                 case R.id.menu_user_exhibitions:
                     final FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
-
                     ft1.replace(R.id.container_tab_user, exhibitions)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(Exhibitions.class.toString()).commit();
@@ -69,8 +67,6 @@ public class UserTab extends AppCompatActivity {
                     break;
                 case R.id.menu_user_home:
                     final FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-
-
                     ft2.replace(R.id.container_tab_user, likedExhbViewPager)
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(LikedExhbViewPager.class.toString()).commit();
@@ -85,7 +81,6 @@ public class UserTab extends AppCompatActivity {
         if (!currState) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             currState = true;
-
             ft.replace(R.id.container_tab_user, exhibits).addToBackStack(Exhibits.class.toString())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit();
             menuTab.getMenu().findItem(R.id.menu_user_exhibits).setChecked(true);

@@ -16,36 +16,30 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
     private MuseumDao museumDao;
-    private QueryCreateExhibition queryCreateExhibition;
     private QueryInsertExhibit queryInsertExhibit;
 
     private QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition;
-    public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao) {
-        this.museumDao = museumDao;
-    }
 
-    public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao, QueryCreateExhibition queryCreateExhibition) {
-        this.museumDao = museumDao;
-        this.queryCreateExhibition = queryCreateExhibition;
-    }
     public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao, QueryGetExhibitsFromExhibition queryGetExhibitsFromExhibition) {
         this.museumDao = museumDao;
         this.queryGetExhibitsFromExhibition = queryGetExhibitsFromExhibition;
     }
+
     public ExhbtToExhbtnFacadeImpl(MuseumDao museumDao, QueryInsertExhibit queryInsertExhibit) {
         this.museumDao = museumDao;
         this.queryInsertExhibit = queryInsertExhibit;
     }
+
     @SuppressLint("CheckResult")
     @Override
     public void getExhibitsByExhdtnId(String ixhbtnId) {
 
-       museumDao.getExhibitsByExhibitionId(ixhbtnId)
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(museums -> queryGetExhibitsFromExhibition.onSuccess(museums));;
-     }
-
+        museumDao.getExhibitsByExhibitionId(ixhbtnId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(museums -> queryGetExhibitsFromExhibition.onSuccess(museums));
+        ;
+    }
 
 
     @Override
@@ -53,16 +47,14 @@ public class ExhbtToExhbtnFacadeImpl implements ExhbtToExbtnFacade {
         museumDao.insertExhbToExbtn(exhbtns)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Long >() {
+                .subscribe(new DisposableSingleObserver<Long>() {
                     @Override
-                    public void onSuccess(@NonNull Long  listIds) {
+                    public void onSuccess(@NonNull Long listIds) {
                         queryInsertExhibit.onSuccessInsertExhbtToExhbn();
                     }
-
                     @Override
                     public void onError(@NonNull Throwable e) {
-                         queryInsertExhibit.onErrorInsertExhbtToExhbn();
-
+                        queryInsertExhibit.onErrorInsertExhbtToExhbn();
                     }
                 })
         ;

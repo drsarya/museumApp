@@ -15,15 +15,15 @@ import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 
 
-public class ClickListenerHolderExhibitis implements View.OnClickListener {
-    public ClickListenerHolderExhibitis(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder, NewExhibitModel model, Integer userId) {
+public class ClickListenerHolderExhibits implements View.OnClickListener {
+    public ClickListenerHolderExhibits(ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder, NewExhibitModel model, Integer userId) {
         this.holder = holder;
         this.model = model;
         this.userId = userId;
     }
-    private  NewExhibitModel model;
-    private  Integer userId;
 
+    private NewExhibitModel model;
+    private Integer userId;
     private CountDownTimer ctimte = null;
     private MethodsWithFragment mth = new MethodsWithFragment();
     private ExhibitsRecyclerViewAdapter.ExhibitsViewHolder holder;
@@ -33,10 +33,10 @@ public class ClickListenerHolderExhibitis implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (holder.textView.getVisibility() == View.VISIBLE) {
-            System.out.println(userId +"userid");
             Fragment myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, userId, model.photo,
-                    model.name, model.author, model.dateOfCreate, model.description);;
-            mth.replaceFragment(myFragment,   (AppCompatActivity) v.getContext());
+                    model.name, model.author, model.dateOfCreate, model.description);
+            ;
+            mth.replaceFragment(myFragment, (AppCompatActivity) v.getContext());
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, holder.textView);
             ctimte.start();

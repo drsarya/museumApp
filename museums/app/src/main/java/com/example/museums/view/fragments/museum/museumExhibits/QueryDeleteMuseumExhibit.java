@@ -1,6 +1,5 @@
 package com.example.museums.view.fragments.museum.museumExhibits;
 
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;

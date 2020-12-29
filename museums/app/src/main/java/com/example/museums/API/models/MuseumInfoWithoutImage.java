@@ -1,8 +1,6 @@
 package com.example.museums.API.models;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.PrimaryKey;
 
 public class MuseumInfoWithoutImage {
     @ColumnInfo(name = "id")

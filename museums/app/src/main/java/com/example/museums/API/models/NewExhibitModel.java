@@ -3,7 +3,6 @@ package com.example.museums.API.models;
 import android.graphics.Bitmap;
 import android.os.Build;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
@@ -36,8 +35,6 @@ public class NewExhibitModel {
     public String dateOfCreate;
 
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean equals(Object o) {
@@ -49,17 +46,15 @@ public class NewExhibitModel {
                 idAuthor.equals(that.idAuthor) &&
                 name.equals(that.name) &&
                 description.equals(that.description) &&
-                dateOfCreate.equals(that.dateOfCreate)  ;
+                dateOfCreate.equals(that.dateOfCreate);
     }
-
-
 
 
     public void setIdAuthor(int idAuthor) {
         this.idAuthor = idAuthor;
     }
 
-    public NewExhibitModel(Integer exhibitId, String dateOfCreate,   String author, String name, Bitmap photo, String description) {
+    public NewExhibitModel(Integer exhibitId, String dateOfCreate, String author, String name, Bitmap photo, String description) {
         this.dateOfCreate = dateOfCreate;
         this.author = author;
         this.name = name;
@@ -73,7 +68,6 @@ public class NewExhibitModel {
     public String toString() {
         return "NewExhibitModel{" +
                 "dateOfCreate='" + dateOfCreate + '\'' +
-
                 ", id='" + exhibitId + '\'' +
                 ", author='" + author + '\'' +
                 ", idAuthor=" + idAuthor +

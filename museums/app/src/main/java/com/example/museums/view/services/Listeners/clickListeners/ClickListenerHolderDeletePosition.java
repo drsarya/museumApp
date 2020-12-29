@@ -44,7 +44,6 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AboutDialog);
         builder.setTitle("Удалить?")
-
                 .setMessage(message)
                 .setPositiveButton("да", (dialog, id) -> {
                     sendMessageToCountDownTimer();
@@ -60,7 +59,6 @@ public class ClickListenerHolderDeletePosition implements View.OnClickListener {
     }
 
     private void updateRecyclerView() {
-        System.out.println(id);
         iDeletePosition.deletePosition(position, id);
     }
 }

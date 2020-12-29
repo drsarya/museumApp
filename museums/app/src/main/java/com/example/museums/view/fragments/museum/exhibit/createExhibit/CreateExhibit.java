@@ -44,7 +44,7 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class CreateExhibit extends Fragment {
     private ScrollView view;
-    private EditText nameEditText, authorEditText, dateOfCreateEditText,    descriptionEditText;
+    private EditText nameEditText, authorEditText, dateOfCreateEditText, descriptionEditText;
     private TextFieldBoxes nameTextFieldBoxes, authorTextFieldBoxes, dateOfCreateTextFieldBoxes, descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
@@ -97,22 +97,20 @@ public class CreateExhibit extends Fragment {
         nameEditText = rootView.findViewById(R.id.create_exhibit_name_edit_text);
         authorEditText = rootView.findViewById(R.id.create_exhibit_author_edit_text);
         dateOfCreateEditText = rootView.findViewById(R.id.create_exhibit_date_of_create_edit_text);
-         descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
+        descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
         nameTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_name_text_field_box);
         authorTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_author_text_field_box);
         dateOfCreateTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_date_of_create_text_field_box);
-         descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
+        descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
         choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_text_view);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         authorRecyclerView.setVisibility(View.GONE);
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
-
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
 
-        //Получить список авторов
         QueryAuthor queryAuthor = new QueryAuthor(this);
         queryAuthor.getQuery();
     }
@@ -150,13 +148,11 @@ public class CreateExhibit extends Fragment {
                 }
                 filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
-
         nameEditText.addTextChangedListener(new TextWatcherEmptyField(nameTextFieldBoxes));
         descriptionEditText.addTextChangedListener(new TextWatcherEmptyField(descriptionTextFieldBoxes));
         dateOfCreateEditText.addTextChangedListener(new TextWatcherEmptyField(dateOfCreateTextFieldBoxes));
@@ -165,21 +161,19 @@ public class CreateExhibit extends Fragment {
                     && !dateOfCreateTextFieldBoxes.isOnError()
                     && !nameEditText.getText().toString().isEmpty() && !authorEditText.getText().toString().isEmpty()
                     && !descriptionEditText.getText().toString().isEmpty() && !dateOfCreateEditText.getText().toString().isEmpty()
-                    ) {
+            ) {
                 BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
                 NewExhibitModel ex = new NewExhibitModel(null,
                         dateOfCreateEditText.getText().toString(),
-                         authorEditText.getText().toString(), nameEditText.getText().toString()
+                        authorEditText.getText().toString(), nameEditText.getText().toString()
                         , bitmap, descriptionEditText.getText().toString()
                 );
-
                 hideKeyboard();
                 authorRecyclerView.setVisibility(View.GONE);
                 QueryInsertExhibit queryAddExhibit = new QueryInsertExhibit(this);
                 queryAddExhibit.getQuery(ex, exhibitionId);
-
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();

@@ -67,11 +67,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
         final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
-//        if(museumExhibits.getBitmapFromMemCache(purchaseList.exhibitId+purchaseList.name)!=null){
-//            holder.mainImage.setImageBitmap(museumExhibits.getBitmapFromMemCache(purchaseList.exhibitId.toString()+purchaseList.name));
-//        }
         holder.mainImage.setImageBitmap(purchaseList.photo);
-
         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
@@ -89,7 +85,6 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
             return oldProduct.exhibitId.equals(newProduct.exhibitId);
         }
-
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override

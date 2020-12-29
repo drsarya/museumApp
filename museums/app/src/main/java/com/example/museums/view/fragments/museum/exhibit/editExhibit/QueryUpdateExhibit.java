@@ -24,18 +24,16 @@ public class QueryUpdateExhibit {
     public QueryUpdateExhibit(EditExhibit exhibit, Fragment museumExhibits) {
         this.activity = exhibit;
         this.activity = museumExhibits;
-
     }
 
     public void onErrorUpdate() {
         Toast.makeText(activity.getContext(), "Ошибка обновления экпоната", Toast.LENGTH_SHORT).show();
-
     }
 
 
     public void onSuccessUpdate(int count) {
         Toast.makeText(activity.getContext(), "Успешное обновление экпоната", Toast.LENGTH_SHORT).show();
-        if (  activity.getClass().toString().equals(MuseumExhibits.class.toString())  ) {
+        if (activity.getClass().toString().equals(MuseumExhibits.class.toString())) {
             MuseumExhibits m = (MuseumExhibits) activity;
             m.refreshAllList();
         } else {
@@ -48,7 +46,6 @@ public class QueryUpdateExhibit {
         newExhibitModel.setIdAuthor(id);
         Exhibit exhibit = new Exhibit();
         exhibit.authorId = newExhibitModel.idAuthor;
-       // exhibit.tags = newExhibitModel.tags;
         Bitmap bmp2 = newExhibitModel.photo.copy(newExhibitModel.photo.getConfig(), true);
         exhibit.photo = bmp2;
         exhibit.id = this.id;
@@ -56,8 +53,6 @@ public class QueryUpdateExhibit {
         exhibit.name = newExhibitModel.name;
         exhibit.description = newExhibitModel.description;
         exhibitFacade.updateExhibit(exhibit);
-
-
     }
 
     private int id;

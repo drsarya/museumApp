@@ -39,9 +39,7 @@ public class MainInfoMuseum extends Fragment {
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-
             idMuseum = getArguments().getInt(ID_MUSEUM);
-
         }
     }
 
@@ -52,7 +50,6 @@ public class MainInfoMuseum extends Fragment {
         View rootView =
                 inflater.inflate(R.layout.frgment_main_info_museum, container, false);
         initViews(rootView);
-
         getArgumentsFromBundle();
         QueryMuseumInfo q = new QueryMuseumInfo(this);
         q.getQuery(idMuseum);
@@ -91,7 +88,5 @@ public class MainInfoMuseum extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-
-
     }
 }

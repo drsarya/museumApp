@@ -21,12 +21,13 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<NewExhibitModel> mDataset;
 
-    public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<NewExhibitModel> mDataset,Integer userId ) {
+    public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<NewExhibitModel> mDataset, Integer userId) {
         super(fm);
         this.mDataset = mDataset;
         this.userId = userId;
 
     }
+
     private Integer userId;
 
     @SuppressLint("ResourceAsColor")
@@ -48,7 +49,7 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         super.destroyItem(container, position, object);
-        System.out.println( mDataset.get(position).name);
+        System.out.println(mDataset.get(position).name);
     }
 
     @Override

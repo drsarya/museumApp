@@ -11,8 +11,6 @@ import com.example.museums.view.fragments.common.likes.QueryGetLikes;
 public class ClickListenerChangeColorLike implements View.OnClickListener {
     public ClickListenerChangeColorLike(QueryGetLikes queryGetLikes) {
         this.queryGetLikes = queryGetLikes;
-
-
     }
 
     private QueryGetLikes queryGetLikes;

@@ -22,17 +22,13 @@ public class DialogLogOut extends DialogFragment {
         builder.setTitle("Выйти?")
                 .setMessage("Вы точно хотите выйти")
                 .setPositiveButton("да", (dialog, id) -> {
-                    while (getChildFragmentManager().getBackStackEntryCount() > 0){
+                    while (getChildFragmentManager().getBackStackEntryCount() > 0) {
                         getChildFragmentManager().popBackStack();
-
-
                     }
                     Intent intent1 = new Intent(getActivity(), Authorization.class);
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
                     startActivity(intent1);
-                     // Закрываем окно
-                      dialog.cancel();
+                    dialog.cancel();
                 }).setNegativeButton("нет", (v, id) -> v.cancel());
         return builder.create();
     }

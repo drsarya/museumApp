@@ -32,13 +32,11 @@ public class ClickListenerHolderEditExhibit implements View.OnClickListener {
     public void onClick(View v) {
 
         EditExhibit myFragment = new EditExhibit().newInstance(model.exhibitId, model.dateOfCreate
-                , model.author,  model.name, model.photo, model.description, position);
+                , model.author, model.name, model.photo, model.description, position);
         if (fragment.getClass().toString().equals(MuseumExhibits.class.toString())) {
             myFragment.setTargetFragment((MuseumExhibits) fragment, 0);
         } else {
-
             myFragment.setTargetFragment((EditExhibtion) fragment, 0);
-
         }
         MuseumTab activity = (MuseumTab) v.getContext();
         mth.replaceFragment(myFragment, activity);

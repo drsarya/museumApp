@@ -73,7 +73,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         mAdapter = new MuseumsRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
         imbtn = getActivity().findViewById(R.id.admin_all_museums_menu_popup);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -94,13 +93,10 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
-
-
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 recyclerView.setVisibility(View.VISIBLE);
@@ -145,8 +141,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
             default:
                 return false;
         }
-
-
     }
 
     private void setListMuseum() {

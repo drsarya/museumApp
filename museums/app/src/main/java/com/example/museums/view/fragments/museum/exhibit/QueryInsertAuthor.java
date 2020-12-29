@@ -1,15 +1,9 @@
 package com.example.museums.view.fragments.museum.exhibit;
 
-import android.graphics.Bitmap;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
-import com.example.museums.API.AppDelegate;
 import com.example.museums.API.MuseumDao;
 import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.models.Exhibit;
 import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
@@ -18,34 +12,28 @@ public class QueryInsertAuthor {
 
     private AuthorFacadeImpl authorFacade;
     private MuseumDao museumDao;
-
     private QueryUpdateExhibit queryUpdateExhibit;
     private QueryInsertExhibit queryInsertExhibit;
 
     public QueryInsertAuthor(MuseumDao museumDao, QueryUpdateExhibit queryUpdateExhibit) {
         this.queryUpdateExhibit = queryUpdateExhibit;
         this.museumDao = museumDao;
-
     }
 
     public QueryInsertAuthor(MuseumDao museumDao, QueryInsertExhibit queryInsertExhibit) {
         this.museumDao = museumDao;
         this.queryInsertExhibit = queryInsertExhibit;
-
     }
 
     public void onSuccess(Integer id) {
         if (id != null) {
             if (queryInsertExhibit != null) {
                 queryInsertExhibit.onSuccessInsertAuthor(id.intValue());
-
             } else {
                 queryUpdateExhibit.onSuccessInsertAuthor(id.intValue());
             }
         } else {
-
             authorFacade.insertAuthor(authorName);
-
         }
     }
 
@@ -67,6 +55,5 @@ public class QueryInsertAuthor {
         authorName = model.author;
         authorFacade = new AuthorFacadeImpl(museumDao, this);
         authorFacade.getAuthorByName(model.author);
-
     }
 }

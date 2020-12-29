@@ -33,7 +33,6 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
         if (view.getVisibility() == View.VISIBLE) {
             myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, userId, model.photo,
                     model.name, model.author, model.dateOfCreate, model.description);
-
             MuseumTab activity = (MuseumTab) v.getContext();
             mth.replaceFragment(myFragment, activity);
         } else {

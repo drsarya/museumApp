@@ -3,11 +3,10 @@ package com.example.museums.API.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "like",   indices = {@Index(value = {"id_user_fk", "idExhb", "type"}, unique = true)})
+@Entity(tableName = "like", indices = {@Index(value = {"id_user_fk", "idExhb", "type"}, unique = true)})
 public class Like {
 
     @ColumnInfo(name = "id")

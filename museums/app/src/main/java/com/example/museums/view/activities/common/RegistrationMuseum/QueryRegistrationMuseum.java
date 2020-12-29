@@ -34,21 +34,18 @@ public class QueryRegistrationMuseum {
 
     public void updateMuseumPassword() {
         UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
-
-        userFacade.updateUserPassword(login,null, password);
+        userFacade.updateUserPassword(login, null, password);
 
     }
 
     private String password, login;
 
-    public void getQuery(String login, String password ,int idCode)  {
+    public void getQuery(String login, String password, int idCode) {
         this.login = login;
-
         memsDao = ((AppDelegate) activity.getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
         museumFacade = new MuseumFacadeImpl(memsDao, this);
         this.password = password;
-
-        museumFacade.getMuseumByLoginAndIdCode(login, idCode );
+        museumFacade.getMuseumByLoginAndIdCode(login, idCode);
     }
 }

@@ -20,7 +20,6 @@ public class QueryLikedExhibits {
     }
 
     public void onSuccess(List<NewExhibitModel> exhibitModels) {
-        System.out.println(exhibitModels.size());
         activity.refreshAllList(exhibitModels);
     }
 
@@ -31,7 +30,6 @@ public class QueryLikedExhibits {
     }
 
     public void getQuery(Integer userId) {
-        System.out.println(userId+"iduser");
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         exhibitFacade = new LikefacadeImpl(museumDao, this);
         exhibitFacade.getExhibitsLikedByUser(userId);

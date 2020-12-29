@@ -43,22 +43,20 @@ public class DialogMuseumCreated extends DialogFragment {
         return rootView;
     }
 
-    private String createString(){
-
-        StringBuilder str  =new StringBuilder();
+    private String createString() {
+        StringBuilder str = new StringBuilder();
         str.append("Поздравляем с упешной регистрацией!\n");
         str.append("Используйте следующие данные для регистрации музея: \n");
-        str.append("Логин: "+loginFromBundle+" \n");
-        str.append("Идентификационный код: "+codeFromBundle+" \n");
+        str.append("Логин: " + loginFromBundle + " \n");
+        str.append("Идентификационный код: " + codeFromBundle + " \n");
         str.append("@App \"Выставочный зал\" by Darya" + "\n");
         return str.toString();
     }
 
     private void setListeners() {
         share.setOnClickListener(
-            new ClickListenerShareExhibit(this.getActivity(), createString())
-
-         );
+                new ClickListenerShareExhibit(this.getActivity(), createString())
+        );
     }
 
     public void setData() {

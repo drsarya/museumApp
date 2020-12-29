@@ -99,8 +99,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
         args.putInt(ID_EXHIBITION_KEY, id);
         args.putString(ID_MUSEUM_KEY, museumId);
         args.putParcelable(IMAGE_KEY, image);
-
-
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -115,7 +113,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
             if (getArguments().getString(ID_MUSEUM_KEY) != null) {
                 museumId = getArguments().getString(ID_MUSEUM_KEY);
             }
-
             if (getArguments().getString(DESCRIPTION_KEY) != null) {
                 String name = getArguments().getString(NAME_KEY);
                 nameET.setText(name);
@@ -127,9 +124,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
                 }
                 descriptionET.setText(getArguments().getString(DESCRIPTION_KEY));
                 idExhibition = getArguments().getInt(ID_EXHIBITION_KEY);
-
-
-                System.out.println("не из кэша");
                 Bitmap b = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
                 bitmap = b.copy(b.getConfig(), true);
                 currImageImageView.setImageBitmap(bitmap);
@@ -181,7 +175,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                         cacheManager.deleteItem(Integer.toString(idExhibition) + "  ");
                         cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
-
                         currImageImageView.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -199,7 +192,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
                 inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
         initViews(rootView);
         getArgumentsFromBundle();
-
         setListeners();
         return rootView;
     }
@@ -216,11 +208,9 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
             mth.replaceFragment(myFragment, activity);
         });
         onlineCheckBox.setOnCheckedChangeListener((button, state) -> {
-
             if (state) {
                 dateOfStartTFB.setVisibility(View.GONE);
                 dateOfEndTFB.setVisibility(View.GONE);
-
             } else {
                 dateOfStartTFB.setVisibility(View.VISIBLE);
                 dateOfEndTFB.setVisibility(View.VISIBLE);
@@ -295,7 +285,6 @@ public class EditExhibtion extends Fragment implements IDeletePosition, IUpdateL
     @Override
     public void deletePosition(int position, Integer id) {
         if (id != null) {
-            System.out.println("delete");
             queryDeleteMuseumExhibit.getQuery(id);
             exhibits.remove(position);
             mAdapter.notifyItemRemoved(position);

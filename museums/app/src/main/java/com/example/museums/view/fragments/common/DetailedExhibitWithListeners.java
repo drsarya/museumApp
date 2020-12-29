@@ -93,7 +93,6 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
             image = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
             idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
             userId = getArguments().getInt(USER_ID_KEY);
-
         }
     }
 
@@ -157,14 +156,11 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
         }
         getArguments().clear();
         view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
-
-
-        shareExhibit.setOnClickListener(new ClickListenerShareExhibit(getActivity(),createMessage() , image));
+        shareExhibit.setOnClickListener(new ClickListenerShareExhibit(getActivity(), createMessage(), image));
     }
 
 
     public void setCountLikesTextView(String str) {
-
         textViewCountLikes.setText(str);
     }
 
@@ -177,17 +173,5 @@ public class DetailedExhibitWithListeners extends Fragment implements ILike {
         state = false;
         like.setColorFilter(getActivity().getResources().getColor(R.color.brown));
     }
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        System.out.println("разрушение"+ idExhibit);
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        System.out.println("разрушение2"+ idExhibit);
-//
-//
-//    }
+
 }

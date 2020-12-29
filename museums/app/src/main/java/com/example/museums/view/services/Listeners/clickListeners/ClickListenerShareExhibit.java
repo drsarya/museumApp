@@ -22,14 +22,14 @@ public class ClickListenerShareExhibit implements View.OnClickListener {
     private String newExhibitModel;
     private Bitmap image;
 
-    public ClickListenerShareExhibit(Activity actibity, String newExhibitModel, Bitmap image) {
-        this.actibity = actibity;
+    public ClickListenerShareExhibit(Activity activity, String newExhibitModel, Bitmap image) {
+        this.actibity = activity;
         this.newExhibitModel = newExhibitModel;
         this.image = image;
     }
 
-    public ClickListenerShareExhibit(Activity actibity, String newExhibitModel) {
-        this.actibity = actibity;
+    public ClickListenerShareExhibit(Activity activity, String newExhibitModel) {
+        this.actibity = activity;
         this.newExhibitModel = newExhibitModel;
 
     }
@@ -41,7 +41,7 @@ public class ClickListenerShareExhibit implements View.OnClickListener {
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, newExhibitModel);
         if (image != null) {
-            String bitmapPath = MediaStore.Images.Media.insertImage(actibity.getContentResolver(), image,  "IMG_" + Calendar.getInstance().getTime(), null   );
+            String bitmapPath = MediaStore.Images.Media.insertImage(actibity.getContentResolver(), image, "IMG_" + Calendar.getInstance().getTime(), null);
             Uri bitmapUri = Uri.parse(bitmapPath);
             sendIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
             sendIntent.setType("image/jpeg");

@@ -40,7 +40,6 @@ public class OnToucLlistenerScrollViewSwipeLeftRightBack implements View.OnTouch
                     float deltaX = downx - upX;
                     float deltaY = downy - upY;
                     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 250) {
-
                         activity.onBackPressed();
                     } else {
                         if (trof) {

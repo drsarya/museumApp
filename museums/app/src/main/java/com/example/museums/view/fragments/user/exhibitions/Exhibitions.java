@@ -26,7 +26,7 @@ public class Exhibitions extends Fragment {
     public static final String LOGIN_KEY_USER = "login_key";
     private Integer userId;
     private EditText searchEditText;
-    private static String copySearch ="";
+    private static String copySearch = "";
 
     @Nullable
     @Override
@@ -59,7 +59,6 @@ public class Exhibitions extends Fragment {
         recyclerView.setAdapter(mAdapter);
         mAdapter.setUserId(userId);
         QueryExhibitions queryExhibitions = new QueryExhibitions(this);
-
         if (copySearch.isEmpty()) {
             queryExhibitions.getQuery();
         } else {
@@ -91,12 +90,11 @@ public class Exhibitions extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                copySearch="";
+                copySearch = "";
                 recyclerView.setVisibility(View.VISIBLE);
                 copySearch += s;
                 filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 

@@ -11,8 +11,6 @@ import com.example.museums.view.fragments.user.likedExhibits.QueryLikedExhibitio
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -23,9 +21,6 @@ public class LikefacadeImpl implements LikeFacade {
     private QueryLikedExhibits queryLikedExhibits;
     private QueryLikedExhibitions queryLikedExhibitions;
 
-    public LikefacadeImpl(MuseumDao museumDao) {
-        this.museumDao = museumDao;
-    }
 
     public LikefacadeImpl(MuseumDao museumDao, QueryGetLikes queryGetLikes) {
         this.museumDao = museumDao;
@@ -84,7 +79,6 @@ public class LikefacadeImpl implements LikeFacade {
 
     @Override
     public void deleteLikesByExhbtId(Integer iduser, String idExhb, boolean type) {
-
         museumDao.deleteLikesByExhbtId(iduser, idExhb, type).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Integer>() {
@@ -104,7 +98,6 @@ public class LikefacadeImpl implements LikeFacade {
     @Override
     public void insertLike(Integer iduser, String idExhb, boolean type) {
         Like like = new Like();
-        System.out.println(iduser+"idddddddddddddddddddddddddddddddddddddddddddd");
         like.idUserFk = iduser;
         like.idExhb = idExhb;
         like.type = type;
@@ -116,15 +109,11 @@ public class LikefacadeImpl implements LikeFacade {
                     public void onSuccess(@NonNull Long aLong) {
                         queryGetLikes.getCountLikes();
                         queryGetLikes.setLike();
-                        System.out.println("insert");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         queryGetLikes.deleteLike();
-                        System.out.println("delete");
-                        System.out.println(e.toString());
-
                     }
                 });
     }

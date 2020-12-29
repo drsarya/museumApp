@@ -16,17 +16,20 @@ public class QueryAllMuseumsHV {
     private Exhibits activity;
     private MuseumFacadeImpl museumFacade;
     private MuseumDao museumDao;
-private ExhibitFacadeImpl exhibitFacade;
+    private ExhibitFacadeImpl exhibitFacade;
+
     public QueryAllMuseumsHV(Exhibits museumExhibits) {
         this.activity = museumExhibits;
     }
 
     public void onSuccess(List<Museum> listM) {
-         activity.refreshHorizontalRecView(listM);
+        activity.refreshHorizontalRecView(listM);
     }
+
     public void onSuccessGetMuseumExhibits(List<NewExhibitModel> listM) {
         activity.setMuseumExhibits(listM);
     }
+
     public void onError() {
         Toast.makeText(activity.getContext(),
                 "Ошибка получения данных", Toast.LENGTH_SHORT).show();
@@ -35,11 +38,12 @@ private ExhibitFacadeImpl exhibitFacade;
 
     public void getQuery() {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
-         museumFacade = new MuseumFacadeImpl(museumDao, this);
+        museumFacade = new MuseumFacadeImpl(museumDao, this);
         museumFacade.getAllMuseums();
     }
-    public void  getMuseumExhibits(Integer museumId){
-        exhibitFacade =   new ExhibitFacadeImpl(museumDao, this);
+
+    public void getMuseumExhibits(Integer museumId) {
+        exhibitFacade = new ExhibitFacadeImpl(museumDao, this);
         exhibitFacade.getExhibitsByMuseumId(museumId);
     }
 }

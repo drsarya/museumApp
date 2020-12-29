@@ -21,7 +21,6 @@ public class TextWatcherListenerForSecondPass implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         if (!s.toString().equals(passFirst.getText().toString())) {
             textFieldBoxes.setError("Пароли не совпадают", true);
         } else {

@@ -22,11 +22,13 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
 
     public static class AuthorsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhibtn;
+
         public AuthorsViewHolder(View view) {
             super(view);
             nameOfExhibtn = view.findViewById(R.id.element_of_list_author_text_view);
         }
     }
+
     private List<Author> mDataset;
     private EditText authorEditText;
     private RecyclerView recyclerView;
@@ -48,7 +50,6 @@ public class AuthorsRecyclerViewAdapter extends RecyclerView.Adapter<AuthorsRecy
     public AuthorsRecyclerViewAdapter.AuthorsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_authors, parent, false);
-
         AuthorsRecyclerViewAdapter.AuthorsViewHolder vh = new AuthorsRecyclerViewAdapter.AuthorsViewHolder(v);
         return vh;
     }

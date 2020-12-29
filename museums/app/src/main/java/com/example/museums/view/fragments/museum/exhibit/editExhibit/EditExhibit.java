@@ -44,7 +44,6 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class EditExhibit extends Fragment {
     private ScrollView view;
-    private NewExhibitModel newExhibitModel;
     private EditText nameEditText;
     private EditText authorEditText;
     private EditText dateOfCreateEditText;
@@ -64,8 +63,6 @@ public class EditExhibit extends Fragment {
     static final String EXHIBIT_POSITION_MODEL = "exhibit_position_model";
     static final String EXHIBIT_ID_KEY = "id_exhibit";
     private RecyclerView authorRecyclerView;
-    private RecyclerView tagRecyclerView;
-
     private AuthorsRecyclerViewAdapter authorAdapter;
     static final String EXHIBIT_AUTHOR_MODEL = "exhibit_author_model";
     private ImageView mainImageView;
@@ -140,14 +137,12 @@ public class EditExhibit extends Fragment {
         createBtn.setText("Обновить");
         firstLine = rootView.findViewById(R.id.create_exhibit_first_line_text_view);
         firstLine.setText("Обновить информацию");
-
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
 
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
 
-        //Получить список авторов
         QueryAuthor queryAuthor = new QueryAuthor(this);
         queryAuthor.getQuery();
     }

@@ -1,10 +1,5 @@
 package com.example.museums.API.models;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.room.ColumnInfo;
-import androidx.room.PrimaryKey;
-
 public class NewUser {
 
 
@@ -21,8 +16,6 @@ public class NewUser {
     //false обычный пользователь
 
     public boolean type;
-
-
 
 
 }

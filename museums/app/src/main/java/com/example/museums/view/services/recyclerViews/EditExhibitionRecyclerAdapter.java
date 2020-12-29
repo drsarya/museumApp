@@ -55,7 +55,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
     }
 
     private AsyncListDiffer<ExhibitionWithMuseumName> differ = new AsyncListDiffer<ExhibitionWithMuseumName>(this, DIFF_CALLBACK);
-
     private static final DiffUtil.ItemCallback<ExhibitionWithMuseumName> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExhibitionWithMuseumName>() {
         @Override
         public boolean areItemsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
@@ -76,7 +75,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
     public EditExhibitionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_museum_exhibitions, parent, false);
-
         return new EditExhibitionViewHolder(v);
     }
 
@@ -90,7 +88,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
         holder.itemView.setOnClickListener(new ClickListenerOpenExhibition(holder.optionalPanel, exhibition));
         holder.deleteExhibition.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibitions, museumExhibitions.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), exhibition.id));
-
         holder.imageView.setImageBitmap(exhibition.image);
         if (exhibition.firstDate == null) {
             holder.dateOfCreateTextView.setVisibility(View.GONE);
@@ -98,10 +95,9 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
             holder.dateOfCreateTextView.setVisibility(View.VISIBLE);
             holder.dateOfCreateTextView.setText(exhibition.firstDate + " - " + exhibition.lastDate);
         }
-
-        EditExhibtion c = new EditExhibtion().newInstance(museumExhibitions.login , exhibition.id,exhibition.idMuseum, exhibition.image, exhibition.name, exhibition.firstDate, exhibition.lastDate, exhibition.description);
-        c.setTargetFragment(museumExhibitions,0 );
-        holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c,  (AppCompatActivity) museumExhibitions.getContext()));
+        EditExhibtion c = new EditExhibtion().newInstance(museumExhibitions.login, exhibition.id, exhibition.idMuseum, exhibition.image, exhibition.name, exhibition.firstDate, exhibition.lastDate, exhibition.description);
+        c.setTargetFragment(museumExhibitions, 0);
+        holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c, (AppCompatActivity) museumExhibitions.getContext()));
         holder.nameOfExhibitionTextView.setText(exhibition.name);
         holder.nameOfMuseumTextView.setText(exhibition.nameMuseum);
 

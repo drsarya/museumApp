@@ -1,18 +1,12 @@
 package com.example.museums.API.interfaces;
 
 
-import com.example.museums.API.models.NewUser;
-import com.example.museums.API.models.User;
-
-import io.reactivex.Single;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-
 public interface UserFacade {
 
     /*GET*/
-    void getUser(String login, String password );
-    void getUserMuseum(String login );
+    void getUser(String login, String password);
+
+    void getUserMuseum(String login);
 
 
     /*INSERT*/
@@ -22,7 +16,6 @@ public interface UserFacade {
 
     /*UPDATE*/
     void updateUserPassword(String login, String password, String newPassword);
-
 
 
 }

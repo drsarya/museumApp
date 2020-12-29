@@ -2,10 +2,9 @@ package com.example.museums.API.interfaces;
 
 import com.example.museums.API.models.Exhibition;
 
-import java.util.List;
 
 public interface ExhibitionFacade {
-   void  getAllExhibitions();
+    void getAllExhibitions();
 
     void getMuseumByLogin(String login);
 

@@ -15,7 +15,6 @@ public class QueryRegistration {
 
     public QueryRegistration(Registration activity) {
         this.activity = activity;
-
     }
 
     public void onSuccess() {

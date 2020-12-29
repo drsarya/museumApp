@@ -43,5 +43,4 @@ public class Exhibit {
     public String dateOfCreate;
 
 
-
 }

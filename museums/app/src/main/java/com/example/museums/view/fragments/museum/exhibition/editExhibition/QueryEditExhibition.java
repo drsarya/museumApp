@@ -36,7 +36,6 @@ public class QueryEditExhibition {
     public void getQuery(Exhibition exhibition) {
         museumDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         activity.progressBar.setVisibility(View.VISIBLE);
-        System.out.println(exhibition.id+"id выставкииииииииии");
         exhibitionFacade = new ExhibitionFacadeImpl(museumDao, this);
         if (exhibition.id != null) {
             Bitmap bmp2 = exhibition.image.copy(exhibition.image.getConfig(), true);

@@ -37,7 +37,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     private static QueryListMuseumExhibits queryListMuseumExhibits;
     private EditText searchEditText;
     private List<NewExhibitModel> newExhibitModels;
-    private static String copySearch ="";
+    private static String copySearch = "";
 
 
     public MuseumExhibits newInstance(String login) {
@@ -61,9 +61,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_museum_exhibits, container, false);
-
-
-
         getArgumentsFromBundle();
         initView(rootView);
         setListeners();
@@ -78,12 +75,11 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                copySearch="";
+                copySearch = "";
                 recyclerView.setVisibility(View.VISIBLE);
                 copySearch += s;
                 filter(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -128,7 +124,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         recyclerView.setHasFixedSize(true);
         queryListMuseumExhibits = new QueryListMuseumExhibits(this);
         queryDeleteMuseumExhibit = new QueryDeleteMuseumExhibit(this);
-
         if (copySearch.isEmpty()) {
             queryListMuseumExhibits.getQuery(login);
         } else {
@@ -139,9 +134,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     public void refreshAllList(List<NewExhibitModel> exhibitModels) {
         this.newExhibitModels = exhibitModels;
-//        for (NewExhibitModel i:exhibitModels) {
-//             addBitmapToMemoryCache(i.exhibitId.toString()+i.name, i.photo);
-//        }
         mAdapter.submitList(exhibitModels);
     }
 
@@ -153,9 +145,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     public void deletePosition(int position, Integer id) {
         queryDeleteMuseumExhibit.getQuery(id);
     }
-
-
-
 
 
 }

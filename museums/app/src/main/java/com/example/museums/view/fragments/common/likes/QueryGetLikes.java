@@ -23,30 +23,26 @@ public class QueryGetLikes {
 
     public QueryGetLikes(ILike activity, Fragment fragment) {
         this.activity = activity;
-        this. fragment= fragment;
+        this.fragment = fragment;
     }
 
     public void onSuccess(String exhibitModels) {
         activity.setCountLikesTextView(exhibitModels);
     }
 
-
     public void onError() {
         Toast.makeText(fragment.getContext(),
                 "Ошибка получения данных", Toast.LENGTH_SHORT).show();
     }
 
-    public void getCountLikes( ) {
-
+    public void getCountLikes() {
         museumDao = ((AppDelegate) fragment.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         likefacade = new LikefacadeImpl(museumDao, this);
         likefacade.getLikesByExhId(idExhibit.toString(), type);
-
     }
 
-    public void deleteLike( ) {
+    public void deleteLike() {
         likefacade.deleteLikesByExhbtId(idUser, idExhibit.toString(), type);
-
     }
 
     public Integer idUser;
@@ -54,18 +50,15 @@ public class QueryGetLikes {
     public boolean type;
 
     public void getState() {
-
         museumDao = ((AppDelegate) fragment.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         likefacade = new LikefacadeImpl(museumDao, this);
         likefacade.getLikeByUserId(idUser, idExhibit.toString(), type);
-
     }
 
     public void getInsertLike() {
-         museumDao = ((AppDelegate) fragment.getActivity().getApplicationContext()).getMuseumDb().museumDao();
+        museumDao = ((AppDelegate) fragment.getActivity().getApplicationContext()).getMuseumDb().museumDao();
         likefacade = new LikefacadeImpl(museumDao, this);
         likefacade.insertLike(idUser, idExhibit.toString(), type);
-
     }
 
     public void setLike() {
@@ -74,19 +67,18 @@ public class QueryGetLikes {
 
     public void setDontLike() {
         activity.setDontLiked();
-
     }
 
     //true - экпонат
     //false- выставка
-    public void setData(Integer userId, Integer idExhibit , boolean type) {
+    public void setData(Integer userId, Integer idExhibit, boolean type) {
         this.idUser = userId;
         this.idExhibit = idExhibit;
         this.type = type;
     }
-    public void setData( Integer idExhibit, boolean type) {
-        this.type = type;
 
+    public void setData(Integer idExhibit, boolean type) {
+        this.type = type;
         this.idExhibit = idExhibit;
     }
 }

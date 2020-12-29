@@ -58,23 +58,13 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            System.out.println("id old" + oldProduct.exhibitId + "id new" + newProduct.exhibitId);
-          //  if (newProduct.exhibitId == null && oldProduct.exhibitId == null) {
-                return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
-
-//            } else {
-//                System.out.println(Objects.equals(oldProduct.exhibitId, newProduct.exhibitId));
-//                return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
-//            }
-
+            return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
         }
 
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            System.out.println("id old" + oldProduct.exhibitId + "id new" + newProduct.exhibitId + oldProduct.equals(newProduct));
-
             return oldProduct.equals(newProduct);
         }
     };
@@ -84,7 +74,6 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public NewExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_new_exhbt, parent, false);
-        System.out.println();
         NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder vh = new NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder(v);
         return vh;
     }
@@ -93,26 +82,16 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
         final NewExhibitModel exhibition = differ.getCurrentList().get(position);
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition,-1));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition, -1));
         holder.image.setImageBitmap(exhibition.photo);
         holder.nameOfExhbr.setText(exhibition.name);
         holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibition, position));
         holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibition.exhibitId));
     }
 
-//    public void updateAll(List<NewExhibitModel> exhibits) {
-////        mDataset = new ArrayList<>();
-////        mDataset.addAll(exhibits);
-//        notifyDataSetChanged();
-//    }
 
     public void submitList(List<NewExhibitModel> products) {
-        System.out.println("products" + products.size());
-        System.out.println("products efore current" +   differ.getCurrentList().size());
-        for (NewExhibitModel a :  products
-             ) {
-            System.out.println(a.toString());
-        }
+
         differ.submitList(products);
 
     }

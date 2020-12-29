@@ -75,7 +75,6 @@ public class DialogEditMuseum extends DialogFragment {
         addressEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(addressTextFieldBoxes));
         nameEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(nameTextFieldBoxes));
         updateInfo.setOnClickListener(v -> {
-
             if (!addressTextFieldBoxes.isOnError() && !nameTextFieldBoxes.isOnError() &&
                     !addressEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty()) {
                 if (!addressEditText.getText().toString().equals(address) || !nameEditText.getText().toString().equals(name)) {

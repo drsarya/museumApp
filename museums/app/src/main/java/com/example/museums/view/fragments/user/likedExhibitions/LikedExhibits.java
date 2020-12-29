@@ -59,7 +59,6 @@ public class LikedExhibits extends Fragment {
         mAdapter.setUserId(userId);
         QueryLikedExhibits queryLikedExhibits = new QueryLikedExhibits(this);
         queryLikedExhibits.getQuery(userId);
-
     }
 
     public void refreshAllList(List<NewExhibitModel> exhibitModels) {

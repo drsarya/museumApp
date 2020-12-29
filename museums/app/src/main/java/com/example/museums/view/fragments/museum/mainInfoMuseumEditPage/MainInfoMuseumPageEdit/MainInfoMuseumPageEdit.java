@@ -50,7 +50,6 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
 
         View rootView =
                 inflater.inflate(R.layout.fragment_main_info_museum_edit, container, false);
-
         return rootView;
     }
 

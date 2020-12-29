@@ -19,6 +19,7 @@ public class QueryAuthor {
     public QueryAuthor(CreateExhibit activity) {
         this.activity = activity;
     }
+
     public QueryAuthor(EditExhibit activity) {
         this.editExhibit = activity;
     }
