@@ -15,16 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.museumExhibits.QueryListMuseumExhibits;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 import com.example.museums.view.services.recyclerViews.HorizontalMuseumsRecyclerViewAdapter;
-import com.example.museums.API.models.Exhibit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Exhibits extends Fragment {

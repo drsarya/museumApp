@@ -25,12 +25,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.Exhibition;
 import com.example.museums.R;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
-import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
 import java.io.IOException;
 

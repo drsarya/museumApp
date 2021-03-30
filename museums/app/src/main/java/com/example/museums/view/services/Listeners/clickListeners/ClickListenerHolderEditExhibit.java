@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.EditExhibit;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.MethodsWithFragment;

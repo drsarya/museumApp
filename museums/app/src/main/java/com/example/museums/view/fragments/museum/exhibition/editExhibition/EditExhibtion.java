@@ -27,8 +27,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Exhibition;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.CreateExhibit;

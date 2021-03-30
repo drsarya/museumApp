@@ -2,14 +2,7 @@ package com.example.museums.view.fragments.user.exhibitions;
 
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.interfaces.impl.ExhibitionFacadeImpl;
-import com.example.museums.API.models.Exhibition;
-import com.example.museums.API.models.ExhibitionWithMuseumName;
-import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.view.fragments.user.exhibits.Exhibits;
+import com.example.museums.API.services.impl.ExhibitionFacadeImpl;
 
 import java.util.List;
 

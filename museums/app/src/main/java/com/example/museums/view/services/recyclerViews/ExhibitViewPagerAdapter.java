@@ -1,8 +1,6 @@
 package com.example.museums.view.services.recyclerViews;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,9 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.common.DetailedExhibitWithoutListeners;
-import com.example.museums.API.models.Exhibit;
 
 import java.util.ArrayList;
 import java.util.List;

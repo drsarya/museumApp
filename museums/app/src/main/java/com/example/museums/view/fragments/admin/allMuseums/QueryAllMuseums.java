@@ -3,10 +3,7 @@ package com.example.museums.view.fragments.admin.allMuseums;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
-import com.example.museums.API.models.Museum;
+import com.example.museums.API.services.impl.MuseumFacadeImpl;
 
 import java.util.List;
 

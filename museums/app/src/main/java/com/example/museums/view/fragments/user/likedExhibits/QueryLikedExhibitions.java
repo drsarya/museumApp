@@ -2,10 +2,7 @@ package com.example.museums.view.fragments.user.likedExhibits;
 
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.LikefacadeImpl;
-import com.example.museums.API.models.ExhibitionWithMuseumName;
+import com.example.museums.API.services.impl.LikefacadeImpl;
 
 import java.util.List;
 

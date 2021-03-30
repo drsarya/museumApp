@@ -22,11 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
-import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;

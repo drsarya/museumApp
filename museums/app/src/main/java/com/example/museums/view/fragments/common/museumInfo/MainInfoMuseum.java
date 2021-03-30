@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;

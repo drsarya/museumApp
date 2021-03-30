@@ -11,18 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerOpenExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
-import com.example.museums.API.models.Exhibition;
 
 import java.util.List;
 

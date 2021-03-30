@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.common.DetailedExhbtn;
 import com.example.museums.view.services.MethodsWithFragment;

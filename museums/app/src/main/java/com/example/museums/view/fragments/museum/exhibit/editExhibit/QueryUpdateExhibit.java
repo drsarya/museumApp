@@ -5,11 +5,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.API.services.impl.ExhibitFacadeImpl;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 import com.example.museums.view.fragments.museum.exhibit.QueryInsertAuthor;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;

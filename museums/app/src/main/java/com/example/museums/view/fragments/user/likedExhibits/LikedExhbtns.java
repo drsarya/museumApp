@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
 

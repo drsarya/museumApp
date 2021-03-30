@@ -3,10 +3,7 @@ package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInf
 import android.graphics.Bitmap;
 import android.view.View;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
-import com.example.museums.API.models.MuseumInfoWithoutImage;
+import com.example.museums.API.services.impl.MuseumFacadeImpl;
 
 public class QueryMainInfoMuseumPageEdit {
 

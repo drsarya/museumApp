@@ -17,8 +17,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
 import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAdapter;

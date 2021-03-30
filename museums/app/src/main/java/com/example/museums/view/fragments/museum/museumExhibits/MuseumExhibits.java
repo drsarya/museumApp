@@ -1,11 +1,9 @@
 package com.example.museums.view.fragments.museum.museumExhibits;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Author;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.exhibit.editExhibit.EditExhibit;
 import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.recyclerViews.MuseumExhibitsRecyclerAdapter;
 

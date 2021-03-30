@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.common.DetailedExhibitWithListeners;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 

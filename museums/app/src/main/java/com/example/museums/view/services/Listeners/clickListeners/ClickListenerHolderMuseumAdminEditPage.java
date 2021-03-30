@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.museums.API.models.Museum;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.admin.editMuseum.DialogEditMuseum;
 import com.example.museums.view.services.MethodsWithFragment;

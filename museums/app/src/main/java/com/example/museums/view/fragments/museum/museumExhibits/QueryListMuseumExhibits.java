@@ -3,13 +3,7 @@ package com.example.museums.view.fragments.museum.museumExhibits;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.view.fragments.user.exhibits.Exhibits;
-
-import org.w3c.dom.ls.LSOutput;
+import com.example.museums.API.services.impl.ExhibitFacadeImpl;
 
 import java.util.List;
 

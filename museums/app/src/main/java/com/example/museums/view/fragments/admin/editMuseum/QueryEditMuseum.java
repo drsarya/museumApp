@@ -3,9 +3,7 @@ package com.example.museums.view.fragments.admin.editMuseum;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
+import com.example.museums.API.services.impl.MuseumFacadeImpl;
 
 public class QueryEditMuseum {
     private MuseumFacadeImpl museumFacade;

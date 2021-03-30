@@ -3,10 +3,8 @@ package com.example.museums.view.fragments.museum.museumExhibitions;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.interfaces.impl.ExhibitionFacadeImpl;
+import com.example.museums.API.services.impl.ExhibitFacadeImpl;
+import com.example.museums.API.services.impl.ExhibitionFacadeImpl;
 
 public class QueryDeleteExhibition {
 

@@ -3,13 +3,10 @@ package com.example.museums.view.activities;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
 import com.example.museums.R;
 
 

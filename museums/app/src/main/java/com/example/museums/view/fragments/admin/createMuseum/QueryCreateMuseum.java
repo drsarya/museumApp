@@ -7,10 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
-import com.example.museums.API.interfaces.impl.UserFacadeImpl;
+import com.example.museums.API.services.impl.MuseumFacadeImpl;
+import com.example.museums.API.services.impl.UserFacadeImpl;
 
 public class QueryCreateMuseum {
     private MuseumFacadeImpl museumFacade;

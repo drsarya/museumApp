@@ -1,9 +1,6 @@
 package com.example.museums.view.fragments.museum.authors;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
-import com.example.museums.API.models.Author;
+import com.example.museums.API.services.impl.AuthorFacadeImpl;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.CreateExhibit;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.EditExhibit;
 

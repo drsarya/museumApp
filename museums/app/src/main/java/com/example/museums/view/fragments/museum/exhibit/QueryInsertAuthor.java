@@ -2,9 +2,7 @@ package com.example.museums.view.fragments.museum.exhibit;
 
 import android.widget.Toast;
 
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.AuthorFacadeImpl;
-import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.API.services.impl.AuthorFacadeImpl;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.QueryInsertExhibit;
 import com.example.museums.view.fragments.museum.exhibit.editExhibit.QueryUpdateExhibit;
 

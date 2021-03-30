@@ -26,9 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Author;
 import com.example.museums.R;
-import com.example.museums.API.models.NewExhibitModel;
 import com.example.museums.view.fragments.museum.authors.QueryAuthor;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;

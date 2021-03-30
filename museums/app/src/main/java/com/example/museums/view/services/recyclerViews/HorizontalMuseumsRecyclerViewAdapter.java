@@ -14,12 +14,8 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.user.exhibits.Exhibits;
-
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 

@@ -4,13 +4,8 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.ExhbtToExhbtnFacadeImpl;
-import com.example.museums.API.interfaces.impl.ExhibitFacadeImpl;
-import com.example.museums.API.models.Exhibit;
-import com.example.museums.API.models.ExhibitToExhbtn;
-import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.API.services.impl.ExhbtToExhbtnFacadeImpl;
+import com.example.museums.API.services.impl.ExhibitFacadeImpl;
 import com.example.museums.view.fragments.museum.exhibit.QueryInsertAuthor;
 
 

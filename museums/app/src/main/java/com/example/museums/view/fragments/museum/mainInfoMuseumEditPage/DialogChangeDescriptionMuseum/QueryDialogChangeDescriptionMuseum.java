@@ -4,9 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
+import com.example.museums.API.services.impl.MuseumFacadeImpl;
 import com.example.museums.R;
 
 public class QueryDialogChangeDescriptionMuseum {
