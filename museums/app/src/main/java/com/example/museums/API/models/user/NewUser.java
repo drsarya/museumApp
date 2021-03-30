@@ -6,21 +6,26 @@ import com.example.museums.API.models.museum.Museum;
 import io.reactivex.annotations.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public class NewUser {
-   private String login;
+    public String login;
 
     @Nullable
-    private  String password;
+    public  String password;
 
-    private  RoleEnum role;
+    public   RoleEnum role;
     @Nullable
-    private Integer museumId;
+    public Integer museumId;
 
-    public NewUser(String login,  String password) {
+
+    public NewUser(String login, String password) {
         this.login = login;
         this.password = password;
     }
+
 }

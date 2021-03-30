@@ -7,7 +7,7 @@ import com.example.museums.API.models.museum.BaseMuseum;
 import com.example.museums.API.models.museum.Museum;
 import com.example.museums.API.models.museum.UpdatableMuseum;
 import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.services.MuseumService;
+import com.example.museums.API.services.api.MuseumService;
 import com.example.museums.API.services.repository.MuseumRepos;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -1,18 +1,22 @@
 package com.example.museums.API.services.repository.impl;
 
 import com.example.museums.API.RetrofitConnect;
+import com.example.museums.API.models.ErrorModel;
 import com.example.museums.API.models.user.ExistingUser;
 import com.example.museums.API.models.user.NewUser;
 import com.example.museums.API.models.user.UserMuseum;
 import com.example.museums.API.models.user.UserUpdate;
 import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.services.UserService;
+import com.example.museums.API.services.ErrorParser;
+import com.example.museums.API.services.api.UserService;
 import com.example.museums.API.services.repository.UserRepos;
+import com.google.gson.Gson;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 public class UserReposImpl implements UserRepos {
     UserService userService;
@@ -28,14 +32,15 @@ public class UserReposImpl implements UserRepos {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ExistingUser>() {
                     @Override
-                    public void onSuccess(@NonNull ExistingUser  listIds) {
+                    public void onSuccess(@NonNull ExistingUser listIds) {
                         viewContract.onSuccess(listIds);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
-                }) ;
+                });
     }
 
     @Override
@@ -45,14 +50,15 @@ public class UserReposImpl implements UserRepos {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Boolean>() {
                     @Override
-                    public void onSuccess(@NonNull Boolean  listIds) {
+                    public void onSuccess(@NonNull Boolean listIds) {
                         viewContract.onSuccess(listIds);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         viewContract.onError(e.getMessage());
                     }
-                }) ;
+                });
     }
 
     @Override
@@ -62,14 +68,15 @@ public class UserReposImpl implements UserRepos {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<ExistingUser>() {
                     @Override
-                    public void onSuccess(@NonNull ExistingUser  listIds) {
+                    public void onSuccess(@NonNull ExistingUser listIds) {
                         viewContract.onSuccess(listIds);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         viewContract.onError(e.getMessage());
                     }
-                }) ;
+                });
     }
 
     @Override
@@ -79,13 +86,14 @@ public class UserReposImpl implements UserRepos {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Boolean>() {
                     @Override
-                    public void onSuccess(@NonNull Boolean  listIds) {
+                    public void onSuccess(@NonNull Boolean listIds) {
                         viewContract.onSuccess(listIds);
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         viewContract.onError(e.getMessage());
                     }
-                }) ;
+                });
     }
 }

@@ -1,4 +1,4 @@
-package com.example.museums.API.services;
+package com.example.museums.API.services.api;
 
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.ExistingExhibition;

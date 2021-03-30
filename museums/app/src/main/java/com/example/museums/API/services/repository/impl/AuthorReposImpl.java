@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.services.AuthorService;
+import com.example.museums.API.services.api.AuthorService;
 import com.example.museums.API.services.repository.AuthorRepos;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

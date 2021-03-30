@@ -6,7 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.services.ExhibitService;
+import com.example.museums.API.services.api.ExhibitService;
 import com.example.museums.API.services.repository.ExhibitRepos;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

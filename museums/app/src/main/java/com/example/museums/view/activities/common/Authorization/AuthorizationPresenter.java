@@ -19,8 +19,6 @@ public class AuthorizationPresenter implements BasePresenter.Presenter {
         this.password = password;
     }
 
-
-
     @Override
     public <T> void onSuccess(T value) {
         view.hideProgress();
@@ -30,6 +28,7 @@ public class AuthorizationPresenter implements BasePresenter.Presenter {
     @Override
     public void onError(String error) {
         view.hideProgress();
+        view.showError(error);
     }
 
     @Override

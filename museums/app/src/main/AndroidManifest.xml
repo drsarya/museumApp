@@ -6,42 +6,42 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:usesCleartextTraffic="true"
-        android:name="com.example.museums.API.AppDelegate"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".view.activities.common.SplashScreen"
+            android:name=".view.activities.common.Authorization.Authorization"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activities.common.Registration.Registration"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"
-            android:windowSoftInputMode="adjustUnspecified" />
+<!--        <activity-->
+<!--            android:name=".view.activities.common.Registration.Registration"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
+<!--        <activity-->
+<!--            android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"-->
+<!--            android:windowSoftInputMode="adjustUnspecified" />-->
 
         <!--  adjustResize  MuseumTab -->
         <!--  adjustResize  Authorization -->
-        <activity
-            android:name=".view.activities.tabs.UserTab"
-            android:windowSoftInputMode="adjustUnspecified" />
-        <activity
-            android:name=".view.activities.tabs.MuseumTab"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".view.activities.common.Authorization.Authorization"
-            android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".view.activities.tabs.UserTab"-->
+<!--            android:windowSoftInputMode="adjustUnspecified" />-->
+<!--        <activity-->
+<!--            android:name=".view.activities.tabs.MuseumTab"-->
+<!--            android:windowSoftInputMode="adjustResize" />-->
+<!--        <activity-->
+<!--            android:name=".view.activities.common.Authorization.Authorization"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
 
-        <activity
-            android:name=".view.activities.tabs.AdminTab"
-            android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".view.activities.tabs.AdminTab"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
 
 
         <provider

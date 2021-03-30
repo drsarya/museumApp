@@ -6,7 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.API.models.like.UserLike;
 import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.services.LikeService;
+import com.example.museums.API.services.api.LikeService;
 import com.example.museums.API.services.repository.LikeRepos;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
