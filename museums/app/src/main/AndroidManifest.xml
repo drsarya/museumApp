@@ -20,12 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".view.activities.common.Registration.Registration"-->
-<!--            android:windowSoftInputMode="adjustPan" />-->
-<!--        <activity-->
-<!--            android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"-->
-<!--            android:windowSoftInputMode="adjustUnspecified" />-->
+        <activity
+            android:name=".view.activities.common.Registration.Registration"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"
+            android:windowSoftInputMode="adjustUnspecified" />
 
         <!--  adjustResize  MuseumTab -->
         <!--  adjustResize  Authorization -->

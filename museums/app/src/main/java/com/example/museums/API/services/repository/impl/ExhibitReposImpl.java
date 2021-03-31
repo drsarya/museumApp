@@ -6,6 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.presenter.BasePresenter;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.ExhibitService;
 import com.example.museums.API.services.repository.ExhibitRepos;
 
@@ -30,7 +31,7 @@ public class ExhibitReposImpl implements ExhibitRepos {
                 .subscribe(list -> {
                     viewContract.onSuccess(list);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 
@@ -44,7 +45,7 @@ public class ExhibitReposImpl implements ExhibitRepos {
                 .subscribe(list -> {
                     viewContract.onSuccess(list);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 
@@ -60,7 +61,7 @@ public class ExhibitReposImpl implements ExhibitRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -77,7 +78,7 @@ public class ExhibitReposImpl implements ExhibitRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -94,7 +95,7 @@ public class ExhibitReposImpl implements ExhibitRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }

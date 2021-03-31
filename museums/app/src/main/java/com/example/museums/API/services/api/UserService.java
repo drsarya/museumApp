@@ -1,5 +1,6 @@
 package com.example.museums.API.services.api;
 
+import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.user.ExistingUser;
 import com.example.museums.API.models.user.NewUser;
 import com.example.museums.API.models.user.UserMuseum;
@@ -27,11 +28,11 @@ public interface UserService {
     Single<ExistingUser> getUser(@Body NewUser user);
 
     @PUT("users")
-    Single<Boolean> updateUserPassword(@Body UserUpdate user);
+    Single<OkModel> updateUserPassword(@Body UserUpdate user);
 
     @POST("users")
-    Single<ExistingUser> createUser(@Body NewUser user);
+    Single<OkModel> createUser(@Body NewUser user);
 
     @PUT("users/museum")
-    Single<Boolean> updateMuseumUserPass(@Body UserMuseum user);
+    Single<OkModel> updateMuseumUserPass(@Body UserMuseum user);
 }

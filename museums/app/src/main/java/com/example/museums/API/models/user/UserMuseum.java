@@ -12,7 +12,8 @@ import lombok.Setter;
 public class UserMuseum extends UserUpdate {
     Integer idCode ;
 
-    public UserMuseum(String login, String password) {
+    public UserMuseum(String login, String password, Integer idCode) {
         super(login, password);
+        this.idCode = idCode;
     }
 }

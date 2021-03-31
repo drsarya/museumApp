@@ -7,6 +7,7 @@ import com.example.museums.API.models.museum.BaseMuseum;
 import com.example.museums.API.models.museum.Museum;
 import com.example.museums.API.models.museum.UpdatableMuseum;
 import com.example.museums.API.presenter.BasePresenter;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.MuseumService;
 import com.example.museums.API.services.repository.MuseumRepos;
 
@@ -34,7 +35,7 @@ public class MuseumReposImpl implements MuseumRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -47,7 +48,7 @@ public class MuseumReposImpl implements MuseumRepos {
                 .subscribe(list -> {
                     viewContract.onSuccess(list);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 
@@ -63,7 +64,7 @@ public class MuseumReposImpl implements MuseumRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -80,7 +81,7 @@ public class MuseumReposImpl implements MuseumRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }

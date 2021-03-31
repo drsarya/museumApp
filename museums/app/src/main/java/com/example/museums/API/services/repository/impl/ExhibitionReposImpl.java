@@ -6,6 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.presenter.BasePresenter;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.ExhibitionService;
 import com.example.museums.API.services.repository.ExhibitionRepos;
 
@@ -45,7 +46,7 @@ public class ExhibitionReposImpl implements ExhibitionRepos {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }
@@ -63,7 +64,7 @@ public class ExhibitionReposImpl implements ExhibitionRepos {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }
@@ -81,7 +82,7 @@ public class ExhibitionReposImpl implements ExhibitionRepos {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }
@@ -95,7 +96,7 @@ public class ExhibitionReposImpl implements ExhibitionRepos {
                 .subscribe(authors -> {
                     viewContract.onSuccess(authors);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
 
     }

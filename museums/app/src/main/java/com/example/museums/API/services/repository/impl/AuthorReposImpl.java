@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.presenter.BasePresenter;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.AuthorService;
 import com.example.museums.API.services.repository.AuthorRepos;
 
@@ -27,7 +28,7 @@ public class AuthorReposImpl implements AuthorRepos {
                 .subscribe(authors -> {
                     viewContract.onSuccess(authors);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 }

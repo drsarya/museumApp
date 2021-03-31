@@ -2,6 +2,7 @@ package com.example.museums.API.services.repository.impl;
 
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.ErrorModel;
+import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.user.ExistingUser;
 import com.example.museums.API.models.user.NewUser;
 import com.example.museums.API.models.user.UserMuseum;
@@ -48,15 +49,15 @@ public class UserReposImpl implements UserRepos {
         userService.updateUserPassword(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Boolean>() {
+                .subscribe(new DisposableSingleObserver<OkModel>() {
                     @Override
-                    public void onSuccess(@NonNull Boolean listIds) {
+                    public void onSuccess(@NonNull OkModel listIds) {
                         viewContract.onSuccess(listIds);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }
@@ -66,15 +67,16 @@ public class UserReposImpl implements UserRepos {
         userService.createUser(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<ExistingUser>() {
+                .subscribe(new DisposableSingleObserver<OkModel>() {
                     @Override
-                    public void onSuccess(@NonNull ExistingUser listIds) {
+                    public void onSuccess(@NonNull OkModel listIds) {
                         viewContract.onSuccess(listIds);
+                        System.out.println(listIds.getMessage());
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }
@@ -84,15 +86,15 @@ public class UserReposImpl implements UserRepos {
         userService.updateMuseumUserPass(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Boolean>() {
+                .subscribe(new DisposableSingleObserver<OkModel>() {
                     @Override
-                    public void onSuccess(@NonNull Boolean listIds) {
+                    public void onSuccess(@NonNull OkModel listIds) {
                         viewContract.onSuccess(listIds);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 });
     }

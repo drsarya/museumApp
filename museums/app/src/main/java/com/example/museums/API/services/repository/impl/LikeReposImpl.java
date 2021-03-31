@@ -6,6 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.API.models.like.UserLike;
 import com.example.museums.API.presenter.BasePresenter;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.LikeService;
 import com.example.museums.API.services.repository.LikeRepos;
 
@@ -33,7 +34,7 @@ public class LikeReposImpl implements LikeRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -50,7 +51,7 @@ public class LikeReposImpl implements LikeRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -67,7 +68,7 @@ public class LikeReposImpl implements LikeRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -84,7 +85,7 @@ public class LikeReposImpl implements LikeRepos {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        viewContract.onError(e.getMessage());
+                        viewContract.onError(ErrorParser.getMessage(e));
                     }
                 }) ;
     }
@@ -97,7 +98,7 @@ public class LikeReposImpl implements LikeRepos {
                 .subscribe(list -> {
                     viewContract.onSuccess(list);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 
@@ -109,7 +110,7 @@ public class LikeReposImpl implements LikeRepos {
                 .subscribe(list -> {
                     viewContract.onSuccess(list);
                 }, error -> {
-                    viewContract.onError(error.getMessage());
+                    viewContract.onError(ErrorParser.getMessage(error));
                 });
     }
 }

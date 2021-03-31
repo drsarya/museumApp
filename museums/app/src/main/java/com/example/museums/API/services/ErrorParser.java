@@ -12,9 +12,11 @@ public class ErrorParser {
         if (gson == null) {
             gson = new Gson();
         }
-        HttpException httpException = (HttpException) e;
-        ErrorModel message = gson.fromJson(httpException.response().errorBody().charStream(), ErrorModel.class);
-        return message.getMessage();
-
+        if (e instanceof HttpException) {
+            HttpException httpException = (HttpException) e;
+            ErrorModel message = gson.fromJson(httpException.response().errorBody().charStream(), ErrorModel.class);
+            return message.getMessage();
+        }
+        return "";
     }
 }
