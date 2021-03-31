@@ -8,6 +8,7 @@
 //import androidx.fragment.app.FragmentManager;
 //import androidx.fragment.app.FragmentStatePagerAdapter;
 //
+//import com.example.museums.API.models.exhibit.ExistingExhibit;
 //import com.example.museums.view.fragments.common.DetailedExhibitWithoutListeners;
 //
 //import java.util.ArrayList;
@@ -15,9 +16,9 @@
 //
 //public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
 //
-//    private List<NewExhibitModel> mDataset;
+//    private List<ExistingExhibit> mDataset;
 //
-//    public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<NewExhibitModel> mDataset, Integer userId) {
+//    public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<ExistingExhibit> mDataset, Integer userId) {
 //        super(fm);
 //        this.mDataset = mDataset;
 //        this.userId = userId;
@@ -30,12 +31,12 @@
 //    @NonNull
 //    @Override
 //    public Fragment getItem(int position) {
-//        DetailedExhibitWithoutListeners dtn = new DetailedExhibitWithoutListeners().newInstance(mDataset.get(position).exhibitId, userId, mDataset.get(position).photo,
-//                mDataset.get(position).name, mDataset.get(position).author, mDataset.get(position).dateOfCreate, mDataset.get(position).description);
+//        DetailedExhibitWithoutListeners dtn = new DetailedExhibitWithoutListeners().newInstance(mDataset.get(position).getId(), userId, mDataset.get(position).getImageUrl(),
+//                mDataset.get(position).getName(), mDataset.get(position).getAuthor(), mDataset.get(position).getDateOfCreate(), mDataset.get(position).getDescription());
 //        return dtn;
 //    }
 //
-//    public void setNewData(List<NewExhibitModel> mDataset) {
+//    public void setNewData(List<ExistingExhibit> mDataset) {
 //        this.mDataset = new ArrayList<>();
 //        this.mDataset.addAll(mDataset);
 //        this.notifyDataSetChanged();
@@ -45,7 +46,7 @@
 //    @Override
 //    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        super.destroyItem(container, position, object);
-//        System.out.println(mDataset.get(position).name);
+//        System.out.println(mDataset.get(position).getName());
 //    }
 //
 //    @Override

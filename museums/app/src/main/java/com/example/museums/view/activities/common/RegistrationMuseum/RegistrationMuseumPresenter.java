@@ -19,7 +19,7 @@ public class RegistrationMuseumPresenter extends BasePresenterImpl {
     }
 
     @Override
-    protected void loadData() {
+    public void loadData() {
         view.showProgress();
         userRepos.updateMuseumUserPass(new UserMuseum(login, password, idCode), this);
     }

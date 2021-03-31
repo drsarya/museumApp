@@ -15,6 +15,7 @@
 //import androidx.recyclerview.widget.DiffUtil;
 //import androidx.recyclerview.widget.RecyclerView;
 //
+//import com.example.museums.API.models.exhibition.ExistingExhibition;
 //import com.example.museums.R;
 //import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
 //
@@ -37,18 +38,18 @@
 //        }
 //    }
 //
-//    private AsyncListDiffer<ExhibitionWithMuseumName> differ = new AsyncListDiffer<ExhibitionWithMuseumName>(this, DIFF_CALLBACK);
+//    private AsyncListDiffer<ExistingExhibition> differ = new AsyncListDiffer<ExistingExhibition>(this, DIFF_CALLBACK);
 //
-//    private static final DiffUtil.ItemCallback<ExhibitionWithMuseumName> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExhibitionWithMuseumName>() {
+//    private static final DiffUtil.ItemCallback<ExistingExhibition> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibition>() {
 //        @Override
-//        public boolean areItemsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
-//            return oldProduct.id == newProduct.id;
+//        public boolean areItemsTheSame(@NonNull ExistingExhibition oldProduct, @NonNull ExistingExhibition newProduct) {
+//            return oldProduct.getId() == newProduct.getId();
 //        }
 //
 //        @SuppressLint("DiffUtilEquals")
 //        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //        @Override
-//        public boolean areContentsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
+//        public boolean areContentsTheSame(@NonNull ExistingExhibition oldProduct, @NonNull ExistingExhibition newProduct) {
 //            return oldProduct.equals(newProduct);
 //        }
 //    };
@@ -60,7 +61,7 @@
 //
 //    }
 //
-//    public void submitList(List<ExhibitionWithMuseumName> products) {
+//    public void submitList(List<ExistingExhibition> products) {
 //        differ.submitList(products);
 //    }
 //
@@ -80,17 +81,17 @@
 //
 //    @Override
 //    public void onBindViewHolder(@NonNull ExhibitionsViewHolder holder, int position) {
-//        final ExhibitionWithMuseumName exhibition = differ.getCurrentList().get(position);
+//        final ExistingExhibition exhibition = differ.getCurrentList().get(position);
 //
-//        holder.image.setImageBitmap(exhibition.image);
-//        if (exhibition.firstDate == null) {
+//        holder.image.setImageBitmap(exhibition.getImageUrl());
+//        if (exhibition.getFirstDate() == null) {
 //            holder.dateOfExhbtn.setVisibility(View.GONE);
 //        } else {
 //            holder.dateOfExhbtn.setVisibility(View.VISIBLE);
-//            holder.dateOfExhbtn.setText(exhibition.firstDate + " - " + exhibition.lastDate);
+//            holder.dateOfExhbtn.setText(exhibition.getFirstDate() + " - " + exhibition.getLastDate());
 //        }
-//        holder.nameOfExhibtn.setText(exhibition.name);
-//        holder.nameOfEMuseum.setText(exhibition.nameMuseum);
+//        holder.nameOfExhibtn.setText(exhibition.getName());
+//        holder.nameOfEMuseum.setText(exhibition.getMuseumId());
 //        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition, userId));
 //    }
 //

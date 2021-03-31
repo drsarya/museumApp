@@ -8,6 +8,7 @@ import com.example.museums.API.models.like.UserLike;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -30,8 +31,8 @@ public interface LikeService {
     Single<Boolean> createLike(@Body UserLike userLike);
 
     @GET("likes/exhibits/{idUser}")
-    Flowable<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
+    Observable<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
 
     @GET("likes/exhibitions/{idUser}")
-    Flowable<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
+    Observable<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
 }

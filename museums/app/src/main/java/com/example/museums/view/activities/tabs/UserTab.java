@@ -1,9 +1,9 @@
-//package com.example.museums.view.activities.tabs;
+package com.example.museums.view.activities.tabs;
 //
 //import android.os.Bundle;
 //
 //import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 //import androidx.fragment.app.FragmentTransaction;
 //
 //import com.example.museums.R;
@@ -15,7 +15,7 @@
 //
 //import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 //
-//public class UserTab extends AppCompatActivity {
+public class UserTab extends AppCompatActivity {
 //
 //    public static final String LOGIN_USER_KEY = "login_key";
 //    private BottomNavigationView menuTab;
@@ -86,5 +86,5 @@
 //            menuTab.getMenu().findItem(R.id.menu_user_exhibits).setChecked(true);
 //        }
 //    }
-//}
+}
 //

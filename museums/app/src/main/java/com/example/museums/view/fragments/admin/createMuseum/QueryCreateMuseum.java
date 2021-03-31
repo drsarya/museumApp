@@ -34,35 +34,3 @@
 //        activity.progressBar.setVisibility(View.GONE);
 //    }
 //
-//    public void onError() {
-//        Toast.makeText(activity.getContext(),
-//                "Ошибка создания", Toast.LENGTH_SHORT).show();
-//        activity.progressBar.setVisibility(View.GONE);
-//
-//    }
-//
-//    public void onErrorInsertMuseum() {
-//        Toast.makeText(activity.getContext(),
-//                "Ошибка создания", Toast.LENGTH_SHORT).show();
-//        activity.progressBar.setVisibility(View.GONE);
-//
-//    }
-//
-//    public void insertMuseum() {
-//        museumFacade.insertMuseum(login, name, address);
-//    }
-//
-//
-//    public void getQuery(String login, String name, String address) {
-//        this.login = login;
-//        this.name = name;
-//        this.address = address;
-//        activity.progressBar.setVisibility(View.GONE);
-//        curogin = login;
-//        memsDao = ((AppDelegate) activity.getActivity().getApplicationContext()).getMuseumDb().museumDao();
-//        activity.progressBar.setVisibility(View.VISIBLE);
-//        museumFacade = new MuseumFacadeImpl(memsDao, this);
-//        UserFacadeImpl userFacade = new UserFacadeImpl(memsDao, this);
-//        userFacade.insertUserMuseum(login, null, false);
-//    }
-//}

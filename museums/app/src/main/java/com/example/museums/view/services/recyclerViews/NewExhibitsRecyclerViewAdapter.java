@@ -16,6 +16,7 @@
 //import androidx.recyclerview.widget.DiffUtil;
 //import androidx.recyclerview.widget.RecyclerView;
 //
+//import com.example.museums.API.models.exhibit.ExistingExhibit;
 //import com.example.museums.R;
 //import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
 //import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
@@ -51,19 +52,19 @@
 //        this.editExhibtion = editExhibtion;
 //    }
 //
-//    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+//    private AsyncListDiffer<ExistingExhibit> differ = new AsyncListDiffer<ExistingExhibit>(this, DIFF_CALLBACK);
 //
-//    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+//    private static final DiffUtil.ItemCallback<ExistingExhibit> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibit>() {
 //        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //        @Override
-//        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-//            return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
+//        public boolean areItemsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
+//            return Objects.equals(oldProduct.getId(), newProduct.getId());
 //        }
 //
 //        @SuppressLint("DiffUtilEquals")
 //        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //        @Override
-//        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+//        public boolean areContentsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
 //            return oldProduct.equals(newProduct);
 //        }
 //    };
@@ -79,20 +80,18 @@
 //
 //    @Override
 //    public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-//        final NewExhibitModel exhibition = differ.getCurrentList().get(position);
+//        final ExistingExhibit exhibit = differ.getCurrentList().get(position);
 //
-//        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition, -1));
-//        holder.image.setImageBitmap(exhibition.photo);
-//        holder.nameOfExhbr.setText(exhibition.name);
-//        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibition, position));
-//        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibition.exhibitId));
+//        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibit, -1));
+//        holder.image.setImageBitmap(exhibit.getImageUrl());
+//        holder.nameOfExhbr.setText(exhibit.getName());
+//        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibit, position));
+//        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibit.getId()));
 //    }
 //
 //
-//    public void submitList(List<NewExhibitModel> products) {
-//
+//    public void submitList(List<ExistingExhibit> products) {
 //        differ.submitList(products);
-//
 //    }
 //
 //    @Override

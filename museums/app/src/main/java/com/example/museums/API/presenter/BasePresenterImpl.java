@@ -27,7 +27,7 @@ public abstract class BasePresenterImpl implements BasePresenter.Presenter {
         public void detach() {
             this.view = null;
         }
-        protected abstract void loadData();
+        public abstract void loadData();
 
 
 

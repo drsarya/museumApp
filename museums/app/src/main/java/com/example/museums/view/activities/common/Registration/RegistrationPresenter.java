@@ -17,7 +17,7 @@ public class RegistrationPresenter extends BasePresenterImpl {
         this.password = password;
     }
     @Override
-    protected void loadData() {
+    public void loadData() {
         view.showProgress();
         userRepos.createUser(new NewUser(login, password, RoleEnum.USER), this);
     }

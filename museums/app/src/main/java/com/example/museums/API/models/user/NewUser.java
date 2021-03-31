@@ -1,13 +1,9 @@
 package com.example.museums.API.models.user;
 
 import com.example.museums.API.models.enums.RoleEnum;
-import com.example.museums.API.models.museum.Museum;
 
 import io.reactivex.annotations.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

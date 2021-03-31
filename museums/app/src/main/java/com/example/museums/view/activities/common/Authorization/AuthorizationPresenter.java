@@ -18,7 +18,7 @@ public class AuthorizationPresenter extends BasePresenterImpl {
     }
 
     @Override
-    protected void loadData() {
+    public void loadData() {
         view.showProgress();
          userRepos.getUser(new NewUser(login, password), this);
     }

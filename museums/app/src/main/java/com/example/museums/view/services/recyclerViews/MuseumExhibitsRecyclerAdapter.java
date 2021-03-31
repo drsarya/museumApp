@@ -17,6 +17,7 @@
 //import androidx.recyclerview.widget.DiffUtil;
 //import androidx.recyclerview.widget.RecyclerView;
 //
+//import com.example.museums.API.models.exhibit.ExistingExhibit;
 //import com.example.museums.R;
 //import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 //import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
@@ -65,34 +66,34 @@
 //
 //    @Override
 //    public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
-//        final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
-//        holder.mainImage.setImageBitmap(purchaseList.photo);
+//        final ExistingExhibit purchaseList = differ.getCurrentList().get(position);
+//        holder.mainImage.setImageBitmap(purchaseList.getImageUrl());
 //        holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
 //        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
 //        holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
-//                holder.optionalPanel, holder.getAdapterPosition(), purchaseList.exhibitId));
-//        holder.authorTextView.setText(purchaseList.author);
-//        holder.nameTextView.setText(purchaseList.name);
-//        holder.dataTextView.setText(purchaseList.dateOfCreate);
+//                holder.optionalPanel, holder.getAdapterPosition(), purchaseList.getId()));
+//        holder.authorTextView.setText(purchaseList.getAuthor().fullName);
+//        holder.nameTextView.setText(purchaseList.getName());
+//        holder.dataTextView.setText(purchaseList.getDateOfCreate());
 //    }
 //
 //
-//    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+//    private AsyncListDiffer<ExistingExhibit> differ = new AsyncListDiffer<ExistingExhibit>(this, DIFF_CALLBACK);
 //
-//    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+//    private static final DiffUtil.ItemCallback<ExistingExhibit> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibit>() {
 //        @Override
-//        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-//            return oldProduct.exhibitId.equals(newProduct.exhibitId);
+//        public boolean areItemsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
+//            return oldProduct.getId().equals(newProduct.getId());
 //        }
 //        @SuppressLint("DiffUtilEquals")
 //        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 //        @Override
-//        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+//        public boolean areContentsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
 //            return oldProduct.equals(newProduct);
 //        }
 //    };
 //
-//    public void submitList(List<NewExhibitModel> products) {
+//    public void submitList(List<ExistingExhibit> products) {
 //        differ.submitList(products);
 //    }
 //
