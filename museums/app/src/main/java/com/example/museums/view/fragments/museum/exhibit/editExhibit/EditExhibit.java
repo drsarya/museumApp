@@ -67,7 +67,7 @@ public class EditExhibit extends Fragment   {
     private int positionExh;
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
-    private EditExhibitPresenter editExhibitPresenter = new EditExhibitPresenter();
+    //private EditExhibitPresenter editExhibitPresenter = new EditExhibitPresenter();
 
     public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, Parcelable photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
@@ -193,12 +193,10 @@ public class EditExhibit extends Fragment   {
                     dateOfCreateEditText.getText().toString(), null, idExhibit);
 
 
-            editExhibitPresenter.setInfo(ex, bitmap);
-            try {
-                editExhibitPresenter.loadData();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        //    editExhibitPresenter.setInfo(ex, bitmap);
+
+        //        editExhibitPresenter.loadData();
+
 
         });
     }

@@ -51,7 +51,7 @@ public class CreateExhibition extends Fragment   {
     static final int GALLERY_REQUEST = 1;
     private CacheManager cacheManager = new CacheManager();
 
-    private CreateExhibitionPresenter exhibitionPresenter = new CreateExhibitionPresenter();
+ //   private CreateExhibitionPresenter exhibitionPresenter = new CreateExhibitionPresenter();
 
     public CreateExhibition newInstance(String login) {
         final CreateExhibition myFragment = new CreateExhibition();
@@ -172,12 +172,10 @@ public class CreateExhibition extends Fragment   {
                 }
                 exhibition.setMuseumId(1);
                 hideKeyboard();
-                try {
-                    exhibitionPresenter.setInfo(exhibition, bitmap);
-                    exhibitionPresenter.loadData();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+//                    exhibitionPresenter.setInfo(exhibition, bitmap);
+//                    exhibitionPresenter.loadData();
+
 
 
             } else {
