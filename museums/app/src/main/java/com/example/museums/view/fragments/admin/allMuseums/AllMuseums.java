@@ -2,7 +2,6 @@ package com.example.museums.view.fragments.admin.allMuseums;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,39 +20,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.museum.ExistingMuseum;
-//import com.example.museums.API.models.museum.Museum;
-import com.example.museums.API.presenter.BasePresenter;
 import com.example.museums.R;
-//import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
-//import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
+import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseumViewModel;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener, BasePresenter.View {
+public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private static final String LOGIN_KEY_USER = "login_key_user";
-     public ProgressBar progressBar;
+    public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
     private ImageButton imbtn;
     private EditText search;
-    public   AllMuseumsPresenter presenter = new AllMuseumsPresenter();
+    public AllMuseumsViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =
                 inflater.inflate(R.layout.fragment_admin_all_museums, container, false);
-        System.out.println(getId()+"iddddddddddddddddddddddddd");
         return rootView;
     }
-
 
 
     private void initViews() {
@@ -72,10 +66,22 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         initViews();
-        System.out.println("sssssssssssssssssssssssssssssssssssssss");
         if (search.getText().toString().isEmpty()) {
-            presenter.attach(this);
-            presenter.loadData();
+            viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
+            viewModel.getIsLoading().observe(this, isLoading -> {
+                if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                else progressBar.setVisibility(View.GONE);
+            });
+            viewModel.getLiveDataUser()
+                    .observe(this, model -> {
+                        viewModel.getIsLoading().postValue(false);
+                        if (model == null) {
+                            Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                        } else {
+                            newExhibitModels = model;
+                            mAdapter.submitList(model);
+                        }
+                    });
         } else {
             filter(search.getText().toString());
         }
@@ -99,7 +105,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -137,11 +142,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         }
     }
 
-
-
-
-
-
     private boolean containsString(String fullName, String currText) {
         String newName = fullName.toLowerCase();
         String newCurrText = currText.toLowerCase();
@@ -160,40 +160,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         mAdapter.submitList(temp);
     }
 
-
-    @Override
-    public <T> void showData(T data) {
-        newExhibitModels = (List<ExistingMuseum>) data;
-        mAdapter.submitList((List<ExistingMuseum>) data);
-    }
-
-    @Override
-    public void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        System.out.println("sssssssssssssssssssssssssssssssssssssss");
-
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.detach();
-    }
 
 
 }

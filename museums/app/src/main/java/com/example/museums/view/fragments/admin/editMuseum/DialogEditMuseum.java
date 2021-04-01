@@ -1,6 +1,5 @@
 package com.example.museums.view.fragments.admin.editMuseum;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.presenter.BasePresenter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
+import com.example.museums.view.fragments.admin.createMuseum.CreateMuseumViewModel;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class DialogEditMuseum extends DialogFragment implements BasePresenter.View {
+public class DialogEditMuseum extends DialogFragment {
     public final String KEY_NAME_MUSEUM = "key_name_museum";
     public final String KEY_ID_CODE = "key_id_code";
     public final String KEY_ADDRESS = "key_address";
@@ -33,7 +32,7 @@ public class DialogEditMuseum extends DialogFragment implements BasePresenter.Vi
     private String address, name, idCode;
     private Button updateInfo;
     public ProgressBar progressBar;
-    private DialogEditMuseumPresenter presenter = new DialogEditMuseumPresenter();
+    private DialogEditMuseumViewModel viewModel;
     private TextFieldBoxes nameTextFieldBoxes, addressTextFieldBoxes;
 
     @Nullable
@@ -67,8 +66,6 @@ public class DialogEditMuseum extends DialogFragment implements BasePresenter.Vi
         addressTextFieldBoxes = rootView.findViewById(R.id.dialog_museum_edit_address_text_field_boxes);
         idCodeEditText = rootView.findViewById(R.id.dialog_museum_edit_id_code);
         updateInfo = rootView.findViewById(R.id.dialog_museum_edit_update_btn);
-        presenter.attach(this);
-
     }
 
     private void setData() {
@@ -81,37 +78,21 @@ public class DialogEditMuseum extends DialogFragment implements BasePresenter.Vi
         addressEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(addressTextFieldBoxes));
         nameEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(nameTextFieldBoxes));
         updateInfo.setOnClickListener(v -> {
-            presenter.setInfo(nameEditText.getText().toString(), addressEditText.getText().toString(), idCode);
-            presenter.loadData();
+            viewModel = ViewModelProviders.of(this).get(DialogEditMuseumViewModel.class);
+            viewModel.getIsLoading().observe(this, isLoading -> {
+                if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                else progressBar.setVisibility(View.GONE);
+            });
+            viewModel.getLiveData(nameEditText.getText().toString(), nameEditText.getText().toString(), addressEditText.getText().toString())
+                    .observe(this, model -> {
+                        viewModel.getIsLoading().postValue(false);
+                        if (model == null) {
+                            Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                            // ((AllMuseums) getParentFragment()).presenter.loadData();
+                        }
+                    });
         });
     }
-
-    @Override
-    public <T> void showData(T data) {
-        Toast.makeText(getContext(), ((OkModel) data).getMessage(), Toast.LENGTH_SHORT).show();
-        ((AllMuseums) getParentFragment()).presenter.loadData();
-    }
-
-    @Override
-    public void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.detach();
-    }
-
-
 }

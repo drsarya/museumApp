@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -19,20 +20,20 @@ import retrofit2.http.Path;
 public interface LikeService {
 
     @POST("likes")
-    Single<Integer>  getLikesByArtId(@Body BaseLike baseLike);
+    Call<Integer>  getLikesByArtId(@Body BaseLike baseLike);
 
     @POST("likes")
-    Single<BaseLike> getLikeByUser(@Body UserLike userLike);
+    Call<BaseLike> getLikeByUser(@Body UserLike userLike);
 
     @DELETE("likes")
-    Single<Boolean> deleteLikeByUser(@Body UserLike userLike);
+    Call<Boolean> deleteLikeByUser(@Body UserLike userLike);
 
     @POST("likes")
-    Single<Boolean> createLike(@Body UserLike userLike);
+    Call<Boolean> createLike(@Body UserLike userLike);
 
     @GET("likes/exhibits/{idUser}")
-    Observable<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
+    Call<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
 
     @GET("likes/exhibitions/{idUser}")
-    Observable<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
+    Call<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
 }

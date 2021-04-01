@@ -12,22 +12,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.API.models.enums.RoleEnum;
-import com.example.museums.API.models.user.NewUser;
-import com.example.museums.API.presenter.BasePresenter;
-import com.example.museums.API.presenter.BaseViewImpl;
+import com.example.museums.API.models.user.ExistingUser;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
 
-
-import java.time.Instant;
-
-public class Authorization extends AppCompatActivity implements BasePresenter.View {
+public class Authorization extends AppCompatActivity {
     private Button regPerson, authBtn, reMuseum;
     private EditText logEditText, passEditText;
-    private AuthorizationPresenter authorizationPresenter;
     public ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -37,14 +33,13 @@ public class Authorization extends AppCompatActivity implements BasePresenter.Vi
         setContentView(R.layout.activity_authorization);
         initViews();
         setListeners();
+
+
     }
 
-    Integer count = 0;
 
     private void initViews() {
         progressBar = (ProgressBar) findViewById(R.id.authorization_progress_bar);
-        authorizationPresenter = new AuthorizationPresenter();
-        authorizationPresenter.attach(this);
         regPerson = (Button) findViewById(R.id.authorization_reg_person);
         reMuseum = (Button) findViewById(R.id.authorization_reg_museum);
         authBtn = (Button) findViewById(R.id.authorization_btn_auth);
@@ -52,6 +47,7 @@ public class Authorization extends AppCompatActivity implements BasePresenter.Vi
         passEditText = (EditText) findViewById(R.id.authorization_password_text_view);
     }
 
+    AuthorizationViewModel authorizationViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
@@ -65,19 +61,41 @@ public class Authorization extends AppCompatActivity implements BasePresenter.Vi
         });
 
         authBtn.setOnClickListener(v -> {
-            authorizationPresenter.setUserInfo(logEditText.getText().toString(), passEditText.getText().toString());
-            authorizationPresenter.loadData();
+            authorizationViewModel = ViewModelProviders.of(this).get(AuthorizationViewModel.class);
+            authorizationViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isLoading) {
+                    if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                    else progressBar.setVisibility(View.GONE);
+                }
+            });
+            authorizationViewModel.getLiveDataUser(logEditText.getText().toString(), passEditText.getText().toString())
+                    .observe(this, new Observer<ExistingUser>() {
+                        @Override
+                        public void onChanged(@Nullable ExistingUser aBoolean) {
+                            authorizationViewModel.getIsLoading().postValue(false);
+
+                            if (aBoolean == null) {
+                                Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), aBoolean.login + " " + aBoolean.role, Toast.LENGTH_SHORT).show();
+                                checkData(aBoolean);
+                            }
+                        }
+                    });
+
+
         });
     }
 
-    @Override
-    public <T> void showData(T data) {
-        if (((NewUser) data).getRole() == RoleEnum.MUSEUM) {
+
+    private void checkData(ExistingUser existingUser) {
+        if (existingUser.getRole() == RoleEnum.MUSEUM) {
             //  Toast.makeText(this.getApplicationContext(), "museum", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getApplicationContext(), MuseumTab.class);
 //            intent.putExtra(MuseumTab.LOGIN_KEY_USER, login);
 //            activity.startActivity(intent);
-        } else if (((NewUser) data).getRole() == RoleEnum.ADMIN) {
+        } else if (existingUser.getRole() == RoleEnum.ADMIN) {
             //  Toast.makeText(this.getApplicationContext(), "admin", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getApplicationContext(), AdminTab.class);
 //            intent.putExtra(AdminTab.LOGIN_USER_KEY, login);
@@ -88,25 +106,7 @@ public class Authorization extends AppCompatActivity implements BasePresenter.Vi
 //            intent.putExtra(UserTab.ID_USER_KEY, idUser);
 //            intent.putExtra(UserTab.LOGIN_USER_KEY, login);
         }
-    }
 
-    @Override
-    public void showError(String message) {
-        Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        authorizationPresenter.detach();
     }
 
 

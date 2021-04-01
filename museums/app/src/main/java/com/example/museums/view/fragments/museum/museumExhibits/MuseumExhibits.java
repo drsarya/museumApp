@@ -15,6 +15,7 @@
 //import androidx.fragment.app.Fragment;
 //import androidx.recyclerview.widget.RecyclerView;
 //
+//import com.example.museums.API.models.exhibit.ExistingExhibit;
 //import com.example.museums.R;
 //import com.example.museums.view.services.oop.IDeletePosition;
 //import com.example.museums.view.services.recyclerViews.MuseumExhibitsRecyclerAdapter;
@@ -31,7 +32,7 @@
 //    private QueryDeleteMuseumExhibit queryDeleteMuseumExhibit;
 //    private static QueryListMuseumExhibits queryListMuseumExhibits;
 //    private EditText searchEditText;
-//    private List<NewExhibitModel> newExhibitModels;
+//    private List<ExistingExhibit> newExhibitModels;
 //    private static String copySearch = "";
 //
 //
@@ -93,10 +94,10 @@
 //    }
 //
 //    private void filter(String text) {
-//        List<NewExhibitModel> temp = new ArrayList();
+//        List<ExistingExhibit> temp = new ArrayList();
 //        System.out.println(newExhibitModels.size());
-//        for (NewExhibitModel d : newExhibitModels) {
-//            if (containsString(d.name, text) || containsString(d.author, text)) {
+//        for (ExistingExhibit d : newExhibitModels) {
+//            if (containsString(d.getName(), text) || containsString(d.getAuthor().getFullName(), text)) {
 //                temp.add(d);
 //            }
 //        }
@@ -127,7 +128,7 @@
 //    }
 //
 //
-//    public void refreshAllList(List<NewExhibitModel> exhibitModels) {
+//    public void refreshAllList(List<ExistingExhibit> exhibitModels) {
 //        this.newExhibitModels = exhibitModels;
 //        mAdapter.submitList(exhibitModels);
 //    }

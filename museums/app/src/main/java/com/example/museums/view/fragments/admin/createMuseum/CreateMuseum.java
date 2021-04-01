@@ -12,18 +12,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.presenter.BasePresenter;
 import com.example.museums.R;
+import com.example.museums.view.fragments.admin.allMuseums.AllMuseumsViewModel;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class CreateMuseum extends Fragment implements BasePresenter.View {
+public class CreateMuseum extends Fragment {
 
 
     private Button regMuseumBtn;
@@ -33,8 +31,8 @@ public class CreateMuseum extends Fragment implements BasePresenter.View {
     private TextFieldBoxes logTextFieldBoxes;
     private TextFieldBoxes nameTextFieldBoxes;
     private TextFieldBoxes addressTextFieldBoxes;
-    private CreateMuseumPresenter presenter = new CreateMuseumPresenter();
     public ProgressBar progressBar;
+    public CreateMuseumViewModel viewModel;
 
     @Nullable
     @Override
@@ -54,17 +52,29 @@ public class CreateMuseum extends Fragment implements BasePresenter.View {
         nameTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_name_of_museum_text_field);
         addressTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_address_of_museum_text_field);
         progressBar = getActivity().findViewById(R.id.admin_create_museum_progress_bar);
-        presenter.attach(this);
     }
 
     private void setListeners() {
         logEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(logTextFieldBoxes));
         regMuseumBtn.setOnClickListener(
                 v -> {
-                    presenter.setInfo(logEditText.getText().toString(), nameEditText.getText().toString(), addressEditText.getText().toString());
-                    presenter.loadData();
+                    viewModel = ViewModelProviders.of(this).get(CreateMuseumViewModel.class);
+                    viewModel.getIsLoading().observe(this, isLoading -> {
+                        if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                        else progressBar.setVisibility(View.GONE);
+                    });
+                    viewModel.getLiveDataUser(logEditText.getText().toString(), nameEditText.getText().toString(), addressEditText.getText().toString())
+                            .observe(this, model -> {
+                                viewModel.getIsLoading().postValue(false);
+                                if (model == null) {
+                                    Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 }
         );
+        //кнопка расшарить!!!!!!!!!!!!!!!
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -76,10 +86,6 @@ public class CreateMuseum extends Fragment implements BasePresenter.View {
         setListeners();
     }
 
-    @Override
-    public <T> void showData(T data) {
-        Toast.makeText(getContext(), ((OkModel) data).getMessage(), Toast.LENGTH_SHORT).show();
-
 
 //        DialogMuseumCreated myFragment = new DialogMuseumCreated();
 //        Bundle bd = new Bundle();
@@ -90,26 +96,7 @@ public class CreateMuseum extends Fragment implements BasePresenter.View {
 //        final FragmentTransaction ft = ss.getSupportFragmentManager().beginTransaction();
 //        myFragment.show(ft, "dialog");
 // 
-    }
+//    }
 
-    @Override
-    public void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.detach();
-    }
 }

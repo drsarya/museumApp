@@ -9,11 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class UserMuseum extends UserUpdate {
-    Integer idCode ;
+public class UserMuseum   {
+    Integer idCode   ;
+    String password, login;
 
-    public UserMuseum(String login, String password, Integer idCode) {
-        super(login, password);
+
+    public UserMuseum(Integer idCode, String password, String login) {
         this.idCode = idCode;
+        this.password = password;
+        this.login = login;
     }
 }

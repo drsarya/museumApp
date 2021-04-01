@@ -9,4 +9,12 @@ public class BaseLike {
     Integer artId ;
 
     TypeOfArtEnum type ;
+
+    public BaseLike(Integer artId, TypeOfArtEnum type) {
+        this.artId = artId;
+        this.type = type;
+    }
+    public BaseLike( ) {
+
+    }
 }

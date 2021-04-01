@@ -15,12 +15,13 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.API.models.OkModel;
-import com.example.museums.API.presenter.BasePresenter;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
-import com.example.museums.view.activities.common.Registration.RegistrationPresenter;
+import com.example.museums.view.activities.common.Registration.RegistrationViewModel;
 import com.example.museums.view.services.Listeners.GestureDetectorTurnBack;
 import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherForFirstPass;
@@ -31,7 +32,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class RegistrationMuseum extends AppCompatActivity implements BasePresenter.View {
+public class RegistrationMuseum extends AppCompatActivity {
     private ScrollView view;
     private EditText idCodeEditText;
     private EditText loginEditText;
@@ -44,7 +45,7 @@ public class RegistrationMuseum extends AppCompatActivity implements BasePresent
     private RelativeLayout layoutBtn;
     private Button regMuseumBtn;
     public ProgressBar progressBar;
-    private RegistrationMuseumPresenter presenter;
+    private RegistrationMuseumViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,8 +68,7 @@ public class RegistrationMuseum extends AppCompatActivity implements BasePresent
         layoutBtn = (RelativeLayout) findViewById(R.id.registration_museum_relative_layout);
         regMuseumBtn = (Button) findViewById(R.id.reg_museum_reg_btn);
         progressBar = (ProgressBar) findViewById(R.id.registration_museum_progress_bar);
-        presenter = new RegistrationMuseumPresenter();
-        presenter.attach(this);
+
     }
 
     private void setListeners() {
@@ -84,11 +84,21 @@ public class RegistrationMuseum extends AppCompatActivity implements BasePresent
     private void btnListener() {
         regMuseumBtn.setOnClickListener(v ->
         {
-            presenter.setInfo(Integer.parseInt(idCodeEditText.getText().toString()),
-                    loginEditText.getText().toString(),
-                    firstPassEditText.getText().toString()
-            );
-            presenter.loadData();
+            viewModel = ViewModelProviders.of(this).get(RegistrationMuseumViewModel.class);
+            viewModel.getIsLoading().observe(this, isLoading -> {
+                if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                else progressBar.setVisibility(View.GONE);
+            });
+            viewModel.getLiveDataUser(Integer.parseInt(idCodeEditText.getText().toString()), loginEditText.getText().toString(), firstPassEditText.getText().toString())
+                    .observe(this, model -> {
+                        viewModel.getIsLoading().postValue(false);
+
+                        if (model == null) {
+                            Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
     }
 
@@ -105,31 +115,5 @@ public class RegistrationMuseum extends AppCompatActivity implements BasePresent
             }
             return mDetector.onTouchEvent(event);
         });
-    }
-
-    @Override
-    public <T> void showData(T data) {
-        Toast.makeText(getApplicationContext(), ((OkModel) data).getMessage(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showError(String message) {
-        Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.detach();
     }
 }

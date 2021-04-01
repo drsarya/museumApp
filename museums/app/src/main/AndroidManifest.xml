@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".view.activities.tabs.AdminTab"
+            android:name=".view.activities.common.Authorization.Authorization"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +32,9 @@
 <!--        <activity-->
 <!--            android:name=".view.activities.tabs.UserTab"-->
 <!--            android:windowSoftInputMode="adjustUnspecified" />-->
-<!--        <activity-->
-<!--            android:name=".view.activities.tabs.MuseumTab"-->
-<!--            android:windowSoftInputMode="adjustResize" />-->
+        <activity
+            android:name=".view.activities.tabs.MuseumTab"
+            android:windowSoftInputMode="adjustResize" />
 <!--        <activity-->
 <!--            android:name=".view.activities.common.Authorization.Authorization"-->
 <!--            android:windowSoftInputMode="adjustPan" />-->

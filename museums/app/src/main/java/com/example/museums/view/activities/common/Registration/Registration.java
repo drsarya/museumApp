@@ -15,9 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.API.models.OkModel;
-import com.example.museums.API.presenter.BasePresenter;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
 import com.example.museums.view.services.Listeners.GestureDetectorTurnBack;
@@ -27,7 +28,7 @@ import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListe
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class Registration extends AppCompatActivity  implements BasePresenter.View {
+public class Registration extends AppCompatActivity {
     private ScrollView view;
     private RelativeLayout relativeLayoutMuseumReg;
     private EditText loginEditText;
@@ -37,7 +38,7 @@ public class Registration extends AppCompatActivity  implements BasePresenter.Vi
     private TextFieldBoxes secondPassTextFieldBoxes;
     private TextFieldBoxes loginTextFieldBoxes;
     private TextFieldBoxes firstPassTextFieldBoxes;
-    private RegistrationPresenter presenter;
+
     public ProgressBar progressBar;
 
     @Override
@@ -57,8 +58,7 @@ public class Registration extends AppCompatActivity  implements BasePresenter.Vi
         registrationBtn = (Button) findViewById(R.id.registration_create_btn);
         secondPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_second_pass_textFBoxes);
         firstPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_first_pass_textFieldBoxes);
-        presenter = new RegistrationPresenter();
-        presenter.attach(this);
+
         progressBar = (ProgressBar) findViewById(R.id.registration_progress_bar);
         loginTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_login_text_field_boxes);
     }
@@ -83,11 +83,35 @@ public class Registration extends AppCompatActivity  implements BasePresenter.Vi
         });
     }
 
+    RegistrationViewModel registrationViewModel;
 
     private void btnListener() {
         registrationBtn.setOnClickListener(v -> {
-            presenter.setUserInfo(loginEditText.getText().toString(), passFirstEditText.getText().toString());
-            presenter.loadData();
+
+            registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+            registrationViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isLoading) {
+                    if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                    else progressBar.setVisibility(View.GONE);
+                }
+            });
+            registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
+                    .observe(this, new Observer<OkModel>() {
+                        @Override
+                        public void onChanged(@Nullable OkModel aBoolean) {
+                            registrationViewModel.getIsLoading().postValue(false);
+
+                            if (aBoolean == null) {
+                                Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                    });
+
 
         });
     }
@@ -98,26 +122,5 @@ public class Registration extends AppCompatActivity  implements BasePresenter.Vi
         passSecondEditText.addTextChangedListener(new TextWatcherListenerForSecondPass(secondPassTextFieldBoxes, passFirstEditText));
     }
 
-    @Override
-    public <T> void showData(T data) {
-        Toast.makeText( getApplicationContext(), ((OkModel)data).getMessage(), Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showError(String message) {
-        Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
 
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.detach();
-    }
 }

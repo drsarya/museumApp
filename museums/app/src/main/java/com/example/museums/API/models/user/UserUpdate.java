@@ -11,8 +11,9 @@ import lombok.Setter;
 
 public class UserUpdate extends NewUser{
     String newPassword;
-    public UserUpdate(String login, String password) {
+    public UserUpdate(String login, String password, String newPassword) {
         super(login, password);
+        this.setNewPassword(newPassword);
     }
 
 
