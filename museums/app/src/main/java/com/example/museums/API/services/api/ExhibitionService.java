@@ -3,6 +3,7 @@ package com.example.museums.API.services.api;
 
 
 
+import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 
@@ -23,7 +24,7 @@ public interface ExhibitionService {
     Call<List<ExistingExhibition>> getAllExhibitions();
 
     @DELETE("exhibitions/{id}")
-    Call<Boolean> deleteExhibition(@Path("id") int id);
+    Call<OkModel> deleteExhibition(@Path("id") int id);
 
     @POST("exhibitions")
     Call<ExistingExhibition> createExhibition(BaseExhibition exhibition);

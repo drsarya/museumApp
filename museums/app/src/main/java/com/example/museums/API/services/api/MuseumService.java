@@ -30,7 +30,10 @@ public interface MuseumService {
     @PUT("museum")
     Call<OkModel> updateMuseum(@Body UpdatableMuseum baseMuseum);
 
-    @GET("museum/{id}")
+    @GET("museum/worker/{id}")
     Call<ExistingMuseum> getMuseumByWorkerId(@Path("id") Integer id);
+
+    @GET("museum/{id}")
+    Call<ExistingMuseum> getMuseumById(@Path("id") Integer id);
 
 }

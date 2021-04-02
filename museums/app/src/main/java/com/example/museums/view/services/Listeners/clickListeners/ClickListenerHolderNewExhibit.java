@@ -7,13 +7,14 @@
 //import androidx.annotation.RequiresApi;
 //import androidx.fragment.app.Fragment;
 //
+//import com.example.museums.API.models.exhibit.BaseExhibit;
 //import com.example.museums.view.activities.tabs.MuseumTab;
 //import com.example.museums.view.fragments.common.DetailedExhibitWithListeners;
 //import com.example.museums.view.services.MethodsWithFragment;
 //import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 //
 //public class ClickListenerHolderNewExhibit implements View.OnClickListener {
-//    public ClickListenerHolderNewExhibit(View view, NewExhibitModel newExhibitModel, Integer userId) {
+//    public ClickListenerHolderNewExhibit(View view, BaseExhibit newExhibitModel, Integer userId) {
 //        this.view = view;
 //        this.userId = userId;
 //        this.model = newExhibitModel;
@@ -22,7 +23,7 @@
 //    private Integer userId;
 //    private CountDownTimer ctimte = null;
 //    private View view;
-//    private NewExhibitModel model;
+//    private BaseExhibit model;
 //    private MethodsWithFragment mth = new MethodsWithFragment();
 //
 //    @RequiresApi(api = Build.VERSION_CODES.Q)

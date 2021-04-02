@@ -7,6 +7,7 @@
 //import androidx.annotation.RequiresApi;
 //import androidx.fragment.app.Fragment;
 //
+//import com.example.museums.API.models.exhibition.ExistingExhibition;
 //import com.example.museums.view.activities.tabs.MuseumTab;
 //import com.example.museums.view.fragments.common.DetailedExhbtn;
 //import com.example.museums.view.services.MethodsWithFragment;
@@ -14,11 +15,11 @@
 //
 //public class ClickListenerOpenExhibition implements View.OnClickListener {
 //    private View view;
-//    private ExhibitionWithMuseumName exhibitionWithMuseumName;
+//    private ExistingExhibition exhibitionWithMuseumName;
 //    private MethodsWithFragment mth = new MethodsWithFragment();
 //    private CountDownTimer ctimte = null;
 //
-//    public ClickListenerOpenExhibition(View view, ExhibitionWithMuseumName exhibitionWithMuseumName) {
+//    public ClickListenerOpenExhibition(View view, ExistingExhibition exhibitionWithMuseumName) {
 //        this.view = view;
 //        this.exhibitionWithMuseumName = exhibitionWithMuseumName;
 //    }
@@ -28,12 +29,12 @@
 //    public void onClick(View v) {
 //        Fragment myFragment;
 //        if (view.getVisibility() == View.VISIBLE) {
-//            if (exhibitionWithMuseumName.firstDate == null) {
-//                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), -1, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
-//                        "", exhibitionWithMuseumName.description);
+//            if (exhibitionWithMuseumName.getFirstDate() == null) {
+//                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.getId(), Integer.parseInt(exhibitionWithMuseumName.getMuseumId()), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+//                        "", exhibitionWithMuseumName.getDescription());
 //            } else {
-//                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), -1, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
-//                        exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
+//                myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.getId(), Integer.parseInt(exhibitionWithMuseumName.getMuseumId()), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+//                        exhibitionWithMuseumName.getFirstDate() + " - " + exhibitionWithMuseumName.getLastDate(), exhibitionWithMuseumName.getDescription());
 //            }
 //            MuseumTab activity = (MuseumTab) v.getContext();
 //            mth.replaceFragment(myFragment, activity);

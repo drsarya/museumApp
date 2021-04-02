@@ -25,8 +25,8 @@ public class DialogUpdatePassword extends DialogFragment   {
     private TextFieldBoxes newPassTextFieldBoxes;
     private Button updateBtn;
     public ProgressBar progressBar;
-    private String loginMuseum;
-    public static final String ID_MUSEUM_KEY = "login_key";
+    private Integer id;
+    public static final String ID_KEY = "id_key";
 
 
     @Nullable
@@ -38,7 +38,7 @@ public class DialogUpdatePassword extends DialogFragment   {
         initViews(rootView);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            loginMuseum = bundle.getString(ID_MUSEUM_KEY);
+            id = bundle.getInt(ID_KEY);
         }
         setListeners();
         return rootView;

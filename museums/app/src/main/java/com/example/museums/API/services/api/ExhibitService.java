@@ -3,6 +3,7 @@ package com.example.museums.API.services.api;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 
@@ -26,7 +27,7 @@ public interface ExhibitService {
     Call<List<ExistingExhibit>> getExhibitsByMuseumId(@Path("museumId") Integer id);
 
     @DELETE("exhibits/{id}")
-    Call<Boolean> deleteExhibit(@Path("id")  int id);
+    Call<OkModel> deleteExhibit(@Path("id")  int id);
 
     @POST("exhibits")
     Call<ExistingExhibit> createExhibit(BaseExhibit exhibit);

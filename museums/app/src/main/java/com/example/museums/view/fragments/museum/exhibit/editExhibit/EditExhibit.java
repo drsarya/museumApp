@@ -69,10 +69,10 @@ public class EditExhibit extends Fragment   {
     private List<Author> authorList = new ArrayList<>();
     //private EditExhibitPresenter editExhibitPresenter = new EditExhibitPresenter();
 
-    public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, Parcelable photo, String description, int positionExh) {
+    public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, String photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
-        args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
+        args.putString(EXHIBIT_IMAGE_MODEL, photo);
         args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
 
         args.putString(EXHIBIT_AUTHOR_MODEL, author);

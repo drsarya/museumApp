@@ -31,7 +31,7 @@ public class DialogEditMuseumRepository {
     public MutableLiveData<OkModel> editMuseum(String name, String address, String id) {
         MutableLiveData<OkModel> newsData = new MutableLiveData<>();
         UpdatableMuseum updatableMuseum = new UpdatableMuseum();
-        updatableMuseum.setId(Long.valueOf(id));
+        updatableMuseum.setId(Integer.parseInt(id));
         updatableMuseum.setAddress(address);
         updatableMuseum.setNameMuseum(name);
         museumService.updateMuseum(updatableMuseum)
