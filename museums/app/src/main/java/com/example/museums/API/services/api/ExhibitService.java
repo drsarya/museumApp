@@ -26,8 +26,11 @@ public interface ExhibitService {
     @GET("exhibits/{museumId}")
     Call<List<ExistingExhibit>> getExhibitsByMuseumId(@Path("museumId") Integer id);
 
+    @GET("exhibits/exhibition/{exhibitionId}")
+    Call<List<ExistingExhibit>> getExhibitsByExhibitionId(@Path("exhibitionId") Integer id);
+
     @DELETE("exhibits/{id}")
-    Call<OkModel> deleteExhibit(@Path("id")  int id);
+    Call<OkModel> deleteExhibit(@Path("id") int id);
 
     @POST("exhibits")
     Call<ExistingExhibit> createExhibit(BaseExhibit exhibit);

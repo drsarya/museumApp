@@ -56,8 +56,7 @@ public class MuseumExhibitsRepository {
         exhibitService.deleteExhibit(id)
                 .enqueue(new Callback<OkModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call,
-                                           Response<OkModel> response) {
+                    public void onResponse(Call<OkModel> call, Response<OkModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }

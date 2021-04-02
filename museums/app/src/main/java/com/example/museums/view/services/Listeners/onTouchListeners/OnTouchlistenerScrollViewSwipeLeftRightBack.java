@@ -7,19 +7,19 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.FragmentActivity;
 
-public class OnToucLlistenerScrollViewSwipeLeftRightBack implements View.OnTouchListener {
+public class OnTouchlistenerScrollViewSwipeLeftRightBack implements View.OnTouchListener {
     private Float downx = null;
     private Float downy = null;
     private FragmentActivity activity;
     private boolean trof;
     private LinearLayout ll;
 
-    public OnToucLlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof) {
+    public OnTouchlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof) {
         this.activity = activity;
         this.trof = trof;
     }
 
-    public OnToucLlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof, LinearLayout ll) {
+    public OnTouchlistenerScrollViewSwipeLeftRightBack(FragmentActivity activity, boolean trof, LinearLayout ll) {
         this.activity = activity;
         this.trof = trof;
         this.ll = ll;

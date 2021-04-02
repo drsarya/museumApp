@@ -1,5 +1,6 @@
 package com.example.museums.API.services.api;
 
+import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.models.like.BaseLike;
@@ -26,10 +27,10 @@ public interface LikeService {
     Call<BaseLike> getLikeByUser(@Body UserLike userLike);
 
     @DELETE("likes")
-    Call<Boolean> deleteLikeByUser(@Body UserLike userLike);
+    Call<OkModel> deleteLikeByUser(@Body UserLike userLike);
 
     @POST("likes")
-    Call<Boolean> createLike(@Body UserLike userLike);
+    Call<OkModel> createLike(@Body UserLike userLike);
 
     @GET("likes/exhibits/{idUser}")
     Call<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);

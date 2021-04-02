@@ -30,8 +30,6 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
             case MotionEvent.ACTION_UP: {
                 if (downy != null) {
                     float upY = event.getY();
-                    float deltaY = downy - upY;
-                    System.out.println(deltaY);
                     if (upY - downy > 0) {
                         if (ll.getVisibility() != View.VISIBLE) {
                             if (trof) {

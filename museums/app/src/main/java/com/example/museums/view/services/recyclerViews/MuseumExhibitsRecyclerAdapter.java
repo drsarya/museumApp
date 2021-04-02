@@ -22,6 +22,7 @@ import com.example.museums.R;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
 
 import java.util.List;
 
@@ -66,9 +67,9 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
         final ExistingExhibit purchaseList = differ.getCurrentList().get(position);
-       // holder.mainImage.setImageBitmap(purchaseList.getImageUrl());
+        // holder.mainImage.setImageBitmap(purchaseList.getImageUrl());
         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
-       // holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), purchaseList.getId()));
         holder.authorTextView.setText(purchaseList.getAuthor().fullName);
@@ -84,6 +85,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         public boolean areItemsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
             return oldProduct.getId().equals(newProduct.getId());
         }
+
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override

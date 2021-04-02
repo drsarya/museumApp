@@ -24,9 +24,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.ChangeMuseumImageViewModel;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
@@ -35,11 +36,11 @@ import java.io.IOException;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class CreateExhibition extends Fragment   {
+public class CreateExhibition extends Fragment {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
     public static final String LOGIN_KEY_USER = "login_key";
-    private static String login;
+    private static Integer museumId;
     private Bitmap bitmap;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
@@ -51,7 +52,7 @@ public class CreateExhibition extends Fragment   {
     static final int GALLERY_REQUEST = 1;
     private CacheManager cacheManager = new CacheManager();
 
- //   private CreateExhibitionPresenter exhibitionPresenter = new CreateExhibitionPresenter();
+    //   private CreateExhibitionPresenter exhibitionPresenter = new CreateExhibitionPresenter();
 
     public CreateExhibition newInstance(String login) {
         final CreateExhibition myFragment = new CreateExhibition();
@@ -63,7 +64,7 @@ public class CreateExhibition extends Fragment   {
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
+            museumId = getArguments().getInt(LOGIN_KEY_USER);
         }
     }
 
@@ -97,7 +98,6 @@ public class CreateExhibition extends Fragment   {
                         cacheManager.deleteItem("newExhibition");
                         cacheManager.addBitmapToMemoryCache("newExhibition", bitmap);
                         currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -109,7 +109,6 @@ public class CreateExhibition extends Fragment   {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.fragment_create_exhibition, container, false);
         getArgumentsFromBundle();
@@ -125,6 +124,25 @@ public class CreateExhibition extends Fragment   {
         }
     }
 
+    private CreateExhibitionViewModel viewModel;
+
+    private void createExhibition() throws IOException {
+        viewModel = ViewModelProviders.of(this).get(CreateExhibitionViewModel.class);
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.liveDataCreateExhibition(museumId, nameET.getText().toString(), descriptionET.getText().toString(),
+                dateOfStartET.getText().toString(), dateOfEndET.getText().toString(), bitmap)
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Успешное создание выставки", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
@@ -139,7 +157,6 @@ public class CreateExhibition extends Fragment   {
                 dateOfEndTFB.setVisibility(View.VISIBLE);
             }
         });
-
         chooseImageTextView.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
@@ -150,34 +167,15 @@ public class CreateExhibition extends Fragment   {
                     && !nameET.getText().toString().isEmpty()
                     && !descriptionET.getText().toString().isEmpty()
             ) {
-                BaseExhibition exhibition = new BaseExhibition();
-                exhibition.setName(nameET.getText().toString());
                 BitmapDrawable drawable = (BitmapDrawable) currImageImageView.getDrawable();
                 Bitmap image = drawable.getBitmap();
-                exhibition.setDescription(descriptionET.getText().toString());
 
-                if (onlineCheckBox.isChecked()) {
-                    exhibition.setFirstDate(null);
-                    exhibition.setLastDate(null);
-                } else {
-                    if (!dateOfEndTFB.isOnError() && !dateOfStartTFB.isOnError()
-                            && !dateOfStartET.getText().toString().isEmpty()
-                            && !dateOfStartET.getText().toString().isEmpty()) {
-                        exhibition.setFirstDate(dateOfStartET.getText().toString());
-                        exhibition.setLastDate(dateOfEndET.getText().toString());
-
-                    } else {
-                        Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                exhibition.setMuseumId(1);
                 hideKeyboard();
-
-//                    exhibitionPresenter.setInfo(exhibition, bitmap);
-//                    exhibitionPresenter.loadData();
-
-
-
+                try {
+                    createExhibition();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();

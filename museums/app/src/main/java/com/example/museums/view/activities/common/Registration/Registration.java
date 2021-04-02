@@ -101,15 +101,12 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onChanged(@Nullable OkModel aBoolean) {
                             registrationViewModel.getIsLoading().postValue(false);
-
                             if (aBoolean == null) {
                                 Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
                         }
-
                     });
 
 

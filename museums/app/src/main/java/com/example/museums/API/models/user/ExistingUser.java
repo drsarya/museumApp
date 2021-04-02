@@ -11,7 +11,9 @@ import lombok.Setter;
 public class ExistingUser extends NewUser {
     long id;
 
-    public ExistingUser(String login, String password) {
+
+    public ExistingUser(Integer id, String login, String password) {
         super(login, password);
+        this.id = id;
     }
 }

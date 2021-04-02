@@ -37,8 +37,7 @@ public class DialogEditMuseumRepository {
         museumService.updateMuseum(updatableMuseum)
                 .enqueue(new Callback<OkModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call,
-                                           Response<OkModel> response) {
+                    public void onResponse(Call<OkModel> call, Response<OkModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }

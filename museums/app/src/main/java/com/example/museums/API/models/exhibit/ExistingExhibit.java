@@ -13,4 +13,8 @@ public class ExistingExhibit extends BaseExhibit{
         super(author, name, imageUrl, description, dateOfCreate, exhibitionId);
         this.id = id;
     }
+    public ExistingExhibit(Author author, String name,   String description, String dateOfCreate , Integer id) {
+        super(author, name,   description, dateOfCreate );
+        this.id = id;
+    }
 }

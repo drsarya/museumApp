@@ -28,4 +28,5 @@ public class NewUser {
         this.role = roleEnum;
     }
 
+
 }

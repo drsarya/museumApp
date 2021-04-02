@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,16 +18,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
+import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
@@ -38,7 +41,7 @@ import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class EditExhibit extends Fragment   {
+public class EditExhibit extends Fragment {
     private ScrollView view;
     private EditText nameEditText;
     private EditText authorEditText;
@@ -67,7 +70,7 @@ public class EditExhibit extends Fragment   {
     private int positionExh;
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
-    //private EditExhibitPresenter editExhibitPresenter = new EditExhibitPresenter();
+    private EditExhibitViewModel viewModel;
 
     public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, String photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
@@ -139,12 +142,24 @@ public class EditExhibit extends Fragment   {
 
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
-        //authorPresenter.loadData();
+        getAuthors();
 
     }
 
+    private void getAuthors() {
+        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
+        viewModel.getLiveDataAuthorList()
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        refreshAllList(model);
+                    }
+                });
+    }
+
     public void refreshAllList(List<Author> authors) {
-        System.out.println(authors.size() + "refresh");
         authorList = new ArrayList<>();
         authorList.addAll(authors);
         authorAdapter.updateAll(authors);
@@ -191,14 +206,35 @@ public class EditExhibit extends Fragment   {
                     new Author(authorEditText.getText().toString()),
                     nameEditText.getText().toString(), null, descriptionEditText.getText().toString(),
                     dateOfCreateEditText.getText().toString(), null, idExhibit);
-
-
-        //    editExhibitPresenter.setInfo(ex, bitmap);
-
-        //        editExhibitPresenter.loadData();
-
-
+            try {
+                editExhibition();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+    }
+
+    private void editExhibition() throws IOException {
+        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUpdateExhibit(new Author(authorEditText.getText().toString()),
+                nameEditText.getText().toString(), descriptionEditText.getText().toString(),
+                dateOfCreateEditText.getText().toString(), idExhibit, bitmap)
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
+                            ((EditExhibition) getParentFragment()).getExhibits();
+                        } else {
+                            ((MuseumExhibits) getParentFragment()).getExhibitsMuseum();
+                        }
+                    }
+                });
     }
 
     private boolean containsString(String fullName, String currText) {
@@ -225,7 +261,7 @@ public class EditExhibit extends Fragment   {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
-        view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
     @Override
@@ -245,17 +281,4 @@ public class EditExhibit extends Fragment   {
                 }
         }
     }
-
-
- //   public <T> void showData(T data) {
-
-//        if (getTargetFragment().getClass().toString().equals(EditExhibtion.class.toString())) {
-//            ((EditExhibtion) getParentFragment()).presenter.loadData();
-//
-//        } else {
-//            ((MuseumExhibits) getParentFragment()).presenter.loadData();
-//        }
- //   }
-
-
 }
