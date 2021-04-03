@@ -20,4 +20,7 @@
     <color name="pink">#AF6B6B</color>
     <color name="splash_screen">#1C1A18</color>
     <color name="brown">#25211F</color>
+    <color name="isActive">#719C5C</color>
+    <color name="blocked">#B85A5A</color>
+    <color name="notActive">#E3BB46</color>
 </resources>

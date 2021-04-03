@@ -3,8 +3,7 @@ package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogC
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.museum.BaseMuseum;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.UpdatableMuseum;
 import com.example.museums.API.services.api.MuseumService;
 
@@ -27,21 +26,21 @@ public class DChangeDescriptionMuseumRepo {
         museumService = RetrofitConnect.createRetrofitConnection(MuseumService.class);
     }
 
-    public MutableLiveData<OkModel> updateDescription(UpdatableMuseum updatableMuseum) {
+    public MutableLiveData<AnswerModel> updateDescription(UpdatableMuseum updatableMuseum) {
 
-        MutableLiveData<OkModel> newsData = new MutableLiveData<>();
+        MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
         museumService.updateMuseum(updatableMuseum)
-                .enqueue(new Callback<OkModel>() {
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call,
-                                           Response<OkModel> response) {
+                    public void onResponse(Call<AnswerModel> call,
+                                           Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<OkModel> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });

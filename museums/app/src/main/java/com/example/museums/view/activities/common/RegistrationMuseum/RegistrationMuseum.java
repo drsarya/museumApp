@@ -15,13 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
-import com.example.museums.view.activities.common.Registration.RegistrationViewModel;
 import com.example.museums.view.services.Listeners.GestureDetectorTurnBack;
 import com.example.museums.view.services.Listeners.KeyboardListenerHideOptionalBlock;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherForFirstPass;

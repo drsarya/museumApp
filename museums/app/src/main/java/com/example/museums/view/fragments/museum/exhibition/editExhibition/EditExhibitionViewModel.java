@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 
@@ -38,7 +38,7 @@ public class EditExhibitionViewModel extends ViewModel {
         return repository.editExhibition(baseExhibition, bitmap);
     }
 
-    public LiveData<OkModel> getLiveDataDeleteExhibit(Integer exhibitId)   {
+    public LiveData<AnswerModel> getLiveDataDeleteExhibit(Integer exhibitId)   {
         isLoadingDeleteExhibit.postValue(true);
         return repository.deleteExhibit(exhibitId);
     }

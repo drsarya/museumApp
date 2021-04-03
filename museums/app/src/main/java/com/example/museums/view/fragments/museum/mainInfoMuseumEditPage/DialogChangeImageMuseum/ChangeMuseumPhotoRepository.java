@@ -5,8 +5,7 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.museum.BaseMuseum;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.UpdatableMuseum;
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.FileService;
@@ -39,8 +38,8 @@ public class ChangeMuseumPhotoRepository {
         fileService = RetrofitConnect.createRetrofitConnection(FileService.class);
     }
 
-    public MutableLiveData<OkModel> updateMuseumImage(Bitmap image, Integer museumId) throws IOException {
-        MutableLiveData<OkModel> newsData = new MutableLiveData<>();
+    public MutableLiveData<AnswerModel> updateMuseumImage(Bitmap image, Integer museumId) throws IOException {
+        MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
 
         File file = BitmapConverter.convertBitmapToFile(image);
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -55,16 +54,16 @@ public class ChangeMuseumPhotoRepository {
                             updatableMuseum.setId(museumId);
                             updatableMuseum.setImageUrl(response.body());
                             museumService.updateMuseum(updatableMuseum)
-                                    .enqueue(new Callback<OkModel>() {
+                                    .enqueue(new Callback<AnswerModel>() {
                                         @Override
-                                        public void onResponse(Call<OkModel> call, Response<OkModel> response) {
+                                        public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                                             if (response.isSuccessful()) {
                                                 newsData.setValue(response.body());
                                             }
                                         }
 
                                         @Override
-                                        public void onFailure(Call<OkModel> call, Throwable t) {
+                                        public void onFailure(Call<AnswerModel> call, Throwable t) {
                                             newsData.setValue(null);
                                         }
                                     });

@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
-import com.example.museums.view.fragments.admin.createMuseum.CreateMuseumRepository;
+import com.example.museums.API.models.AnswerModel;
 
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class ChangeMuseumImageViewModel   extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<OkModel> getUpdateLiveData(Bitmap bitmap, Integer id) throws IOException {
+    public LiveData<AnswerModel> getUpdateLiveData(Bitmap bitmap, Integer id) throws IOException {
         return repository.updateMuseumImage(bitmap, id );
     }
 

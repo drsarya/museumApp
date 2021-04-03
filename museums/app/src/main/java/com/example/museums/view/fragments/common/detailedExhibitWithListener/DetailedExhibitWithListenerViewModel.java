@@ -3,7 +3,7 @@ package com.example.museums.view.fragments.common.detailedExhibitWithListener;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.enums.TypeOfArtEnum;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.API.models.like.UserLike;
@@ -23,7 +23,7 @@ public class DetailedExhibitWithListenerViewModel extends ViewModel {
         return repository.getCountOfLikeOnExhibition(baseLike);
     }
 
-    public LiveData<OkModel> insertLike(Integer artId, Integer userId) {
+    public LiveData<AnswerModel> insertLike(Integer artId, Integer userId) {
         UserLike userLike = new UserLike(artId, TypeOfArtEnum.EXHIBIT, userId);
         return repository.insertLike(userLike);
     }

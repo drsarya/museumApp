@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
 import com.example.museums.view.services.Listeners.GestureDetectorTurnBack;
@@ -97,9 +97,9 @@ public class Registration extends AppCompatActivity {
                 }
             });
             registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
-                    .observe(this, new Observer<OkModel>() {
+                    .observe(this, new Observer<AnswerModel>() {
                         @Override
-                        public void onChanged(@Nullable OkModel aBoolean) {
+                        public void onChanged(@Nullable AnswerModel aBoolean) {
                             registrationViewModel.getIsLoading().postValue(false);
                             if (aBoolean == null) {
                                 Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();

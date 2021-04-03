@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class MuseumExhibitionsViewModel extends ViewModel {
         return repository.getExhibitions(id);
     }
 
-    public LiveData<OkModel> deleteExhibitionLiveData(Integer id) {
+    public LiveData<AnswerModel> deleteExhibitionLiveData(Integer id) {
         isLoadingDeleteExhibition.setValue(true);
         return repository.deleteExhibition(id);
     }

@@ -3,15 +3,12 @@ package com.example.museums.API.services.api;
 
 
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -24,7 +21,7 @@ public interface ExhibitionService {
     Call<List<ExistingExhibition>> getAllExhibitions();
 
     @DELETE("exhibitions/{id}")
-    Call<OkModel> deleteExhibition(@Path("id") int id);
+    Call<AnswerModel> deleteExhibition(@Path("id") int id);
 
     @POST("exhibitions")
     Call<ExistingExhibition> createExhibition(BaseExhibition exhibition);

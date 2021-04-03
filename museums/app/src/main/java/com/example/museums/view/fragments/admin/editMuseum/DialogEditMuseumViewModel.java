@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
-import com.example.museums.view.fragments.admin.createMuseum.CreateMuseumRepository;
+import com.example.museums.API.models.AnswerModel;
 
 public class DialogEditMuseumViewModel extends ViewModel {
     private DialogEditMuseumRepository repository = DialogEditMuseumRepository.getInstance();
@@ -20,7 +19,7 @@ public class DialogEditMuseumViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<OkModel> getLiveData(String name, String address, String login) {
-        return repository.editMuseum(name, address, login);
+    public LiveData<AnswerModel> getLiveData(String name, String address, Integer id) {
+        return repository.editMuseum(name, address, id);
     }
 }

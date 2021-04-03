@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 
 public class RegistrationViewModel extends ViewModel {
 
@@ -20,7 +20,7 @@ public class RegistrationViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<OkModel> getLiveDataUser(String login, String password) {
+    public LiveData<AnswerModel> getLiveDataUser(String login, String password) {
         return authorizationRepository.createUser(login, password);
     }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 
 public class CreateMuseumViewModel  extends ViewModel {
     private CreateMuseumRepository repository = CreateMuseumRepository.getInstance();
@@ -19,7 +19,7 @@ public class CreateMuseumViewModel  extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<OkModel> getLiveDataUser(String name, String address, String login ) {
+    public LiveData<AnswerModel> getLiveDataUser(String name, String address, String login ) {
         return repository.createMuseum(name, address, login );
     }
 }

@@ -3,11 +3,11 @@ package com.example.museums.API.models;
 import lombok.Data;
 
 @Data
-public class OkModel {
+public class AnswerModel {
 
     private final String message;
 
-    public OkModel(  String message) {
+    public AnswerModel(String message) {
         this.message = message;
     }
 

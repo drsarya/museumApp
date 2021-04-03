@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
@@ -76,9 +76,9 @@ public class DialogUpdatePassword extends DialogFragment {
             }
         });
         viewModel.getLiveDataUpdatePassword(id, oldPassEditText.getText().toString(), newPassEditText.getText().toString())
-                .observe(this, new Observer<OkModel>() {
+                .observe(this, new Observer<AnswerModel>() {
                     @Override
-                    public void onChanged(@Nullable OkModel aBoolean) {
+                    public void onChanged(@Nullable AnswerModel aBoolean) {
                         viewModel.getIsLoading().postValue(false);
                         if (aBoolean == null) {
                             Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();

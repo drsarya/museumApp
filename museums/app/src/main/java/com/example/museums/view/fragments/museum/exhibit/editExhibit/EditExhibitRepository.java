@@ -5,11 +5,8 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.author.Author;
-import com.example.museums.API.models.enums.RoleEnum;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.API.models.user.NewUser;
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.AuthorService;
 import com.example.museums.API.services.api.ExhibitService;

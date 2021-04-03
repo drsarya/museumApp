@@ -3,7 +3,7 @@ package com.example.museums.view.fragments.common.detailedExhibitWithListener;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.API.models.like.UserLike;
 import com.example.museums.API.services.api.LikeService;
@@ -64,19 +64,19 @@ public class DetailedExhibitWithListenerRepository {
         return newsData;
     }
 
-    public MutableLiveData<OkModel> insertLike(UserLike userLike) {
-        MutableLiveData<OkModel> newsData = new MutableLiveData<>();
+    public MutableLiveData<AnswerModel> insertLike(UserLike userLike) {
+        MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
         likeService.createLike(userLike)
-                .enqueue(new Callback<OkModel>() {
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call, Response<OkModel> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<OkModel> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });

@@ -3,12 +3,9 @@ package com.example.museums.view.fragments.museum.museumExhibits;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.API.models.museum.BaseMuseum;
 import com.example.museums.API.services.api.ExhibitService;
-import com.example.museums.API.services.api.MuseumService;
-import com.example.museums.view.fragments.admin.createMuseum.CreateMuseumRepository;
 
 import java.util.List;
 
@@ -51,19 +48,19 @@ public class MuseumExhibitsRepository {
         return newsData;
     }
 
-    public MutableLiveData<OkModel> deleteExhibit(Integer id) {
-        MutableLiveData<OkModel> newsData = new MutableLiveData<>();
+    public MutableLiveData<AnswerModel> deleteExhibit(Integer id) {
+        MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
         exhibitService.deleteExhibit(id)
-                .enqueue(new Callback<OkModel>() {
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call, Response<OkModel> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<OkModel> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });

@@ -3,12 +3,8 @@ package com.example.museums.view.fragments.common.museumInfo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.enums.RoleEnum;
 import com.example.museums.API.models.museum.ExistingMuseum;
-import com.example.museums.API.models.user.NewUser;
 import com.example.museums.API.services.api.MuseumService;
-import com.example.museums.API.services.api.UserService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

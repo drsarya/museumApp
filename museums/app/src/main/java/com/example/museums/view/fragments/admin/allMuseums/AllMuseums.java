@@ -67,27 +67,30 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         setRetainInstance(true);
         initViews();
         if (search.getText().toString().isEmpty()) {
-            viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
-            viewModel.getIsLoading().observe(this, isLoading -> {
-                if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                else progressBar.setVisibility(View.GONE);
-            });
-            viewModel.getLiveDataUser()
-                    .observe(this, model -> {
-                        viewModel.getIsLoading().postValue(false);
-                        if (model == null) {
-                            Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                        } else {
-                            newExhibitModels = model;
-                            mAdapter.submitList(model);
-                        }
-                    });
+            getListMuseums();
         } else {
             filter(search.getText().toString());
         }
         setListeners();
     }
+public void getListMuseums(){
 
+    viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
+    viewModel.getIsLoading().observe(this, isLoading -> {
+        if (isLoading) progressBar.setVisibility(View.VISIBLE);
+        else progressBar.setVisibility(View.GONE);
+    });
+    viewModel.getLiveDataUser()
+            .observe(this, model -> {
+                viewModel.getIsLoading().postValue(false);
+                if (model == null) {
+                    Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                } else {
+                    newExhibitModels = model;
+                    mAdapter.submitList(model);
+                }
+            });
+}
     List<ExistingMuseum> newExhibitModels = new ArrayList<>();
 
     private void setListeners() {

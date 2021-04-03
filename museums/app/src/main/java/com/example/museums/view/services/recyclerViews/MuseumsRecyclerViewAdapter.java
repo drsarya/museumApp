@@ -5,6 +5,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,10 +26,12 @@ import java.util.List;
 public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecyclerViewAdapter.MuseumsViewHolder> {
     public static class MuseumsViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+        public ImageView imageView;
 
         public MuseumsViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.element_of_list_museum);
+            textView = view.findViewById(R.id.element_of_list_museum_name_museum_text_view);
+            imageView = view.findViewById(R.id.element_of_list_museum_state_image_view);
         }
     }
 
@@ -50,6 +53,14 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     public void onBindViewHolder(@NonNull MuseumsViewHolder holder, int position) {
 
         final ExistingMuseum purchaseList = differ.getCurrentList().get(position);
+        switch (purchaseList.getState()) {
+            case ACTIVE:
+                holder.imageView.setImageResource(R.drawable.circle_active);
+            case BLOCKED:
+                holder.imageView.setImageResource(R.drawable.circle_blocked);
+            case NOT_ACTIVE:
+                holder.imageView.setImageResource(R.drawable.circle_not_active);
+        }
         holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, purchaseList, allMuseums));
         holder.textView.setText(purchaseList.getName());
     }

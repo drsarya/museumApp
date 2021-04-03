@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.R;
@@ -199,9 +199,9 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     private void insertLike() {
         viewModel.insertLike(idExhibition, userId)
-                .observe(this, new Observer<OkModel>() {
+                .observe(this, new Observer<AnswerModel>() {
                     @Override
-                    public void onChanged(@Nullable OkModel aBoolean) {
+                    public void onChanged(@Nullable AnswerModel aBoolean) {
                         getUserLike();
                     }
                 });

@@ -6,11 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.view.fragments.museum.exhibition.createExhibition.CreateExhibitionRepository;
 
 import java.io.IOException;
 import java.util.List;

@@ -58,23 +58,35 @@ public class CreateMuseum extends Fragment {
         logEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(logTextFieldBoxes));
         regMuseumBtn.setOnClickListener(
                 v -> {
-                    viewModel = ViewModelProviders.of(this).get(CreateMuseumViewModel.class);
-                    viewModel.getIsLoading().observe(this, isLoading -> {
-                        if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                        else progressBar.setVisibility(View.GONE);
-                    });
-                    viewModel.getLiveDataUser(logEditText.getText().toString(), nameEditText.getText().toString(), addressEditText.getText().toString())
-                            .observe(this, model -> {
-                                viewModel.getIsLoading().postValue(false);
-                                if (model == null) {
-                                    Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    createMuseum();
+//                    if (!addressTextFieldBoxes.isOnError() && !nameTextFieldBoxes.isOnError() && !logTextFieldBoxes.isOnError() &&
+//                            !logEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !addressEditText.getText().toString().isEmpty()) {
+//
+//                    } else {
+//                        Toast.makeText(getContext(), "Проверьте поля", Toast.LENGTH_SHORT).show();
+//                    }
                 }
         );
         //кнопка расшарить!!!!!!!!!!!!!!!
+    }
+
+    void createMuseum() {
+
+        viewModel = ViewModelProviders.of(this).get(CreateMuseumViewModel.class);
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUser(nameEditText.getText().toString(), addressEditText.getText().toString(), logEditText.getText().toString())
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     @SuppressLint("ClickableViewAccessibility")

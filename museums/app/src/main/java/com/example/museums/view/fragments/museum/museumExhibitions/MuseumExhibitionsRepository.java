@@ -3,8 +3,7 @@ package com.example.museums.view.fragments.museum.museumExhibitions;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.services.api.ExhibitionService;
 
@@ -49,20 +48,20 @@ public class MuseumExhibitionsRepository {
         return newsData;
     }
 
-    public MutableLiveData<OkModel> deleteExhibition(Integer id) {
-        MutableLiveData<OkModel> newsData = new MutableLiveData<>();
+    public MutableLiveData<AnswerModel> deleteExhibition(Integer id) {
+        MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
         exhibitionService.deleteExhibition(id)
-                .enqueue(new Callback<OkModel>() {
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<OkModel> call,
-                                           Response<OkModel> response) {
+                    public void onResponse(Call<AnswerModel> call,
+                                           Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<OkModel> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });

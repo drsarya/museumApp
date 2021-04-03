@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.user.ExistingUser;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.user.UserUpdate;
 
 public class DialogUpdatePasswordViewModel extends ViewModel {
@@ -22,7 +21,7 @@ public class DialogUpdatePasswordViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<OkModel> getLiveDataUpdatePassword(Integer id, String oldPassword, String newPassword) {
+    public LiveData<AnswerModel> getLiveDataUpdatePassword(Integer id, String oldPassword, String newPassword) {
         UserUpdate existingUser = new UserUpdate(id, null, oldPassword, newPassword);
         return repository.updatePassword(existingUser);
     }

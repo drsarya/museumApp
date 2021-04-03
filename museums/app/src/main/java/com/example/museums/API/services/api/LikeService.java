@@ -1,6 +1,6 @@
 package com.example.museums.API.services.api;
 
-import com.example.museums.API.models.OkModel;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.models.like.BaseLike;
@@ -8,9 +8,6 @@ import com.example.museums.API.models.like.UserLike;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -27,10 +24,10 @@ public interface LikeService {
     Call<BaseLike> getLikeByUser(@Body UserLike userLike);
 
     @DELETE("likes")
-    Call<OkModel> deleteLikeByUser(@Body UserLike userLike);
+    Call<AnswerModel> deleteLikeByUser(@Body UserLike userLike);
 
     @POST("likes")
-    Call<OkModel> createLike(@Body UserLike userLike);
+    Call<AnswerModel> createLike(@Body UserLike userLike);
 
     @GET("likes/exhibits/{idUser}")
     Call<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);

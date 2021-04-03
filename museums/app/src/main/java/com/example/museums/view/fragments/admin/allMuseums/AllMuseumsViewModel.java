@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.museums.API.models.OkModel;
 import com.example.museums.API.models.museum.ExistingMuseum;
 
 import java.util.List;
@@ -15,7 +14,6 @@ public class AllMuseumsViewModel  extends ViewModel {
 
     public AllMuseumsViewModel() {
         super();
-        isLoading.setValue(true);
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -23,6 +21,7 @@ public class AllMuseumsViewModel  extends ViewModel {
     }
 
     public LiveData<List<ExistingMuseum>> getLiveDataUser( ) {
+        isLoading.setValue(true);
         return repository.allMuseums( );
     }
 }

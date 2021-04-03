@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.museums.API.models.enums.MuseumStateEnum;
+
 import java.util.Objects;
 
 import io.reactivex.annotations.Nullable;
@@ -16,6 +18,7 @@ public class ExistingMuseum extends BaseMuseum {
     String description;
     @Nullable
     String imageUrl;
+    MuseumStateEnum state;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

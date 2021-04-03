@@ -5,15 +5,11 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.OkModel;
-import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
-import com.example.museums.API.models.museum.BaseMuseum;
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.ExhibitionService;
 import com.example.museums.API.services.api.FileService;
-import com.example.museums.API.services.api.MuseumService;
 
 import java.io.File;
 import java.io.IOException;
