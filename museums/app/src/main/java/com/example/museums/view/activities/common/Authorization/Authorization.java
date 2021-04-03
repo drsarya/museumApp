@@ -76,7 +76,7 @@ public class Authorization extends AppCompatActivity {
                             authorizationViewModel.getIsLoading().postValue(false);
 
                             if (aBoolean == null) {
-                                Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Неверные данные", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), aBoolean.login + " " + aBoolean.role, Toast.LENGTH_SHORT).show();
                                 checkData(aBoolean);
@@ -93,12 +93,12 @@ public class Authorization extends AppCompatActivity {
         if (existingUser.getRole() == RoleEnum.MUSEUM) {
             //  Toast.makeText(this.getApplicationContext(), "museum", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getApplicationContext(), MuseumTab.class);
-//            intent.putExtra(MuseumTab.LOGIN_KEY_USER, login);
+//            intent.putExtra(MuseumTab.LOGIN_KEY_USER, exhistingUser.museum.museumId);
 //            activity.startActivity(intent);
         } else if (existingUser.getRole() == RoleEnum.ADMIN) {
             //  Toast.makeText(this.getApplicationContext(), "admin", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(getApplicationContext(), AdminTab.class);
-//            intent.putExtra(AdminTab.LOGIN_USER_KEY, login);
+//            intent.putExtra(AdminTab.LOGIN_USER_KEY, idUser);
 //            activity.startActivity(intent);
         } else {
             //  Toast.makeText(this.getApplicationContext(), "user", Toast.LENGTH_SHORT).show();

@@ -44,9 +44,9 @@ public class CreateMuseumRepository {
                         } else {
                             Gson gson = new Gson();
                             ErrorModel[] message = gson.fromJson(response.errorBody().charStream(), ErrorModel[].class);
-                           String str = "";
-                            for (int i = 0; i <message.length ; i++) {
-                                str+=message[i].getMessage()+"\n";
+                            String str = "";
+                            for (int i = 0; i < message.length; i++) {
+                                str += message[i].getMessage() + "\n";
                             }
                             newsData.setValue(new AnswerModel(str));
                         }

@@ -29,6 +29,7 @@ public class ExistingMuseum extends BaseMuseum {
         ExistingMuseum that = (ExistingMuseum) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(description, that.description) &&
+                Objects.equals(state, that.state) &&
                 Objects.equals(imageUrl, that.imageUrl);
     }
 

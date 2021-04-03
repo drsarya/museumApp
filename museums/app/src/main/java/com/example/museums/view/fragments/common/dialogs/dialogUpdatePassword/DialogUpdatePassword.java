@@ -55,6 +55,7 @@ public class DialogUpdatePassword extends DialogFragment {
         newPassTextFieldBoxes = rootView.findViewById(R.id.dialog_change_pass_new_pass_text_field_boxes);
         updateBtn = rootView.findViewById(R.id.dialog_change_pass_btn);
         progressBar = rootView.findViewById(R.id.dialog_change_pass_progress_bar);
+        viewModel = ViewModelProviders.of(this).get(DialogUpdatePasswordViewModel.class);
     }
 
 
@@ -62,29 +63,28 @@ public class DialogUpdatePassword extends DialogFragment {
         oldPassEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(oldPassTextFieldBoxes));
         newPassEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(newPassTextFieldBoxes));
         updateBtn.setOnClickListener(v -> {
-            updatePassword();
+            if (!oldPassEditText.getText().toString().isEmpty() && !newPassEditText.getText().toString().isEmpty() &&
+                    !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && id != null) {
+                updatePassword();
+            } else {
+                Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
     private void updatePassword() {
-        viewModel = ViewModelProviders.of(this).get(DialogUpdatePasswordViewModel.class);
-        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoading) {
-                if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                else progressBar.setVisibility(View.GONE);
-            }
+
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
         });
         viewModel.getLiveDataUpdatePassword(id, oldPassEditText.getText().toString(), newPassEditText.getText().toString())
-                .observe(this, new Observer<AnswerModel>() {
-                    @Override
-                    public void onChanged(@Nullable AnswerModel aBoolean) {
-                        viewModel.getIsLoading().postValue(false);
-                        if (aBoolean == null) {
-                            Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                .observe(this, aBoolean -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (aBoolean == null) {
+                        Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

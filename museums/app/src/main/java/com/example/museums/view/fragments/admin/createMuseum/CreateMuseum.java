@@ -52,19 +52,20 @@ public class CreateMuseum extends Fragment {
         nameTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_name_of_museum_text_field);
         addressTextFieldBoxes = getActivity().findViewById(R.id.admin_create_museum_address_of_museum_text_field);
         progressBar = getActivity().findViewById(R.id.admin_create_museum_progress_bar);
+        viewModel = ViewModelProviders.of(this).get(CreateMuseumViewModel.class);
+
     }
 
     private void setListeners() {
         logEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(logTextFieldBoxes));
         regMuseumBtn.setOnClickListener(
                 v -> {
-                    createMuseum();
-//                    if (!addressTextFieldBoxes.isOnError() && !nameTextFieldBoxes.isOnError() && !logTextFieldBoxes.isOnError() &&
-//                            !logEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !addressEditText.getText().toString().isEmpty()) {
-//
-//                    } else {
-//                        Toast.makeText(getContext(), "Проверьте поля", Toast.LENGTH_SHORT).show();
-//                    }
+                    if (!addressTextFieldBoxes.isOnError() && !nameTextFieldBoxes.isOnError() && !logTextFieldBoxes.isOnError() &&
+                            !logEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !addressEditText.getText().toString().isEmpty()) {
+                        createMuseum();
+                    } else {
+                        Toast.makeText(getContext(), "Заполните поля", Toast.LENGTH_SHORT).show();
+                    }
                 }
         );
         //кнопка расшарить!!!!!!!!!!!!!!!
@@ -72,7 +73,6 @@ public class CreateMuseum extends Fragment {
 
     void createMuseum() {
 
-        viewModel = ViewModelProviders.of(this).get(CreateMuseumViewModel.class);
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
@@ -84,6 +84,7 @@ public class CreateMuseum extends Fragment {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+
                     }
                 });
 

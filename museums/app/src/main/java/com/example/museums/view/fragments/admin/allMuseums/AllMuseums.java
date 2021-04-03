@@ -20,12 +20,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseumViewModel;
+import com.example.museums.view.fragments.admin.editMuseum.DialogEditMuseum;
+import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
+import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -33,13 +37,14 @@ import java.util.List;
 
 
 public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
-    private static final String LOGIN_KEY_USER = "login_key_user";
+    private static final String ID_KEY_USER = "id key";
     public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
     private ImageButton imbtn;
     private EditText search;
     public AllMuseumsViewModel viewModel;
+    private Integer id;
 
     @Nullable
     @Override
@@ -49,6 +54,13 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         return rootView;
     }
 
+    public static AllMuseums getInstance(Integer id) {
+        final AllMuseums myFragment = new AllMuseums();
+        final Bundle args = new Bundle();
+        args.putInt(ID_KEY_USER, id);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
 
     private void initViews() {
         search = getActivity().findViewById(R.id.admin_all_museums_search_edit_text);
@@ -57,6 +69,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         mAdapter = new MuseumsRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
         imbtn = getActivity().findViewById(R.id.admin_all_museums_menu_popup);
+        viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
 
     }
 
@@ -73,24 +86,25 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         }
         setListeners();
     }
-public void getListMuseums(){
 
-    viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
-    viewModel.getIsLoading().observe(this, isLoading -> {
-        if (isLoading) progressBar.setVisibility(View.VISIBLE);
-        else progressBar.setVisibility(View.GONE);
-    });
-    viewModel.getLiveDataUser()
-            .observe(this, model -> {
-                viewModel.getIsLoading().postValue(false);
-                if (model == null) {
-                    Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                } else {
-                    newExhibitModels = model;
-                    mAdapter.submitList(model);
-                }
-            });
-}
+    public void getListMuseums() {
+
+         viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUser()
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        newExhibitModels = model;
+                        mAdapter.submitList(model);
+                    }
+                });
+    }
+
     List<ExistingMuseum> newExhibitModels = new ArrayList<>();
 
     private void setListeners() {
@@ -126,19 +140,19 @@ public void getListMuseums(){
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_page_logout:
-//                DialogLogOut myFragment = new DialogLogOut();
-//                final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                myFragment.show(ft, "dialog");
+                DialogLogOut myFragment = new DialogLogOut();
+                final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                myFragment.show(ft, "dialog");
                 return true;
             case R.id.menu_item_change_password:
-//                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
-//                Bundle bd = new Bundle();
-//                if (login != null) {
-//                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
-//                    dialogUpdatePassword.setArguments(bd);
-//                }
-//                final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
-//                dialogUpdatePassword.show(ft1, "dialog2");
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
+                Bundle bd = new Bundle();
+                if (id != null) {
+                    bd.putInt(DialogUpdatePassword.ID_KEY, id);
+                    dialogUpdatePassword.setArguments(bd);
+                }
+                final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
+                dialogUpdatePassword.show(ft1, "dialog2");
                 return true;
             default:
                 return false;
@@ -162,7 +176,6 @@ public void getListMuseums(){
         }
         mAdapter.submitList(temp);
     }
-
 
 
 }

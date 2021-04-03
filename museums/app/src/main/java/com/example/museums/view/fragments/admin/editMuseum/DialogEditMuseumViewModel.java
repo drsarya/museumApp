@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.museums.API.models.AnswerModel;
+import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.models.museum.ExistingMuseum;
 
 public class DialogEditMuseumViewModel extends ViewModel {
     private DialogEditMuseumRepository repository = DialogEditMuseumRepository.getInstance();
@@ -12,7 +14,7 @@ public class DialogEditMuseumViewModel extends ViewModel {
 
     public DialogEditMuseumViewModel() {
         super();
-        isLoading.setValue(true);
+
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -20,6 +22,22 @@ public class DialogEditMuseumViewModel extends ViewModel {
     }
 
     public LiveData<AnswerModel> getLiveData(String name, String address, Integer id) {
+        isLoading.setValue(true);
         return repository.editMuseum(name, address, id);
+    }
+
+    public LiveData<ExistingMuseum> getLiveDataMuseum(Integer id) {
+        return repository.getMuseum(id);
+    }
+
+    public LiveData<AnswerModel> getLiveDataDeleteMuseum(Integer id) {
+        return repository.deleteMuseum(id);
+    }
+
+    public LiveData<AnswerModel> getLiveDataLockMuseum(Integer id) {
+        return repository.lockMuseum(id);
+    }
+    public LiveData<AnswerModel> getOwner(Integer id) {
+        return repository.getOwner(id);
     }
 }

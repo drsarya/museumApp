@@ -56,10 +56,13 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
         switch (purchaseList.getState()) {
             case ACTIVE:
                 holder.imageView.setImageResource(R.drawable.circle_active);
+                break;
             case BLOCKED:
                 holder.imageView.setImageResource(R.drawable.circle_blocked);
+                break;
             case NOT_ACTIVE:
                 holder.imageView.setImageResource(R.drawable.circle_not_active);
+                break;
         }
         holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, purchaseList, allMuseums));
         holder.textView.setText(purchaseList.getName());

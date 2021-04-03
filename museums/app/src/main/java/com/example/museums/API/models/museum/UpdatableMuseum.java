@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class UpdatableMuseum {
     Integer id;
-    String nameMuseum;
-    String address;
     String description;
     String imageUrl;
 }
