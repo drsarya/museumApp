@@ -3,7 +3,9 @@ package com.example.museums.view.fragments.common.museumInfo;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.ExistingMuseum;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.MuseumService;
 
 import retrofit2.Call;
@@ -34,6 +36,8 @@ public class MainInfoMuseumRepository {
                     public void onResponse(Call<ExistingMuseum> call, Response<ExistingMuseum> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(null);
                         }
                     }
 

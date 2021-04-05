@@ -40,12 +40,12 @@ public class DialogEditMuseum extends DialogFragment {
     private TextFieldBoxes nameTextFieldBoxes, addressTextFieldBoxes;
     private String stateMuseum;
     private ImageView shareIV;
-    private String owner    ;
+    private String owner;
     private ClickListenerShare clickListenerShare = new ClickListenerShare();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.dialog_detailed_museum_edit, container, false);
         initViews(rootView);
@@ -134,8 +134,7 @@ public class DialogEditMuseum extends DialogFragment {
 
         shareIV.setOnClickListener(
                 clickListenerShare
-               // new ClickListenerShare(this.getActivity(), createString())
-        );
+         );
 
     }
 

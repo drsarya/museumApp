@@ -36,7 +36,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:visibility="gone" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="403dp"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/prata"
+            android:id="@+id/museum_exhibitions_empty_tv"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Здесь будут выставки Вашего музея \n \n  Добавить новую выставку можно во втором разделе "
+            android:textColor="@color/dark_brown"
+            android:textSize="20dp"
+            >
 
+        </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_museum_exhibitions"
         android:layout_width="match_parent"

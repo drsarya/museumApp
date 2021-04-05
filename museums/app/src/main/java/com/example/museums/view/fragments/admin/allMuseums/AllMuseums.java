@@ -26,8 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
-import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseumViewModel;
-import com.example.museums.view.fragments.admin.editMuseum.DialogEditMuseum;
 import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;

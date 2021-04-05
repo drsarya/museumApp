@@ -1,5 +1,6 @@
 package com.example.museums.API.services;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import java.io.ByteArrayOutputStream;
@@ -16,27 +17,16 @@ import okhttp3.RequestBody;
 
 public class BitmapConverter {
 
- public    static File convertBitmapToFile(Bitmap bitmap) throws IOException {
-        File f = new File("");
+    public static File convertBitmapToFile(Bitmap bitmap, Context context) throws IOException {
+        File f = new File(context.getCacheDir(), "sd");
         f.createNewFile();
-
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+         bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
         byte[] bitmapdata = bos.toByteArray();
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileOutputStream fos = new FileOutputStream(f);
+        fos.write(bitmapdata);
+        fos.flush();
+        fos.close();
         return f;
     }
 }

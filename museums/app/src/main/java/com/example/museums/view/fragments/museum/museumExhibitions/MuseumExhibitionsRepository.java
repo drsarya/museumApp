@@ -4,8 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.AnswerModel;
+import com.example.museums.API.models.ErrorModel;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.ExhibitionService;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -33,10 +36,17 @@ public class MuseumExhibitionsRepository {
         exhibitionService.getExhibitionsByMuseumId(id)
                 .enqueue(new Callback<List<ExistingExhibition>>() {
                     @Override
-                    public void onResponse(Call<List<ExistingExhibition>> call,
-                                           Response<List<ExistingExhibition>> response) {
+                    public void onResponse(Call<List<ExistingExhibition>> call, Response<List<ExistingExhibition>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else {
+                            Gson      gson = new Gson();
+                            ErrorModel[] message = gson.fromJson(response.errorBody().charStream(), ErrorModel[].class);
+                            String str = "";
+                            for (int i = 0; i < message.length; i++) {
+                                str += message[i].getMessage() + "\n";
+                            }
+                            System.out.println(str);
                         }
                     }
 
@@ -57,6 +67,9 @@ public class MuseumExhibitionsRepository {
                                            Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+
+                        }else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

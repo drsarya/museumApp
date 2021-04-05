@@ -2,6 +2,7 @@ package com.example.museums.view.fragments.common.detailedExhibitWithListener;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.RegistrationViewModel;
 import com.example.museums.view.fragments.common.detailedExhibition.DetailedExhibitionViewModel;
@@ -40,7 +42,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
     public static final String ID_EXHIBIT_KEY = "id_key";
     private String name, author, date, description;
     private Integer idExhibit;
-    private Bitmap image;
+    private String image;
     private ImageView mainImageImageView, shareExhibit;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
     private boolean state = false;
@@ -89,7 +91,11 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
     }
 
     private void setData() {
-        mainImageImageView.setImageBitmap(image);
+
+
+        Glide.with(getContext())
+                .load(image)
+                .into(mainImageImageView);
         authorTextView.setText(author);
         dateTextView.setText(date);
         descriptionTextView.setText(description);
@@ -142,6 +148,8 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
         }
         getArguments().clear();
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
+//        BitmapDrawable drawable = (BitmapDrawable) mainImageImageView.getDrawable();
+//        Bitmap bitmap = drawable.getBitmap();
         shareExhibit.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), image));
     }
 

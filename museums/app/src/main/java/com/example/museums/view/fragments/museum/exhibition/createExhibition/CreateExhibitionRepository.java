@@ -1,18 +1,15 @@
 package com.example.museums.view.fragments.museum.exhibition.createExhibition;
 
-import android.graphics.Bitmap;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.exhibition.BaseExhibition;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
-import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.ExhibitionService;
 import com.example.museums.API.services.api.FileService;
-
+import com.example.museums.API.models.exhibition.BaseExhibition;
 import java.io.File;
-import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,18 +36,16 @@ public class CreateExhibitionRepository {
         fileService = RetrofitConnect.createRetrofitConnection(FileService.class);
     }
 
-    public MutableLiveData<ExistingExhibition> createExhibition(BaseExhibition exhibition, Bitmap bitmap) throws IOException {
+    public MutableLiveData<ExistingExhibition> createExhibition(BaseExhibition exhibition, File file)   {
         MutableLiveData<ExistingExhibition> newsData = new MutableLiveData<>();
-        File file = BitmapConverter.convertBitmapToFile(bitmap);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-
-        fileService.uploadImage(body)
-                .enqueue(new Callback<String>() {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("imageUpload", file.getName(), requestFile);
+        fileService.uploadImage(filePart)
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
-                            exhibition.setImageUrl(response.body());
+                            exhibition.setImageUrl(response.body().getMessage());
                             exhibitionService.createExhibition(exhibition)
                                     .enqueue(new Callback<ExistingExhibition>() {
                                         @Override
@@ -68,7 +63,7 @@ public class CreateExhibitionRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });

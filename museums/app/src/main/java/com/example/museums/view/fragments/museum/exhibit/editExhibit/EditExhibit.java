@@ -26,8 +26,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
@@ -35,10 +37,12 @@ import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchliste
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.SneakyThrows;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class EditExhibit extends Fragment {
@@ -68,16 +72,17 @@ public class EditExhibit extends Fragment {
     private Button createBtn;
     private Integer idExhibit;
     private int positionExh;
+    private String image;
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
     private EditExhibitViewModel viewModel;
+    private File file;
 
     public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, String photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
         args.putString(EXHIBIT_IMAGE_MODEL, photo);
         args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
-
         args.putString(EXHIBIT_AUTHOR_MODEL, author);
         if (id != null) {
             args.putInt(EXHIBIT_ID_KEY, id);
@@ -106,16 +111,13 @@ public class EditExhibit extends Fragment {
             nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
             authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
             descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
-            if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
-                mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
-            }
-            if (arguments.getInt(EXHIBIT_ID_KEY) == -1) {
-                idExhibit = null;
-            } else {
-                idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
-            }
+            idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
             dateOfCreateEditText.setText(arguments.getString(EXHIBIT_DATA_MODEL));
             positionExh = arguments.getInt(EXHIBIT_POSITION_MODEL);
+            image = arguments.getString(EXHIBIT_IMAGE_MODEL);
+            Glide.with(getContext())
+                    .load(image)
+                    .into(mainImageView);
             arguments.clear();
         }
         return rootView;
@@ -139,6 +141,7 @@ public class EditExhibit extends Fragment {
         firstLine.setText("Обновить информацию");
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
+        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
 
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
@@ -147,7 +150,6 @@ public class EditExhibit extends Fragment {
     }
 
     private void getAuthors() {
-        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
         viewModel.getLiveDataAuthorList()
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
@@ -199,40 +201,44 @@ public class EditExhibit extends Fragment {
         descriptionEditText.addTextChangedListener(new TextWatcherEmptyField(descriptionTextFieldBoxes));
         dateOfCreateEditText.addTextChangedListener(new TextWatcherEmptyField(dateOfCreateTextFieldBoxes));
         createBtn.setOnClickListener(v -> {
-
-            BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
-            ExistingExhibit ex = new ExistingExhibit(
-                    new Author(authorEditText.getText().toString()),
-                    nameEditText.getText().toString(), null, descriptionEditText.getText().toString(),
-                    dateOfCreateEditText.getText().toString(), null, idExhibit);
-            try {
+            if (mainImageView.getDrawable() != null && !nameTextFieldBoxes.isOnError() && !authorTextFieldBoxes.isOnError() && !descriptionTextFieldBoxes.isOnError()
+                    && !dateOfCreateTextFieldBoxes.isOnError()
+                    && !nameEditText.getText().toString().isEmpty() && !authorEditText.getText().toString().isEmpty()
+                    && !descriptionEditText.getText().toString().isEmpty() && !dateOfCreateEditText.getText().toString().isEmpty()
+            ) {
+                ExistingExhibit ex = new ExistingExhibit(
+                        new Author(authorEditText.getText().toString()),
+                        nameEditText.getText().toString(), null, descriptionEditText.getText().toString(),
+                        dateOfCreateEditText.getText().toString(), null, idExhibit);
                 editExhibition();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 
-    private void editExhibition() throws IOException {
-        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
+    private void editExhibition() {
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
         viewModel.getLiveDataUpdateExhibit(new Author(authorEditText.getText().toString()),
                 nameEditText.getText().toString(), descriptionEditText.getText().toString(),
-                dateOfCreateEditText.getText().toString(), idExhibit, bitmap)
+                dateOfCreateEditText.getText().toString(), idExhibit, file)
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
                         if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
-                            ((EditExhibition) getParentFragment()).getExhibits();
+                            ((EditExhibition) getTargetFragment()).getExhibits();
+
                         } else {
-                            ((MuseumExhibits) getParentFragment()).getExhibitsMuseum();
+                            ((MuseumExhibits) getTargetFragment()).getExhibitsMuseum();
                         }
+                        bitmap = null;
+                        file = null;
                     }
                 });
     }
@@ -264,6 +270,7 @@ public class EditExhibit extends Fragment {
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
+    @SneakyThrows
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -272,12 +279,12 @@ public class EditExhibit extends Fragment {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainImageView.setImageBitmap(bitmap);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
+                    Glide.with(getContext())
+                            .asBitmap()
+                            .load(bitmap)
+                            .into(mainImageView);
                 }
         }
     }

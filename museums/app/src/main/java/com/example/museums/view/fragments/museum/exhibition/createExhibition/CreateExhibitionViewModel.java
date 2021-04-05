@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.museums.API.models.exhibition.BaseExhibition;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
+import com.example.museums.API.models.museum.ShortInfoMuseum;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CreateExhibitionViewModel extends ViewModel {
@@ -25,8 +27,8 @@ public class CreateExhibitionViewModel extends ViewModel {
     }
 
     public LiveData<ExistingExhibition> liveDataCreateExhibition(Integer museumId,   String name ,String description ,
-                                                    String dateOfStart ,String dateOfEnd , Bitmap bitmap) throws IOException {
-        BaseExhibition baseExhibition = new BaseExhibition( museumId,   name,   description,   dateOfStart,   dateOfEnd);
+                                                    String dateOfStart ,String dateOfEnd , File bitmap)  {
+        BaseExhibition baseExhibition = new BaseExhibition( new ShortInfoMuseum(museumId),   name,   description,   dateOfStart,   dateOfEnd);
          return repository.createExhibition(baseExhibition, bitmap);
     }
 }

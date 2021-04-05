@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.museums">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
 
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".view.activities.tabs.AdminTab"
+            android:name=".view.activities.tabs.MuseumTab"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +35,7 @@
 <!--        <activity-->
 <!--            android:name=".view.activities.tabs.UserTab"-->
 <!--            android:windowSoftInputMode="adjustUnspecified" />-->
-        <activity
-            android:name=".view.activities.tabs.MuseumTab"
-            android:windowSoftInputMode="adjustResize" />
+
 <!--        <activity-->
 <!--            android:name=".view.activities.common.Authorization.Authorization"-->
 <!--            android:windowSoftInputMode="adjustPan" />-->

@@ -18,7 +18,7 @@ public class DetailedExhibitWithoutListenerViewModel extends ViewModel {
         return repository.getUserLike(userLike);
     }
 
-    public LiveData<Integer> getCountOfLikeOnExhibition(Integer artId) {
+    public LiveData<String> getCountOfLikeOnExhibition(Integer artId) {
         BaseLike baseLike = new BaseLike(artId, TypeOfArtEnum.EXHIBIT);
         return repository.getCountOfLikeOnExhibition(baseLike);
     }

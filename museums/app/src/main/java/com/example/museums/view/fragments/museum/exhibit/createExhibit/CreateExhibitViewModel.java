@@ -10,6 +10,7 @@ import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,9 +28,10 @@ public class CreateExhibitViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<ExistingExhibit> getLiveDataCreateExhibit(Author author, String name, String description, String dateOfCreate, Integer exhibitionId, Bitmap bitmap) throws IOException {
+    public LiveData<ExistingExhibit> getLiveDataCreateExhibit(Author author, String name, String description, String dateOfCreate, Integer exhibitionId, File bitmap)   {
         isLoading.setValue(true);
         BaseExhibit baseExhibit = new BaseExhibit(author, name, description, dateOfCreate, exhibitionId);
+        System.out.println(baseExhibit.toString());
         return repository.createExhibit(baseExhibit, bitmap);
     }
     public LiveData<List<Author>> getLiveDataAuthorList(){

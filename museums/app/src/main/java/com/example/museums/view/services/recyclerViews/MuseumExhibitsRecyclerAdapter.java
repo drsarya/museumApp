@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
@@ -67,7 +68,10 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     @Override
     public void onBindViewHolder(@NonNull MuseumExhibitsViewHolder holder, int position) {
         final ExistingExhibit purchaseList = differ.getCurrentList().get(position);
-        // holder.mainImage.setImageBitmap(purchaseList.getImageUrl());
+        Glide
+                .with(holder.mainImage.getContext())
+                .load(purchaseList.getImageUrl())
+                .into(holder.mainImage);
         holder.editExhibit.setOnClickListener(new ClickListenerHolderEditExhibit(museumExhibits, purchaseList, holder.getAdapterPosition()));
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, purchaseList, -1));
         holder.deleteExhibit.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibits, museumExhibits.getContext(),

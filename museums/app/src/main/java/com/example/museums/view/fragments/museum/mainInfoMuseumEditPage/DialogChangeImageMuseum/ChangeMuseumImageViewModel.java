@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.museums.API.models.AnswerModel;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ChangeMuseumImageViewModel   extends ViewModel {
@@ -16,14 +17,15 @@ public class ChangeMuseumImageViewModel   extends ViewModel {
 
     public ChangeMuseumImageViewModel() {
         super();
-        isLoading.setValue(true);
+
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
-    public LiveData<AnswerModel> getUpdateLiveData(Bitmap bitmap, Integer id) throws IOException {
+    public LiveData<AnswerModel> getUpdateLiveData(File bitmap, Integer id)   {
+        isLoading.setValue(true);
         return repository.updateMuseumImage(bitmap, id );
     }
 

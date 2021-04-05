@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerOpenExhibition;
 import com.example.museums.view.services.MethodsWithFragment;
 
 import java.util.List;
@@ -56,7 +59,7 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
     private static final DiffUtil.ItemCallback<ExistingExhibition> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibition>() {
         @Override
         public boolean areItemsTheSame(@NonNull ExistingExhibition oldProduct, @NonNull ExistingExhibition newProduct) {
-            return oldProduct.getId() == newProduct.getId();
+            return oldProduct.getId().equals(newProduct.getId());
         }
 
         @SuppressLint("DiffUtilEquals")
@@ -78,26 +81,30 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
 
     MethodsWithFragment mt = new MethodsWithFragment();
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull EditExhibitionViewHolder holder, int position) {
         final ExistingExhibition exhibition = differ.getCurrentList().get(position);
-
-     //   holder.itemView.setOnClickListener(new ClickListenerOpenExhibition(holder.optionalPanel, exhibition));
+        holder.itemView.setOnClickListener(new ClickListenerOpenExhibition(holder.optionalPanel, exhibition));
         holder.deleteExhibition.setOnClickListener(new ClickListenerHolderDeletePosition(this, museumExhibitions, museumExhibitions.getContext(),
                 holder.optionalPanel, holder.getAdapterPosition(), exhibition.getId()));
-      //  holder.imageView.setImageBitmap(exhibition.getImageUrl());
-        if (exhibition.getFirstDate()  == null) {
+
+        Glide
+                .with(holder.imageView.getContext())
+                .load(exhibition.getImageUrl())
+                .into(holder.imageView);
+        if (exhibition.getFirstDate().isEmpty()) {
             holder.dateOfCreateTextView.setVisibility(View.GONE);
         } else {
             holder.dateOfCreateTextView.setVisibility(View.VISIBLE);
             holder.dateOfCreateTextView.setText(exhibition.getFirstDate() + " - " + exhibition.getLastDate());
         }
-       // EditExhibtion c = new EditExhibtion().newInstance(museumExhibitions.idMuseum, exhibition.getId(), exhibition.getMuseumId(), exhibition.getImageUrl(), exhibition.getName(), exhibition.setFirstDate(), exhibition.getLastDate(), exhibition.getDescription());
-   //     c.setTargetFragment(museumExhibitions, 0);
-       // holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c, (AppCompatActivity) museumExhibitions.getContext()));
+         EditExhibition c = new EditExhibition().newInstance(  exhibition.getId(), exhibition.getMuseum().getId(), exhibition.getImageUrl(), exhibition.getName(), exhibition.getFirstDate(), exhibition.getLastDate(), exhibition.getDescription());
+             c.setTargetFragment(museumExhibitions, 0);
+         holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c, (AppCompatActivity) museumExhibitions.getContext()));
         holder.nameOfExhibitionTextView.setText(exhibition.getName());
-        holder.nameOfMuseumTextView.setText(exhibition.getMuseumId());
+        holder.nameOfMuseumTextView.setText(exhibition.getMuseum().getName());
 
     }
 

@@ -17,10 +17,10 @@ import retrofit2.http.Path;
 
 public interface LikeService {
 
-    @POST("likes")
-    Call<Integer>  getLikesByArtId(@Body BaseLike baseLike);
+    @POST("likes/count")
+    Call<AnswerModel>  getLikesByArtId(@Body BaseLike baseLike);
 
-    @POST("likes")
+    @POST("likes/user")
     Call<BaseLike> getLikeByUser(@Body UserLike userLike);
 
     @DELETE("likes")

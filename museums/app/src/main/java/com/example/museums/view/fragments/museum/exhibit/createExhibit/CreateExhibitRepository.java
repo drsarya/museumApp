@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.AuthorService;
 import com.example.museums.API.services.api.ExhibitService;
@@ -47,24 +49,24 @@ public class CreateExhibitRepository {
 
     }
 
-    public MutableLiveData<ExistingExhibit> createExhibit(BaseExhibit exhibit, Bitmap bitmap) throws IOException {
+    public MutableLiveData<ExistingExhibit> createExhibit(BaseExhibit exhibit, File file) {
         MutableLiveData<ExistingExhibit> newsData = new MutableLiveData<>();
-        File file = BitmapConverter.convertBitmapToFile(bitmap);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-
-        fileService.uploadImage(body)
-                .enqueue(new Callback<String>() {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("imageUpload", file.getName(), requestFile);
+        fileService.uploadImage(filePart)
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
-                            exhibit.setImageUrl(response.body());
+                            exhibit.setImageUrl(response.body().getMessage());
                             exhibitService.createExhibit(exhibit)
                                     .enqueue(new Callback<ExistingExhibit>() {
                                         @Override
                                         public void onResponse(Call<ExistingExhibit> call, Response<ExistingExhibit> response) {
                                             if (response.isSuccessful()) {
                                                 newsData.setValue(response.body());
+                                            }else{
+                                                System.out.println(response.errorBody().toString());
                                             }
                                         }
 
@@ -77,7 +79,7 @@ public class CreateExhibitRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });
@@ -97,6 +99,7 @@ public class CreateExhibitRepository {
                             newsData.setValue(response.body());
                         }
                     }
+
                     @Override
                     public void onFailure(Call<List<Author>> call, Throwable t) {
                         newsData.setValue(null);

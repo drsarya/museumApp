@@ -36,6 +36,8 @@ public class AuthorizationRepository {
                                            Response<ExistingUser> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else{
+                            newsData.setValue(null);
                         }
                     }
 

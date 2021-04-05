@@ -12,6 +12,7 @@ import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.API.services.api.ExhibitService;
 import com.example.museums.API.services.api.ExhibitionService;
 import com.example.museums.API.services.api.FileService;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,46 +45,37 @@ public class EditExhibitionRepository {
         exhibitService = RetrofitConnect.createRetrofitConnection(ExhibitService.class);
     }
 
-    public MutableLiveData<ExistingExhibition> editExhibition(ExistingExhibition exhibition, Bitmap bitmap) throws IOException {
+    public MutableLiveData<ExistingExhibition> editExhibition(ExistingExhibition exhibition, File file) {
         MutableLiveData<ExistingExhibition> newsData = new MutableLiveData<>();
-        File file = BitmapConverter.convertBitmapToFile(bitmap);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-
-        fileService.uploadImage(body)
-                .enqueue(new Callback<String>() {
+        String name = "";
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+        if (file != null) {
+            name = "image";
+            requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        }
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("imageUpload", name, requestFile);
+        exhibitionService.updateExhibition(filePart, exhibition)
+                .enqueue(new Callback<ExistingExhibition>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ExistingExhibition> call, Response<ExistingExhibition> response) {
                         if (response.isSuccessful()) {
-                            exhibition.setImageUrl(response.body());
-                            exhibitionService.updateExhibition(exhibition)
-                                    .enqueue(new Callback<ExistingExhibition>() {
-                                        @Override
-                                        public void onResponse(Call<ExistingExhibition> call, Response<ExistingExhibition> response) {
-                                            if (response.isSuccessful()) {
-                                                newsData.setValue(response.body());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<ExistingExhibition> call, Throwable t) {
-                                            newsData.setValue(null);
-                                        }
-                                    });
+                            newsData.setValue(response.body());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ExistingExhibition> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });
+
+
         return newsData;
     }
 
+
     public MutableLiveData<List<ExistingExhibit>> getExhibitsFromExhibition(Integer idExhibition) {
         MutableLiveData<List<ExistingExhibit>> newsData = new MutableLiveData<>();
-
         exhibitService.getExhibitsByExhibitionId(idExhibition)
                 .enqueue(new Callback<List<ExistingExhibit>>() {
                     @Override
@@ -92,6 +84,7 @@ public class EditExhibitionRepository {
                             newsData.setValue(response.body());
                         }
                     }
+
                     @Override
                     public void onFailure(Call<List<ExistingExhibit>> call, Throwable t) {
                         newsData.setValue(null);

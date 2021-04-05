@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.ExhibitService;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import java.util.List;
 
@@ -33,8 +35,7 @@ public class MuseumExhibitsRepository {
         exhibitService.getExhibitsByMuseumId(id)
                 .enqueue(new Callback<List<ExistingExhibit>>() {
                     @Override
-                    public void onResponse(Call<List<ExistingExhibit>> call,
-                                           Response<List<ExistingExhibit>> response) {
+                    public void onResponse(Call<List<ExistingExhibit>> call, Response<List<ExistingExhibit>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         }
@@ -50,12 +51,16 @@ public class MuseumExhibitsRepository {
 
     public MutableLiveData<AnswerModel> deleteExhibit(Integer id) {
         MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
+        System.out.println(id+"exhibit iddddddddddddddddddddddddd");
         exhibitService.deleteExhibit(id)
                 .enqueue(new Callback<AnswerModel>() {
                     @Override
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+
+                        }else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

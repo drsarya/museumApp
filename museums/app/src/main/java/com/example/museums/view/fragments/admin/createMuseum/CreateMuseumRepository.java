@@ -6,6 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.ErrorModel;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.BaseMuseum;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.MuseumService;
 import com.google.gson.Gson;
 
@@ -42,13 +43,7 @@ public class CreateMuseumRepository {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         } else {
-                            Gson gson = new Gson();
-                            ErrorModel[] message = gson.fromJson(response.errorBody().charStream(), ErrorModel[].class);
-                            String str = "";
-                            for (int i = 0; i < message.length; i++) {
-                                str += message[i].getMessage() + "\n";
-                            }
-                            newsData.setValue(new AnswerModel(str));
+                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

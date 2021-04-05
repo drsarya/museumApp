@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.R;
+import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 
 public class DialogChangeDescriptionMuseum extends DialogFragment {
@@ -30,17 +31,17 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
     static final String DESCRIPTION_SOURCE_KEY = "description_key";
     private Integer id;
     private String description;
-private  DChangeDescriptionMuseumViewModel viewModel;
+    private DChangeDescriptionMuseumViewModel viewModel;
 
     public DialogChangeDescriptionMuseum() {
 
     }
 
-    public DialogChangeDescriptionMuseum newInstance(final String description, final String login) {
+    public DialogChangeDescriptionMuseum newInstance(final String description, final Integer id) {
         final DialogChangeDescriptionMuseum myFragment = new DialogChangeDescriptionMuseum();
         final Bundle args = new Bundle(2);
         args.putString(DESCRIPTION_SOURCE_KEY, description);
-        args.putString(LOGIN_KEY, login);
+        args.putInt(LOGIN_KEY, id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -69,6 +70,8 @@ private  DChangeDescriptionMuseumViewModel viewModel;
                 descriptionEditText.setText(description);
             }
         }
+        viewModel = ViewModelProviders.of(this).get(DChangeDescriptionMuseumViewModel.class);
+
         setListeners();
         return rootView;
     }
@@ -86,17 +89,15 @@ private  DChangeDescriptionMuseumViewModel viewModel;
         buttonUpdate.setOnClickListener(v -> {
             hideKeyboard();
             if (!descriptionEditText.getText().toString().isEmpty()) {
-
                 updateDescription();
-             } else {
+            } else {
                 Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-    private  void updateDescription(){
 
-        viewModel = ViewModelProviders.of(this).get(DChangeDescriptionMuseumViewModel.class);
+    private void updateDescription() {
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
@@ -107,6 +108,7 @@ private  DChangeDescriptionMuseumViewModel viewModel;
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
+                        ((MainInfoMuseumPageEdit) getParentFragment()).getMuseumInfo();
                         Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

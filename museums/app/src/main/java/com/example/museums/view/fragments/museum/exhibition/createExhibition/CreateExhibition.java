@@ -26,12 +26,14 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.ChangeMuseumImageViewModel;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 
+import java.io.File;
 import java.io.IOException;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
@@ -52,12 +54,12 @@ public class CreateExhibition extends Fragment {
     static final int GALLERY_REQUEST = 1;
     private CacheManager cacheManager = new CacheManager();
 
-    //   private CreateExhibitionPresenter exhibitionPresenter = new CreateExhibitionPresenter();
+    private File file;
 
-    public CreateExhibition newInstance(String login) {
+    public CreateExhibition newInstance(Integer museumId) {
         final CreateExhibition myFragment = new CreateExhibition();
         final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
+        args.putInt(LOGIN_KEY_USER, museumId);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -83,6 +85,8 @@ public class CreateExhibition extends Fragment {
         chooseImageTextView = rootView.findViewById(R.id.create_exhibition_choose_image_btn);
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
+        viewModel = ViewModelProviders.of(this).get(CreateExhibitionViewModel.class);
+
     }
 
 
@@ -94,7 +98,9 @@ public class CreateExhibition extends Fragment {
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
+
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                        file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
                         cacheManager.deleteItem("newExhibition");
                         cacheManager.addBitmapToMemoryCache("newExhibition", bitmap);
                         currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
@@ -126,14 +132,13 @@ public class CreateExhibition extends Fragment {
 
     private CreateExhibitionViewModel viewModel;
 
-    private void createExhibition() throws IOException {
-        viewModel = ViewModelProviders.of(this).get(CreateExhibitionViewModel.class);
+    private void createExhibition() {
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
         viewModel.liveDataCreateExhibition(museumId, nameET.getText().toString(), descriptionET.getText().toString(),
-                dateOfStartET.getText().toString(), dateOfEndET.getText().toString(), bitmap)
+                dateOfStartET.getText().toString(), dateOfEndET.getText().toString(), file)
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
@@ -163,21 +168,17 @@ public class CreateExhibition extends Fragment {
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
         createExhibitionBtn.setOnClickListener(v -> {
-            if (currImageImageView.getDrawable() != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
+            hideKeyboard();
+            if (file != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
                     && !nameET.getText().toString().isEmpty()
                     && !descriptionET.getText().toString().isEmpty()
             ) {
-                BitmapDrawable drawable = (BitmapDrawable) currImageImageView.getDrawable();
-                Bitmap image = drawable.getBitmap();
-
-                hideKeyboard();
-                try {
-                    createExhibition();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (onlineCheckBox.isChecked()) {
+                    dateOfStartET.setText("");
+                    dateOfEndET.setText("");
                 }
+                createExhibition();
             } else {
-                hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });

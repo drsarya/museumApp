@@ -6,6 +6,7 @@ import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.enums.RoleEnum;
 import com.example.museums.API.models.user.NewUser;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.UserService;
 
 import retrofit2.Call;
@@ -37,12 +38,14 @@ public class RegistrationRepository {
                                            Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<AnswerModel> call, Throwable t) {
-                        newsData.setValue(null  );
+                        newsData.setValue(null);
                     }
                 });
         return newsData;

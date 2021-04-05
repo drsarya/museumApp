@@ -1,10 +1,11 @@
-package com.example.museums.view.fragments.common;
+package com.example.museums.view.fragments.common.detailedExhibition;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.R;
-import com.example.museums.view.fragments.common.detailedExhibition.DetailedExhibitionViewModel;
 import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShare;
@@ -36,6 +45,7 @@ import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IUpdateList;
 
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +65,7 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
     private ImageView imageView, share;
     // private ExhibitViewPager exhibitViewPager;
     private DetailedExhibitionViewModel viewModel;
+    private Bitmap bitmap;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -65,15 +76,18 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         setListeners();
     }
 
-    private static Bitmap bitmap;
+    private static String imageUrl;
     public static final String IMAGE_KEY = "image_key";
     public static final String NAME_KEY = "name_key";
     public static final String DATE_KEY = "date_key";
     public static final String DESCRIPTION_KEY = "description_key";
     public static final String ID_EXHIBIT_KEY = "id_key";
     private TextView textViewCountLikes;
+    private static Integer idExhibition, museumId, userId;
 
-    public DetailedExhibition newInstance(int id, int museumId, int userId, Parcelable image, String name, String date, String description) {
+    private static String name, date, description;
+
+    public DetailedExhibition newInstance(int id, int museumId, int userId, String image, String name, String date, String description) {
         final DetailedExhibition myFragment = new DetailedExhibition();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
@@ -82,15 +96,24 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         args.putInt(ID_EXHIBIT_KEY, id);
         args.putInt(ID_USER_KEY, userId);
         args.putInt(ID_MUSEUM_KEY, museumId);
-        //   args.putParcelable(IMAGE_KEY, image);
+        args.putString(IMAGE_KEY, image);
         myFragment.setArguments(args);
         return myFragment;
     }
 
-    private static int idExhibition;
-    private static int museumId;
-    private static Integer userId;
-    private static String name, date, description;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView =
+                inflater.inflate(R.layout.fragment_detailed_exhibition, container, false);
+        initViews(rootView);
+        getArgumentsFromBundle();
+        setData();
+        setDataLikes();
+        return rootView;
+    }
+
 
     private void getArgumentsFromBundle() {
         if (!getArguments().isEmpty()) {
@@ -101,17 +124,20 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
             idExhibition = getArguments().getInt(ID_EXHIBIT_KEY);
             museumId = getArguments().getInt(ID_MUSEUM_KEY);
             userId = getArguments().getInt(ID_USER_KEY);
-            //    bitmap = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
+            imageUrl = getArguments().getString(IMAGE_KEY);
             getArguments().clear();
         }
 
     }
 
+    @SuppressLint("CheckResult")
     private void setData() {
         nameTextView.setText(name);
         dateTextView.setText(date);
         exhbtnDescriptionTextView.setText(description);
-        imageView.setImageBitmap(bitmap);
+        Glide.with(getContext())
+                .load(imageUrl)
+                .into(imageView);
     }
 
 
@@ -130,18 +156,6 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         viewModel = ViewModelProviders.of(this).get(DetailedExhibitionViewModel.class);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View rootView =
-                inflater.inflate(R.layout.fragment_detailed_exhibition, container, false);
-        initViews(rootView);
-        getArgumentsFromBundle();
-        setData();
-        setDataLikes();
-        return rootView;
-    }
 
     private void setDataLikes() {
 
@@ -173,7 +187,9 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
         });
         scrollView.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
-        share.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), bitmap));
+
+
+        share.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), imageUrl));
 
     }
 
@@ -199,57 +215,44 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     private void insertLike() {
         viewModel.insertLike(idExhibition, userId)
-                .observe(this, new Observer<AnswerModel>() {
-                    @Override
-                    public void onChanged(@Nullable AnswerModel aBoolean) {
-                        getUserLike();
-                    }
-                });
+                .observe(this, aBoolean -> getUserLike());
     }
 
     private void getUserLike() {
         viewModel.getUserLike(idExhibition, userId)
-                .observe(this, new Observer<BaseLike>() {
-                    @Override
-                    public void onChanged(@Nullable BaseLike aBoolean) {
-                        if (aBoolean == null) {
-                            like.setColorFilter(getActivity().getResources().getColor(R.color.brown));
-                        } else {
-                            like.setColorFilter(getActivity().getResources().getColor(R.color.pink));
-                        }
+                .observe(this, aBoolean -> {
+                    if (aBoolean == null) {
+                        like.setColorFilter(getActivity().getResources().getColor(R.color.brown));
+                    } else {
+                        like.setColorFilter(getActivity().getResources().getColor(R.color.pink));
                     }
                 });
 
     }
+
     private void getCountOfLike() {
 
         viewModel.getCountOfLikeOnExhibition(idExhibition)
-                .observe(this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer aBoolean) {
-                        if (aBoolean == null) {
-                            Toast.makeText(getContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
-                        } else {
-                            textViewCountLikes.setText(aBoolean);
-                        }
+                .observe(this, aBoolean -> {
+                    if (aBoolean == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных о  лайках", Toast.LENGTH_SHORT).show();
+                    } else {
+                        textViewCountLikes.setText(aBoolean);
                     }
                 });
     }
+
     private void getExhibitsByExhibition() {
 
         viewModel.getExhibitsFromExhibition(idExhibition)
-                .observe(this, new Observer<List<ExistingExhibit>>() {
-                    @Override
-                    public void onChanged(@Nullable List<ExistingExhibit> aBoolean) {
-                        if (aBoolean == null) {
-                            Toast.makeText(getContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
-                        } else {
-                            updateList(aBoolean);
-                        }
+                .observe(this, aBoolean -> {
+                    if (aBoolean == null) {
+                        Toast.makeText(getContext(), "Ошибка полученяи экпонатов", Toast.LENGTH_SHORT).show();
+                    } else {
+                        updateList(aBoolean);
                     }
                 });
     }
-
 
 
 }

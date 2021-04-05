@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
@@ -63,17 +64,13 @@ public class MainInfoMuseum extends Fragment {
 
     private void getMuseumInfo() {
 
-        viewModel = ViewModelProviders.of(this).get(MainInfoMuseumViewModel.class);
 
         viewModel.getLiveDataMuseumInfo(idMuseum)
-                .observe(this, new Observer<ExistingMuseum>() {
-                    @Override
-                    public void onChanged(@Nullable ExistingMuseum museum) {
-                        if (museum == null) {
-                            Toast.makeText(getContext(), "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
-                        } else {
-                            setData(museum);
-                        }
+                .observe(this, museum -> {
+                    if (museum == null) {
+                        Toast.makeText(getContext(), "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        setData(museum);
                     }
                 });
     }
@@ -85,6 +82,7 @@ public class MainInfoMuseum extends Fragment {
         nameTextView = rootView.findViewById(R.id.main_info_museum_name_text_view);
         addressTextView = rootView.findViewById(R.id.main_info_museum_address_text_view);
         imageView = rootView.findViewById(R.id.main_info_museum_image_image_view);
+        viewModel = ViewModelProviders.of(this).get(MainInfoMuseumViewModel.class);
 
     }
 
@@ -101,7 +99,10 @@ public class MainInfoMuseum extends Fragment {
         museumDescriptionTextView.setText(museum.getDescription());
         nameTextView.setText(museum.getName());
         addressTextView.setText(museum.getAddress());
-        //  imageView.setImageBitmap(museum.getImageUrl());
+        Glide.with(getContext())
+                .load(museum.getImageUrl())
+                .into(imageView);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")

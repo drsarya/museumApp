@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:minWidth="500dp"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/lightBeige">
+    android:background="@drawable/rounded_corners"
+    >
 
     <ImageView
         android:id="@+id/dialog_edit_description_museum_close_image_view"

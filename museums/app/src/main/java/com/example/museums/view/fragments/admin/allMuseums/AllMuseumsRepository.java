@@ -3,7 +3,9 @@ package com.example.museums.view.fragments.admin.allMuseums;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.ExistingMuseum;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.MuseumService;
 
 import java.util.List;
@@ -36,6 +38,8 @@ public class AllMuseumsRepository {
                                            Response<List<ExistingMuseum>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else {
+                            newsData.setValue(null);
                         }
                     }
                     @Override

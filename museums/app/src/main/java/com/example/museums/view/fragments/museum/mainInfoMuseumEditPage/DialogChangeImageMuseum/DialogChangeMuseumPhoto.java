@@ -1,9 +1,11 @@
 package com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -19,32 +21,40 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
+import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
+import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+
+import lombok.SneakyThrows;
 
 public class DialogChangeMuseumPhoto extends DialogFragment {
 
-    private ImageView imageView;
+    private ImageView imageView, closeDialog;
     private Button buttonUpdate;
     public ProgressBar progressBar;
-    static final int GALLERY_REQUEST = 1;
-    private Bitmap lastImage;
+    private Bitmap bitmap, lastImage;
+
     private Integer museumId;
-    private ImageView closeDialog;
+    private File f;
+
     static final String ID_MUSEUM_KEY = "login_key";
     static final String IMAGE_SOURCE_KEY = "image_source_key";
-    private Bitmap bitmap;
+    static final int GALLERY_REQUEST = 1;
 
-    public DialogChangeMuseumPhoto() {
-    }
+    private ChangeMuseumImageViewModel viewModel;
 
-    public DialogChangeMuseumPhoto newInstance(final Parcelable image, final String login) {
+    public DialogChangeMuseumPhoto newInstance(final Parcelable image, final Integer idMuseum) {
         final DialogChangeMuseumPhoto myFragment = new DialogChangeMuseumPhoto();
         final Bundle args = new Bundle(2);
         args.putParcelable(IMAGE_SOURCE_KEY, image);
-        args.putString(ID_MUSEUM_KEY, login);
+        args.putInt(ID_MUSEUM_KEY, idMuseum);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -59,6 +69,7 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
             museumId = arguments.getInt(ID_MUSEUM_KEY);
             lastImage = (Bitmap) arguments.getParcelable(IMAGE_SOURCE_KEY);
         }
+
         initViews(rootView);
         setListeners();
         return rootView;
@@ -77,6 +88,7 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
     }
 
 
+    @SneakyThrows
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,30 +97,27 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                     imageView.setImageBitmap(bitmap);
+                    f = BitmapConverter.convertBitmapToFile(bitmap, getContext());
                 }
         }
     }
 
-    private ChangeMuseumImageViewModel viewModel;
 
-    private void updateImage() throws IOException {
+    private void updateImage() {
         viewModel = ViewModelProviders.of(this).get(ChangeMuseumImageViewModel.class);
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
-        viewModel.getUpdateLiveData(bitmap, museumId)
+        viewModel.getUpdateLiveData(f, museumId)
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
+                        ((MainInfoMuseumPageEdit) getParentFragment()).getMuseumInfo();
                         Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -122,11 +131,7 @@ public class DialogChangeMuseumPhoto extends DialogFragment {
         });
         buttonUpdate.setOnClickListener(v -> {
             if (bitmap != null && museumId != null) {
-                try {
-                    updateImage();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                updateImage();
             } else {
                 Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
             }

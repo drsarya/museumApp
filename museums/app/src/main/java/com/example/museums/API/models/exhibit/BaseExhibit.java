@@ -1,9 +1,7 @@
 package com.example.museums.API.models.exhibit;
 
-import android.graphics.Bitmap;
 
 import com.example.museums.API.models.author.Author;
-import com.example.museums.API.services.BitmapConverter;
 
 import lombok.Data;
 
@@ -32,18 +30,20 @@ public class BaseExhibit {
         this.dateOfCreate = dateOfCreate;
         this.exhibitionId = exhibitionId;
     }
-    public BaseExhibit(Author author, String name,  String description, String dateOfCreate ) {
+
+    public BaseExhibit(Author author, String name, String description, String dateOfCreate) {
         this.author = author;
         this.name = name;
         this.description = description;
         this.dateOfCreate = dateOfCreate;
 
     }
-    public BaseExhibit(Author author, String name,  String description, String dateOfCreate, Integer exhibitionId ) {
+
+    public BaseExhibit(Author author, String name, String description, String dateOfCreate, Integer exhibitionId) {
         this.author = author;
         this.name = name;
         this.description = description;
         this.dateOfCreate = dateOfCreate;
-
+        this.exhibitionId = exhibitionId;
     }
 }

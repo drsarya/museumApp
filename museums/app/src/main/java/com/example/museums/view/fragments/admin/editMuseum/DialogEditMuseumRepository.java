@@ -7,6 +7,7 @@ import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.API.models.museum.UpdatableMuseum;
 import com.example.museums.API.models.museum.UpdatableMuseumAdmin;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.MuseumService;
 
 import retrofit2.Call;
@@ -40,6 +41,8 @@ public class DialogEditMuseumRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
@@ -60,6 +63,8 @@ public class DialogEditMuseumRepository {
                     public void onResponse(Call<ExistingMuseum> call, Response<ExistingMuseum> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(null);
                         }
                     }
 
@@ -79,6 +84,8 @@ public class DialogEditMuseumRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
@@ -99,6 +106,8 @@ public class DialogEditMuseumRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
@@ -119,6 +128,8 @@ public class DialogEditMuseumRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body() );
+                        } else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
                     @Override

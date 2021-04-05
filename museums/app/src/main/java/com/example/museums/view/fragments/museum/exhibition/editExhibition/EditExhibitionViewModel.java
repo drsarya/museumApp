@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.exhibition.ExistingExhibition;
+import com.example.museums.API.models.museum.ShortInfoMuseum;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,9 +34,9 @@ public class EditExhibitionViewModel extends ViewModel {
         return isLoadingListExhibits;
     }
 
-    public LiveData<ExistingExhibition> getLiveDataEditExhibition(Integer exhibitionId, Integer museumId, String name, String description, String dateOfStart, String dateOfEnd, Bitmap bitmap) throws IOException {
+    public LiveData<ExistingExhibition> getLiveDataEditExhibition(Integer exhibitionId, Integer museumId, String name, String description, String dateOfStart, String dateOfEnd, File bitmap)  {
         isLoadingEditExhibition.postValue(true);
-        ExistingExhibition baseExhibition = new ExistingExhibition(museumId, name, description, dateOfStart, dateOfEnd, exhibitionId);
+        ExistingExhibition baseExhibition = new ExistingExhibition(new ShortInfoMuseum(museumId), name, description, dateOfStart, dateOfEnd, exhibitionId);
         return repository.editExhibition(baseExhibition, bitmap);
     }
 

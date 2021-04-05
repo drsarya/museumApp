@@ -7,6 +7,7 @@ import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.API.models.like.UserLike;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.ExhibitService;
 import com.example.museums.API.services.api.LikeService;
 
@@ -42,6 +43,8 @@ public class DetailedExhibitionRepository {
                     public void onResponse(Call<BaseLike> call, Response<BaseLike> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        } else {
+                            newsData.setValue(null);
                         }
                     }
 
@@ -53,19 +56,21 @@ public class DetailedExhibitionRepository {
         return newsData;
     }
 
-    public MutableLiveData<Integer> getCountOfLikeOnExhibition(BaseLike baseLike) {
-        MutableLiveData<Integer> newsData = new MutableLiveData<>();
+    public MutableLiveData<String> getCountOfLikeOnExhibition(BaseLike baseLike) {
+        MutableLiveData<String> newsData = new MutableLiveData<>();
         likeService.getLikesByArtId(baseLike)
-                .enqueue(new Callback<Integer>() {
+                .enqueue(new Callback<AnswerModel>() {
                     @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
-                            newsData.setValue(response.body());
+                            newsData.setValue(response.body().getMessage());
+                        } else {
+                            newsData.setValue( null);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
+                    public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);
                     }
                 });
@@ -80,6 +85,8 @@ public class DetailedExhibitionRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
@@ -99,6 +106,8 @@ public class DetailedExhibitionRepository {
                     public void onResponse(Call<List<ExistingExhibit>> call, Response<List<ExistingExhibit>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else {
+                            newsData.setValue(null);
                         }
                     }
 

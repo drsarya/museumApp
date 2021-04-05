@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,16 +32,16 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     public static final String ID_MUSEUM = "id_key";
     private Integer idMuseum;
     public ProgressBar progressBar;
-
+    private TextView emptyTV;
     private EditText searchEditText;
-    private List<ExistingExhibit> newExhibitModels;
+    private List<ExistingExhibit> newExhibitModels = new ArrayList<>();
     private static String copySearch = "";
 
 
-    public MuseumExhibits newInstance(String login) {
+    public MuseumExhibits newInstance(Integer idMuseum) {
         final MuseumExhibits myFragment = new MuseumExhibits();
         final Bundle args = new Bundle(1);
-        args.putString(ID_MUSEUM, login);
+        args.putInt(ID_MUSEUM, idMuseum);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -97,8 +98,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     private void filter(String text) {
         List<ExistingExhibit> temp = new ArrayList();
-        System.out.println(newExhibitModels.size());
-        for (ExistingExhibit d : newExhibitModels) {
+         for (ExistingExhibit d : newExhibitModels) {
             if (containsString(d.getName(), text) || containsString(d.getAuthor().getFullName(), text)) {
                 temp.add(d);
             }
@@ -119,10 +119,10 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
         searchEditText = rootView.findViewById(R.id.museum_exhibits_search_edit_text);
         recyclerView = rootView.findViewById(R.id.museum_exhibits_recycler_view);
         progressBar = rootView.findViewById(R.id.museum_exhibits_recycler_progress_bar);
+        emptyTV = rootView.findViewById(R.id.museum_exhibits_empty_tv);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
-
-
+        viewModel = ViewModelProviders.of(this).get(MuseumExhibitsViewModel.class);
         if (copySearch.isEmpty()) {
             getExhibitsMuseum();
         } else {
@@ -131,8 +131,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     }
 
     public void getExhibitsMuseum() {
-        viewModel = ViewModelProviders.of(this).get(MuseumExhibitsViewModel.class);
-        viewModel.getIsLoadingExhibits().observe(this, isLoading -> {
+         viewModel.getIsLoadingExhibits().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
@@ -142,30 +141,37 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
-                        getExhibitsMuseum(model);
+                        if (model.isEmpty()) {
+                            emptyTV.setVisibility(View.VISIBLE);
+                            setExhibits(new ArrayList<>());
+                        } else {
+                            emptyTV.setVisibility(View.INVISIBLE);
+                            setExhibits(model);
+                        }
+
                     }
                 });
     }
 
-    public void getExhibitsMuseum(List<ExistingExhibit> exhibitModels) {
+    public void setExhibits(List<ExistingExhibit> exhibitModels) {
         this.newExhibitModels = exhibitModels;
         mAdapter.submitList(exhibitModels);
     }
 
     @Override
     public void deletePosition(int position, Integer id) {
-        viewModel = ViewModelProviders.of(this).get(MuseumExhibitsViewModel.class);
-        viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
+         viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
-        viewModel.deleteExhibitLiveData(idMuseum)
+        viewModel.deleteExhibitLiveData(id)
                 .observe(this, model -> {
-                    viewModel.getIsLoadingExhibits().postValue(false);
+                    viewModel.getIsLoadingDeleteExhibit().postValue(false);
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                        getExhibitsMuseum();
                     }
                 });
     }

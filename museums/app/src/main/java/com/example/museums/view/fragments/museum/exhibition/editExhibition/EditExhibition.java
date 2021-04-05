@@ -28,10 +28,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.CreateExhibit;
+import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
+import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
@@ -39,6 +43,7 @@ import com.example.museums.view.services.oop.IDeletePosition;
 import com.example.museums.view.services.oop.IUpdateList;
 import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +55,9 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
     private MethodsWithFragment mth = new MethodsWithFragment();
     private NewExhibitsRecyclerViewAdapter mAdapter;
 
-    private static String login;
+    private static Integer idExhibition;
     public List<ExistingExhibit> exhibits = new ArrayList<>();
-    private Bitmap bitmap;
+    private static Bitmap bitmap;
     private RecyclerView recyclerView;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
@@ -62,8 +67,8 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
     static final int GALLERY_REQUEST = 1;
-    public static final String LOGIN_KEY_USER = "login_key";
     public static final String IMAGE_KEY = "image_key";
+    private String imageUrl;
     public static final String NAME_KEY = "name_key";
     public static final String DATE_START_KEY = "date_key";
     public static final String DATE_END_KEY = "date_end_key";
@@ -71,128 +76,36 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
     public static final String ID_EXHIBITION_KEY = "id_key";
     public static final String ID_MUSEUM_KEY = "museum_id";
     private static Integer museumId;
-    private CacheManager cacheManager = new CacheManager();
+    //  private CacheManager cacheManager = new CacheManager();
     private EditExhibitionViewModel viewModel;
+    private static File file;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAdapter = new NewExhibitsRecyclerViewAdapter(this);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView =
+                inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
+        initViews(rootView);
+        getArgumentsFromBundle();
+        setListeners();
+        return rootView;
     }
 
-    public EditExhibition newInstance(String login) {
-        final EditExhibition myFragment = new EditExhibition();
-        final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
-        myFragment.setArguments(args);
-        return myFragment;
-    }
-
-
-    public EditExhibition newInstance(String login, int id, String museumId, Parcelable image, String name, String dataStart, String dataEnd, String description) {
+    public EditExhibition newInstance(Integer idExhibition, Integer museumId, String image, String name, String dataStart, String dataEnd, String description) {
         final EditExhibition myFragment = new EditExhibition();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
         args.putString(DATE_START_KEY, dataStart);
-        args.putString(LOGIN_KEY_USER, login);
         args.putString(DATE_END_KEY, dataEnd);
         args.putString(DESCRIPTION_KEY, description);
-        args.putInt(ID_EXHIBITION_KEY, id);
-        args.putString(ID_MUSEUM_KEY, museumId);
-        args.putParcelable(IMAGE_KEY, image);
+        args.putInt(ID_EXHIBITION_KEY, idExhibition);
+        args.putInt(ID_MUSEUM_KEY, museumId);
+        args.putString(IMAGE_KEY, image);
         myFragment.setArguments(args);
         return myFragment;
-    }
-
-    private Integer idExhibition;
-
-    private void getArgumentsFromBundle() {
-        if (getArguments() != null) {
-            if (getArguments().getString(LOGIN_KEY_USER) != null) {
-                login = getArguments().getString(LOGIN_KEY_USER);
-            }
-            if (getArguments().getString(ID_MUSEUM_KEY) != null) {
-                museumId = getArguments().getInt(ID_MUSEUM_KEY);
-            }
-            if (getArguments().getString(DESCRIPTION_KEY) != null) {
-                String name = getArguments().getString(NAME_KEY);
-                nameET.setText(name);
-                if (getArguments().getString(DATE_START_KEY) != null) {
-                    dateOfStartET.setText(getArguments().getString(DATE_START_KEY));
-                    dateOfEndET.setText(getArguments().getString(DATE_END_KEY));
-                } else {
-                    onlineCheckBox.setChecked(true);
-                }
-                descriptionET.setText(getArguments().getString(DESCRIPTION_KEY));
-                idExhibition = getArguments().getInt(ID_EXHIBITION_KEY);
-                Bitmap b = (Bitmap) getArguments().getParcelable(IMAGE_KEY);
-                bitmap = b.copy(b.getConfig(), true);
-                currImageImageView.setImageBitmap(bitmap);
-                cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
-                getArguments().clear();
-                if (exhibits.isEmpty()) {
-                    getExhibits();
-                }
-            }
-
-        }
-        if (cacheManager.getBitmapFromMemCache(Integer.toString(idExhibition) + "  ") != null) {
-            currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache(Integer.toString(idExhibition) + "  "));
-
-        }
-    }
-
-    private void deleteExhibit(Integer id) {
-        viewModel = ViewModelProviders.of(this).get(EditExhibitionViewModel.class);
-        viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
-            if (isLoading) progressBar.setVisibility(View.VISIBLE);
-            else progressBar.setVisibility(View.GONE);
-        });
-        viewModel.getLiveDataDeleteExhibit(id)
-                .observe(this, model -> {
-                    viewModel.getIsLoadingDeleteExhibit().postValue(false);
-                    if (model == null) {
-                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Успешное создание выставки", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    public void getExhibits() {
-        viewModel = ViewModelProviders.of(this).get(EditExhibitionViewModel.class);
-        viewModel.getIsLoadingListExhibits().observe(this, isLoading -> {
-            if (isLoading) progressBar.setVisibility(View.VISIBLE);
-            else progressBar.setVisibility(View.GONE);
-        });
-        viewModel.getLiveDataExhibitsFromExhibition(idExhibition)
-                .observe(this, model -> {
-                    viewModel.getIsLoadingListExhibits().postValue(false);
-                    if (model == null) {
-                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Успешное создание выставки", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void editExhibition() throws IOException {
-        viewModel = ViewModelProviders.of(this).get(EditExhibitionViewModel.class);
-        viewModel.getIsLoadingEditExhibition().observe(this, isLoading -> {
-            if (isLoading) progressBar.setVisibility(View.VISIBLE);
-            else progressBar.setVisibility(View.GONE);
-        });
-        viewModel.getLiveDataEditExhibition(idExhibition, museumId, nameET.getText().toString(),
-                descriptionET.getText().toString(), dateOfStartET.getText().toString(),
-                dateOfEndET.getText().toString(), bitmap)
-                .observe(this, model -> {
-                    viewModel.getIsLoadingEditExhibition().postValue(false);
-                    if (model == null) {
-                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Успешное создание выставки", Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     private void initViews(View rootView) {
@@ -211,8 +124,92 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
         plusExhbt = rootView.findViewById(R.id.create_new_exhibition_text_view);
+        viewModel = ViewModelProviders.of(this).get(EditExhibitionViewModel.class);
+        mAdapter = new NewExhibitsRecyclerViewAdapter(this);
         recyclerView = rootView.findViewById(R.id.create_exhibition_recycler_view);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+
+            museumId = getArguments().getInt(ID_MUSEUM_KEY);
+            idExhibition = getArguments().getInt(ID_EXHIBITION_KEY);
+            nameET.setText(getArguments().getString(NAME_KEY));
+            if (getArguments().getString(DATE_START_KEY) != null) {
+                dateOfStartET.setText(getArguments().getString(DATE_START_KEY));
+                dateOfEndET.setText(getArguments().getString(DATE_END_KEY));
+            } else {
+                onlineCheckBox.setChecked(true);
+            }
+            imageUrl = getArguments().getString(IMAGE_KEY);
+            if (bitmap != null) {
+                Glide.with(getContext())
+                        .asBitmap()
+                        .load(bitmap)
+                        .into(currImageImageView);
+            } else {
+                Glide.with(getContext())
+                        .load(imageUrl)
+                        .into(currImageImageView);
+            }
+            descriptionET.setText(getArguments().getString(DESCRIPTION_KEY));
+            getExhibits();
+        }
+    }
+
+    private void deleteExhibit(Integer id) {
+        viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataDeleteExhibit(id)
+                .observe(this, model -> {
+                    viewModel.getIsLoadingDeleteExhibit().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        getExhibits();
+                        Toast.makeText(getContext(), "Экспонат удалён", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void getExhibits() {
+        viewModel.getIsLoadingListExhibits().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataExhibitsFromExhibition(idExhibition)
+                .observe(this, model -> {
+                    viewModel.getIsLoadingListExhibits().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        updateList(model);
+                    }
+                });
+    }
+
+    private void editExhibition() {
+        viewModel.getIsLoadingEditExhibition().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataEditExhibition(idExhibition, museumId, nameET.getText().toString(),
+                descriptionET.getText().toString(), dateOfStartET.getText().toString(),
+                dateOfEndET.getText().toString(), file)
+                .observe(this, model -> {
+                    viewModel.getIsLoadingEditExhibition().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        file = null;
+                        bitmap = null;
+                        ((MuseumExhibitions)getTargetFragment()).getExhibitionsMuseum();
+                        Toast.makeText(getContext(), "Выставка отредактирована", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 
@@ -225,27 +222,19 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
                     Uri selectedImage = data.getData();
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        cacheManager.deleteItem(Integer.toString(idExhibition) + "  ");
-                        cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
-                        currImageImageView.setImageBitmap(bitmap);
+                        file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
+//                        cacheManager.deleteItem(Integer.toString(idExhibition) + "  ");
+//                        cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
+                        Glide.with(getContext())
+                                .asBitmap()
+                                .load(bitmap)
+                                .into(currImageImageView);
+                        // currImageImageView.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View rootView =
-                inflater.inflate(R.layout.fragment_edit_exhibition, container, false);
-        initViews(rootView);
-        getArgumentsFromBundle();
-        setListeners();
-        return rootView;
     }
 
 
@@ -277,14 +266,9 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
         createExhibitionBtn.setOnClickListener(v -> {
             if (currImageImageView.getDrawable() != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
                     && !nameET.getText().toString().isEmpty()
-                    && !descriptionET.getText().toString().isEmpty()
-            ) {
+                    && !descriptionET.getText().toString().isEmpty()) {
                 hideKeyboard();
-                try {
-                    editExhibition();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                editExhibition();
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
@@ -298,38 +282,16 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    public void addNewExhibit(ExistingExhibit exhibit) {
-        exhibits.add(exhibit);
-        mAdapter.submitList(exhibits);
-
-    }
-
-    public void updateExhibit(int position, ExistingExhibit exhibit) {
-        exhibits.remove(position);
-        exhibits.add(position, exhibit);
-        mAdapter.submitList(exhibits);
-    }
-
 
     @Override
     public void deletePosition(int position, Integer id) {
-        if (id != null) {
-            deleteExhibit(id);
-            exhibits.remove(position);
-            mAdapter.notifyItemRemoved(position);
-
-        } else {
-            exhibits.remove(position);
-            mAdapter.notifyItemRemoved(position);
-            mAdapter.notifyItemRangeChanged(position, exhibits.size());
-        }
+        deleteExhibit(id);
     }
 
     @Override
     public void updateList(List<ExistingExhibit> list) {
-        if (exhibits.size() == 0) {
-            exhibits.addAll(list);
-        }
+        exhibits = new ArrayList<>();
+        exhibits.addAll(list);
         mAdapter.submitList(exhibits);
     }
 }

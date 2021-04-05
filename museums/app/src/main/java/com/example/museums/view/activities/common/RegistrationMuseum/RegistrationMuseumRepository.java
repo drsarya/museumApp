@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.museums.API.RetrofitConnect;
 import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.user.UserMuseum;
+import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.UserService;
 
 import retrofit2.Call;
@@ -36,6 +37,8 @@ public class RegistrationMuseumRepository {
                                            Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else {
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

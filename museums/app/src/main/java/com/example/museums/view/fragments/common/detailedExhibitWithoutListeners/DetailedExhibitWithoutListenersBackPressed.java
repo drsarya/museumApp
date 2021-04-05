@@ -2,6 +2,7 @@ package com.example.museums.view.fragments.common.detailedExhibitWithoutListener
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShare;
 import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
@@ -38,7 +40,7 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
     public static final String ID_EXHIBIT_KEY = "id_key";
     private String name, author, date, description;
     private Integer idExhibit;
-    private Bitmap image;
+    private String image;
     private ImageView mainImageImageView, shareExhibit;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
     private boolean state = false;
@@ -79,14 +81,16 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
             author = getArguments().getString(AUTHOR_KEY);
             date = getArguments().getString(DATE_OF_CREATE);
             description = getArguments().getString(DESCRIPTION_KEY);
-            //  image =  getArguments().getString(IMAGE_KEY);
+            image = getArguments().getString(IMAGE_KEY);
             idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
             userId = getArguments().getInt(USER_ID_KEY);
         }
     }
 
     private void setData() {
-        mainImageImageView.setImageBitmap(image);
+        Glide.with(getContext())
+                .load(image)
+                .into(mainImageImageView);
         authorTextView.setText(author);
         dateTextView.setText(date);
         descriptionTextView.setText(description);
@@ -140,6 +144,8 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
         }
         getArguments().clear();
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
+//        BitmapDrawable drawable = (BitmapDrawable) mainImageImageView.getDrawable();
+//        Bitmap bitmap = drawable.getBitmap();
         shareExhibit.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), image));
     }
 

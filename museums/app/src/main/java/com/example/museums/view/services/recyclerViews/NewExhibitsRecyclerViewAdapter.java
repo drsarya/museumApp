@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
-    private EditExhibition editExhibtion;
+    private EditExhibition editExhibition;
 
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
@@ -47,9 +48,9 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         }
     }
 
-    public NewExhibitsRecyclerViewAdapter(EditExhibition editExhibtion) {
+    public NewExhibitsRecyclerViewAdapter(EditExhibition editExhibition) {
 
-        this.editExhibtion = editExhibtion;
+        this.editExhibition = editExhibition;
     }
 
     private AsyncListDiffer<ExistingExhibit> differ = new AsyncListDiffer<ExistingExhibit>(this, DIFF_CALLBACK);
@@ -83,10 +84,13 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         final ExistingExhibit exhibit = differ.getCurrentList().get(position);
 
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibit, -1));
-        //holder.image.setImageBitmap(exhibit.getImageUrl());
+        Glide
+                .with(holder.image.getContext())
+                .load(exhibit.getImageUrl())
+                .into(holder.image);
         holder.nameOfExhbr.setText(exhibit.getName());
-        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibit, position));
-        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibit.getId()));
+        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibition, exhibit, position));
+        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibition, editExhibition.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibit.getId()));
     }
 
 

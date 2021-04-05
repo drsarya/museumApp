@@ -13,7 +13,7 @@ public class DChangeDescriptionMuseumViewModel extends ViewModel {
 
     public DChangeDescriptionMuseumViewModel() {
         super();
-        isLoading.setValue(true);
+
     }
 
     public MutableLiveData<Boolean> getIsLoading() {
@@ -21,6 +21,7 @@ public class DChangeDescriptionMuseumViewModel extends ViewModel {
     }
 
     public LiveData<AnswerModel> getUpdateDescriptionLiveData(Integer museumId, String description) {
+        isLoading.setValue(true);
         UpdatableMuseum updatableMuseum = new UpdatableMuseum();
         updatableMuseum.setDescription(description);
         updatableMuseum.setId(  museumId);

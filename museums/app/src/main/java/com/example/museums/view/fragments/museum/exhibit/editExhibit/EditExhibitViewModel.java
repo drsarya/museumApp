@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class EditExhibitViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<ExistingExhibit> getLiveDataUpdateExhibit(Author author, String name, String description, String dateOfCreate, Integer id, Bitmap bitmap) throws IOException {
+    public LiveData<ExistingExhibit> getLiveDataUpdateExhibit(Author author, String name, String description, String dateOfCreate, Integer id, File bitmap) {
         isLoading.setValue(true);
         ExistingExhibit existingExhibit = new ExistingExhibit(author, name, description, dateOfCreate, id);
         return repository.updateExhibit(existingExhibit, bitmap);
