@@ -45,11 +45,11 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
     private String image;
     private ImageView mainImageImageView, shareExhibit;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
-    private boolean state = false;
     private TextView textViewCountLikes;
     private Integer userId;
     private DetailedExhibitWithListenerViewModel viewModel;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
                 inflater.inflate(R.layout.fragment_detailed_exhibit, container, false);
         getArgumentsFromBundle();
         initView(rootView);
+        setListeners();
         setData();
         return rootView;
     }
@@ -84,7 +85,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
             author = getArguments().getString(AUTHOR_KEY);
             date = getArguments().getString(DATE_OF_CREATE);
             description = getArguments().getString(DESCRIPTION_KEY);
-            //  image =  getArguments().getString(IMAGE_KEY);
+            image = getArguments().getString(IMAGE_KEY);
             idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
             userId = getArguments().getInt(USER_ID_KEY);
         }
@@ -102,17 +103,10 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
         nameTextView.setText(name);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        super.setRetainInstance(true);
-        viewModel = ViewModelProviders.of(this).get(DetailedExhibitWithListenerViewModel.class);
-        state = true;
-        setListeners();
-    }
 
     private void initView(View rootView) {
+        viewModel = ViewModelProviders.of(this).get(DetailedExhibitWithListenerViewModel.class);
+
         shareExhibit = rootView.findViewById(R.id.detailed_exhibit_share_image_view);
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_of_likes_text_view);
         ll = (LinearLayout) rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
@@ -148,8 +142,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
         }
         getArguments().clear();
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
-//        BitmapDrawable drawable = (BitmapDrawable) mainImageImageView.getDrawable();
-//        Bitmap bitmap = drawable.getBitmap();
+
         shareExhibit.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), image));
     }
 

@@ -41,6 +41,7 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
     private String name, author, date, description;
     private Integer idExhibit;
     private String image;
+    public ImageButton closeImageButton;
     private ImageView mainImageImageView, shareExhibit;
     private TextView nameTextView, authorTextView, dateTextView, descriptionTextView;
     private boolean state = false;
@@ -48,16 +49,26 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
     private Integer userId;
     private DetailedExhibitWithoutListenerViewModel viewModel;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
         View rootView =
-                inflater.inflate(R.layout.fragment_detailed_exhibit, container, false);
+                inflater.inflate(R.layout.fragment_detailed_exhibit_view_page, container, false);
         getArgumentsFromBundle();
         initView(rootView);
+        setListeners();
         setData();
+        state = true;
+
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddd");
     }
 
     public DetailedExhibitWithoutListenersBackPressed newInstance(Integer idExhibit, Integer userId, String image, String name, String author, String date, String description) {
@@ -67,7 +78,12 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
         args.putString(DATE_OF_CREATE, date);
         args.putString(AUTHOR_KEY, author);
         args.putString(DESCRIPTION_KEY, description);
-        args.putInt(USER_ID_KEY, userId);
+        if(userId==null){
+            args.putInt(USER_ID_KEY, -1);
+
+        }else{
+            args.putInt(USER_ID_KEY, userId);
+        }
         args.putInt(ID_EXHIBIT_KEY, idExhibit);
         args.putString(IMAGE_KEY, image);
         myFragment.setArguments(args);
@@ -97,28 +113,22 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
         nameTextView.setText(name);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        super.setRetainInstance(true);
-        viewModel = ViewModelProviders.of(this).get(DetailedExhibitWithoutListenerViewModel.class);
 
-        state = true;
-        setListeners();
-    }
 
     private void initView(View rootView) {
-        shareExhibit = rootView.findViewById(R.id.detailed_exhibit_share_image_view);
-        textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_count_of_likes_text_view);
-        ll = (LinearLayout) rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
-        view = (ScrollView) rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
-        like = (ImageButton) rootView.findViewById(R.id.detailed_exhibit_like_btn);
-        mainImageImageView = (ImageView) rootView.findViewById(R.id.detailed_exhibit_main_image_image_view);
-        nameTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
-        authorTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_author_text_view);
-        dateTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_date_of_create_text_view);
-        descriptionTextView = (TextView) rootView.findViewById(R.id.detailed_exhibit_description_text_view);
+        viewModel = ViewModelProviders.of(this).get(DetailedExhibitWithoutListenerViewModel.class);
+
+        shareExhibit = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image_view);
+        textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_view_page_count_likes_text_view);
+        ll =  rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
+        view =   rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
+        like =   rootView.findViewById(R.id.detailed_exhibit_view_page_like_btn);
+        mainImageImageView =  rootView.findViewById(R.id.detailed_exhibit_main_image_image_view);
+        nameTextView =   rootView.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
+        authorTextView =   rootView.findViewById(R.id.detailed_exhibit_view_page_author_text_view);
+        dateTextView =  rootView.findViewById(R.id.detailed_exhibit_view_page_date_text_view);
+        descriptionTextView =  rootView.findViewById(R.id.detailed_exhibit_view_page_description);
+        closeImageButton = rootView.findViewById(R.id.detailed_exhb_view_pager);
 
         if (userId != -1) {
             getUserLike();
@@ -144,8 +154,8 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
         }
         getArguments().clear();
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
-//        BitmapDrawable drawable = (BitmapDrawable) mainImageImageView.getDrawable();
-//        Bitmap bitmap = drawable.getBitmap();
+        closeImageButton.setOnClickListener(v1 -> getActivity().onBackPressed());
+
         shareExhibit.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), image));
     }
 

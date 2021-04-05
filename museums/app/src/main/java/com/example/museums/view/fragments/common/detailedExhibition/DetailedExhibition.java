@@ -37,6 +37,7 @@ import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.R;
+import com.example.museums.view.fragments.common.exhibitFromExhibition.ExhibitsViewPager;
 import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShare;
@@ -63,9 +64,8 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
     private boolean state = true;
     private TextView nameTextView, dateTextView;
     private ImageView imageView, share;
-    // private ExhibitViewPager exhibitViewPager;
+    private ExhibitsViewPager exhibitViewPager;
     private DetailedExhibitionViewModel viewModel;
-    private Bitmap bitmap;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -181,9 +181,9 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         );
         allExhibits.setOnClickListener(v -> {
             getExhibitsByExhibition();
-            List<ExistingExhibit> list = new ArrayList<>();
-            //exhibitViewPager = new ExhibitViewPager(list, userId);
-            // mth.replaceFragment(exhibitViewPager, (AppCompatActivity) v.getContext());
+   //         List<ExistingExhibit> list = new ArrayList<>();
+//            exhibitViewPager = new ExhibitsViewPager(list, userId);
+//            mth.replaceFragment(exhibitViewPager, (AppCompatActivity) v.getContext());
 
         });
         scrollView.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
@@ -201,17 +201,6 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         stringBuilder.append("@App \"Выставочный зал\" by Darya" + "\n");
         return stringBuilder.toString();
     }
-
-    private List<ExistingExhibit> newExhibitModels = new ArrayList<>();
-
-    @Override
-    public void updateList(List<ExistingExhibit> list) {
-        if (newExhibitModels.size() == 0) {
-            newExhibitModels.addAll(list);
-        }
-        //  exhibitViewPager.setNewData(newExhibitModels);
-    }
-
 
     private void insertLike() {
         viewModel.insertLike(idExhibition, userId)
@@ -242,17 +231,25 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
                 });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void getExhibitsByExhibition() {
 
         viewModel.getExhibitsFromExhibition(idExhibition)
-                .observe(this, aBoolean -> {
-                    if (aBoolean == null) {
-                        Toast.makeText(getContext(), "Ошибка полученяи экпонатов", Toast.LENGTH_SHORT).show();
+                .observe(this, list -> {
+                    if (list == null) {
+                        Toast.makeText(getContext(), "Ошибка получения экпонатов", Toast.LENGTH_SHORT).show();
                     } else {
-                        updateList(aBoolean);
+                         exhibitViewPager = new ExhibitsViewPager(list, userId);
+                        mth.replaceFragment(exhibitViewPager, (AppCompatActivity) getContext());
+                        updateList(list);
                     }
                 });
     }
 
+    @Override
+    public void updateList(List<ExistingExhibit> list) {
+        System.out.println(list.size()+"  idExhibition "+ idExhibition);
+        exhibitViewPager.setNewData(list);
+    }
 
 }

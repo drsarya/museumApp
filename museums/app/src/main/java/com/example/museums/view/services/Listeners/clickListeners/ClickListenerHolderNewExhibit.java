@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.view.activities.tabs.MuseumTab;
+import com.example.museums.view.fragments.common.detailedExhibitWithListener.DetailedExhibitWithListenersBackPressed;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 
@@ -23,7 +24,7 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
     private Integer userId;
     private CountDownTimer ctimte = null;
     private View view;
-    private BaseExhibit model;
+    private ExistingExhibit model;
     private MethodsWithFragment mth = new MethodsWithFragment();
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -31,10 +32,10 @@ public class ClickListenerHolderNewExhibit implements View.OnClickListener {
     public void onClick(View v) {
         Fragment myFragment;
         if (view.getVisibility() == View.VISIBLE) {
-//            myFragment = new DetailedExhibitWithListeners().newInstance(model.exhibitId, userId, model.photo,
-//                    model.name, model.author, model.dateOfCreate, model.description);
-//            MuseumTab activity = (MuseumTab) v.getContext();
-//            mth.replaceFragment(myFragment, activity);
+            myFragment = new DetailedExhibitWithListenersBackPressed().newInstance(model.getId(), userId, model.getImageUrl(),
+                    model.getName(), model.getAuthor().fullName, model.getDateOfCreate(), model.getDescription());
+            MuseumTab activity = (MuseumTab) v.getContext();
+            mth.replaceFragment(myFragment, activity);
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, view);
             ctimte.start();

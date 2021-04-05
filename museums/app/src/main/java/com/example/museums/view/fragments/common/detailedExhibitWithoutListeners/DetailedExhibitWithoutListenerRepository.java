@@ -28,6 +28,7 @@ public class DetailedExhibitWithoutListenerRepository {
         likeService = RetrofitConnect.createRetrofitConnection(LikeService.class);
     }
 
+
     public MutableLiveData<BaseLike> getUserLike(UserLike userLike) {
         MutableLiveData<BaseLike> newsData = new MutableLiveData<>();
         likeService.getLikeByUser(userLike)

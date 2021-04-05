@@ -1,6 +1,7 @@
 package com.example.museums.view.services.recyclerViews;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,25 +20,26 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
     private Integer userId;
 
     public ExhibitViewPagerAdapter(@NonNull FragmentManager fm, List<ExistingExhibit> mDataSet, Integer userId) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mDataSet = mDataSet;
         this.userId = userId;
     }
 
-    @SuppressLint("ResourceAsColor")
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        DetailedExhibitWithoutListenersBackPressed dtn = new DetailedExhibitWithoutListenersBackPressed().newInstance(mDataSet.get(position).getId(), userId, mDataSet.get(position).getImageUrl(),
+        return new DetailedExhibitWithoutListenersBackPressed().newInstance(mDataSet.get(position).getId(), userId, mDataSet.get(position).getImageUrl(),
                 mDataSet.get(position).getName(), mDataSet.get(position).getAuthor().fullName, mDataSet.get(position).getDateOfCreate(), mDataSet.get(position).getDescription());
-        return dtn;
     }
 
     public void setNewData(List<ExistingExhibit> mDataset) {
         this.mDataSet = new ArrayList<>();
         this.mDataSet.addAll(mDataset);
-        this.notifyDataSetChanged();
+        System.out.println("ddddddddddddddddddddddddddd");
+        notifyDataSetChanged();
     }
+
 
     @Override
     public int getCount() {

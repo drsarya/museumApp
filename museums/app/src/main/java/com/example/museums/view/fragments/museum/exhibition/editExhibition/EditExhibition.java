@@ -76,7 +76,6 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
     public static final String ID_EXHIBITION_KEY = "id_key";
     public static final String ID_MUSEUM_KEY = "museum_id";
     private static Integer museumId;
-    //  private CacheManager cacheManager = new CacheManager();
     private EditExhibitionViewModel viewModel;
     private static File file;
 
@@ -223,13 +222,10 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                         file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
-//                        cacheManager.deleteItem(Integer.toString(idExhibition) + "  ");
-//                        cacheManager.addBitmapToMemoryCache(Integer.toString(idExhibition) + "  ", bitmap);
                         Glide.with(getContext())
                                 .asBitmap()
                                 .load(bitmap)
                                 .into(currImageImageView);
-                        // currImageImageView.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -257,7 +253,6 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
                 dateOfEndTFB.setVisibility(View.VISIBLE);
             }
         });
-
         chooseImageTextView.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
