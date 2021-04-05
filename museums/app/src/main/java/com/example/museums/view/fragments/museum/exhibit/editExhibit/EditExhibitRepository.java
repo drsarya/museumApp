@@ -63,6 +63,9 @@ public class EditExhibitRepository {
                     public void onResponse(Call<ExistingExhibit> call, Response<ExistingExhibit> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
+                        }else{
+
+                            System.out.println(response.message());
                         }
                     }
 

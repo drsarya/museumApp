@@ -3,7 +3,6 @@ package com.example.museums.view.fragments.museum.exhibit.editExhibit;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -38,7 +37,6 @@ import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmpty
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,7 +152,7 @@ public class EditExhibit extends Fragment {
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
-                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Ошибка получения данных об авторах", Toast.LENGTH_SHORT).show();
                     } else {
                         refreshAllList(model);
                     }
@@ -210,7 +208,7 @@ public class EditExhibit extends Fragment {
                         new Author(authorEditText.getText().toString()),
                         nameEditText.getText().toString(), null, descriptionEditText.getText().toString(),
                         dateOfCreateEditText.getText().toString(), null, idExhibit);
-                editExhibition();
+                editExhibit();
             } else {
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
@@ -218,7 +216,7 @@ public class EditExhibit extends Fragment {
         });
     }
 
-    private void editExhibition() {
+    private void editExhibit() {
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
@@ -229,14 +227,15 @@ public class EditExhibit extends Fragment {
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
-                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Ошибка получения данных обновления", Toast.LENGTH_SHORT).show();
                     } else {
                         if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
                             ((EditExhibition) getTargetFragment()).getExhibits();
-
                         } else {
                             ((MuseumExhibits) getTargetFragment()).getExhibitsMuseum();
                         }
+                        Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
+
                         bitmap = null;
                         file = null;
                     }

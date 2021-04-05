@@ -98,7 +98,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     private void filter(String text) {
         List<ExistingExhibit> temp = new ArrayList();
-         for (ExistingExhibit d : newExhibitModels) {
+        for (ExistingExhibit d : newExhibitModels) {
             if (containsString(d.getName(), text) || containsString(d.getAuthor().getFullName(), text)) {
                 temp.add(d);
             }
@@ -131,7 +131,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     }
 
     public void getExhibitsMuseum() {
-         viewModel.getIsLoadingExhibits().observe(this, isLoading -> {
+        viewModel.getIsLoadingExhibits().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
@@ -148,7 +148,6 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
                             emptyTV.setVisibility(View.INVISIBLE);
                             setExhibits(model);
                         }
-
                     }
                 });
     }
@@ -160,7 +159,7 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
 
     @Override
     public void deletePosition(int position, Integer id) {
-         viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
+        viewModel.getIsLoadingDeleteExhibit().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
