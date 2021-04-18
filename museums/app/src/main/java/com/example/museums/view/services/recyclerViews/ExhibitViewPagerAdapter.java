@@ -36,7 +36,6 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
     public void setNewData(List<ExistingExhibit> mDataset) {
         this.mDataSet = new ArrayList<>();
         this.mDataSet.addAll(mDataset);
-        System.out.println("ddddddddddddddddddddddddddd");
         notifyDataSetChanged();
     }
 

@@ -30,8 +30,6 @@ public class ExhibitsViewPager extends Fragment {
     }
 
     public void setNewData(List<ExistingExhibit> mDataset) {
-        //  if(pagerAdapter)
-        System.out.println("3333333333333333333");
         if (pagerAdapter != null) {
             pagerAdapter.setNewData(mDataset);
         } else {
@@ -44,7 +42,6 @@ public class ExhibitsViewPager extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.setRetainInstance(true);
-        System.out.println("111111111111111111111111");
         View rootView =
                 inflater.inflate(R.layout.fragment_screen_slide_exhibits_from_exhbtn, container, false);
         initViews(rootView);
@@ -54,11 +51,9 @@ public class ExhibitsViewPager extends Fragment {
 
     private void initViews(View rootView) {
         mPager = rootView.findViewById(R.id.exhibits_from_exhbtn_pager);
-       // pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset, userId);
-        pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset, userId );
-
+        pagerAdapter = new ExhibitViewPagerAdapter(getChildFragmentManager(), mDataset, userId);
         mPager.setAdapter(pagerAdapter);
-        if(!mDataset.isEmpty()){
+        if (!mDataset.isEmpty()) {
             pagerAdapter.setNewData(mDataset);
         }
     }

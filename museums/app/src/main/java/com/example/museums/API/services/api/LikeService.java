@@ -23,15 +23,9 @@ public interface LikeService {
     @POST("likes/user")
     Call<BaseLike> getLikeByUser(@Body UserLike userLike);
 
-    @DELETE("likes")
-    Call<AnswerModel> deleteLikeByUser(@Body UserLike userLike);
 
     @POST("likes")
     Call<AnswerModel> createLike(@Body UserLike userLike);
 
-    @GET("likes/exhibits/{idUser}")
-    Call<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
 
-    @GET("likes/exhibitions/{idUser}")
-    Call<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
 }

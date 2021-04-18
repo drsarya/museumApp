@@ -28,6 +28,8 @@ public interface ExhibitService {
 
     @GET("exhibits/exhibition/{exhibitionId}")
     Call<List<ExistingExhibit>> getExhibitsByExhibitionId(@Path("exhibitionId") Integer id);
+    @GET("exhibits/liked/{idUser}")
+    Call<List<ExistingExhibit>> getLikedExhibitsByUser(@Path("idUser") Integer idUser);
 
     @DELETE("exhibits/{id}")
     Call<AnswerModel> deleteExhibit(@Path("id") Integer id);

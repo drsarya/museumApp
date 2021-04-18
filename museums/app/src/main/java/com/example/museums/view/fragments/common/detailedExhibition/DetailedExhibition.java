@@ -181,7 +181,7 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         );
         allExhibits.setOnClickListener(v -> {
             getExhibitsByExhibition();
-   //         List<ExistingExhibit> list = new ArrayList<>();
+            //         List<ExistingExhibit> list = new ArrayList<>();
 //            exhibitViewPager = new ExhibitsViewPager(list, userId);
 //            mth.replaceFragment(exhibitViewPager, (AppCompatActivity) v.getContext());
 
@@ -233,13 +233,12 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void getExhibitsByExhibition() {
-
         viewModel.getExhibitsFromExhibition(idExhibition)
                 .observe(this, list -> {
                     if (list == null) {
                         Toast.makeText(getContext(), "Ошибка получения экпонатов", Toast.LENGTH_SHORT).show();
                     } else {
-                         exhibitViewPager = new ExhibitsViewPager(list, userId);
+                        exhibitViewPager = new ExhibitsViewPager(list, userId);
                         mth.replaceFragment(exhibitViewPager, (AppCompatActivity) getContext());
                         updateList(list);
                     }
@@ -248,7 +247,7 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     @Override
     public void updateList(List<ExistingExhibit> list) {
-        System.out.println(list.size()+"  idExhibition "+ idExhibition);
+        System.out.println(list.size() + "  idExhibition " + idExhibition);
         exhibitViewPager.setNewData(list);
     }
 

@@ -39,6 +39,8 @@ public interface ExhibitionService {
     Call<ExistingExhibition> updateExhibition(@Part MultipartBody.Part image, @Part("exhibition") ExistingExhibition exhibition);
 
 
+    @GET("exhibitions/liked/{idUser}")
+    Call<List<ExistingExhibition>> getLikedExhibitionsByUser(@Path("idUser") Integer idUser);
 
     @GET("exhibitions/{id}")
     Call<List<ExistingExhibition>> getExhibitionsByMuseumId(@Path("id") Integer id);
