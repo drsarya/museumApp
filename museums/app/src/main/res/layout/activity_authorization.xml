@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/brown"
     android:orientation="vertical">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -20,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,9 +25,7 @@
                 android:text="@string/private_office"
                 android:textAlignment="center"
                 android:textColor="@color/darkBeige"
-                android:textSize="30sp">
-
-            </TextView>
+                android:textSize="30sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -59,7 +53,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
-                 app:helperText="@string/password" />
+                app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -79,40 +73,14 @@
                 android:inputType="textPassword"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp"
-                 app:helperText="@string/password" />
+                app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="end"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:fontFamily="@font/prata"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:text="@string/forgetPassword"-->
-<!--                android:textColor="@color/darkBeige"-->
-<!--                android:textSize="20sp"-->
-<!--                android:theme="@style/ClickableView">-->
-
-<!--            </TextView>-->
-<!--        </LinearLayout>-->
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -122,7 +90,6 @@
             android:layout_marginBottom="10dp"
             android:background="@color/blue"
             android:theme="@style/roundBtn">
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -134,9 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:scaleType="matrix"
-                    android:src="@drawable/image_for_btn">
-
-                </ImageView>
+                    android:src="@drawable/image_for_btn" />
 
                 <ProgressBar
                     android:id="@+id/authorization_progress_bar"
@@ -161,10 +126,7 @@
                 android:gravity="center"
                 android:text="@string/goIn"
                 android:textAllCaps="false"
-                android:textColor="@color/darkBeige">
-
-            </Button>
-
+                android:textColor="@color/darkBeige" />
         </RelativeLayout>
 
         <LinearLayout
@@ -172,7 +134,6 @@
             android:layout_height="wrap_content"
             android:gravity="center|center_vertical"
             android:orientation="vertical">
-
 
             <Button
                 android:id="@+id/authorization_reg_person"
@@ -182,38 +143,31 @@
                 android:background="@color/glass"
                 android:clickable="true"
                 android:focusable="true"
-
                 android:fontFamily="@font/prata"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:text="Зарегистрироваться"
+                android:text="@string/register"
                 android:textAllCaps="false"
                 android:textColor="@color/darkBeige"
                 android:textSize="17sp"
-                android:theme="@style/ClickableView">
-
-            </Button>
+                android:theme="@style/ClickableView" />
 
             <Button
                 android:id="@+id/authorization_reg_museum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
                 android:background="@color/glass"
                 android:clickable="true"
                 android:focusable="true"
-
                 android:fontFamily="@font/prata"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:text="Представителю музея"
+                android:text="@string/for_museum_owner"
                 android:textAllCaps="false"
                 android:textColor="@color/darkBeige"
                 android:textSize="17sp"
-                android:theme="@style/ClickableView">
-
-            </Button>
+                android:theme="@style/ClickableView" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

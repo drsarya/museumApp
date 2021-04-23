@@ -14,7 +14,6 @@
         android:background="@color/darkBeige">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -28,24 +27,16 @@
                 android:background="@color/brown"
                 android:fontFamily="@font/prata"
                 android:gravity="center_horizontal"
-                android:text="Атлас В. Маяковский"
                 android:textAlignment="center"
-                android:textSize="30sp">
-
-            </TextView>
+                android:textSize="30sp" />
 
             <ImageView
                 android:id="@+id/detailed_exhbtn_image_image_view"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/darkBeige"
-                android:scaleType="centerCrop"
-                android:src="@drawable/museum_photo">
-
-            </ImageView>
-
+                android:scaleType="fitXY" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,7 +47,6 @@
                     android:id="@+id/detailed_exhibition_option_pane_lin_lay"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_alignParentBottom="true"
                     android:background="@color/white">
 
                     <LinearLayout
@@ -67,42 +57,32 @@
                         android:paddingTop="5dp">
 
                         <ImageButton
-
                             android:id="@+id/detailed_exhibition_like_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:background="@color/glass"
                             android:gravity="center_vertical"
                             android:scaleType="fitCenter"
-
                             android:src="@drawable/like"
-                            android:textColor="@color/brown">
-
-                        </ImageButton>
+                            android:textColor="@color/brown" />
 
                         <TextView
+                            android:id="@+id/detailed_exhibition_count_likes_text_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="25566"
-                            android:id="@+id/detailed_exhibition_count_likes_text_view"
                             android:textAlignment="center"
-                            android:textColor="@color/dark_dark_brown">
-
-                        </TextView>
+                            android:textColor="@color/dark_dark_brown" />
                     </LinearLayout>
 
-
                     <ImageView
+                        android:id="@+id/detailed_exhibition_share_image_view"
                         android:layout_width="40dp"
                         android:layout_height="35dp"
                         android:clickable="true"
                         android:paddingTop="5dp"
-                        android:id="@+id/detailed_exhibition_share_image_view"
                         android:src="@drawable/share"
-                        app:tint="@color/brown">
-
-                    </ImageView>
+                        app:tint="@color/brown" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -117,15 +97,9 @@
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/prata"
                             android:gravity="center_horizontal|center_vertical"
-                            android:text="5.05-30.06"
-
                             android:textAlignment="center"
-                            android:textColor="@color/dark_dark_brown">
-
-                        </TextView>
+                            android:textColor="@color/dark_dark_brown" />
                     </LinearLayout>
-
-
                 </LinearLayout>
 
                 <Button
@@ -140,9 +114,7 @@
                     android:paddingHorizontal="20dp"
                     android:text="Описание"
                     android:textAlignment="center"
-                    tools:ignore="RtlCompat">
-
-                </Button>
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/detailed_exhbtn_descriprion_text_view"
@@ -156,9 +128,7 @@
                     android:text="@string/description"
                     android:textAlignment="center"
                     android:textColor="@color/dark_dark_brown"
-                    android:textSize="16sp">
-
-                </TextView>
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/detailed_exhibition_btn_museum_info"
@@ -172,9 +142,7 @@
                     android:paddingHorizontal="20dp"
                     android:text="@string/information_on_museum"
                     android:textAlignment="center"
-                    tools:ignore="RtlCompat">
-
-                </Button>
+                    tools:ignore="RtlCompat" />
 
                 <Button
                     android:id="@+id/detailed_exhbtn_all_exhbts_btn"
@@ -186,11 +154,9 @@
                     android:autoSizeTextType="uniform"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="20dp"
-                    android:text="Экспонаты"
+                    android:text="@string/exhibits"
                     android:textAlignment="center"
-                    tools:ignore="RtlCompat">
-
-                </Button>
+                    tools:ignore="RtlCompat" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

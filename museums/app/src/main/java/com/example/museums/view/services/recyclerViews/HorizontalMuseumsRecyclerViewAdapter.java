@@ -14,12 +14,9 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
+import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.user.exhibits.Exhibits;
-
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 
@@ -38,47 +35,44 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
     public TagsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_tags, parent, false);
-
         HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder vh = new HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder(v);
         return vh;
     }
 
 
-
     private Exhibits exhibits;
 
-    public HorizontalMuseumsRecyclerViewAdapter(  Exhibits exhibits) {
-
+    public HorizontalMuseumsRecyclerViewAdapter(Exhibits exhibits) {
         this.exhibits = exhibits;
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull TagsViewHolder holder, int position) {
-         Museum purchaseList = differ.getCurrentList().get(position);
+        ExistingMuseum purchaseList = differ.getCurrentList().get(position);
 
-        holder.textView.setText(purchaseList.nameMuseum );
+        holder.textView.setText(purchaseList.getName());
         holder.itemView.setOnClickListener(v -> {
-            exhibits.clickHorizontalViewHolder(purchaseList.id);
-
+            exhibits.clickHorizontalViewHolder(purchaseList.getId());
         });
     }
-    private AsyncListDiffer<Museum> differ = new AsyncListDiffer<Museum>(this, DIFF_CALLBACK);
 
-    private static final DiffUtil.ItemCallback<Museum> DIFF_CALLBACK = new DiffUtil.ItemCallback<Museum>() {
+    private AsyncListDiffer<ExistingMuseum> differ = new AsyncListDiffer<ExistingMuseum>(this, DIFF_CALLBACK);
+
+    private static final DiffUtil.ItemCallback<ExistingMuseum> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingMuseum>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Museum oldProduct, @NonNull Museum newProduct) {
-            return oldProduct.id.equals(newProduct.id);
+        public boolean areItemsTheSame(@NonNull ExistingMuseum oldProduct, @NonNull ExistingMuseum newProduct) {
+            return oldProduct.getId().equals(newProduct.getId());
         }
-
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        public boolean areContentsTheSame(@NonNull Museum oldProduct, @NonNull Museum newProduct) {
+        public boolean areContentsTheSame(@NonNull ExistingMuseum oldProduct, @NonNull ExistingMuseum newProduct) {
             return oldProduct.equals(newProduct);
         }
     };
-    public void submitList(List<Museum> products) {
+
+    public void submitList(List<ExistingMuseum> products) {
         differ.submitList(products);
     }
 
@@ -86,7 +80,6 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
-
 
 
 }

@@ -9,7 +9,6 @@ import android.widget.TextView;
 public class ClickListenerHideDescription implements View.OnClickListener {
     public ClickListenerHideDescription(View textView) {
         this.textView = textView;
-
     }
 
     private View textView;

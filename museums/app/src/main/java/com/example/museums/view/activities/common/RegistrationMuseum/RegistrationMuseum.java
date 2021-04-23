@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
@@ -41,7 +42,7 @@ public class RegistrationMuseum extends AppCompatActivity {
     private RelativeLayout layoutBtn;
     private Button regMuseumBtn;
     public ProgressBar progressBar;
-    private QueryRegistrationMuseum queryRegistrationMuseum;
+    private RegistrationMuseumViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class RegistrationMuseum extends AppCompatActivity {
         layoutBtn = (RelativeLayout) findViewById(R.id.registration_museum_relative_layout);
         regMuseumBtn = (Button) findViewById(R.id.reg_museum_reg_btn);
         progressBar = (ProgressBar) findViewById(R.id.registration_museum_progress_bar);
-        queryRegistrationMuseum = new QueryRegistrationMuseum(this);
+
     }
 
     private void setListeners() {
@@ -80,16 +81,21 @@ public class RegistrationMuseum extends AppCompatActivity {
     private void btnListener() {
         regMuseumBtn.setOnClickListener(v ->
         {
-            if (!idCodeTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() && !firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() &&
-                    !idCodeEditText.getText().toString().isEmpty() && !loginEditText.getText().toString().isEmpty() && !firstPassEditText.getText().toString().isEmpty() && !secondPassEditText.getText().toString().isEmpty()) {
-                try {
-                    queryRegistrationMuseum.getQuery(loginEditText.getText().toString(), firstPassEditText.getText().toString(),   Integer.parseInt(idCodeEditText.getText().toString()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-            }
+            viewModel = ViewModelProviders.of(this).get(RegistrationMuseumViewModel.class);
+            viewModel.getIsLoading().observe(this, isLoading -> {
+                if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                else progressBar.setVisibility(View.GONE);
+            });
+            viewModel.getLiveDataUser(Integer.parseInt(idCodeEditText.getText().toString()), loginEditText.getText().toString(), firstPassEditText.getText().toString())
+                    .observe(this, model -> {
+                        viewModel.getIsLoading().postValue(false);
+
+                        if (model == null) {
+                            Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
     }
 
@@ -97,7 +103,6 @@ public class RegistrationMuseum extends AppCompatActivity {
     private void onTouchListener() {
         GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
-
         view.setOnTouchListener((View v, MotionEvent event) -> {
             boolean b = mDetector.onTouchEvent(event);
             System.out.println(b);

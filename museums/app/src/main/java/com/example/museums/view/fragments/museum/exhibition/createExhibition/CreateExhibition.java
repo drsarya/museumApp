@@ -24,14 +24,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.Exhibition;
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
+import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.ChangeMuseumImageViewModel;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
-import com.example.museums.view.services.recyclerViews.NewExhibitsRecyclerViewAdapter;
 
+import java.io.File;
 import java.io.IOException;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
@@ -39,9 +41,8 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class CreateExhibition extends Fragment {
 
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private NewExhibitsRecyclerViewAdapter mAdapter;
     public static final String LOGIN_KEY_USER = "login_key";
-    private static String login;
+    private static Integer museumId;
     private Bitmap bitmap;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
@@ -53,17 +54,19 @@ public class CreateExhibition extends Fragment {
     static final int GALLERY_REQUEST = 1;
     private CacheManager cacheManager = new CacheManager();
 
-    public CreateExhibition newInstance(String login) {
+    private File file;
+
+    public CreateExhibition newInstance(Integer museumId) {
         final CreateExhibition myFragment = new CreateExhibition();
         final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
+        args.putInt(LOGIN_KEY_USER, museumId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
+            museumId = getArguments().getInt(LOGIN_KEY_USER);
         }
     }
 
@@ -82,6 +85,8 @@ public class CreateExhibition extends Fragment {
         chooseImageTextView = rootView.findViewById(R.id.create_exhibition_choose_image_btn);
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
+        viewModel = ViewModelProviders.of(this).get(CreateExhibitionViewModel.class);
+
     }
 
 
@@ -93,11 +98,12 @@ public class CreateExhibition extends Fragment {
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
+
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                        file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
                         cacheManager.deleteItem("newExhibition");
                         cacheManager.addBitmapToMemoryCache("newExhibition", bitmap);
                         currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -109,7 +115,6 @@ public class CreateExhibition extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.fragment_create_exhibition, container, false);
         getArgumentsFromBundle();
@@ -123,63 +128,57 @@ public class CreateExhibition extends Fragment {
         if (cacheManager.getBitmapFromMemCache("newExhibition") != null) {
             currImageImageView.setImageBitmap(cacheManager.getBitmapFromMemCache("newExhibition"));
         }
-
     }
 
+    private CreateExhibitionViewModel viewModel;
+
+    private void createExhibition() {
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.liveDataCreateExhibition(museumId, nameET.getText().toString(), descriptionET.getText().toString(),
+                dateOfStartET.getText().toString(), dateOfEndET.getText().toString(), file)
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Успешное создание выставки", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
 
     private void setListeners() {
         hideDescriptionBtn.setOnClickListener(new ClickListenerHideDescription(descriptionTFB));
         onlineCheckBox.setOnCheckedChangeListener((button, state) -> {
-
             if (state) {
                 dateOfStartTFB.setVisibility(View.GONE);
                 dateOfEndTFB.setVisibility(View.GONE);
-
             } else {
                 dateOfStartTFB.setVisibility(View.VISIBLE);
                 dateOfEndTFB.setVisibility(View.VISIBLE);
             }
         });
-
         chooseImageTextView.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
         createExhibitionBtn.setOnClickListener(v -> {
-
-            if (currImageImageView.getDrawable() != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
+            hideKeyboard();
+            if (file != null && !nameTFB.isOnError() && !descriptionTFB.isOnError()
                     && !nameET.getText().toString().isEmpty()
                     && !descriptionET.getText().toString().isEmpty()
             ) {
-                Exhibition exhibition = new Exhibition();
-                exhibition.name = nameET.getText().toString();
-                BitmapDrawable drawable = (BitmapDrawable) currImageImageView.getDrawable();
-                Bitmap image = drawable.getBitmap();
-                exhibition.description = descriptionET.getText().toString();
-                exhibition.image = image;
                 if (onlineCheckBox.isChecked()) {
-                    exhibition.firstDate = null;
-                    exhibition.lastDate = null;
-                } else {
-                    if (!dateOfEndTFB.isOnError() && !dateOfStartTFB.isOnError()
-                            && !dateOfStartET.getText().toString().isEmpty()
-                            && !dateOfStartET.getText().toString().isEmpty()) {
-                        exhibition.firstDate = dateOfStartET.getText().toString();
-                        exhibition.lastDate = dateOfEndET.getText().toString();
-
-                    } else {
-                        Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-                    }
+                    dateOfStartET.setText("");
+                    dateOfEndET.setText("");
                 }
-                hideKeyboard();
-                QueryCreateExhibition queryCreateExhibition = new QueryCreateExhibition(this);
-                queryCreateExhibition.getQuery(login, exhibition);
-
+                createExhibition();
             } else {
-                hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
@@ -189,5 +188,6 @@ public class CreateExhibition extends Fragment {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
+
 
 }

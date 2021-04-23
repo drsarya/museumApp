@@ -29,7 +29,7 @@ public class SplashScreen extends AppCompatActivity implements ViewSwitcher.View
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        setResourseImage();
+        setResourceImage();
         timerTask();
     }
 
@@ -40,7 +40,7 @@ public class SplashScreen extends AppCompatActivity implements ViewSwitcher.View
         tn.schedule(sty, 0, 2400);
     }
 
-    private void setResourseImage() {
+    private void setResourceImage() {
         mImageSwitcher = (ImageSwitcher) findViewById(R.id.splashScreenImageSwitcher);
         mImageSwitcher.setFactory(this);
         Animation inAnimation = new AlphaAnimation(0, 1);

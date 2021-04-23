@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Authorization.Authorization;
 import com.example.museums.view.services.Listeners.GestureDetectorTurnBack;
@@ -34,9 +37,8 @@ public class Registration extends AppCompatActivity {
     private Button registrationBtn;
     private TextFieldBoxes secondPassTextFieldBoxes;
     private TextFieldBoxes loginTextFieldBoxes;
-
     private TextFieldBoxes firstPassTextFieldBoxes;
-    private QueryRegistration queryRegistration;
+
     public ProgressBar progressBar;
 
     @Override
@@ -56,26 +58,23 @@ public class Registration extends AppCompatActivity {
         registrationBtn = (Button) findViewById(R.id.registration_create_btn);
         secondPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_second_pass_textFBoxes);
         firstPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_first_pass_textFieldBoxes);
-        queryRegistration = new QueryRegistration(this);
+
         progressBar = (ProgressBar) findViewById(R.id.registration_progress_bar);
         loginTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_login_text_field_boxes);
     }
 
     private void setListeners() {
-        onTouchlistener();
+        onTouchListener();
         btnListener();
         textFieldsListeners();
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void onTouchlistener() {
+    private void onTouchListener() {
         GestureDetectorTurnBack ndm = new GestureDetectorTurnBack();
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
-
         view.setOnTouchListener((View v, MotionEvent event) -> {
-
             boolean b = mDetector.onTouchEvent(event);
-            System.out.println(b);
             if (b) {
                 Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);
@@ -84,20 +83,33 @@ public class Registration extends AppCompatActivity {
         });
     }
 
+    RegistrationViewModel registrationViewModel;
 
     private void btnListener() {
         registrationBtn.setOnClickListener(v -> {
-            if (!firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() &&
-                    !loginEditText.getText().toString().isEmpty() && !passFirstEditText.getText().toString().isEmpty() && !passSecondEditText.getText().toString().isEmpty()) {
 
-                try {
-                    queryRegistration.getQuery(loginEditText.getText().toString(), passFirstEditText.getText().toString(), false);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+            registrationViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isLoading) {
+                    if (isLoading) progressBar.setVisibility(View.VISIBLE);
+                    else progressBar.setVisibility(View.GONE);
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-            }
+            });
+            registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
+                    .observe(this, new Observer<AnswerModel>() {
+                        @Override
+                        public void onChanged(@Nullable AnswerModel aBoolean) {
+                            registrationViewModel.getIsLoading().postValue(false);
+                            if (aBoolean == null) {
+                                Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
         });
     }
 
@@ -106,4 +118,6 @@ public class Registration extends AppCompatActivity {
         passFirstEditText.addTextChangedListener(new TextWatcherForFirstPass(firstPassTextFieldBoxes, secondPassTextFieldBoxes, passSecondEditText));
         passSecondEditText.addTextChangedListener(new TextWatcherListenerForSecondPass(secondPassTextFieldBoxes, passFirstEditText));
     }
+
+
 }

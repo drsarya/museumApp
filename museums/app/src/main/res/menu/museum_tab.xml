@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:enabled="true"
         android:id="@+id/menu_fr_main_museum"
+        android:enabled="true"
         android:icon="@drawable/tab_museum_museum"
-        android:title="дом" />
+        android:title="@string/home_page" />
     <item
-        android:enabled="true"
         android:id="@+id/menu_fr_create_exhbtn"
+        android:enabled="true"
         android:icon="@drawable/tab_museum_create"
-        android:title="создать" />
+        android:title="@string/create_exhibition" />
     <item
-        android:enabled="true"
         android:id="@+id/menu_fr_exhibitions"
-        android:icon="@drawable/tab_museum_exbtn"
-        android:title="выыставки" />
-    <item
         android:enabled="true"
+        android:icon="@drawable/tab_museum_exbtn"
+        android:title="@string/exhibitions" />
+    <item
         android:id="@+id/menu_fr_exhibits"
+        android:enabled="true"
         android:icon="@drawable/tab_museum_exhibit"
-        android:title="экспонаты" />
+        android:title="@string/exhibits" />
 
 </menu>

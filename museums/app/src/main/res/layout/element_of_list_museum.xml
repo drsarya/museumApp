@@ -1,58 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="10dp"
+    android:layout_marginVertical="7dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/darkBeige"
-
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/element_of_list_museum_state_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/circle" />
+
             <TextView
+                android:id="@+id/element_of_list_museum_name_museum_text_view"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/element_of_list_museum"
-                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMaxTextSize="15sp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/prata"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Третьяковская галерея"
+                android:paddingHorizontal="5dp"
                 android:textAlignment="center"
-                android:textColor="@color/dark_dark_brown">
-
-            </TextView>
-
-            <ImageView
-
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/edit"
-                app:tint="@color/dark_dark_brown">
-
-            </ImageView>
-
-
+                android:textColor="@color/dark_dark_brown" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </LinearLayout>
-
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

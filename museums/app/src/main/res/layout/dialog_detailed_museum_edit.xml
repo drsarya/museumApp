@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corners"
     android:minWidth="400dp"
     android:minHeight="400dp"
     android:orientation="vertical">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="40dp"
@@ -20,35 +18,34 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:paddingVertical="2dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/lightBeige"
-                android:gravity="center|center_vertical"
-                android:text="Код:"
-                android:textColor="@color/brown">
-
-            </TextView>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/owner"
+                android:textColor="@color/dark_dark_brown" />
 
             <TextView
-                android:id="@+id/dialog_museum_edit_id_code"
+                android:id="@+id/dialog_museum_edit_login_text_field_boxes"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="5"
                 android:autoSizeTextType="uniform"
-                android:background="@color/white"
-                android:gravity="center|center_vertical"
-                android:text="5678"
-                android:textColor="@color/brown">
+                android:textColor="@color/dark_dark_brown" />
 
-            </TextView>
+            <ImageView
+                android:id="@+id/dialog_museum_edit_share_image_view"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@drawable/share"
+                app:tint="@color/brown" />
         </LinearLayout>
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -60,7 +57,6 @@
             android:layout_marginBottom="5dp"
             android:imeOptions="actionDone"
             app:hasClearButton="true"
-
             app:labelText="Название музея">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -70,8 +66,6 @@
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:lines="1"
-                android:text="Третьяковская галерея"
-
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -86,7 +80,6 @@
             android:layout_marginBottom="5dp"
             android:imeOptions="actionDone"
             app:hasClearButton="true"
-
             app:labelText="Адрес">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -95,15 +88,11 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-
                 android:lines="1"
-                android:text="Лаврушинский пер., 10, Москва"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
     </LinearLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -123,9 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:scaleType="matrix"
-                android:src="@drawable/image_for_btn">
-
-            </ImageView>
+                android:src="@drawable/image_for_btn" />
 
             <ProgressBar
                 android:id="@+id/dialog_museum_edit_progress_bar"
@@ -148,10 +135,17 @@
             android:fontFamily="@font/prata"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="Обновить"
+            android:text="@string/update"
             android:textAllCaps="false"
-            android:textColor="@color/darkBeige">
-
-        </Button>
+            android:textColor="@color/darkBeige" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/dialog_detailed_museum_edit_refactor_museum_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="10dp"
+        android:text="@string/delete_museum"
+        android:textColor="@color/grey" />
 </LinearLayout>

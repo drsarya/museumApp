@@ -14,19 +14,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Museum;
+import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
-import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
 import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -34,36 +35,29 @@ import java.util.List;
 
 
 public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
-    private static final String LOGIN_KEY_USER = "login_key_user";
-    private QueryAllMuseums queryAllMuseums;
+    private static final String ID_KEY_USER = "id key";
     public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
     private ImageButton imbtn;
     private EditText search;
-    private String login;
+    public AllMuseumsViewModel viewModel;
+    private Integer id;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =
                 inflater.inflate(R.layout.fragment_admin_all_museums, container, false);
-        getArgumentsFromBundle();
         return rootView;
     }
 
-    public static AllMuseums newInstance(String login) {
+    public static AllMuseums getInstance(Integer id) {
         final AllMuseums myFragment = new AllMuseums();
-        final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
+        final Bundle args = new Bundle();
+        args.putInt(ID_KEY_USER, id);
         myFragment.setArguments(args);
         return myFragment;
-    }
-
-    private void getArgumentsFromBundle() {
-        if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
-        }
     }
 
     private void initViews() {
@@ -73,6 +67,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         mAdapter = new MuseumsRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
         imbtn = getActivity().findViewById(R.id.admin_all_museums_menu_popup);
+        viewModel = ViewModelProviders.of(this).get(AllMuseumsViewModel.class);
 
     }
 
@@ -83,19 +78,35 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
         setRetainInstance(true);
         initViews();
         if (search.getText().toString().isEmpty()) {
-            setListMuseum();
+            getListMuseums();
         } else {
             filter(search.getText().toString());
         }
         setListeners();
     }
 
-    List<Museum> newExhibitModels = new ArrayList<>();
+    public void getListMuseums() {
+
+         viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUser()
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        newExhibitModels = model;
+                        mAdapter.submitList(model);
+                    }
+                });
+    }
+
+    List<ExistingMuseum> newExhibitModels = new ArrayList<>();
 
     private void setListeners() {
         imbtn.setOnClickListener(this::showPopup);
-
-
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,7 +120,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -135,8 +145,8 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
             case R.id.menu_item_change_password:
                 DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
                 Bundle bd = new Bundle();
-                if (login != null) {
-                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
+                if (id != null) {
+                    bd.putInt(DialogUpdatePassword.ID_KEY, id);
                     dialogUpdatePassword.setArguments(bd);
                 }
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
@@ -145,13 +155,6 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
             default:
                 return false;
         }
-
-
-    }
-
-    private void setListMuseum() {
-        queryAllMuseums = new QueryAllMuseums(this);
-        queryAllMuseums.getQuery();
     }
 
     private boolean containsString(String fullName, String currText) {
@@ -163,18 +166,14 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     }
 
     private void filter(String text) {
-        List<Museum> temp = new ArrayList();
-        for (Museum d : newExhibitModels) {
-            if (containsString(d.nameMuseum, text) || containsString(d.address, text)) {
+        List<ExistingMuseum> temp = new ArrayList();
+        for (ExistingMuseum d : newExhibitModels) {
+            if (containsString(d.getName(), text) || containsString(d.getAddress(), text)) {
                 temp.add(d);
             }
         }
         mAdapter.submitList(temp);
     }
 
-    public void refreshAllList(List<Museum> museums) {
 
-        newExhibitModels = museums;
-        mAdapter.submitList(museums);
-    }
 }

@@ -3,10 +3,8 @@ package com.example.museums.view.fragments.museum.exhibit.editExhibit;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,27 +22,29 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Author;
+import com.bumptech.glide.Glide;
+import com.example.museums.API.models.author.Author;
+import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
-import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.view.fragments.museum.authors.QueryAuthor;
-import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.SneakyThrows;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class EditExhibit extends Fragment {
     private ScrollView view;
-    private NewExhibitModel newExhibitModel;
     private EditText nameEditText;
     private EditText authorEditText;
     private EditText dateOfCreateEditText;
@@ -64,23 +64,23 @@ public class EditExhibit extends Fragment {
     static final String EXHIBIT_POSITION_MODEL = "exhibit_position_model";
     static final String EXHIBIT_ID_KEY = "id_exhibit";
     private RecyclerView authorRecyclerView;
-    private RecyclerView tagRecyclerView;
-
     private AuthorsRecyclerViewAdapter authorAdapter;
     static final String EXHIBIT_AUTHOR_MODEL = "exhibit_author_model";
     private ImageView mainImageView;
     private Button createBtn;
     private Integer idExhibit;
     private int positionExh;
+    private String image;
     private TextView choosePhotoBtn;
     private List<Author> authorList = new ArrayList<>();
+    private EditExhibitViewModel viewModel;
+    private File file;
 
-    public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, Parcelable photo, String description, int positionExh) {
+    public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, String photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
-        args.putParcelable(EXHIBIT_IMAGE_MODEL, photo);
+        args.putString(EXHIBIT_IMAGE_MODEL, photo);
         args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
-
         args.putString(EXHIBIT_AUTHOR_MODEL, author);
         if (id != null) {
             args.putInt(EXHIBIT_ID_KEY, id);
@@ -109,16 +109,13 @@ public class EditExhibit extends Fragment {
             nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
             authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
             descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
-            if (arguments.getParcelable(EXHIBIT_IMAGE_MODEL) != null) {
-                mainImageView.setImageBitmap(arguments.getParcelable(EXHIBIT_IMAGE_MODEL));
-            }
-            if (arguments.getInt(EXHIBIT_ID_KEY) == -1) {
-                idExhibit = null;
-            } else {
-                idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
-            }
+            idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
             dateOfCreateEditText.setText(arguments.getString(EXHIBIT_DATA_MODEL));
             positionExh = arguments.getInt(EXHIBIT_POSITION_MODEL);
+            image = arguments.getString(EXHIBIT_IMAGE_MODEL);
+            Glide.with(getContext())
+                    .load(image)
+                    .into(mainImageView);
             arguments.clear();
         }
         return rootView;
@@ -140,20 +137,29 @@ public class EditExhibit extends Fragment {
         createBtn.setText("Обновить");
         firstLine = rootView.findViewById(R.id.create_exhibit_first_line_text_view);
         firstLine.setText("Обновить информацию");
-
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
+        viewModel = ViewModelProviders.of(this).get(EditExhibitViewModel.class);
 
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
+        getAuthors();
 
-        //Получить список авторов
-        QueryAuthor queryAuthor = new QueryAuthor(this);
-        queryAuthor.getQuery();
+    }
+
+    private void getAuthors() {
+        viewModel.getLiveDataAuthorList()
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных об авторах", Toast.LENGTH_SHORT).show();
+                    } else {
+                        refreshAllList(model);
+                    }
+                });
     }
 
     public void refreshAllList(List<Author> authors) {
-        System.out.println(authors.size() + "refresh");
         authorList = new ArrayList<>();
         authorList.addAll(authors);
         authorAdapter.updateAll(authors);
@@ -198,32 +204,42 @@ public class EditExhibit extends Fragment {
                     && !nameEditText.getText().toString().isEmpty() && !authorEditText.getText().toString().isEmpty()
                     && !descriptionEditText.getText().toString().isEmpty() && !dateOfCreateEditText.getText().toString().isEmpty()
             ) {
-                BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                NewExhibitModel ex = new NewExhibitModel(idExhibit,
-                        dateOfCreateEditText.getText().toString(),
-
-                        authorEditText.getText().toString(), nameEditText.getText().toString()
-                        , bitmap, descriptionEditText.getText().toString()
-                );
-
-                if (getTargetFragment().getClass().toString().equals(EditExhibtion.class.toString())) {
-                    EditExhibtion c = (EditExhibtion) getTargetFragment();
-                    QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);
-                    authorRecyclerView.setVisibility(View.GONE);
-                    queryUpdateExhibit.getQuery(ex, idExhibit, positionExh);
-
-                } else {
-                    MuseumExhibits c = (MuseumExhibits) getTargetFragment();
-                    QueryUpdateExhibit queryUpdateExhibit = new QueryUpdateExhibit(this, c);
-                    authorRecyclerView.setVisibility(View.GONE);
-                    queryUpdateExhibit.getQuery(ex, idExhibit, positionExh);
-                }
-
+                ExistingExhibit ex = new ExistingExhibit(
+                        new Author(authorEditText.getText().toString()),
+                        nameEditText.getText().toString(), null, descriptionEditText.getText().toString(),
+                        dateOfCreateEditText.getText().toString(), null, idExhibit);
+                editExhibit();
             } else {
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
+
         });
+    }
+
+    private void editExhibit() {
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUpdateExhibit(new Author(authorEditText.getText().toString()),
+                nameEditText.getText().toString(), descriptionEditText.getText().toString(),
+                dateOfCreateEditText.getText().toString(), idExhibit, file)
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных обновления", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
+                            ((EditExhibition) getTargetFragment()).getExhibits();
+                        } else {
+                            ((MuseumExhibits) getTargetFragment()).getExhibitsMuseum();
+                        }
+                        Toast.makeText(getContext(), "Успешное обновление", Toast.LENGTH_SHORT).show();
+
+                        bitmap = null;
+                        file = null;
+                    }
+                });
     }
 
     private boolean containsString(String fullName, String currText) {
@@ -250,9 +266,10 @@ public class EditExhibit extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
-        view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
+    @SneakyThrows
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -261,12 +278,12 @@ public class EditExhibit extends Fragment {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainImageView.setImageBitmap(bitmap);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
+                    Glide.with(getContext())
+                            .asBitmap()
+                            .load(bitmap)
+                            .into(mainImageView);
                 }
         }
     }

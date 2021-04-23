@@ -9,15 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.Museum;
+import com.bumptech.glide.Glide;
+import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
 
 public class MainInfoMuseum extends Fragment {
 
@@ -26,6 +29,7 @@ public class MainInfoMuseum extends Fragment {
     private TextView museumDescriptionTextView, nameTextView, addressTextView;
     private ImageView imageView;
     private ScrollView scrollView;
+    private MainInfoMuseumViewModel viewModel;
 
     public MainInfoMuseum newInstance(int id) {
         final MainInfoMuseum myFragment = new MainInfoMuseum();
@@ -39,9 +43,7 @@ public class MainInfoMuseum extends Fragment {
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-
             idMuseum = getArguments().getInt(ID_MUSEUM);
-
         }
     }
 
@@ -50,14 +52,26 @@ public class MainInfoMuseum extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =
-                inflater.inflate(R.layout.frgment_main_info_museum, container, false);
+                inflater.inflate(R.layout.fragment_main_info_museum, container, false);
         initViews(rootView);
-
         getArgumentsFromBundle();
-        QueryMuseumInfo q = new QueryMuseumInfo(this);
-        q.getQuery(idMuseum);
+
         setListeners();
+        getMuseumInfo();
         return rootView;
+    }
+
+    private void getMuseumInfo() {
+
+
+        viewModel.getLiveDataMuseumInfo(idMuseum)
+                .observe(this, museum -> {
+                    if (museum == null) {
+                        Toast.makeText(getContext(), "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        setData(museum);
+                    }
+                });
     }
 
     private void initViews(View rootView) {
@@ -67,6 +81,7 @@ public class MainInfoMuseum extends Fragment {
         nameTextView = rootView.findViewById(R.id.main_info_museum_name_text_view);
         addressTextView = rootView.findViewById(R.id.main_info_museum_address_text_view);
         imageView = rootView.findViewById(R.id.main_info_museum_image_image_view);
+        viewModel = ViewModelProviders.of(this).get(MainInfoMuseumViewModel.class);
 
     }
 
@@ -75,15 +90,18 @@ public class MainInfoMuseum extends Fragment {
         museumDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(museumDescriptionTextView)
         );
-        scrollView.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        scrollView.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
 
     }
 
-    public void setData(Museum museum) {
-        museumDescriptionTextView.setText(museum.description);
-        nameTextView.setText(museum.nameMuseum);
-        addressTextView.setText(museum.address);
-        imageView.setImageBitmap(museum.image);
+    public void setData(ExistingMuseum museum) {
+        museumDescriptionTextView.setText(museum.getDescription());
+        nameTextView.setText(museum.getName());
+        addressTextView.setText(museum.getAddress());
+        Glide.with(getContext())
+                .load(museum.getImageUrl())
+                .into(imageView);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -91,7 +109,5 @@ public class MainInfoMuseum extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-
-
     }
 }

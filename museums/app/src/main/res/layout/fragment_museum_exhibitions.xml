@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
         style="@style/textBoxOuter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hasClearButton="true"
-        app:labelText="Поиск"
         app:isResponsiveIconColor="true"
-
-        >
+        app:labelText="Поиск">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/museum_exhibitions_search_exhibition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:id="@+id/museum_exhibitions_search_exhibition"
-            android:textColor="@color/dark_dark_brown"
-
-             />
+            android:textColor="@color/dark_dark_brown" />
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/museum_exhibitions_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone" />
+        <ProgressBar
+            android:id="@+id/museum_exhibitions_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_museum_exhibitions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:orientation="vertical"
-        android:textAlignment="gravity"
+        <TextView
+            android:id="@+id/museum_exhibitions_empty_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="403dp"
+            android:fontFamily="@font/prata"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/empty_exhibitions_museum"
+            android:textColor="@color/dark_brown"
+            android:textSize="20dp" />
 
-        app:column_count_portrait="2"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="1"
-
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_museum_exhibitions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:textAlignment="gravity"
+            app:column_count_portrait="2"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="1" />
     </RelativeLayout>
 </LinearLayout>

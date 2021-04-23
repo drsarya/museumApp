@@ -17,23 +17,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
                 <ImageView
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
                     android:id="@+id/detailed_exhibit_main_image_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/detailed_exhibition">
-
-                </ImageView>
-
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -49,29 +43,22 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="Явление Христа народу"
                         android:textAlignment="center"
                         android:textColor="@color/dark_dark_brown"
-                        android:textSize="18sp">
-
-                    </TextView>
+                        android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/detailed_exhibit_view_page_author_text_view"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
-                        android:id="@+id/detailed_exhibit_view_page_author_text_view"
                         android:gravity="end|center_vertical"
-                        android:text="Александр Иванов"
                         android:textColor="@color/black"
-                        android:textSize="15sp">
-
-                    </TextView>
-
-
+                        android:textSize="15sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,32 +70,23 @@
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="0.5"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="Дата создания"
-                        android:textAlignment="center"
                         android:fontFamily="@font/prata"
-                        android:textColor="@color/dark_dark_brown"
-                        >
-
-                    </TextView>
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/date_of_create"
+                        android:textAlignment="center"
+                        android:textColor="@color/dark_dark_brown" />
 
                     <TextView
+                        android:id="@+id/detailed_exhibit_view_page_date_text_view"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/prata"
                         android:gravity="end|center_vertical"
-                        android:text="1890 год"
-                        android:id="@+id/detailed_exhibit_view_page_date_text_view"
                         android:textColor="@color/black"
-                        android:textSize="15sp">
-
-                    </TextView>
-
-
+                        android:textSize="15sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <RelativeLayout
@@ -122,12 +100,9 @@
                     android:layout_marginHorizontal="5dp"
                     android:fontFamily="@font/prata"
                     android:gravity="center_horizontal"
-                    android:text="@string/_600_20_https_www_culture_ru_materials_38436_iisus_dolzhen_byt_odin_sovershenno"
                     android:textAlignment="center"
                     android:textColor="@color/brown"
-                    android:textSize="16sp">
-
-                </TextView>
+                    android:textSize="16sp" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
@@ -146,58 +121,42 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/detailed_exhibit_like_btn"
+                android:id="@+id/detailed_exhibit_view_page_like_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:background="@color/glass"
                 android:scaleType="fitCenter"
                 android:src="@drawable/like"
-                android:textColor="@color/brown">
-
-            </ImageButton>
+                android:textColor="@color/brown" />
 
             <TextView
+                android:id="@+id/detailed_exhibit_view_page_count_likes_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="256"
-                android:id="@+id/detailed_exhibit_count_likes_text_view"
                 android:textAlignment="center"
-                android:textColor="@color/dark_dark_brown">
-
-            </TextView>
+                android:textColor="@color/dark_dark_brown" />
         </LinearLayout>
 
-
         <ImageView
+            android:id="@+id/detailed_exhibit_without_listener_share_image_view"
             android:layout_width="40dp"
             android:layout_height="35dp"
             android:clickable="true"
-            android:id="@+id/detailed_exhibit_without_listener_share_image_view"
-
-
             android:src="@drawable/share"
-            app:tint="@color/brown">
-
-        </ImageView>
+            app:tint="@color/brown" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        </LinearLayout>
+            android:layout_weight="1" />
 
         <ImageButton
-
-            android:layout_width="45dp"
             android:id="@+id/detailed_exhb_view_pager"
+            android:layout_width="45dp"
             android:layout_height="40dp"
             android:background="@color/glass"
             android:scaleType="fitCenter"
-            android:src="@drawable/close"
-        >
-
-        </ImageButton>
+            android:src="@drawable/close" />
     </LinearLayout>
 </RelativeLayout>

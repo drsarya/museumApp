@@ -7,13 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
+import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
 
@@ -26,7 +28,7 @@ public class Exhibitions extends Fragment {
     public static final String LOGIN_KEY_USER = "login_key";
     private Integer userId;
     private EditText searchEditText;
-    private static String copySearch ="";
+    private static String copySearch = "";
 
     @Nullable
     @Override
@@ -53,25 +55,42 @@ public class Exhibitions extends Fragment {
         }
     }
 
+    private ExhibitionsViewModel viewModel;
+
     private void initViews(View rootView) {
         recyclerView = rootView.findViewById(R.id.recycler_view_exhibitons);
         searchEditText = rootView.findViewById(R.id.main_exhibitions_search_edit_tsxt);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setUserId(userId);
-        QueryExhibitions queryExhibitions = new QueryExhibitions(this);
+        viewModel = ViewModelProviders.of(this).get(ExhibitionsViewModel.class);
 
-        if (copySearch.isEmpty()) {
-            queryExhibitions.getQuery();
+        getExhibitions();
+         if (copySearch.isEmpty()) {
+             getExhibitions();
         } else {
             filter(copySearch);
         }
     }
 
 
-    List<ExhibitionWithMuseumName> newExhibitModels = new ArrayList<>();
+    private void getExhibitions() {
+        viewModel.getExhibitionsLiveData()
+                .observe(this, model -> {
+                    viewModel.getIsLoadingExhibits().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (model != null) {
+                            refreshAllList(model);
+                        }
+                    }
+                });
+    }
 
-    public void refreshAllList(List<ExhibitionWithMuseumName> exhibitModels) {
-        this.newExhibitModels = exhibitModels;
+    List<ExistingExhibition> existingExhibitions = new ArrayList<>();
+
+    public void refreshAllList(List<ExistingExhibition> exhibitModels) {
+        this.existingExhibitions = exhibitModels;
         mAdapter.submitList(exhibitModels);
     }
 
@@ -91,7 +110,7 @@ public class Exhibitions extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                copySearch="";
+                copySearch = "";
                 recyclerView.setVisibility(View.VISIBLE);
                 copySearch += s;
                 filter(s.toString());
@@ -106,9 +125,9 @@ public class Exhibitions extends Fragment {
     }
 
     private void filter(String text) {
-        List<ExhibitionWithMuseumName> temp = new ArrayList();
-        for (ExhibitionWithMuseumName d : newExhibitModels) {
-            if (containsString(d.name, text)) {
+        List<ExistingExhibition> temp = new ArrayList();
+        for (ExistingExhibition d : existingExhibitions) {
+            if (containsString(d.getName(), text)) {
                 temp.add(d);
             }
         }

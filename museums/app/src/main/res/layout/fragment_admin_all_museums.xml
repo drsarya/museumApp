@@ -4,10 +4,8 @@
     android:id="@+id/container_admin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-
-    >
+    android:background="@color/lightBeige"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,16 +20,14 @@
             android:layout_weight="1"
             app:hasClearButton="true"
             app:isResponsiveIconColor="true"
-            app:labelText="Поиск"
-
-            >
+            app:labelText="Поиск">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/admin_all_museums_search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:id="@+id/admin_all_museums_search_edit_text"
                 android:textColor="@color/dark_dark_brown"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -41,12 +37,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-
             android:background="@drawable/points"
-            android:clickable="true">
-
-        </ImageButton>
-
+            android:clickable="true" />
     </LinearLayout>
 
     <ProgressBar
@@ -64,11 +56,5 @@
         android:layout_gravity="top"
         android:orientation="vertical"
         android:textAlignment="gravity"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

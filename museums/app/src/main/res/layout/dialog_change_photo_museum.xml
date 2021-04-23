@@ -3,55 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:background="@color/lightBeige"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corners"
     android:minWidth="500dp"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     android:paddingVertical="20dp">
 
-   <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+        android:layout_height="wrap_content">
 
-  <ImageView
+        <ImageView
+            android:id="@+id/dialog_change_photo_museum_photo_im_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:scaleType="fitCenter" />
 
-        android:id="@+id/dialog_change_photo_museum_photo_im_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-      android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:clickable="true"
+        <TextView
+            android:id="@+id/dialog_change_photo_museum_choose_photo_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/prata"
+            android:text="@string/choose_image"
+            android:textAlignment="center"
+            android:textColor="@color/brown"
+            android:textSize="24dp"
+            tools:ignore="RtlCompat" />
 
-         >
-
-    </ImageView>
-       <TextView
-           android:textAlignment="center"
-           android:id="@+id/dialog_change_photo_museum_choose_photo_text_view"
-           android:layout_width="match_parent"
-           android:text="Выбрать фото"
-           android:fontFamily="@font/prata"
-           android:autoSizeTextType="uniform"
-           android:textSize="24dp"
-           android:textColor="@color/brown"
-           android:layout_centerInParent="true"
-           android:layout_gravity="center_vertical"
-           android:layout_height="wrap_content"
-           tools:ignore="RtlCompat">
-
-       </TextView>
-       <ImageView
+        <ImageView
             android:id="@+id/dialog_change_image_museum_close_image_view"
-           android:layout_width="40dp"
-           android:layout_height="40dp"
-           android:background="@color/lightGrey"
-           android:src="@drawable/close">
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/lightGrey"
+            android:src="@drawable/close" />
+    </RelativeLayout>
 
-       </ImageView>
-   </RelativeLayout>
-<RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -70,10 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:scaleType="matrix"
-                android:src="@drawable/image_for_btn">
-
-            </ImageView>
-
+                android:src="@drawable/image_for_btn" />
 
             <ProgressBar
                 android:id="@+id/dialog_change_photo_museum_progress_bar"
@@ -96,11 +86,8 @@
             android:fontFamily="@font/prata"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="Обновить"
+            android:text="@string/update"
             android:textAllCaps="false"
-            android:textColor="@color/darkBeige">
-
-        </Button>
+            android:textColor="@color/darkBeige" />
     </RelativeLayout>
-
 </LinearLayout>

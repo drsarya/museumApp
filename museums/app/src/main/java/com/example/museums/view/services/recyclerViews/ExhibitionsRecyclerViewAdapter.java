@@ -11,18 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
+import com.bumptech.glide.Glide;
+import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerOpenExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickOnListenerHolderExhbtn;
-import com.example.museums.API.models.Exhibition;
 
 import java.util.List;
 
@@ -43,28 +39,29 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         }
     }
 
-    private AsyncListDiffer<ExhibitionWithMuseumName> differ = new AsyncListDiffer<ExhibitionWithMuseumName>(this, DIFF_CALLBACK);
+    private AsyncListDiffer<ExistingExhibition> differ = new AsyncListDiffer<ExistingExhibition>(this, DIFF_CALLBACK);
 
-    private static final DiffUtil.ItemCallback<ExhibitionWithMuseumName> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExhibitionWithMuseumName>() {
+    private static final DiffUtil.ItemCallback<ExistingExhibition> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibition>() {
         @Override
-        public boolean areItemsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
-            return oldProduct.id == newProduct.id;
+        public boolean areItemsTheSame(@NonNull ExistingExhibition oldProduct, @NonNull ExistingExhibition newProduct) {
+            return oldProduct.getId().equals(newProduct.getId());
         }
 
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        public boolean areContentsTheSame(@NonNull ExhibitionWithMuseumName oldProduct, @NonNull ExhibitionWithMuseumName newProduct) {
+        public boolean areContentsTheSame(@NonNull ExistingExhibition oldProduct, @NonNull ExistingExhibition newProduct) {
             return oldProduct.equals(newProduct);
         }
     };
 
     private Integer userId;
+
     public void setUserId(Integer userId) {
         this.userId = userId;
-
     }
-    public void submitList(List<ExhibitionWithMuseumName> products) {
+
+    public void submitList(List<ExistingExhibition> products) {
         differ.submitList(products);
     }
 
@@ -82,21 +79,23 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         return vh;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ExhibitionsViewHolder holder, int position) {
-        final ExhibitionWithMuseumName exhibition = differ.getCurrentList().get(position);
-
-        holder.image.setImageBitmap(exhibition.image);
-        if (exhibition.firstDate == null) {
+        final ExistingExhibition exhibition = differ.getCurrentList().get(position);
+        Glide
+                .with(holder.image.getContext())
+                .load(exhibition.getImageUrl())
+                .into(holder.image);
+        if (exhibition.getFirstDate().isEmpty()) {
             holder.dateOfExhbtn.setVisibility(View.GONE);
         } else {
             holder.dateOfExhbtn.setVisibility(View.VISIBLE);
-            holder.dateOfExhbtn.setText(exhibition.firstDate + " - " + exhibition.lastDate);
+            holder.dateOfExhbtn.setText(exhibition.getFirstDate() + " - " + exhibition.getLastDate());
         }
-
-        holder.nameOfExhibtn.setText(exhibition.name);
-        holder.nameOfEMuseum.setText(exhibition.nameMuseum);
-        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition,userId ));
+        holder.nameOfExhibtn.setText(exhibition.getName());
+        holder.nameOfEMuseum.setText(exhibition.getMuseum().getName());
+        holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition, userId));
     }
 
 

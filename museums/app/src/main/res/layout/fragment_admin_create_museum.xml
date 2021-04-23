@@ -13,19 +13,16 @@
         android:background="@color/brown"
         android:fontFamily="@font/prata"
         android:gravity="center_horizontal"
-        android:text="Создать музей"
+        android:text="@string/create_museum"
         android:textAlignment="center"
         android:textColor="@color/darkBeige"
-        android:textSize="20sp"></TextView>
-
-
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
-
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:id="@+id/admin_create_museum_login_ext_field"
@@ -35,7 +32,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             app:hasClearButton="true"
-
             app:labelText="Логин представителя"
             app:manualValidateError="true">
 
@@ -55,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
-
             app:hasClearButton="true"
             app:labelText="Название музея"
             app:manualValidateError="true">
@@ -71,13 +66,11 @@
                 android:textSize="20sp" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:id="@+id/admin_create_museum_address_of_museum_text_field"
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginVertical="5dp"
             app:hasClearButton="true"
             app:labelText="Адрес музея"
@@ -88,22 +81,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
-
                 android:inputType="text"
                 android:lines="1"
                 android:textColor="@color/dark_dark_brown"
                 android:textSize="20sp" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-
-
-
-
     </LinearLayout>
 
-
     <RelativeLayout
-
         android:id="@+id/relativeLayotAuthorization"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -122,17 +107,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:scaleType="matrix"
-                android:src="@drawable/image_for_btn">
+                android:src="@drawable/image_for_btn" />
 
-            </ImageView>
             <ProgressBar
                 android:id="@+id/admin_create_museum_progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
                 android:layout_gravity="bottom"
-                />
+                android:visibility="gone" />
         </androidx.cardview.widget.CardView>
 
         <Button
@@ -147,13 +130,8 @@
             android:fontFamily="@font/prata"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-
             android:text="Создать"
             android:textAllCaps="false"
-            android:textColor="@color/darkBeige">
-
-        </Button>
+            android:textColor="@color/darkBeige" />
     </RelativeLayout>
-
-
 </LinearLayout>

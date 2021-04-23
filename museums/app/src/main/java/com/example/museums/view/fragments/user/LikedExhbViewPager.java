@@ -30,21 +30,16 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
 
     private static final String ID_KEY_USER = "id_key_user";
     private ViewPager mPager;
-
-    public static final String LOGIN_KEY_USER = "login_key_user";
     private ImageButton imbtn;
-    private String login;
     private PagerAdapter pagerAdapter;
     private Integer userId;
-
 
     public LikedExhbViewPager() {
     }
 
-    public static LikedExhbViewPager newInstance(String login, Integer userId) {
+    public static LikedExhbViewPager newInstance(Integer userId) {
         final LikedExhbViewPager myFragment = new LikedExhbViewPager();
         final Bundle args = new Bundle(1);
-        args.putString(LOGIN_KEY_USER, login);
         args.putInt(ID_KEY_USER, userId);
         myFragment.setArguments(args);
         return myFragment;
@@ -52,7 +47,6 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            login = getArguments().getString(LOGIN_KEY_USER);
             userId = getArguments().getInt(ID_KEY_USER);
         }
     }
@@ -74,7 +68,6 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     }
 
     public void initViews(View rootView) {
-
         imbtn = rootView.findViewById(R.id.home_page_user_menu_popup);
         mPager = rootView.findViewById(R.id.liked);
         imbtn.setOnClickListener(this::showPopup);
@@ -104,9 +97,8 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
             case R.id.menu_item_change_password:
                 DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
                 Bundle bd = new Bundle();
-
-                if (login != null) {
-                    bd.putString(DialogUpdatePassword.ID_MUSEUM_KEY, login);
+                if (userId != null) {
+                    bd.putInt(DialogUpdatePassword.ID_KEY, userId);
                     dialogUpdatePassword.setArguments(bd);
                 }
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
@@ -116,5 +108,4 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
                 return false;
         }
     }
-
 }

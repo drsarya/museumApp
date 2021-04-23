@@ -16,9 +16,10 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
-import com.example.museums.API.models.NewExhibitModel;
-import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderDeletePosition;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderEditExhibit;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderNewExhibit;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder> {
 
-    private EditExhibtion editExhibtion;
+    private EditExhibition editExhibition;
 
     public static class NewExhibitsViewHolder extends RecyclerView.ViewHolder {
         public TextView nameOfExhbr;
@@ -47,34 +48,24 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         }
     }
 
-    public NewExhibitsRecyclerViewAdapter(EditExhibtion editExhibtion) {
+    public NewExhibitsRecyclerViewAdapter(EditExhibition editExhibition) {
 
-        this.editExhibtion = editExhibtion;
+        this.editExhibition = editExhibition;
     }
 
-    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+    private AsyncListDiffer<ExistingExhibit> differ = new AsyncListDiffer<ExistingExhibit>(this, DIFF_CALLBACK);
 
-    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+    private static final DiffUtil.ItemCallback<ExistingExhibit> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibit>() {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            System.out.println("id old" + oldProduct.exhibitId + "id new" + newProduct.exhibitId);
-          //  if (newProduct.exhibitId == null && oldProduct.exhibitId == null) {
-                return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
-
-//            } else {
-//                System.out.println(Objects.equals(oldProduct.exhibitId, newProduct.exhibitId));
-//                return Objects.equals(oldProduct.exhibitId, newProduct.exhibitId);
-//            }
-
+        public boolean areItemsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
+            return Objects.equals(oldProduct.getId(), newProduct.getId());
         }
 
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            System.out.println("id old" + oldProduct.exhibitId + "id new" + newProduct.exhibitId + oldProduct.equals(newProduct));
-
+        public boolean areContentsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
             return oldProduct.equals(newProduct);
         }
     };
@@ -84,37 +75,27 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public NewExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_new_exhbt, parent, false);
-        System.out.println();
         NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder vh = new NewExhibitsRecyclerViewAdapter.NewExhibitsViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
-        final NewExhibitModel exhibition = differ.getCurrentList().get(position);
+        final ExistingExhibit exhibit = differ.getCurrentList().get(position);
 
-        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibition,-1));
-        holder.image.setImageBitmap(exhibition.photo);
-        holder.nameOfExhbr.setText(exhibition.name);
-        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibtion, exhibition, position));
-        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibtion, editExhibtion.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibition.exhibitId));
+        holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibit, -1));
+        Glide
+                .with(holder.image.getContext())
+                .load(exhibit.getImageUrl())
+                .into(holder.image);
+        holder.nameOfExhbr.setText(exhibit.getName());
+        holder.edit.setOnClickListener(new ClickListenerHolderEditExhibit(editExhibition, exhibit, position));
+        holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibition, editExhibition.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibit.getId()));
     }
 
-//    public void updateAll(List<NewExhibitModel> exhibits) {
-////        mDataset = new ArrayList<>();
-////        mDataset.addAll(exhibits);
-//        notifyDataSetChanged();
-//    }
 
-    public void submitList(List<NewExhibitModel> products) {
-        System.out.println("products" + products.size());
-        System.out.println("products efore current" +   differ.getCurrentList().size());
-        for (NewExhibitModel a :  products
-             ) {
-            System.out.println(a.toString());
-        }
+    public void submitList(List<ExistingExhibit> products) {
         differ.submitList(products);
-
     }
 
     @Override

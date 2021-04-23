@@ -21,7 +21,7 @@ public class MethodsWithFragment {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("ResourceType")
-    public void replaceFragment(Fragment myFragment,   AppCompatActivity activity) {
+    public void replaceFragment(Fragment myFragment, AppCompatActivity activity) {
 
         String backStateName = myFragment.getClass().getName();
         final FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();

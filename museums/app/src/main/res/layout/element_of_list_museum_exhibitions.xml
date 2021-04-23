@@ -1,142 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:background="@color/darkBeige">
+
+            <TextView
+                android:id="@+id/element_list_museum_exhibition_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="80dp"
+                android:autoSizeMaxTextSize="20dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/prata"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAlignment="center"
+                android:textColor="@color/dark_dark_brown" />
+
+            <LinearLayout
+                android:id="@+id/element_list_museum_exhibition_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:baselineAligned="true"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageButton
+                    android:id="@+id/element_list_museum_exhibition_edit_exhibit_image_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/lightGrey"
+                    android:clickable="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/edit"
+                    android:tint="@color/dark_dark_brown" />
+
+                <ImageButton
+                    android:id="@+id/element_list_museum_exhibitions_delete_exhibit_image_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/lightGrey"
+                    android:clickable="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/close"
+                    android:tint="@color/dark_dark_brown" />
+            </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="5dp"
-
-            android:layout_marginBottom="10dp"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@color/brown"
             android:orientation="vertical">
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.8"
-                    android:background="@color/darkBeige">
-
-
-                    <TextView
-                        android:id="@+id/element_list_museum_exhibition_name_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="80dp"
-
-                        android:autoSizeMaxTextSize="20dp"
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/prata"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:textAlignment="center"
-                        android:textColor="@color/dark_dark_brown">
-
-                    </TextView>
-
-
-                    <LinearLayout
-                        android:id="@+id/element_list_museum_exhibition_linear_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:baselineAligned="true"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
-
-
-                        <ImageButton
-                            android:id="@+id/element_list_museum_exhibition_edit_exhibit_image_button"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@color/lightGrey"
-                            android:clickable="true"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/edit"
-                            android:tint="@color/dark_dark_brown">
-
-                        </ImageButton>
-
-                        <ImageButton
-                            android:id="@+id/element_list_museum_exhibitions_delete_exhibit_image_button"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@color/lightGrey"
-                            android:clickable="true"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/close"
-                            android:tint="@color/dark_dark_brown">
-
-                        </ImageButton>
-                    </LinearLayout>
-
-                </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
-                android:background="@color/brown"
+                android:layout_weight="3">
+
+                <ImageView
+                    android:id="@+id/detailed_museum_exhibition_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5">
-
-                    <ImageView
-                        android:id="@+id/detailed_museum_exhibition_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop">
-
-                    </ImageView>
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/detailed_museum_exhibition_date_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="end"
-                    android:orientation="vertical">
+                    android:autoSizeMaxTextSize="20sp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="end|bottom"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/detailed_museum_exhibition_date_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:autoSizeMaxTextSize="20sp"
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/prata"
-                        android:gravity="end|bottom"
-
-                        android:textAlignment="textEnd"
-                        android:textStyle="bold">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/detailed_museum_exhibition_name_museum"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:autoSizeMaxTextSize="17dp"
-
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/prata"
-                        android:gravity="end|top">
-
-                    </TextView>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/detailed_museum_exhibition_name_museum"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="17dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/prata"
+                    android:gravity="end|top" />
             </LinearLayout>
         </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

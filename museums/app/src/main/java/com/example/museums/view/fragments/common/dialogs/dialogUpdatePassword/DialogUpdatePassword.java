@@ -12,7 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.example.museums.API.models.AnswerModel;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
@@ -26,8 +29,9 @@ public class DialogUpdatePassword extends DialogFragment {
     private TextFieldBoxes newPassTextFieldBoxes;
     private Button updateBtn;
     public ProgressBar progressBar;
-    private String loginMuseum;
-    public static final String ID_MUSEUM_KEY = "login_key";
+    private Integer id;
+    public static final String ID_KEY = "id_key";
+    private DialogUpdatePasswordViewModel viewModel;
 
     @Nullable
     @Override
@@ -38,7 +42,7 @@ public class DialogUpdatePassword extends DialogFragment {
         initViews(rootView);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            loginMuseum = bundle.getString(ID_MUSEUM_KEY);
+            id = bundle.getInt(ID_KEY);
         }
         setListeners();
         return rootView;
@@ -51,6 +55,7 @@ public class DialogUpdatePassword extends DialogFragment {
         newPassTextFieldBoxes = rootView.findViewById(R.id.dialog_change_pass_new_pass_text_field_boxes);
         updateBtn = rootView.findViewById(R.id.dialog_change_pass_btn);
         progressBar = rootView.findViewById(R.id.dialog_change_pass_progress_bar);
+        viewModel = ViewModelProviders.of(this).get(DialogUpdatePasswordViewModel.class);
     }
 
 
@@ -59,16 +64,29 @@ public class DialogUpdatePassword extends DialogFragment {
         newPassEditText.addTextChangedListener(new TextWatcherListenerCheckValidate(newPassTextFieldBoxes));
         updateBtn.setOnClickListener(v -> {
             if (!oldPassEditText.getText().toString().isEmpty() && !newPassEditText.getText().toString().isEmpty() &&
-                    !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && loginMuseum != null) {
-                QueryUpdatePassword updatePassword = new QueryUpdatePassword(this);
-                try {
-                    updatePassword.getQuery(loginMuseum, oldPassEditText.getText().toString(), newPassEditText.getText().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    !oldPassTextFieldBoxes.isOnError() && !newPassTextFieldBoxes.isOnError() && id != null) {
+                updatePassword();
             } else {
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void updatePassword() {
+
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUpdatePassword(id, oldPassEditText.getText().toString(), newPassEditText.getText().toString())
+                .observe(this, aBoolean -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (aBoolean == null) {
+                        Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }

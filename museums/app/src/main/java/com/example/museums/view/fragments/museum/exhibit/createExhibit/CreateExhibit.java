@@ -25,26 +25,30 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.Author;
-import com.example.museums.API.models.NewExhibitModel;
+import com.example.museums.API.models.author.Author;
+import com.example.museums.API.models.exhibit.BaseExhibit;
+import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.authors.QueryAuthor;
-import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibtion;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnToucLlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
+import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.SneakyThrows;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class CreateExhibit extends Fragment {
     private ScrollView view;
-    private EditText nameEditText, authorEditText, dateOfCreateEditText,    descriptionEditText;
+    private EditText nameEditText, authorEditText, dateOfCreateEditText, descriptionEditText;
     private TextFieldBoxes nameTextFieldBoxes, authorTextFieldBoxes, dateOfCreateTextFieldBoxes, descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
@@ -57,28 +61,8 @@ public class CreateExhibit extends Fragment {
     private RecyclerView authorRecyclerView;
     public static final String ID_EXHIBITION = "exhibition_id_key";
     private Integer exhibitionId;
-
-    public CreateExhibit newInstance(Integer idExhibition) {
-        final CreateExhibit myFragment = new CreateExhibit();
-        final Bundle args = new Bundle();
-        if (idExhibition == null) {
-            args.putInt(ID_EXHIBITION, -1);
-        } else {
-            args.putInt(ID_EXHIBITION, idExhibition);
-        }
-        myFragment.setArguments(args);
-        return myFragment;
-    }
-
-    private void getArgumentsFromBundle() {
-        if (getArguments() != null) {
-            if (getArguments().getInt(ID_EXHIBITION) == -1) {
-                exhibitionId = null;
-            } else {
-                exhibitionId = getArguments().getInt(ID_EXHIBITION);
-            }
-        }
-    }
+    private CreateExhibitViewModel viewModel;
+    private File file;
 
     @Nullable
     @Override
@@ -86,36 +70,60 @@ public class CreateExhibit extends Fragment {
 
         View rootView =
                 inflater.inflate(R.layout.fragment_create_exhibit, container, false);
-        initViews(rootView);
-        setListeners();
         getArgumentsFromBundle();
-
+        initViews(rootView);
+        getAuthors();
+        setListeners();
         return rootView;
     }
 
+    public CreateExhibit newInstance(Integer idExhibition) {
+        final CreateExhibit myFragment = new CreateExhibit();
+        final Bundle args = new Bundle();
+        args.putInt(ID_EXHIBITION, idExhibition);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
+
+    private void getArgumentsFromBundle() {
+        if (getArguments() != null) {
+            exhibitionId = getArguments().getInt(ID_EXHIBITION);
+        }
+    }
     private void initViews(View rootView) {
         nameEditText = rootView.findViewById(R.id.create_exhibit_name_edit_text);
         authorEditText = rootView.findViewById(R.id.create_exhibit_author_edit_text);
         dateOfCreateEditText = rootView.findViewById(R.id.create_exhibit_date_of_create_edit_text);
-         descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
+        descriptionEditText = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_edit_text);
         nameTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_name_text_field_box);
         authorTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_author_text_field_box);
         dateOfCreateTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_date_of_create_text_field_box);
-         descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
+        descriptionTextFieldBoxes = rootView.findViewById(R.id.create_exhibit_description_of_exhibit_text_field_box);
         choosePhotoBtn = rootView.findViewById(R.id.create_exhibit_choose_photo_text_view);
         mainImageView = rootView.findViewById(R.id.create_exhibit_chosen_photo_image_view);
         createBtn = rootView.findViewById(R.id.create_exhibit_create_exhibit_btn);
         authorRecyclerView = rootView.findViewById(R.id.create_exhibit_authors_recycler_view);
         authorRecyclerView.setVisibility(View.GONE);
         progressBar = rootView.findViewById(R.id.create_exhibit_progress_bar);
-
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
+        viewModel = ViewModelProviders.of(this).get(CreateExhibitViewModel.class);
 
-        //Получить список авторов
-        QueryAuthor queryAuthor = new QueryAuthor(this);
-        queryAuthor.getQuery();
+
     }
+    private void getAuthors() {
+         viewModel.getLiveDataAuthorList()
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        refreshAllList(model);
+                    }
+                });
+    }
+
+
 
     public void refreshAllList(List<Author> authors) {
         authorList = new ArrayList<>();
@@ -156,40 +164,23 @@ public class CreateExhibit extends Fragment {
 
             }
         });
-
         nameEditText.addTextChangedListener(new TextWatcherEmptyField(nameTextFieldBoxes));
         descriptionEditText.addTextChangedListener(new TextWatcherEmptyField(descriptionTextFieldBoxes));
         dateOfCreateEditText.addTextChangedListener(new TextWatcherEmptyField(dateOfCreateTextFieldBoxes));
         createBtn.setOnClickListener(v -> {
-            if (mainImageView.getDrawable() != null && !nameTextFieldBoxes.isOnError() && !authorTextFieldBoxes.isOnError() && !descriptionTextFieldBoxes.isOnError()
+            if (file != null && !nameTextFieldBoxes.isOnError() && !authorTextFieldBoxes.isOnError() && !descriptionTextFieldBoxes.isOnError()
                     && !dateOfCreateTextFieldBoxes.isOnError()
                     && !nameEditText.getText().toString().isEmpty() && !authorEditText.getText().toString().isEmpty()
                     && !descriptionEditText.getText().toString().isEmpty() && !dateOfCreateEditText.getText().toString().isEmpty()
-                    ) {
-                BitmapDrawable drawable = (BitmapDrawable) mainImageView.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-
-                NewExhibitModel ex = new NewExhibitModel(null,
-                        dateOfCreateEditText.getText().toString(),
-                         authorEditText.getText().toString(), nameEditText.getText().toString()
-                        , bitmap, descriptionEditText.getText().toString()
-                );
-
+            ) {
                 hideKeyboard();
                 authorRecyclerView.setVisibility(View.GONE);
-                QueryInsertExhibit queryAddExhibit = new QueryInsertExhibit(this);
-                queryAddExhibit.getQuery(ex, exhibitionId);
-
+                createExhibit();
             } else {
                 hideKeyboard();
                 Toast.makeText(getContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public void insertNewExhibit(NewExhibitModel newEx) {
-        EditExhibtion c = (EditExhibtion) getTargetFragment();
-        c.addNewExhibit(newEx);
     }
 
 
@@ -217,24 +208,48 @@ public class CreateExhibit extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
-        view.setOnTouchListener(new OnToucLlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
+    @SneakyThrows
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case GALLERY_REQUEST:
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
+
                     mainImageView.setImageBitmap(bitmap);
                 }
         }
     }
+
+    private void createExhibit() {
+         viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataCreateExhibit(new Author(authorEditText.getText().toString()),
+                nameEditText.getText().toString(), descriptionEditText.getText().toString(),
+                dateOfCreateEditText.getText().toString(), exhibitionId, file)
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Успешное создание экспоната", Toast.LENGTH_SHORT).show();
+
+                        if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
+                            ((EditExhibition) getTargetFragment()).getExhibits();
+                        } else {
+                            ((MuseumExhibits)getTargetFragment()).getExhibitsMuseum();
+                        }
+                    }
+                });
+    }
+
 }

@@ -11,27 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/create_exhibition_first_word_text_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/brown"
                 android:fontFamily="@font/prata"
-                android:gravity="center_horizontal"
-                android:text="Новая выставка"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/new_exhibition"
                 android:textAlignment="center"
                 android:textColor="@color/darkBeige"
-                android:textSize="20sp">
-
-            </TextView>
+                android:textSize="20sp" />
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:id="@+id/create_exhibition_name_text_field_box"
@@ -45,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
-
                     android:inputType="textMultiLine"
                     android:textColor="@color/dark_dark_brown"
                     android:textSize="20sp" />
@@ -65,13 +60,11 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:paddingHorizontal="20dp"
-                    android:text="Выбрать фото"
+                    android:text="@string/choose_image"
                     android:textAlignment="center"
                     android:textColor="@color/darkBeige"
                     android:textSize="20sp"
-                    tools:ignore="RtlCompat">
-
-                </TextView>
+                    tools:ignore="RtlCompat" />
 
                 <ImageButton
                     android:layout_width="40dp"
@@ -83,20 +76,16 @@
                     android:rotation="45"
                     android:scaleType="fitCenter"
                     android:src="@drawable/close"
-                    android:tint="@color/darkBeige">
-
-                </ImageButton>
+                    android:tint="@color/darkBeige"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
-
 
             <ImageView
                 android:id="@+id/create_exhibition_main_image_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:scaleType="fitStart">
-
-            </ImageView>
+                android:scaleType="fitStart" />
 
             <Button
                 android:id="@+id/create_exhibition_hide_description_btn"
@@ -105,13 +94,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Описание"
+                android:text="@string/description"
                 android:textAlignment="center"
                 android:textColor="@color/darkBeige"
                 android:textSize="20sp"
-                tools:ignore="RtlCompat">
-
-            </Button>
+                tools:ignore="RtlCompat" />
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                 android:id="@+id/create_exhibition_description_text_field_box"
@@ -119,7 +106,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-
                 app:labelText="Описание выставки">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -140,12 +126,10 @@
                 android:background="@color/brown"
                 android:fontFamily="@font/prata"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="Дата проведения"
+                android:text="@string/exhibition_dates"
                 android:textAlignment="center"
                 android:textColor="@color/darkBeige"
-                android:textSize="20sp">
-
-            </TextView>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,26 +144,18 @@
                     android:layout_gravity="center_vertical"
                     android:backgroundTint="@color/lightBeige"
                     android:buttonTint="@color/brown"
-                    android:gravity="center_vertical">
-
-                </CheckBox>
+                    android:gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="15dp"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
-                    android:text="Виртуальная выставка"
+                    android:text="@string/exhibition_virtual"
                     android:textColor="@color/brown"
-                    tools:ignore="RtlCompat">
-
-                </TextView>
-
-
+                    tools:ignore="RtlCompat" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,7 +166,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-
                     android:orientation="horizontal">
 
                     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -212,7 +187,6 @@
                             android:textSize="20sp" />
                     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-
                     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                         android:id="@+id/create_exhibition_date_of_end_text_field_box"
                         style="@style/textBoxOuter"
@@ -220,7 +194,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
-
                         app:labelText="Завершения дд.мм">
 
                         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -229,11 +202,11 @@
                             android:layout_height="wrap_content"
                             android:imeOptions="actionDone"
                             android:inputType="text"
-
                             android:textColor="@color/dark_dark_brown"
                             android:textSize="20sp" />
                     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
                 </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -251,9 +224,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:scaleType="matrix"
-                            android:src="@drawable/image_for_btn">
-
-                        </ImageView>
+                            android:src="@drawable/image_for_btn" />
 
                         <ProgressBar
                             android:id="@+id/create_exhibition_progress_bar"
@@ -276,20 +247,11 @@
                         android:fontFamily="@font/prata"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
-                        android:text="Создать"
-
+                        android:text="@string/create"
                         android:textAllCaps="false"
-                        android:textColor="@color/darkBeige">
-
-                    </Button>
+                        android:textColor="@color/darkBeige" />
                 </RelativeLayout>
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
-
-
-
-
 </LinearLayout>

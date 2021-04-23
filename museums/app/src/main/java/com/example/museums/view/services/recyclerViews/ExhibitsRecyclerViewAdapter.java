@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.NewExhibitModel;
+import com.bumptech.glide.Glide;
+import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibitis;
-import com.example.museums.API.models.Exhibit;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderExhibits;
 
 
 import java.util.List;
@@ -36,18 +36,18 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
         }
     }
 
-    private AsyncListDiffer<NewExhibitModel> differ = new AsyncListDiffer<NewExhibitModel>(this, DIFF_CALLBACK);
+    private AsyncListDiffer<ExistingExhibit> differ = new AsyncListDiffer<ExistingExhibit>(this, DIFF_CALLBACK);
 
-    private static final DiffUtil.ItemCallback<NewExhibitModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewExhibitModel>() {
+    private static final DiffUtil.ItemCallback<ExistingExhibit> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExistingExhibit>() {
         @Override
-        public boolean areItemsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
-            return oldProduct.exhibitId.equals(newProduct.exhibitId);
+        public boolean areItemsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
+            return oldProduct.getId().equals(newProduct.getId());
         }
 
         @SuppressLint("DiffUtilEquals")
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        public boolean areContentsTheSame(@NonNull NewExhibitModel oldProduct, @NonNull NewExhibitModel newProduct) {
+        public boolean areContentsTheSame(@NonNull ExistingExhibit oldProduct, @NonNull ExistingExhibit newProduct) {
             return oldProduct.equals(newProduct);
         }
     };
@@ -58,7 +58,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
 
     }
 
-    public void submitList(List<NewExhibitModel> products) {
+    public void submitList(List<ExistingExhibit> products) {
         differ.submitList(products);
     }
 
@@ -81,11 +81,13 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
 
     @Override
     public void onBindViewHolder(@NonNull ExhibitsViewHolder holder, int position) {
-        final NewExhibitModel purchaseList = differ.getCurrentList().get(position);
-
-        holder.itemView.setOnClickListener(new ClickListenerHolderExhibitis(holder, purchaseList, userId));
-        holder.image.setImageBitmap(purchaseList.photo);
-        holder.textView.setText(purchaseList.name);
+        final ExistingExhibit purchaseList = differ.getCurrentList().get(position);
+        Glide
+                .with(holder.image.getContext())
+                .load(purchaseList.getImageUrl())
+                .into(holder.image);
+        holder.itemView.setOnClickListener(new ClickListenerHolderExhibits(holder, purchaseList, userId));
+        holder.textView.setText(purchaseList.getName());
     }
 
 

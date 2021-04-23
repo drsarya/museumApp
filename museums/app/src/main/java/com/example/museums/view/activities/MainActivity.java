@@ -6,33 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.example.museums.API.interfaces.impl.MuseumFacadeImpl;
-import com.example.museums.API.interfaces.impl.UserFacadeImpl;
-import com.example.museums.API.models.User;
+
 import com.example.museums.R;
-import com.example.museums.API.AppDelegate;
-import com.example.museums.API.MuseumDao;
-import com.example.museums.view.services.ConfigEncrypt;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Base64;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.ShortBufferException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-import static androidx.core.util.ObjectsCompat.hash;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,23 +18,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-        try {
-            final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
-
-            User u = new User();
-            u.type =true;
-            u.login = "1111";
-            String pass = "1111";
-            String sssss =   ConfigEncrypt.getSaltedHash(pass);
-            UserFacadeImpl us = new UserFacadeImpl(memsDao);
-            us.insertUser("1111", sssss, true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
+//
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                memsDao.deleee();
+//            }
+//        });
+//        try {
+//            final MuseumDao memsDao = ((AppDelegate) getApplication()).getMuseumDb().museumDao();
+//
+//            User u = new User();
+//            u.type =true;
+//            u.login = "1111";
+//            String pass = "1111";
+//            String sssss =   ConfigEncrypt.getSaltedHash(pass);
+//            UserFacadeImpl us = new UserFacadeImpl(memsDao);
+//            us.insertUser("1111", sssss, true);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
         //        for (int i = 0; i < 3 ; i++) {

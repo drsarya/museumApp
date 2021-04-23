@@ -7,16 +7,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.museums.API.models.ExhibitionWithMuseumName;
-import com.example.museums.view.fragments.common.DetailedExhbtn;
+import com.example.museums.API.models.exhibition.ExistingExhibition;
+import com.example.museums.view.fragments.common.detailedExhibition.DetailedExhibition;
 import com.example.museums.view.services.MethodsWithFragment;
 
 public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     private MethodsWithFragment mth = new MethodsWithFragment();
-    private ExhibitionWithMuseumName exhibitionWithMuseumName;
+    private ExistingExhibition exhibitionWithMuseumName;
     private Integer userId;
 
-    public ClickOnListenerHolderExhbtn(ExhibitionWithMuseumName exhibitionWithMuseumName, Integer userId) {
+    public ClickOnListenerHolderExhbtn(ExistingExhibition exhibitionWithMuseumName, Integer userId) {
         this.exhibitionWithMuseumName = exhibitionWithMuseumName;
         this.userId = userId;
 
@@ -26,15 +26,12 @@ public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Fragment myFragment;
-        if (exhibitionWithMuseumName.firstDate == null) {
-
-            myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), userId, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
-                    "", exhibitionWithMuseumName.description);
+        if (exhibitionWithMuseumName.getFirstDate().isEmpty()) {
+            myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(),  exhibitionWithMuseumName.getMuseum().getId() , userId, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+                    "", exhibitionWithMuseumName.getDescription());
         } else {
-
-            myFragment = new DetailedExhbtn().newInstance(exhibitionWithMuseumName.id, Integer.parseInt(exhibitionWithMuseumName.idMuseum), userId, exhibitionWithMuseumName.image, exhibitionWithMuseumName.name,
-                    exhibitionWithMuseumName.firstDate + " - " + exhibitionWithMuseumName.lastDate, exhibitionWithMuseumName.description);
-
+            myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(),  exhibitionWithMuseumName.getMuseum().getId() , userId, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+                    exhibitionWithMuseumName.getFirstDate() + " - " + exhibitionWithMuseumName.getLastDate(), exhibitionWithMuseumName.getDescription());
         }
 
         mth.replaceFragment(myFragment, (AppCompatActivity) v.getContext());

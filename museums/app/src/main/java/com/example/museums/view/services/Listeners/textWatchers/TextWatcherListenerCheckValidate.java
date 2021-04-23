@@ -19,7 +19,6 @@ public class TextWatcherListenerCheckValidate implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         if (s.toString().trim().isEmpty()) {
             textFieldBoxes.setError("Поле обязательно для заполнения", false);
         } else {

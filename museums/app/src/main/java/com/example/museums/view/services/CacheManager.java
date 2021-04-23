@@ -22,7 +22,6 @@ public class CacheManager {
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemCache(key) == null) {
             memoryCache.put(key, bitmap);
-
         }
     }
 
