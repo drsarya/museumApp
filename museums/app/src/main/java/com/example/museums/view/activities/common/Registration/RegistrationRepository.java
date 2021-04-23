@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 public class RegistrationRepository {
     private static RegistrationRepository registrationRepository;
+    private UserService userService;
 
     public static RegistrationRepository getInstance() {
         if (registrationRepository == null) {
@@ -22,8 +23,6 @@ public class RegistrationRepository {
         }
         return registrationRepository;
     }
-
-    private UserService userService;
 
     public RegistrationRepository() {
         userService = RetrofitConnect.createRetrofitConnection(UserService.class);

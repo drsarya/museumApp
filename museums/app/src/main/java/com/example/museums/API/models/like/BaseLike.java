@@ -15,6 +15,5 @@ public class BaseLike {
         this.type = type;
     }
     public BaseLike( ) {
-
     }
 }

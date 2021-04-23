@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ExistingUser extends NewUser {
-    long id;
+    Integer id;
 
 
     public ExistingUser(Integer id, String login, String password) {

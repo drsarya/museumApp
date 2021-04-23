@@ -43,7 +43,7 @@ public class CreateMuseumRepository {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         } else {
-                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

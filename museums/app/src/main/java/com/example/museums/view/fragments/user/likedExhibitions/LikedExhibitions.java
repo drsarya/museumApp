@@ -20,38 +20,35 @@ import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAd
 
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 public class LikedExhibitions extends Fragment {
 
     private RecyclerView recyclerView;
     private ExhibitionsRecyclerViewAdapter mAdapter = new ExhibitionsRecyclerViewAdapter();
     private Integer userId;
-    public static final String LOGIN_KEY_USER = "login_key";
     private TextView empty;
+    private LikedExhibitionsViewModel viewModel;
 
     public static LikedExhibitions newInstance(Integer idUser) {
         final LikedExhibitions myFragment = new LikedExhibitions();
         final Bundle args = new Bundle(1);
-        args.putInt(LOGIN_KEY_USER, idUser);
+        args.putInt(ID_USER_KEY, idUser);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            userId = getArguments().getInt(LOGIN_KEY_USER);
+            userId = getArguments().getInt(ID_USER_KEY);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View rootView =
-                inflater.inflate(R.layout.fragment_liked_exhibitions, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_liked_exhibitions, container, false);
     }
-
-    private LikedExhibitionsViewModel viewModel;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

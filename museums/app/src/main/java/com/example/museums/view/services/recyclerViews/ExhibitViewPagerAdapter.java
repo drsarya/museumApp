@@ -1,8 +1,5 @@
 package com.example.museums.view.services.recyclerViews;
 
-import android.content.Context;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +22,6 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
         this.userId = userId;
     }
 
-
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -38,7 +34,6 @@ public class ExhibitViewPagerAdapter extends FragmentStatePagerAdapter {
         this.mDataSet.addAll(mDataset);
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getCount() {

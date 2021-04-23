@@ -31,14 +31,6 @@ public class ClickListenerHolderMuseumAdminEditPage implements View.OnClickListe
     @Override
     public void onClick(View v) {
         DialogEditMuseum myFragment = new DialogEditMuseum().newInstance(museum.getId(), museum.getName(), museum.getAddress(), museum.getState().name());
-//        Bundle bd = new Bundle();
-//        bd.putString(myFragment.KEY_ADDRESS, museum.getAddress());
-//        bd.putString(myFragment.KEY_ID_CODE, Integer.toString(museum.getId()));
-//        bd.putString(myFragment.KEY_NAME_MUSEUM, museum.getName());
-//        myFragment.setArguments(bd);
-//        final FragmentTransaction ft = allMuseums.getFragmentManager().beginTransaction().addToBackStack(AllMuseums.class.toString());
-        myFragment.show(allMuseums.getChildFragmentManager(),"dialog");
-       // myFragment.show(ft, "dialog");
-
+        myFragment.show(allMuseums.getChildFragmentManager(), "dialog");
     }
 }

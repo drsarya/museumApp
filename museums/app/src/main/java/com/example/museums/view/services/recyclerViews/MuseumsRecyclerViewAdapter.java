@@ -92,6 +92,4 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
-
-
 }

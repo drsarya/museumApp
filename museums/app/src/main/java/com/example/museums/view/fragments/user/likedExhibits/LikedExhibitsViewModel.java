@@ -12,13 +12,12 @@ public class LikedExhibitsViewModel extends ViewModel {
     private LikedExhibitsRepository repository = LikedExhibitsRepository.getInstance();
     private MutableLiveData<Boolean> isLoadingExhibits = new MutableLiveData<>();
 
-
     public MutableLiveData<Boolean> getIsLoadingExhibits() {
         return isLoadingExhibits;
     }
 
-    public LiveData<List<ExistingExhibit>> getExhibitsLiveData(Integer id ) {
+    public LiveData<List<ExistingExhibit>> getExhibitsLiveData(Integer id) {
         isLoadingExhibits.setValue(true);
-        return repository.getExhibits( id );
+        return repository.getExhibits(id);
     }
 }

@@ -38,10 +38,11 @@ public class AllMuseumsRepository {
                                            Response<List<ExistingMuseum>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(null);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<List<ExistingMuseum>> call, Throwable t) {
                         newsData.setValue(null);

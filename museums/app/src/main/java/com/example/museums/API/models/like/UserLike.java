@@ -9,7 +9,6 @@ import lombok.Data;
 public class UserLike extends BaseLike {
     Integer userId;
 
-
     public UserLike(Integer artId, TypeOfArtEnum type, Integer userId) {
         super(artId, type);
         this.userId = userId;

@@ -31,14 +31,8 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class RegistrationMuseum extends AppCompatActivity {
     private ScrollView view;
-    private EditText idCodeEditText;
-    private EditText loginEditText;
-    private EditText firstPassEditText;
-    private EditText secondPassEditText;
-    private TextFieldBoxes idCodeTextFieldBoxes;
-    private TextFieldBoxes loginTextFieldBoxes;
-    private TextFieldBoxes firstPassTextFieldBoxes;
-    private TextFieldBoxes secondPassTextFieldBoxes;
+    private EditText idCodeEditText, loginEditText, firstPassEditText, secondPassEditText;
+    private TextFieldBoxes idCodeTextFieldBoxes, loginTextFieldBoxes, firstPassTextFieldBoxes, secondPassTextFieldBoxes;
     private RelativeLayout layoutBtn;
     private Button regMuseumBtn;
     public ProgressBar progressBar;
@@ -89,7 +83,6 @@ public class RegistrationMuseum extends AppCompatActivity {
             viewModel.getLiveDataUser(Integer.parseInt(idCodeEditText.getText().toString()), loginEditText.getText().toString(), firstPassEditText.getText().toString())
                     .observe(this, model -> {
                         viewModel.getIsLoading().postValue(false);
-
                         if (model == null) {
                             Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
                         } else {
@@ -105,7 +98,6 @@ public class RegistrationMuseum extends AppCompatActivity {
         GestureDetector mDetector = new GestureDetector(getApplication(), ndm);
         view.setOnTouchListener((View v, MotionEvent event) -> {
             boolean b = mDetector.onTouchEvent(event);
-            System.out.println(b);
             if (b) {
                 Intent intent1 = new Intent(getApplication(), Authorization.class);
                 this.startActivity(intent1);

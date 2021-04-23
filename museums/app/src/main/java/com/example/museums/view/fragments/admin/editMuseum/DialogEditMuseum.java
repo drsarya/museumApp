@@ -25,11 +25,13 @@ import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListe
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
+import static com.example.museums.view.ConstantKeys.KEY_ADDRESS;
+import static com.example.museums.view.ConstantKeys.KEY_ID_CODE;
+import static com.example.museums.view.ConstantKeys.KEY_NAME_MUSEUM;
+import static com.example.museums.view.ConstantKeys.KEY_STATE_MUSEUM;
+
 public class DialogEditMuseum extends DialogFragment {
-    public final String KEY_NAME_MUSEUM = "key_name_museum";
-    public final String KEY_ID_CODE = "key_id_code";
-    public final String KEY_STATE_MUSEUM = "key_state_museum";
-    public final String KEY_ADDRESS = "key_address";
+
     private EditText nameEditText, addressEditText;
     private TextView refactorMuseumTV, loginOwnerTV;
     private String address, name;
@@ -134,7 +136,7 @@ public class DialogEditMuseum extends DialogFragment {
 
         shareIV.setOnClickListener(
                 clickListenerShare
-         );
+        );
 
     }
 

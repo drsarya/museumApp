@@ -9,14 +9,12 @@ import com.example.museums.view.fragments.user.likedExhibits.LikedExhibits;
 import com.example.museums.view.fragments.user.likedExhibitions.LikedExhibitions;
 
 public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
-    public LikedExhibViewPagerAdapter(@NonNull FragmentManager fm, Integer userid) {
+    public LikedExhibViewPagerAdapter(@NonNull FragmentManager fm, Integer userId) {
         super(fm);
-        this.userId = userid;
-
+        this.userId = userId;
     }
 
     private Integer userId;
-
 
     @NonNull
     @Override

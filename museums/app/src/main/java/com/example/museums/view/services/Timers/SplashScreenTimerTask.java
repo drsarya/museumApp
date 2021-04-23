@@ -7,7 +7,6 @@ import android.os.Message;
 import java.util.TimerTask;
 
 public class SplashScreenTimerTask extends TimerTask {
-
     private Handler mHandler;
 
     public SplashScreenTimerTask(Handler mHandler) {

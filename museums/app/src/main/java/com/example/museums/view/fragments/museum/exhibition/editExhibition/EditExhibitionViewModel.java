@@ -34,18 +34,18 @@ public class EditExhibitionViewModel extends ViewModel {
         return isLoadingListExhibits;
     }
 
-    public LiveData<ExistingExhibition> getLiveDataEditExhibition(Integer exhibitionId, Integer museumId, String name, String description, String dateOfStart, String dateOfEnd, File bitmap)  {
+    public LiveData<ExistingExhibition> getLiveDataEditExhibition(Integer exhibitionId, Integer museumId, String name, String description, String dateOfStart, String dateOfEnd, File bitmap) {
         isLoadingEditExhibition.postValue(true);
         ExistingExhibition baseExhibition = new ExistingExhibition(new ShortInfoMuseum(museumId), name, description, dateOfStart, dateOfEnd, exhibitionId);
         return repository.editExhibition(baseExhibition, bitmap);
     }
 
-    public LiveData<AnswerModel> getLiveDataDeleteExhibit(Integer exhibitId)   {
+    public LiveData<AnswerModel> getLiveDataDeleteExhibit(Integer exhibitId) {
         isLoadingDeleteExhibit.postValue(true);
         return repository.deleteExhibit(exhibitId);
     }
 
-    public LiveData<List<ExistingExhibit>> getLiveDataExhibitsFromExhibition(Integer exhibitionId)  {
+    public LiveData<List<ExistingExhibit>> getLiveDataExhibitsFromExhibition(Integer exhibitionId) {
         isLoadingListExhibits.postValue(true);
         return repository.getExhibitsFromExhibition(exhibitionId);
     }

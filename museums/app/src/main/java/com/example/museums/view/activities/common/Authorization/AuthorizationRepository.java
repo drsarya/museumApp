@@ -13,6 +13,7 @@ import retrofit2.Response;
 
 public class AuthorizationRepository {
     private static AuthorizationRepository authorizationRepository;
+    private UserService userService;
 
     public static AuthorizationRepository getInstance() {
         if (authorizationRepository == null) {
@@ -20,8 +21,6 @@ public class AuthorizationRepository {
         }
         return authorizationRepository;
     }
-
-    private UserService userService;
 
     public AuthorizationRepository() {
         userService = RetrofitConnect.createRetrofitConnection(UserService.class);
@@ -36,7 +35,7 @@ public class AuthorizationRepository {
                                            Response<ExistingUser> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else{
+                        } else {
                             newsData.setValue(null);
                         }
                     }

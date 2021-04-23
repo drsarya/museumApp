@@ -26,9 +26,10 @@ import com.example.museums.view.fragments.common.dialogs.DialogLogOut;
 import com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword.DialogUpdatePassword;
 import com.example.museums.view.services.recyclerViews.LikedExhibViewPagerAdapter;
 
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
-    private static final String ID_KEY_USER = "id_key_user";
     private ViewPager mPager;
     private ImageButton imbtn;
     private PagerAdapter pagerAdapter;
@@ -40,14 +41,14 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
     public static LikedExhbViewPager newInstance(Integer userId) {
         final LikedExhbViewPager myFragment = new LikedExhbViewPager();
         final Bundle args = new Bundle(1);
-        args.putInt(ID_KEY_USER, userId);
+        args.putInt(ID_USER_KEY, userId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            userId = getArguments().getInt(ID_KEY_USER);
+            userId = getArguments().getInt(ID_USER_KEY);
         }
     }
 
@@ -95,12 +96,7 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
                 myFragment.show(ft, "dialog");
                 return true;
             case R.id.menu_item_change_password:
-                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
-                Bundle bd = new Bundle();
-                if (userId != null) {
-                    bd.putInt(DialogUpdatePassword.ID_KEY, userId);
-                    dialogUpdatePassword.setArguments(bd);
-                }
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword().newInstance(userId);
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
                 dialogUpdatePassword.show(ft1, "dialog2");
                 return true;

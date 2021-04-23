@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,22 +28,22 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.museums.API.models.author.Author;
-import com.example.museums.API.models.exhibit.BaseExhibit;
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchListenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+import static com.example.museums.view.ConstantKeys.ID_EXHIBITION_KEY;
 
 public class CreateExhibit extends Fragment {
     private ScrollView view;
@@ -59,8 +58,7 @@ public class CreateExhibit extends Fragment {
     public ProgressBar progressBar;
     private TextView choosePhotoBtn;
     private RecyclerView authorRecyclerView;
-    public static final String ID_EXHIBITION = "exhibition_id_key";
-    private Integer exhibitionId;
+     private Integer exhibitionId;
     private CreateExhibitViewModel viewModel;
     private File file;
 
@@ -80,16 +78,17 @@ public class CreateExhibit extends Fragment {
     public CreateExhibit newInstance(Integer idExhibition) {
         final CreateExhibit myFragment = new CreateExhibit();
         final Bundle args = new Bundle();
-        args.putInt(ID_EXHIBITION, idExhibition);
+        args.putInt(ID_EXHIBITION_KEY, idExhibition);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            exhibitionId = getArguments().getInt(ID_EXHIBITION);
+            exhibitionId = getArguments().getInt(ID_EXHIBITION_KEY);
         }
     }
+
     private void initViews(View rootView) {
         nameEditText = rootView.findViewById(R.id.create_exhibit_name_edit_text);
         authorEditText = rootView.findViewById(R.id.create_exhibit_author_edit_text);
@@ -108,11 +107,10 @@ public class CreateExhibit extends Fragment {
         authorAdapter = new AuthorsRecyclerViewAdapter(authorList, authorEditText, authorRecyclerView);
         authorRecyclerView.setAdapter(authorAdapter);
         viewModel = ViewModelProviders.of(this).get(CreateExhibitViewModel.class);
-
-
     }
+
     private void getAuthors() {
-         viewModel.getLiveDataAuthorList()
+        viewModel.getLiveDataAuthorList()
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
@@ -122,7 +120,6 @@ public class CreateExhibit extends Fragment {
                     }
                 });
     }
-
 
 
     public void refreshAllList(List<Author> authors) {
@@ -208,7 +205,7 @@ public class CreateExhibit extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
-        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        view.setOnTouchListener(new OnTouchListenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
     @SneakyThrows
@@ -229,7 +226,7 @@ public class CreateExhibit extends Fragment {
     }
 
     private void createExhibit() {
-         viewModel.getIsLoading().observe(this, isLoading -> {
+        viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
@@ -246,7 +243,7 @@ public class CreateExhibit extends Fragment {
                         if (getTargetFragment().getClass().toString().equals(EditExhibition.class.toString())) {
                             ((EditExhibition) getTargetFragment()).getExhibits();
                         } else {
-                            ((MuseumExhibits)getTargetFragment()).getExhibitsMuseum();
+                            ((MuseumExhibits) getTargetFragment()).getExhibitsMuseum();
                         }
                     }
                 });

@@ -13,7 +13,6 @@ public class ExhibitionsViewModel extends ViewModel {
     private ExhibitionsRepository repository = ExhibitionsRepository.getInstance();
     private MutableLiveData<Boolean> isLoadingExhibits = new MutableLiveData<>();
 
-
     public MutableLiveData<Boolean> getIsLoadingExhibits() {
         return isLoadingExhibits;
     }

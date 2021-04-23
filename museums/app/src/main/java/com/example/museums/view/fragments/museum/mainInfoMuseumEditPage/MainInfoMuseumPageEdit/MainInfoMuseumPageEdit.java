@@ -34,6 +34,8 @@ import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogCh
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.DialogChangeMuseumPhoto;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+
 public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private Button descriptionBtn;
     private ImageButton imbtn;
@@ -41,9 +43,8 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     public TextView descriptionTextView, addressTextView, nameOfMuseumTextView, chooseImageTextView;
     public ProgressBar progressBar;
 
-    public static final String MUSEUM_ID = "id_key";
     public static final String descriptionIsEmpty = "Добавьте описание музея";
-    private Integer museumId ;
+    private Integer museumId;
 
     @Nullable
     @Override
@@ -56,19 +57,18 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     public MainInfoMuseumPageEdit newInstance(Integer museumId) {
         final MainInfoMuseumPageEdit myFragment = new MainInfoMuseumPageEdit();
         final Bundle args = new Bundle(1);
-        args.putInt(MUSEUM_ID, museumId);
+        args.putInt(ID_MUSEUM_KEY, museumId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            museumId = getArguments().getInt(MUSEUM_ID);
+            museumId = getArguments().getInt(ID_MUSEUM_KEY);
         }
     }
 
     private void initViews() {
-
         chooseImageTextView = getActivity().findViewById(R.id.main_info_museum_edit_choose_photo_text_view);
         progressBar = getActivity().findViewById(R.id.main_info_museum_edit_progress_bar);
         nameOfMuseumTextView = getActivity().findViewById(R.id.main_info_museum_edit_name_of_museum_text_view);
@@ -129,7 +129,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
             descriptionTextView.setText(descriptionIsEmpty);
         }
 
-        if(museumInfo.getImageUrl()!=null){
+        if (museumInfo.getImageUrl() != null) {
             chooseImageTextView.setVisibility(View.GONE);
             Glide
                     .with(getContext())
@@ -166,12 +166,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
                 myFragment.show(ft, "dialog");
                 return true;
             case R.id.menu_item_change_password:
-                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
-                Bundle bd = new Bundle();
-                if (museumId != null) {
-                    bd.putInt(DialogUpdatePassword.ID_KEY, museumId);
-                    dialogUpdatePassword.setArguments(bd);
-                }
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword().newInstance(museumId);
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
                 dialogUpdatePassword.show(ft1, "dialog2");
                 return true;

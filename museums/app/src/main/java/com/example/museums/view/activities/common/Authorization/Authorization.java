@@ -20,6 +20,9 @@ import com.example.museums.API.models.user.ExistingUser;
 import com.example.museums.R;
 import com.example.museums.view.activities.common.Registration.Registration;
 import com.example.museums.view.activities.common.RegistrationMuseum.RegistrationMuseum;
+import com.example.museums.view.activities.tabs.AdminTab;
+import com.example.museums.view.activities.tabs.MuseumTab;
+import com.example.museums.view.activities.tabs.UserTab;
 
 public class Authorization extends AppCompatActivity {
     private Button regPerson, authBtn, reMuseum;
@@ -33,8 +36,6 @@ public class Authorization extends AppCompatActivity {
         setContentView(R.layout.activity_authorization);
         initViews();
         setListeners();
-
-
     }
 
 
@@ -70,17 +71,13 @@ public class Authorization extends AppCompatActivity {
                 }
             });
             authorizationViewModel.getLiveDataUser(logEditText.getText().toString(), passEditText.getText().toString())
-                    .observe(this, new Observer<ExistingUser>() {
-                        @Override
-                        public void onChanged(@Nullable ExistingUser aBoolean) {
-                            authorizationViewModel.getIsLoading().postValue(false);
-
-                            if (aBoolean == null) {
-                                Toast.makeText(getApplicationContext(), "Неверные данные", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), aBoolean.login + " " + aBoolean.role, Toast.LENGTH_SHORT).show();
-                                checkData(aBoolean);
-                            }
+                    .observe(this, aBoolean -> {
+                        authorizationViewModel.getIsLoading().postValue(false);
+                        if (aBoolean == null) {
+                            Toast.makeText(getApplicationContext(), "Неверные данные", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), aBoolean.login + " " + aBoolean.role, Toast.LENGTH_SHORT).show();
+                            checkData(aBoolean);
                         }
                     });
 
@@ -91,20 +88,14 @@ public class Authorization extends AppCompatActivity {
 
     private void checkData(ExistingUser existingUser) {
         if (existingUser.getRole() == RoleEnum.MUSEUM) {
-            //  Toast.makeText(this.getApplicationContext(), "museum", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), MuseumTab.class);
-//            intent.putExtra(MuseumTab.LOGIN_KEY_USER, exhistingUser.museum.museumId);
-//            activity.startActivity(intent);
+            Toast.makeText(this.getApplicationContext(), "museum", Toast.LENGTH_SHORT).show();
+            getApplication().startActivity(new MuseumTab().newInstance(existingUser.museumId));
         } else if (existingUser.getRole() == RoleEnum.ADMIN) {
-            //  Toast.makeText(this.getApplicationContext(), "admin", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), AdminTab.class);
-//            intent.putExtra(AdminTab.LOGIN_USER_KEY, idUser);
-//            activity.startActivity(intent);
+            Toast.makeText(this.getApplicationContext(), "admin", Toast.LENGTH_SHORT).show();
+            getApplication().startActivity(new AdminTab().newInstance(existingUser.getId()));
         } else {
-            //  Toast.makeText(this.getApplicationContext(), "user", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), UserTab.class);
-//            intent.putExtra(UserTab.ID_USER_KEY, idUser);
-//            intent.putExtra(UserTab.LOGIN_USER_KEY, login);
+            Toast.makeText(this.getApplicationContext(), "user", Toast.LENGTH_SHORT).show();
+            getApplication().startActivity(new UserTab().newInstance(existingUser.getId()));
         }
 
     }

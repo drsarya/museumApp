@@ -33,9 +33,10 @@ import com.example.museums.view.services.recyclerViews.MuseumsRecyclerViewAdapte
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 
 public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickListener {
-    private static final String ID_KEY_USER = "id key";
     public ProgressBar progressBar;
     private MuseumsRecyclerViewAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -49,13 +50,14 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =
                 inflater.inflate(R.layout.fragment_admin_all_museums, container, false);
+
         return rootView;
     }
 
     public static AllMuseums getInstance(Integer id) {
         final AllMuseums myFragment = new AllMuseums();
         final Bundle args = new Bundle();
-        args.putInt(ID_KEY_USER, id);
+        args.putInt(ID_USER_KEY, id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -76,6 +78,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+        id = getArguments().getInt(ID_USER_KEY);
         initViews();
         if (search.getText().toString().isEmpty()) {
             getListMuseums();
@@ -87,7 +90,7 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
 
     public void getListMuseums() {
 
-         viewModel.getIsLoading().observe(this, isLoading -> {
+        viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
@@ -143,12 +146,8 @@ public class AllMuseums extends Fragment implements PopupMenu.OnMenuItemClickLis
                 myFragment.show(ft, "dialog");
                 return true;
             case R.id.menu_item_change_password:
-                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword();
-                Bundle bd = new Bundle();
-                if (id != null) {
-                    bd.putInt(DialogUpdatePassword.ID_KEY, id);
-                    dialogUpdatePassword.setArguments(bd);
-                }
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword().newInstance(id);
+
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
                 dialogUpdatePassword.show(ft1, "dialog2");
                 return true;

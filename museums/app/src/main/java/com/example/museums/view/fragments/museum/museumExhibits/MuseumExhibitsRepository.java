@@ -51,7 +51,6 @@ public class MuseumExhibitsRepository {
 
     public MutableLiveData<AnswerModel> deleteExhibit(Integer id) {
         MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
-        System.out.println(id+"exhibit iddddddddddddddddddddddddd");
         exhibitService.deleteExhibit(id)
                 .enqueue(new Callback<AnswerModel>() {
                     @Override
@@ -59,7 +58,7 @@ public class MuseumExhibitsRepository {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
 
-                        }else {
+                        } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }

@@ -21,7 +21,6 @@ public class RegistrationMuseumRepository {
         }
         return registrationRepository;
     }
-
     private UserService userService;
 
     public RegistrationMuseumRepository() {
@@ -30,21 +29,21 @@ public class RegistrationMuseumRepository {
 
     public MutableLiveData<AnswerModel> createMuseum(Integer idCode, String login, String password) {
         MutableLiveData<AnswerModel> newsData = new MutableLiveData<>();
-        userService.updateMuseumUserPass(new UserMuseum(idCode, password,login  ))
+        userService.updateMuseumUserPass(new UserMuseum(idCode, password, login))
                 .enqueue(new Callback<AnswerModel>() {
                     @Override
                     public void onResponse(Call<AnswerModel> call,
                                            Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<AnswerModel> call, Throwable t) {
-                        newsData.setValue(null  );
+                        newsData.setValue(null);
                     }
                 });
         return newsData;

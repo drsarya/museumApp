@@ -37,7 +37,7 @@ public class DChangeDescriptionMuseumRepo {
                                            Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }

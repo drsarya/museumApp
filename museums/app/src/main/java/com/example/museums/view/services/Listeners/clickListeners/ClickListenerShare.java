@@ -37,15 +37,7 @@ public class ClickListenerShare implements View.OnClickListener {
         this.image = image;
     }
 
-    public ClickListenerShare(Activity activity, String newExhibitModel) {
-        this.activity = activity;
-        this.newExhibitModel = newExhibitModel;
-
-    }
-
     public ClickListenerShare() {
-
-
     }
 
 
@@ -74,21 +66,16 @@ public class ClickListenerShare implements View.OnClickListener {
                             }
                         }
                     });
-
         } else {
             sendIntent.setType("text/plain");
             if (sendIntent.resolveActivity(activity.getPackageManager()) != null) {
                 activity.startActivity(sendIntent);
             }
-
         }
-
     }
 
     public void setInfo(Activity activity, String newExhibitModel) {
         this.activity = activity;
         this.newExhibitModel = newExhibitModel;
     }
-
-
 }

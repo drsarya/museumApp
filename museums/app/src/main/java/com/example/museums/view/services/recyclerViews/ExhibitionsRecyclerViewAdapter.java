@@ -97,6 +97,4 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
         holder.nameOfEMuseum.setText(exhibition.getMuseum().getName());
         holder.itemView.setOnClickListener(new ClickOnListenerHolderExhbtn(exhibition, userId));
     }
-
-
 }

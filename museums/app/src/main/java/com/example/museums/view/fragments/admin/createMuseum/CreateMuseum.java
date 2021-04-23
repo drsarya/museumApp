@@ -22,25 +22,17 @@ import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListe
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class CreateMuseum extends Fragment {
-
-
     private Button regMuseumBtn;
-    private EditText logEditText;
-    private EditText nameEditText;
-    private EditText addressEditText;
-    private TextFieldBoxes logTextFieldBoxes;
-    private TextFieldBoxes nameTextFieldBoxes;
-    private TextFieldBoxes addressTextFieldBoxes;
+    private EditText logEditText, nameEditText, addressEditText;
+    private TextFieldBoxes logTextFieldBoxes, nameTextFieldBoxes, addressTextFieldBoxes;
     public ProgressBar progressBar;
     public CreateMuseumViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =
-                inflater.inflate(R.layout.fragment_admin_create_museum, container, false);
 
-        return rootView;
+        return inflater.inflate(R.layout.fragment_admin_create_museum, container, false);
     }
 
     private void initViews() {

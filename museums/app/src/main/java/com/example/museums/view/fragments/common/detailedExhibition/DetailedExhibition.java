@@ -1,9 +1,6 @@
 package com.example.museums.view.fragments.common.detailedExhibition;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,15 +27,22 @@ import com.example.museums.view.fragments.common.exhibitFromExhibition.ExhibitsV
 import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShare;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchListenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IUpdateList;
 
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.DATE_KEY;
+import static com.example.museums.view.ConstantKeys.DESCRIPTION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_EXHIBIT_KEY;
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+import static com.example.museums.view.ConstantKeys.IMAGE_KEY;
+import static com.example.museums.view.ConstantKeys.NAME_KEY;
+
 public class DetailedExhibition extends Fragment implements IUpdateList {
-    private static final String ID_MUSEUM_KEY = "museum_key";
-    private static final String ID_USER_KEY = "user_key";
+
     private ImageButton like;
     private Button museumInfo;
     private Button allExhibits;
@@ -63,11 +67,7 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
     }
 
     private static String imageUrl;
-    public static final String IMAGE_KEY = "image_key";
-    public static final String NAME_KEY = "name_key";
-    public static final String DATE_KEY = "date_key";
-    public static final String DESCRIPTION_KEY = "description_key";
-    public static final String ID_EXHIBIT_KEY = "id_key";
+
     private TextView textViewCountLikes;
     private static Integer idExhibition, museumId, userId;
 
@@ -90,7 +90,6 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.fragment_detailed_exhibition, container, false);
         initViews(rootView);
@@ -103,7 +102,6 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     private void getArgumentsFromBundle() {
         if (!getArguments().isEmpty()) {
-
             name = getArguments().getString(NAME_KEY);
             date = getArguments().getString(DATE_KEY);
             description = getArguments().getString(DESCRIPTION_KEY);
@@ -113,7 +111,6 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
             imageUrl = getArguments().getString(IMAGE_KEY);
             getArguments().clear();
         }
-
     }
 
     @SuppressLint("CheckResult")
@@ -167,16 +164,9 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
         );
         allExhibits.setOnClickListener(v -> {
             getExhibitsByExhibition();
-            //         List<ExistingExhibit> list = new ArrayList<>();
-//            exhibitViewPager = new ExhibitsViewPager(list, userId);
-//            mth.replaceFragment(exhibitViewPager, (AppCompatActivity) v.getContext());
-
         });
-        scrollView.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
-
-
+        scrollView.setOnTouchListener(new OnTouchListenerScrollViewSwipeLeftRightBack(getActivity(), false));
         share.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), imageUrl));
-
     }
 
     private String createMessage() {

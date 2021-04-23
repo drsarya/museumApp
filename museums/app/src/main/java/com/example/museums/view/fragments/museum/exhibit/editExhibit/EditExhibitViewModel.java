@@ -1,6 +1,5 @@
 package com.example.museums.view.fragments.museum.exhibit.editExhibit;
 
-import android.graphics.Bitmap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +9,6 @@ import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class EditExhibitViewModel extends ViewModel {

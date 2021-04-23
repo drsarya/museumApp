@@ -20,12 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
-import com.example.museums.view.fragments.user.exhibitions.ExhibitionsViewModel;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 import com.example.museums.view.services.recyclerViews.HorizontalMuseumsRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 public class Exhibits extends Fragment {
 
@@ -33,8 +34,7 @@ public class Exhibits extends Fragment {
     private ExhibitsRecyclerViewAdapter mAdapter = new ExhibitsRecyclerViewAdapter();
     private HorizontalMuseumsRecyclerViewAdapter horizontalAdapter;
     public RecyclerView listView;
-    public static final String LOGIN_KEY_USER = "login_key";
-    private ImageView closeFilter;
+     private ImageView closeFilter;
     private Integer userId;
     private EditText searchEditText;
     private static String copySearch = "";
@@ -43,14 +43,14 @@ public class Exhibits extends Fragment {
     public static Exhibits newInstance(Integer idUser) {
         final Exhibits myFragment = new Exhibits();
         final Bundle args = new Bundle(1);
-        args.putInt(LOGIN_KEY_USER, idUser);
+        args.putInt(ID_USER_KEY, idUser);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            userId = getArguments().getInt(LOGIN_KEY_USER);
+            userId = getArguments().getInt(ID_USER_KEY);
         }
     }
 
