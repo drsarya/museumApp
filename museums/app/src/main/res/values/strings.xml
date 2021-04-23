@@ -17,5 +17,35 @@
     <string name="reg_yourself">Регистрация</string>
     <string name="registration_yourself">Зарегистрироваться</string>
     <string name="_600_20_https_www_culture_ru_materials_38436_iisus_dolzhen_byt_odin_sovershenno">«Всемирный сюжет» основан на первой главе Евангелия от Иоанна. В Италии, копируя «Сотворение человека» Микеланджело, художник увлекся «теорией». Читая Новый Завет, написал «Явление Христа Марии Магдалине», сделав первый шаг к масштабному полотну о приходе Мессии. Государственная Третьяковская галерея Лекция: «Русский гений на пути к вечности» 600 набросков. Александр Иванов искал образы к своей картине по всей Италии: в синагогах и церквях. Внешней красоте натурщиков предпочитал глубину чувств, что проступала на лицах именно в храмах. Палестинский пейзаж заменили пустоши в окрестностях Рима, где часами просиживал художник. 20-летний труд русского живописца был окутан завесой тайны. Мастерская закрыта для публики. «Иванов… уже давно умер для всего остального мира, кроме своей работы», - писал Николай Гоголь. Именно благодаря его письмам в России узнали о создании картины. [Источник Культура.РФ: https://www.culture.ru/materials/38436/iisus-dolzhen-byt-odin-sovershenno ]</string>
-    <string name="description">«Атлас» — лаборатория, процесс, поэтому у пространства нет и не может быть окончательной формы. «Атлас» — попытка картографировать хаос. Смысловыми узлами путешествия становятся работы Н. Гончаровой, М. Ларионова, Т. Новикова, Г. Червинского, Е. Митты, М. Ромадина, Ф. Леже, К. Малевича, В. Мамышева-Монро, песни В. Цоя и др. Консультантами проекта выступили ведущие современные художники (Виталий Комар, Леонид Соков, Александр Косолапов, Антон Видокле, Джозеф Кошут, Герман Нитч, Сергей Бугаев-Африка, Георгий Гурьянов, Олег Котельников, Дмитрий Гутов) и философы (Б. Гройс, Е. Андреева, В. Паперный, Б. Янгфельдт, Е. Арензон), а также сотрудники Государственного музея В.В. Маяковского, Государственного архива литературы и искусства, Государственной Третьяковской галереи.</string>
+    <string name="description"> Описание</string>
+    <string name="update_exhibition">Обновить выставку</string>
+    <string name="choose_image">Выбрать фото</string>
+    <string name="exhibition_description">Описание</string>
+    <string name="exhibition_dates">Дата проведения</string>
+    <string name="exhibition_virtual">Виртуальная выставка</string>
+    <string name="update">Обновить</string>
+
+    <string name="favorites">Избранное</string>
+    <string name="home_page">дом</string>
+     <string name="logout">Выйти</string>
+    <string name="change_pass">Изменить пароль</string>
+    <string name="add_museum">Добавить музей</string>
+
+    <string name="all_museums">Все музеи</string>
+    <string name="empty_museum_exhibits">Здесь будут экспонаты Вашего музея \n \n Добавить новый экспонтат можно в разделе выставокб кликнув на нужную выставку</string>
+    <string name="empty_exhibitions_museum">Здесь будут выставки Вашего музея \n \n Добавить новую выставку можно во втором разделе</string>
+    <string name="address">Адрес</string>
+    <string name="date_of_create">Дата создания</string>
+    <string name="new_exhibition">Новая выставка</string>
+    <string name="create">Создать</string>
+    <string name="add">Добавить</string>
+    <string name="new_exhibit">Новый экспонат</string>
+    <string name="create_museum">Создать музей</string>
+    <string name="date_of_create_with_symb">Дата создания:</string>
+    <string name="delete_museum">Удалить музей</string>
+    <string name="owner">Владелец:</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="for_museum_owner">Представителю музея</string>
+    <string name="favorite_exhibitions_empty">Здесь будут находится Ваши избранные выставки</string>
+    <string name="empty_favorite_exhibits">Здесь будут находится Ваши избранные экспонаты</string>
 </resources>

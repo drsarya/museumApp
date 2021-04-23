@@ -21,21 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.API.models.like.BaseLike;
 import com.example.museums.R;
 import com.example.museums.view.fragments.common.exhibitFromExhibition.ExhibitsViewPager;
 import com.example.museums.view.fragments.common.museumInfo.MainInfoMuseum;
@@ -45,9 +34,6 @@ import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchliste
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IUpdateList;
 
-
-import java.lang.annotation.Target;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailedExhibition extends Fragment implements IUpdateList {
@@ -204,7 +190,10 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
 
     private void insertLike() {
         viewModel.insertLike(idExhibition, userId)
-                .observe(this, aBoolean -> getUserLike());
+                .observe(this, aBoolean -> {
+                    getUserLike();
+                    getCountOfLike();
+                });
     }
 
     private void getUserLike() {

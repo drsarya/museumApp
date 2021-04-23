@@ -68,7 +68,6 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddd");
     }
 
     public DetailedExhibitWithoutListenersBackPressed newInstance(Integer idExhibit, Integer userId, String image, String name, String author, String date, String description) {
@@ -78,10 +77,10 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
         args.putString(DATE_OF_CREATE, date);
         args.putString(AUTHOR_KEY, author);
         args.putString(DESCRIPTION_KEY, description);
-        if(userId==null){
+        if (userId == null) {
             args.putInt(USER_ID_KEY, -1);
 
-        }else{
+        } else {
             args.putInt(USER_ID_KEY, userId);
         }
         args.putInt(ID_EXHIBIT_KEY, idExhibit);
@@ -114,20 +113,19 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
     }
 
 
-
     private void initView(View rootView) {
         viewModel = ViewModelProviders.of(this).get(DetailedExhibitWithoutListenerViewModel.class);
 
         shareExhibit = rootView.findViewById(R.id.detailed_exhibit_without_listener_share_image_view);
         textViewCountLikes = rootView.findViewById(R.id.detailed_exhibit_view_page_count_likes_text_view);
-        ll =  rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
-        view =   rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
-        like =   rootView.findViewById(R.id.detailed_exhibit_view_page_like_btn);
-        mainImageImageView =  rootView.findViewById(R.id.detailed_exhibit_main_image_image_view);
-        nameTextView =   rootView.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
-        authorTextView =   rootView.findViewById(R.id.detailed_exhibit_view_page_author_text_view);
-        dateTextView =  rootView.findViewById(R.id.detailed_exhibit_view_page_date_text_view);
-        descriptionTextView =  rootView.findViewById(R.id.detailed_exhibit_view_page_description);
+        ll = rootView.findViewById(R.id.detailed_exhibit_option_pane_lin_lay);
+        view = rootView.findViewById(R.id.detailed_exhibit_description_scroll_view);
+        like = rootView.findViewById(R.id.detailed_exhibit_view_page_like_btn);
+        mainImageImageView = rootView.findViewById(R.id.detailed_exhibit_main_image_image_view);
+        nameTextView = rootView.findViewById(R.id.detailed_exhibit_name_of_paint_text_view);
+        authorTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_author_text_view);
+        dateTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_date_text_view);
+        descriptionTextView = rootView.findViewById(R.id.detailed_exhibit_view_page_description);
         closeImageButton = rootView.findViewById(R.id.detailed_exhb_view_pager);
 
         if (userId != -1) {
@@ -162,7 +160,10 @@ public class DetailedExhibitWithoutListenersBackPressed extends Fragment {
 
     private void insertLike() {
         viewModel.insertLike(idExhibit, userId)
-                .observe(this, aBoolean -> getUserLike());
+                .observe(this, aBoolean -> {
+                    getUserLike();
+                    getCountOfLike();
+                });
     }
 
     private void getUserLike() {

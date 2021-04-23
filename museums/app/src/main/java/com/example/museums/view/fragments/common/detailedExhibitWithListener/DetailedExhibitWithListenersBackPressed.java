@@ -139,6 +139,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
     private void setListeners() {
         if (userId != null && userId != -1) {
             like.setOnClickListener(v -> insertLike());
+
         }
         getArguments().clear();
         view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
@@ -149,7 +150,10 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
 
     private void insertLike() {
         viewModel.insertLike(idExhibit, userId)
-                .observe(this, aBoolean -> getUserLike());
+                .observe(this, aBoolean -> {
+                    getUserLike();
+                    getCountOfLike();
+                });
     }
 
     private void getUserLike() {

@@ -32,7 +32,9 @@ public class ClickListenerOpenExhibition implements View.OnClickListener {
             if (exhibitionWithMuseumName.getFirstDate().isEmpty()) {
                 myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(), exhibitionWithMuseumName.getMuseum().getId( ), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
                         "", exhibitionWithMuseumName.getDescription());
+                System.out.println("ssssssssssssssssssss");
             } else {
+                System.out.println("sssssssssssssssssssssssssssssssssssssssssssssssss");
                 myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(),  exhibitionWithMuseumName.getMuseum().getId( ), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
                         exhibitionWithMuseumName.getFirstDate() + " - " + exhibitionWithMuseumName.getLastDate(), exhibitionWithMuseumName.getDescription());
             }

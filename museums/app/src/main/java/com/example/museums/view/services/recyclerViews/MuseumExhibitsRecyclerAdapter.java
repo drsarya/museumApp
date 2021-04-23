@@ -46,7 +46,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
             optionalPanel = itemView.findViewById(R.id.element_list_museum_exhibits_linear_layout);
             editExhibit = itemView.findViewById(R.id.element_list_museum_exhibits_edit_exhibit_image_button);
             deleteExhibit = itemView.findViewById(R.id.element_list_museum_exhibits_delete_exhibit_image_button);
-            dataTextView = itemView.findViewById(R.id.element_list_museum_exhibits_data_text_view);
+            dataTextView = itemView.findViewById(R.id.element_list_museum_exhibits_date_text_view);
         }
     }
 

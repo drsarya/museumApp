@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="wrap_content"
+    android:layout_marginStart="7dp"
     android:layout_marginLeft="7dp"
     android:layout_marginTop="7dp"
     android:background="@color/darkBeige"
@@ -16,19 +17,14 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image2">
-
-        </ImageView>
-
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:id="@+id/new_exhbt_optional_panel_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/new_exhbt_edit"
@@ -38,9 +34,7 @@
                 android:clickable="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/edit"
-                android:tint="@color/dark_dark_brown">
-
-            </ImageButton>
+                android:tint="@color/dark_dark_brown" />
 
             <ImageButton
                 android:id="@+id/new_exhbt_delete"
@@ -48,15 +42,10 @@
                 android:layout_height="40dp"
                 android:background="@color/lightGrey"
                 android:clickable="true"
-
                 android:scaleType="fitCenter"
                 android:src="@drawable/close"
-                android:tint="@color/dark_dark_brown">
-
-            </ImageButton>
+                android:tint="@color/dark_dark_brown" />
         </LinearLayout>
-
-
     </RelativeLayout>
 
     <TextView
@@ -68,9 +57,6 @@
         android:fontFamily="@font/prata"
         android:gravity="center_horizontal"
         android:inputType="textMultiLine"
-        android:text="Сёстры Сёстры Шишмарёвы Шишмарёвы"
         android:textAlignment="center"
-        android:textColor="@color/dark_dark_brown">
-
-    </TextView>
+        android:textColor="@color/dark_dark_brown" />
 </LinearLayout>

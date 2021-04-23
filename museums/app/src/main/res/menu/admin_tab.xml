@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <item
         android:id="@+id/admin_tab_menu_create"
         android:enabled="true"
         android:icon="@drawable/tab_museum_create"
-        android:title="Добавить музей" />
+        android:title="@string/add_museum" />
     <item
         android:id="@+id/admin_tab_menu_all_museums"
         android:enabled="true"
         android:icon="@drawable/tab_museum_museum"
-        android:title="Все музеи" />
+        android:title="@string/all_museums" />
 </menu>

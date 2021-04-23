@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.museums.view.fragments.user.likedExhibitions.LikedExhibits;
-import com.example.museums.view.fragments.user.likedExhibits.LikedExhibitions;
+import com.example.museums.view.fragments.user.likedExhibits.LikedExhibits;
+import com.example.museums.view.fragments.user.likedExhibitions.LikedExhibitions;
 
 public class LikedExhibViewPagerAdapter extends FragmentStatePagerAdapter {
     public LikedExhibViewPagerAdapter(@NonNull FragmentManager fm, Integer userid) {

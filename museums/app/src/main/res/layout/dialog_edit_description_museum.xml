@@ -1,108 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:minWidth="500dp"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_corners"
-    >
+    android:minWidth="500dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/dialog_edit_description_museum_close_image_view"
         android:layout_width="40dp"
-        android:layout_gravity="right"
         android:layout_height="40dp"
+        android:layout_gravity="right"
         android:background="@color/lightGrey"
-        android:src="@drawable/close">
+        android:src="@drawable/close" />
 
-    </ImageView>
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:orientation="vertical"
-      android:layout_height="wrap_content">
-
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/dialog_edit_description_text_field_box"
-        style="@style/textBoxOuter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:imeOptions="actionDone"
-        app:hasClearButton="true"
-
-        app:labelText="Описание">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/dialog_edit_description_edit_text"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
+            android:orientation="vertical">
 
-            android:inputType="textMultiLine"
-            android:textColor="@color/dark_dark_brown"
-            android:textSize="20sp" />
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
-        android:background="@color/blue"
-        android:gravity="bottom"
-        android:theme="@style/roundBtn">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="8dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:scaleType="matrix"
-                android:src="@drawable/image_for_btn">
-
-            </ImageView>
-
-
-            <ProgressBar
-                android:id="@+id/dialog_edit_description_museum_progress_bar"
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/dialog_edit_description_text_field_box"
+                style="@style/textBoxOuter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:imeOptions="actionDone"
+                app:hasClearButton="true"
+                app:labelText="Описание">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/dialog_edit_description_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/dark_dark_brown"
+                    android:textSize="20sp" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:visibility="gone" />
-        </androidx.cardview.widget.CardView>
+                android:layout_marginTop="10dp"
+                android:background="@color/blue"
+                android:gravity="bottom"
+                android:theme="@style/roundBtn">
 
-        <Button
-            android:id="@+id/dialog_edit_description_museum_update_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:autoSizeMaxTextSize="30sp"
-            android:autoSizeTextType="uniform"
-            android:background="@color/glass"
-            android:clickable="true"
-            android:fontFamily="@font/prata"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="Обновить"
-            android:textAllCaps="false"
-            android:textColor="@color/darkBeige">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="8dp">
 
-        </Button>
-    </RelativeLayout>
-  </LinearLayout> </ScrollView>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:scaleType="matrix"
+                        android:src="@drawable/image_for_btn" />
+
+                    <ProgressBar
+                        android:id="@+id/dialog_edit_description_museum_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="bottom"
+                        android:visibility="gone" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/dialog_edit_description_museum_update_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@color/glass"
+                    android:clickable="true"
+                    android:fontFamily="@font/prata"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkBeige" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

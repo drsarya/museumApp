@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginTop="5dp"
-
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
@@ -22,14 +21,12 @@
                 android:id="@+id/detailed_exhbtn_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autoSizeMaxTextSize="20dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/prata"
-                android:autoSizeMaxTextSize="20dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:textAlignment="center"
-                android:textColor="@color/dark_dark_brown">
-
-            </TextView>
+                android:textColor="@color/dark_dark_brown" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,11 +45,8 @@
                     android:id="@+id/detailed_exhbtn_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
-            >
-
-                </ImageView>
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,30 +61,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:paddingRight="10dp"
                     android:autoSizeMaxTextSize="20sp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="end|bottom"
-                     android:textAlignment="textEnd"
-                    android:textStyle="bold">
-
-                </TextView>
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/detailed_exhbtn_name_museum"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-
-                    android:paddingRight="10dp"
                     android:autoSizeMaxTextSize="17dp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
                     android:gravity="end|center_vertical"
-                    >
-
-                </TextView>
+                    android:paddingRight="10dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

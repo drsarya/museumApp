@@ -1,11 +1,10 @@
-package com.example.museums.view.fragments.user.likedExhibitions;
+package com.example.museums.view.fragments.user.likedExhibits;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.view.fragments.user.exhibits.ExhibitsRepository;
 
 import java.util.List;
 

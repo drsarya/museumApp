@@ -87,7 +87,7 @@ public class ExhibitionsRecyclerViewAdapter extends RecyclerView.Adapter<Exhibit
                 .with(holder.image.getContext())
                 .load(exhibition.getImageUrl())
                 .into(holder.image);
-        if (exhibition.getFirstDate() == null) {
+        if (exhibition.getFirstDate().isEmpty()) {
             holder.dateOfExhbtn.setVisibility(View.GONE);
         } else {
             holder.dateOfExhbtn.setVisibility(View.VISIBLE);

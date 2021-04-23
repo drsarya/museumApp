@@ -30,25 +30,24 @@ public class LikedExhbViewPager extends Fragment implements PopupMenu.OnMenuItem
 
     private static final String ID_KEY_USER = "id_key_user";
     private ViewPager mPager;
-     private ImageButton imbtn;
-    private String login;
+    private ImageButton imbtn;
     private PagerAdapter pagerAdapter;
     private Integer userId;
 
     public LikedExhbViewPager() {
     }
 
-    public static LikedExhbViewPager newInstance(  Integer userId) {
+    public static LikedExhbViewPager newInstance(Integer userId) {
         final LikedExhbViewPager myFragment = new LikedExhbViewPager();
         final Bundle args = new Bundle(1);
-         args.putInt(ID_KEY_USER, userId);
+        args.putInt(ID_KEY_USER, userId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-             userId = getArguments().getInt(ID_KEY_USER);
+            userId = getArguments().getInt(ID_KEY_USER);
         }
     }
 

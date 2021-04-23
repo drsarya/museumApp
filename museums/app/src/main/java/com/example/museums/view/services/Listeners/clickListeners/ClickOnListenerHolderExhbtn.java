@@ -26,7 +26,7 @@ public class ClickOnListenerHolderExhbtn implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Fragment myFragment;
-        if (exhibitionWithMuseumName.getFirstDate() == null) {
+        if (exhibitionWithMuseumName.getFirstDate().isEmpty()) {
             myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(),  exhibitionWithMuseumName.getMuseum().getId() , userId, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
                     "", exhibitionWithMuseumName.getDescription());
         } else {

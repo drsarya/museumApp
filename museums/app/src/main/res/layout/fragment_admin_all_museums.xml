@@ -20,9 +20,7 @@
             android:layout_weight="1"
             app:hasClearButton="true"
             app:isResponsiveIconColor="true"
-            app:labelText="Поиск"
-
-            >
+            app:labelText="Поиск">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/admin_all_museums_search_edit_text"
@@ -39,12 +37,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-
             android:background="@drawable/points"
-            android:clickable="true">
-
-        </ImageButton>
-
+            android:clickable="true" />
     </LinearLayout>
 
     <ProgressBar
@@ -62,11 +56,5 @@
         android:layout_gravity="top"
         android:orientation="vertical"
         android:textAlignment="gravity"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

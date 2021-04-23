@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,24 +14,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.museums.API.models.exhibit.ExistingExhibit;
+import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.R;
-import com.example.museums.view.fragments.user.exhibits.ExhibitsViewModel;
-import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
+import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
 
 import java.util.List;
 
-
-public class LikedExhibits extends Fragment {
+public class LikedExhibitions extends Fragment {
 
     private RecyclerView recyclerView;
-    public static final String LOGIN_KEY_USER = "login_key";
-
-    private ExhibitsRecyclerViewAdapter mAdapter = new ExhibitsRecyclerViewAdapter();
+    private ExhibitionsRecyclerViewAdapter mAdapter = new ExhibitionsRecyclerViewAdapter();
     private Integer userId;
+    public static final String LOGIN_KEY_USER = "login_key";
+    private TextView empty;
 
-    public static LikedExhibits newInstance(Integer idUser) {
-        final LikedExhibits myFragment = new LikedExhibits();
+    public static LikedExhibitions newInstance(Integer idUser) {
+        final LikedExhibitions myFragment = new LikedExhibitions();
         final Bundle args = new Bundle(1);
         args.putInt(LOGIN_KEY_USER, idUser);
         myFragment.setArguments(args);
@@ -43,16 +42,16 @@ public class LikedExhibits extends Fragment {
         }
     }
 
-    private LikedExhibitsViewModel viewModel;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =
-                inflater.inflate(R.layout.fragment_exhibits_liked, container, false);
+                inflater.inflate(R.layout.fragment_liked_exhibitions, container, false);
         return rootView;
     }
+
+    private LikedExhibitionsViewModel viewModel;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -60,29 +59,34 @@ public class LikedExhibits extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         getArgumentsFromBundle();
-        viewModel = ViewModelProviders.of(this).get(LikedExhibitsViewModel.class);
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_liked_exhibits);
+        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_liked_exhibitions);
         recyclerView.setAdapter(mAdapter);
         mAdapter.setUserId(userId);
-        getExhibitsByUser();
-
+        empty = getActivity().findViewById(R.id.liked_exhibitions_empty_tv);
+        viewModel = ViewModelProviders.of(this).get(LikedExhibitionsViewModel.class);
+        getLikedExhibitionsByUserId();
 
     }
 
-    private void getExhibitsByUser() {
-        viewModel.getExhibitsLiveData(userId).observe(this, model -> {
+    private void getLikedExhibitionsByUserId() {
+        viewModel.getExhibitionsLiveData(userId).observe(this, model -> {
             viewModel.getIsLoadingExhibits().postValue(false);
             if (model == null) {
                 Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
             } else {
                 if (model != null) {
-                    refreshAllList(model);
+                    if (model.size() > 0) {
+                        empty.setVisibility(View.INVISIBLE);
+                        refreshAllList(model);
+                    } else {
+                        empty.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
     }
 
-    public void refreshAllList(List<ExistingExhibit> exhibitModels) {
+    public void refreshAllList(List<ExistingExhibition> exhibitModels) {
         mAdapter.submitList(exhibitModels);
     }
 }

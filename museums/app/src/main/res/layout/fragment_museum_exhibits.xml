@@ -3,12 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container_two"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,9 +18,7 @@
             android:layout_height="wrap_content"
             app:hasClearButton="true"
             app:isResponsiveIconColor="true"
-            app:labelText="Поиск"
-
-            >
+            app:labelText="Поиск">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/museum_exhibits_search_edit_text"
@@ -31,12 +26,8 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:textColor="@color/dark_dark_brown"
-
-                />
+                android:textColor="@color/dark_dark_brown" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-
     </LinearLayout>
 
     <RelativeLayout
@@ -51,20 +42,17 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/museum_exhibits_empty_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="403dp"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/museum_exhibits_empty_tv"
             android:fontFamily="@font/prata"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Здесь будут экспонаты Вашего музея \n \n  Добавить новый экспонтат  можно в разделе выставокб кликнув на нужную выставку "
+            android:text="@string/empty_museum_exhibits"
             android:textColor="@color/dark_brown"
-            android:textSize="20dp"
-            >
-
-        </TextView>
+            android:textSize="20dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/museum_exhibits_recycler_view"
@@ -73,14 +61,8 @@
             android:layout_gravity="top"
             android:orientation="vertical"
             android:textAlignment="gravity"
-             app:column_count_portrait="1"
+            app:column_count_portrait="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:spanCount="1"
-
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
+            app:spanCount="1" />
     </RelativeLayout>
-
-
 </LinearLayout>

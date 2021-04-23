@@ -36,11 +36,7 @@
                         android:gravity="center_horizontal"
                         android:textAlignment="center"
                         android:textColor="@color/darkBeige"
-                        android:textSize="22sp">
-
-                    </TextView>
-
-
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -52,11 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop">
-
-                    </ImageView>
-
-
+                        android:scaleType="centerCrop" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -66,22 +58,18 @@
                     android:background="@color/brown"
                     android:orientation="horizontal">
 
-
                     <Button
                         android:id="@+id/main_info_museum_btn_description_btn"
                         style="@style/darkBtn"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autoSizeMaxTextSize="20sp"
                         android:gravity="center_horizontal|center_vertical"
                         android:paddingHorizontal="20dp"
-                        android:text="Описание"
+                        android:text="@string/description"
                         android:textAlignment="gravity"
                         android:textColor="@color/darkBeige"
-                        android:textSize="20sp">
-
-                    </Button>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
@@ -95,9 +83,7 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:textAlignment="center"
                     android:textColor="@color/dark_dark_brown"
-                    android:textSize="16sp">
-
-                </TextView>
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,16 +96,13 @@
                         android:layout_height="50dp"
                         android:fontFamily="@font/prata"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="Адрес"
+                        android:text="@string/address"
                         android:textAlignment="center"
                         android:textColor="@color/darkBeige"
-                        android:textSize="20sp">
-
-                    </TextView>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
-
                     android:id="@+id/main_info_museum_address_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,12 +111,9 @@
                     android:autoSizeMinTextSize="16sp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/prata"
-
                     android:gravity="center_horizontal|center_vertical"
                     android:textAlignment="center"
-                    android:textColor="@color/dark_dark_brown">
-
-                </TextView>
+                    android:textColor="@color/dark_dark_brown" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

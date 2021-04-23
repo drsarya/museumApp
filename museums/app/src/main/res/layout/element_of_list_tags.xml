@@ -12,22 +12,16 @@
         app:cardBackgroundColor="@color/lightBeige"
         app:cardCornerRadius="8dp">
 
-
         <TextView
             android:id="@+id/elemt_of_list_tags"
             android:layout_width="match_parent"
-android:paddingHorizontal="8dp"
             android:layout_height="match_parent"
-
             android:fontFamily="@font/prata"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Природа"
+            android:paddingHorizontal="8dp"
             android:textAlignment="center"
             android:textColor="@color/brown"
-            android:textSize="20sp">
-
-        </TextView>
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
-
 </LinearLayout>
