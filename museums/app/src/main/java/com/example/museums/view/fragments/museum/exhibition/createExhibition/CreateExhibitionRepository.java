@@ -61,6 +61,8 @@ public class CreateExhibitionRepository {
                                             newsData.setValue(null);
                                         }
                                     });
+                        }else{
+                            newsData.setValue(null);
                         }
                     }
 

@@ -21,7 +21,7 @@ public class BitmapConverter {
         File f = new File(context.getCacheDir(), "sd");
         f.createNewFile();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-         bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+         bitmap.compress(Bitmap.CompressFormat.JPEG, 70 /*ignored for PNG*/, bos);
         byte[] bitmapdata = bos.toByteArray();
         FileOutputStream fos = new FileOutputStream(f);
         fos.write(bitmapdata);

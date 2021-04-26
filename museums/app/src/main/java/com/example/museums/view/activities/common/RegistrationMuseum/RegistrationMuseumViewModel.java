@@ -10,16 +10,13 @@ public class RegistrationMuseumViewModel extends ViewModel {
     private RegistrationMuseumRepository authorizationRepository = RegistrationMuseumRepository.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public RegistrationMuseumViewModel() {
-        super();
-        isLoading.setValue(true);
-    }
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
     public LiveData<AnswerModel> getLiveDataUser(Integer idCode, String login, String password) {
+        isLoading.setValue(true);
         return authorizationRepository.createMuseum(idCode, login, password);
     }
 }

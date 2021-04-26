@@ -11,16 +11,13 @@ public class AuthorizationViewModel extends ViewModel {
     private AuthorizationRepository authorizationRepository = AuthorizationRepository.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public AuthorizationViewModel() {
-        super();
-        isLoading.setValue(true);
-    }
-
+ 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
     public LiveData<ExistingUser> getLiveDataUser(String login, String password) {
+        isLoading.setValue(true);
         return authorizationRepository.getUser(login, password);
     }
 

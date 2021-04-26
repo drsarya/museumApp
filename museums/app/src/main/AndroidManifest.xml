@@ -45,7 +45,6 @@
             android:name=".view.activities.tabs.AdminTab"
             android:windowSoftInputMode="adjustPan" />
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.homefolder.example.provider"

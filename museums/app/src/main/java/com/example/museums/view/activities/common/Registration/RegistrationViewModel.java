@@ -11,16 +11,14 @@ public class RegistrationViewModel extends ViewModel {
     private RegistrationRepository authorizationRepository = RegistrationRepository.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public RegistrationViewModel() {
-        super();
-        isLoading.setValue(true);
-    }
+  
 
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
     public LiveData<AnswerModel> getLiveDataUser(String login, String password) {
+        isLoading.setValue(true);
         return authorizationRepository.createUser(login, password);
     }
 
