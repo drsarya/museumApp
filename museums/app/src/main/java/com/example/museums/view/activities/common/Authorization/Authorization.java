@@ -89,13 +89,13 @@ public class Authorization extends AppCompatActivity {
     private void checkData(ExistingUser existingUser) {
         if (existingUser.getRole() == RoleEnum.MUSEUM) {
             Toast.makeText(this.getApplicationContext(), "museum", Toast.LENGTH_SHORT).show();
-            getApplication().startActivity(new MuseumTab().newInstance(existingUser.museumId));
+            startActivity(new MuseumTab().newInstance(getApplicationContext(), existingUser.museumId));
         } else if (existingUser.getRole() == RoleEnum.ADMIN) {
             Toast.makeText(this.getApplicationContext(), "admin", Toast.LENGTH_SHORT).show();
-            getApplication().startActivity(new AdminTab().newInstance(existingUser.getId()));
+            startActivity(   new AdminTab().newInstance(getApplicationContext(), existingUser.getId()));
         } else {
             Toast.makeText(this.getApplicationContext(), "user", Toast.LENGTH_SHORT).show();
-            getApplication().startActivity(new UserTab().newInstance(existingUser.getId()));
+             startActivity(new UserTab().newInstance(getApplicationContext(), existingUser.getId()));
         }
 
     }

@@ -1,5 +1,6 @@
 package com.example.museums.view.activities.tabs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
-import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
 import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 public class UserTab extends AppCompatActivity {
@@ -30,12 +30,12 @@ public class UserTab extends AppCompatActivity {
     private LikedExhbViewPager likedExhbViewPager;
 
     private void initViews() {
-        menuTab = (BottomNavigationView) findViewById(R.id.user_btn_nav_menu);
+        menuTab = findViewById(R.id.user_btn_nav_menu);
         KeyboardVisibilityEvent.setEventListener(this, new KeyboardListenerHideOptionalBlock(menuTab));
     }
 
-    public static Intent newInstance(Integer userId) {
-        Intent intent = new Intent();
+    public static Intent newInstance(Context context, Integer userId) {
+        Intent intent = new Intent(context, UserTab.class);
         intent.putExtra(ID_USER_KEY, userId);
         return intent;
     }
@@ -45,9 +45,8 @@ public class UserTab extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_user);
         initViews();
-        Bundle b = getIntent().getExtras();
-        idUser = 16;
-       // idUser = b.getInt(ID_USER_KEY);
+
+        idUser = getIntent().getExtras().getInt(ID_USER_KEY);
         likedExhbViewPager = LikedExhbViewPager.newInstance(idUser);
         exhibits = Exhibits.newInstance(idUser);
         exhibitions = Exhibitions.newInstance(idUser);

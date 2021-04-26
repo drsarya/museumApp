@@ -1,5 +1,6 @@
 package com.example.museums.view.activities.tabs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,8 +23,8 @@ public class AdminTab extends AppCompatActivity {
     private Integer idUser;
     private CreateMuseum createMuseum;
 
-    public static Intent newInstance(Integer userId) {
-        Intent intent = new Intent();
+    public static Intent newInstance(Context context, Integer userId) {
+        Intent intent = new Intent(context, AdminTab.class);
         intent.putExtra(ID_USER_KEY, userId);
         return intent;
     }
@@ -32,7 +33,8 @@ public class AdminTab extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_admin);
-        menuTab = (BottomNavigationView) findViewById(R.id.admin_tab_btnv);
+        menuTab =  findViewById(R.id.admin_tab_btnv);
+
         idUser = getIntent().getExtras().getInt(ID_USER_KEY);
         allMuseums = new AllMuseums().getInstance(idUser);
         createMuseum = new CreateMuseum();

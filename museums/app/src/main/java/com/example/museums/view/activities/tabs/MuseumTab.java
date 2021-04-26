@@ -5,6 +5,7 @@ package com.example.museums.view.activities.tabs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
-import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 
 public class MuseumTab extends AppCompatActivity {
@@ -35,8 +35,8 @@ public class MuseumTab extends AppCompatActivity {
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
     private MuseumExhibitions exhibitions;
 
-    public static Intent newInstance(Integer userId) {
-        Intent intent = new Intent();
+    public static Intent newInstance(Context context, Integer userId) {
+        Intent intent = new Intent(context,MuseumTab.class );
         intent.putExtra(ID_MUSEUM_KEY, userId);
         return intent;
     }
@@ -50,11 +50,9 @@ public class MuseumTab extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle b = getIntent().getExtras();
+
         setContentView(R.layout.activity_tab_museum);
-
-
-        idMuseum = b.getInt(ID_MUSEUM_KEY);
+        idMuseum =  getIntent().getExtras().getInt(ID_MUSEUM_KEY);
         exhibitions = new MuseumExhibitions().newInstance(idMuseum);
         mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(idMuseum);
         exhibits = new MuseumExhibits().newInstance(idMuseum);
