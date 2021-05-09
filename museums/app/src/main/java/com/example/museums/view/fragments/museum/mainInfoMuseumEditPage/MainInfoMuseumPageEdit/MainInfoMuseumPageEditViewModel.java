@@ -20,7 +20,7 @@ public class MainInfoMuseumPageEditViewModel extends ViewModel {
         return isLoading;
     }
 
-    public LiveData<ExistingMuseum> getMuseumInfo(Integer id ) {
+    public LiveData<ExistingMuseum> getMuseumInfo(Integer id) {
         return repository.getMuseumInfo(id);
     }
 

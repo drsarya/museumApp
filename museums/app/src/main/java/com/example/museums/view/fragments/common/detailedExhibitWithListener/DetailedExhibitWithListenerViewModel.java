@@ -12,7 +12,6 @@ public class DetailedExhibitWithListenerViewModel extends ViewModel {
 
     private DetailedExhibitWithListenerRepository repository = DetailedExhibitWithListenerRepository.getInstance();
 
-
     public LiveData<BaseLike> getUserLike(Integer artId, Integer userId) {
         UserLike userLike = new UserLike(artId, TypeOfArtEnum.EXHIBIT, userId);
         return repository.getUserLike(userLike);

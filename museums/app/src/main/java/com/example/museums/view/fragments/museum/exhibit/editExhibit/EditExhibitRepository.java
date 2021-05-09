@@ -1,22 +1,15 @@
 package com.example.museums.view.fragments.museum.exhibit.editExhibit;
 
-import android.graphics.Bitmap;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
-import com.example.museums.API.models.AnswerModel;
 import com.example.museums.API.models.author.Author;
 import com.example.museums.API.models.exhibit.ExistingExhibit;
-import com.example.museums.API.models.exhibition.ExistingExhibition;
-import com.example.museums.API.services.BitmapConverter;
-import com.example.museums.API.services.ErrorParser;
 import com.example.museums.API.services.api.AuthorService;
 import com.example.museums.API.services.api.ExhibitService;
-import com.example.museums.API.services.api.FileService;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -28,8 +21,8 @@ import retrofit2.Response;
 
 public class EditExhibitRepository {
     private static EditExhibitRepository editExhibitRepository;
-    private static FileService fileService;
     private AuthorService authorService;
+    private ExhibitService service;
 
     public static EditExhibitRepository getInstance() {
         if (editExhibitRepository == null) {
@@ -38,14 +31,11 @@ public class EditExhibitRepository {
         return editExhibitRepository;
     }
 
-    private ExhibitService service;
 
     public EditExhibitRepository() {
         service = RetrofitConnect.createRetrofitConnection(ExhibitService.class);
-        fileService = RetrofitConnect.createRetrofitConnection(FileService.class);
         authorService = RetrofitConnect.createRetrofitConnection(AuthorService.class);
     }
-
 
 
     public MutableLiveData<ExistingExhibit> updateExhibit(ExistingExhibit exhibit, File file) {
@@ -63,7 +53,7 @@ public class EditExhibitRepository {
                     public void onResponse(Call<ExistingExhibit> call, Response<ExistingExhibit> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else{
+                        } else {
 
                             System.out.println(response.message());
                         }

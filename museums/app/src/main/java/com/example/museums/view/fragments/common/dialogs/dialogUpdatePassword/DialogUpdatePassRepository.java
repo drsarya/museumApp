@@ -1,5 +1,6 @@
 package com.example.museums.view.fragments.common.dialogs.dialogUpdatePassword;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.museums.API.RetrofitConnect;
@@ -12,7 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DialogUpdatePassRepository {
+public class DialogUpdatePassRepository extends DialogFragment {
     private static DialogUpdatePassRepository registrationRepository;
 
     public static DialogUpdatePassRepository getInstance() {

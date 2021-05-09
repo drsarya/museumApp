@@ -31,12 +31,9 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
 
     public static class MuseumExhibitsViewHolder extends RecyclerView.ViewHolder {
         private ImageView mainImage;
-        private TextView nameTextView;
-        private TextView authorTextView;
-        private ImageButton deleteExhibit;
-        private ImageButton editExhibit;
+        private TextView nameTextView, authorTextView, dataTextView;
+        private ImageButton deleteExhibit, editExhibit;
         private LinearLayout optionalPanel;
-        private TextView dataTextView;
 
         public MuseumExhibitsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,8 +58,7 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
     public MuseumExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_museum_exhibits, parent, false);
-        MuseumExhibitsViewHolder vh = new MuseumExhibitsViewHolder(v);
-        return vh;
+        return new MuseumExhibitsViewHolder(v);
     }
 
     @Override
@@ -102,10 +98,8 @@ public class MuseumExhibitsRecyclerAdapter extends RecyclerView.Adapter<MuseumEx
         differ.submitList(products);
     }
 
-
     @Override
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
-
 }

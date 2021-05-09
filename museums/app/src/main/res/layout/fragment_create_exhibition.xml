@@ -26,7 +26,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/new_exhibition"
                 android:textAlignment="center"
-                android:textColor="@color/darkBeige"
+                android:textColor="@color/lightBeige"
                 android:textSize="20sp" />
 
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -47,17 +47,20 @@
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
             <RelativeLayout
+                android:id="@+id/create_exhibition_choose_image_btn"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
+
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/create_exhibition_choose_image_btn"
-                    style="@style/darkBtn"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="5dp"
+                    android:background="@color/brown"
+                    android:fontFamily="@font/prata"
                     android:gravity="center_horizontal|center_vertical"
                     android:paddingHorizontal="20dp"
                     android:text="@string/choose_image"
@@ -69,6 +72,7 @@
                 <ImageButton
                     android:layout_width="40dp"
                     android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@color/glass"
@@ -76,8 +80,7 @@
                     android:rotation="45"
                     android:scaleType="fitCenter"
                     android:src="@drawable/close"
-                    android:tint="@color/darkBeige"
-                    android:layout_alignParentEnd="true" />
+                    android:tint="@color/darkBeige" />
             </RelativeLayout>
 
             <ImageView
@@ -89,13 +92,15 @@
 
             <Button
                 android:id="@+id/create_exhibition_hide_description_btn"
-                style="@style/darkBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:background="@color/brown"
+                android:fontFamily="@font/prata"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/description"
                 android:textAlignment="center"
+                android:textAllCaps="false"
                 android:textColor="@color/darkBeige"
                 android:textSize="20sp"
                 tools:ignore="RtlCompat" />
@@ -206,52 +211,57 @@
                             android:textSize="20sp" />
                     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
                 </LinearLayout>
+            </LinearLayout>
 
-                <RelativeLayout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:gravity="bottom"
+                android:theme="@style/roundBtn">
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/blue"
-                    android:theme="@style/roundBtn">
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="8dp">
 
-                    <androidx.cardview.widget.CardView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        app:cardCornerRadius="8dp">
+                        android:layout_height="60dp"
+                        android:scaleType="matrix"
+                        android:src="@drawable/image_for_btn" />
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:scaleType="matrix"
-                            android:src="@drawable/image_for_btn" />
-
-                        <ProgressBar
-                            android:id="@+id/create_exhibition_progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="bottom"
-                            android:visibility="gone" />
-                    </androidx.cardview.widget.CardView>
-
-                    <Button
-                        android:id="@+id/create_exhibition_btn"
+                    <ProgressBar
+                        android:id="@+id/create_exhibition_progress_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:autoSizeMaxTextSize="30sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="@color/glass"
-                        android:clickable="true"
-                        android:fontFamily="@font/prata"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:text="@string/create"
-                        android:textAllCaps="false"
-                        android:textColor="@color/darkBeige" />
-                </RelativeLayout>
-            </LinearLayout>
+                        android:layout_gravity="bottom"
+                        android:visibility="gone" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/create_exhibition_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@color/glass"
+                    android:clickable="true"
+                    android:fontFamily="@font/prata"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="@string/create"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkBeige" />
+            </RelativeLayout>
         </LinearLayout>
+
+
     </ScrollView>
+
+
 </LinearLayout>

@@ -12,14 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.museums.API.models.AnswerModel;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 public class DialogUpdatePassword extends DialogFragment {
 
@@ -30,24 +30,28 @@ public class DialogUpdatePassword extends DialogFragment {
     private Button updateBtn;
     public ProgressBar progressBar;
     private Integer id;
-    public static final String ID_KEY = "id_key";
     private DialogUpdatePasswordViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView =
                 inflater.inflate(R.layout.dialog_change_password, container, false);
         initViews(rootView);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            id = bundle.getInt(ID_KEY);
+            id = bundle.getInt(ID_USER_KEY);
         }
         setListeners();
         return rootView;
     }
-
+    public static DialogUpdatePassword newInstance(Integer idUser) {
+        final DialogUpdatePassword myFragment = new DialogUpdatePassword();
+        final Bundle args = new Bundle(1);
+        args.putInt(ID_USER_KEY, idUser);
+        myFragment.setArguments(args);
+        return myFragment;
+    }
     private void initViews(View rootView) {
         oldPassEditText = rootView.findViewById(R.id.dialog_change_pass_old_pass_edit_text);
         newPassEditText = rootView.findViewById(R.id.dialog_change_pass_new_pass_edit_text);

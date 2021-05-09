@@ -35,17 +35,14 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
     public TagsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_tags, parent, false);
-        HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder vh = new HorizontalMuseumsRecyclerViewAdapter.TagsViewHolder(v);
-        return vh;
+        return new TagsViewHolder(v);
     }
-
 
     private Exhibits exhibits;
 
     public HorizontalMuseumsRecyclerViewAdapter(Exhibits exhibits) {
         this.exhibits = exhibits;
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull TagsViewHolder holder, int position) {
@@ -64,7 +61,7 @@ public class HorizontalMuseumsRecyclerViewAdapter extends RecyclerView.Adapter<H
         public boolean areItemsTheSame(@NonNull ExistingMuseum oldProduct, @NonNull ExistingMuseum newProduct) {
             return oldProduct.getId().equals(newProduct.getId());
         }
-        @SuppressLint("DiffUtilEquals")
+
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public boolean areContentsTheSame(@NonNull ExistingMuseum oldProduct, @NonNull ExistingMuseum newProduct) {

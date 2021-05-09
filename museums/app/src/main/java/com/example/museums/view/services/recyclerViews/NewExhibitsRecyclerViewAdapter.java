@@ -49,7 +49,6 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     }
 
     public NewExhibitsRecyclerViewAdapter(EditExhibition editExhibition) {
-
         this.editExhibition = editExhibition;
     }
 
@@ -82,7 +81,6 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     @Override
     public void onBindViewHolder(@NonNull NewExhibitsViewHolder holder, int position) {
         final ExistingExhibit exhibit = differ.getCurrentList().get(position);
-
         holder.itemView.setOnClickListener(new ClickListenerHolderNewExhibit(holder.optionalPanel, exhibit, -1));
         Glide
                 .with(holder.image.getContext())
@@ -93,7 +91,6 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
         holder.delete.setOnClickListener(new ClickListenerHolderDeletePosition(this, editExhibition, editExhibition.getContext(), holder.optionalPanel, holder.getAdapterPosition(), exhibit.getId()));
     }
 
-
     public void submitList(List<ExistingExhibit> products) {
         differ.submitList(products);
     }
@@ -102,6 +99,4 @@ public class NewExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<NewExhi
     public int getItemCount() {
         return differ.getCurrentList().size();
     }
-
-
 }

@@ -3,11 +3,9 @@ package com.example.museums.view.fragments.museum.exhibition.editExhibition;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +33,6 @@ import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.fragments.museum.exhibit.createExhibit.CreateExhibit;
 import com.example.museums.view.fragments.museum.museumExhibitions.MuseumExhibitions;
-import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
-import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.oop.IDeletePosition;
@@ -49,6 +45,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+import static com.example.museums.view.ConstantKeys.DATE_END_KEY;
+import static com.example.museums.view.ConstantKeys.DATE_START_KEY;
+import static com.example.museums.view.ConstantKeys.DESCRIPTION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_EXHIBITION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.IMAGE_KEY;
+import static com.example.museums.view.ConstantKeys.NAME_KEY;
 
 public class EditExhibition extends Fragment implements IDeletePosition, IUpdateList {
 
@@ -67,14 +71,8 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
     static final int GALLERY_REQUEST = 1;
-    public static final String IMAGE_KEY = "image_key";
     private String imageUrl;
-    public static final String NAME_KEY = "name_key";
-    public static final String DATE_START_KEY = "date_key";
-    public static final String DATE_END_KEY = "date_end_key";
-    public static final String DESCRIPTION_KEY = "description_key";
-    public static final String ID_EXHIBITION_KEY = "id_key";
-    public static final String ID_MUSEUM_KEY = "museum_id";
+
     private static Integer museumId;
     private EditExhibitionViewModel viewModel;
     private static File file;
@@ -205,7 +203,7 @@ public class EditExhibition extends Fragment implements IDeletePosition, IUpdate
                     } else {
                         file = null;
                         bitmap = null;
-                        ((MuseumExhibitions)getTargetFragment()).getExhibitionsMuseum();
+                        ((MuseumExhibitions) getTargetFragment()).getExhibitionsMuseum();
                         Toast.makeText(getContext(), "Выставка отредактирована", Toast.LENGTH_SHORT).show();
                     }
                 });

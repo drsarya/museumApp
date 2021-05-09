@@ -3,7 +3,6 @@ package com.example.museums.view.fragments.museum.exhibition.createExhibition;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,27 +28,26 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
-import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogChangeImageMuseum.ChangeMuseumImageViewModel;
 import com.example.museums.view.services.CacheManager;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
-import com.example.museums.view.services.MethodsWithFragment;
 
 import java.io.File;
 import java.io.IOException;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 public class CreateExhibition extends Fragment {
 
-    private MethodsWithFragment mth = new MethodsWithFragment();
-    public static final String LOGIN_KEY_USER = "login_key";
-    private static Integer museumId;
+    private static Integer museumId ;
     private Bitmap bitmap;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
     private EditText dateOfStartET, dateOfEndET, nameET, descriptionET;
     private static ImageView currImageImageView;
-    private TextView chooseImageTextView;
+    private RelativeLayout chooseImageTextView;
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
     static final int GALLERY_REQUEST = 1;
@@ -56,17 +55,17 @@ public class CreateExhibition extends Fragment {
 
     private File file;
 
-    public CreateExhibition newInstance(Integer museumId) {
+    public CreateExhibition newInstance(Integer museumId ) {
         final CreateExhibition myFragment = new CreateExhibition();
         final Bundle args = new Bundle(1);
-        args.putInt(LOGIN_KEY_USER, museumId);
+        args.putInt(ID_MUSEUM_KEY, museumId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            museumId = getArguments().getInt(LOGIN_KEY_USER);
+            museumId = getArguments().getInt(ID_MUSEUM_KEY);
         }
     }
 
@@ -86,7 +85,6 @@ public class CreateExhibition extends Fragment {
         createExhibitionBtn = rootView.findViewById(R.id.create_exhibition_btn);
         hideDescriptionBtn = rootView.findViewById(R.id.create_exhibition_hide_description_btn);
         viewModel = ViewModelProviders.of(this).get(CreateExhibitionViewModel.class);
-
     }
 
 
@@ -98,7 +96,6 @@ public class CreateExhibition extends Fragment {
                 if (resultCode == getActivity().RESULT_OK) {
                     Uri selectedImage = data.getData();
                     try {
-
                         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                         file = BitmapConverter.convertBitmapToFile(bitmap, getContext());
                         cacheManager.deleteItem("newExhibition");

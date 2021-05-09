@@ -17,8 +17,8 @@ public class LikedExhibitionsViewModel extends ViewModel {
         return isLoadingExhibits;
     }
 
-    public LiveData<List<ExistingExhibition>> getExhibitionsLiveData(Integer id ) {
+    public LiveData<List<ExistingExhibition>> getExhibitionsLiveData(Integer id) {
         isLoadingExhibits.setValue(true);
-        return repository.getExhibitions( id );
+        return repository.getExhibitions(id);
     }
 }

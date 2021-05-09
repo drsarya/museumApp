@@ -20,11 +20,12 @@ import com.bumptech.glide.Glide;
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchListenerScrollViewSwipeLeftRightBack;
+
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
 
 public class MainInfoMuseum extends Fragment {
 
-    private static final String ID_MUSEUM = "id_museum";
     private Button museumDescriptionBtn;
     private TextView museumDescriptionTextView, nameTextView, addressTextView;
     private ImageView imageView;
@@ -34,7 +35,7 @@ public class MainInfoMuseum extends Fragment {
     public MainInfoMuseum newInstance(int id) {
         final MainInfoMuseum myFragment = new MainInfoMuseum();
         final Bundle args = new Bundle();
-        args.putInt(ID_MUSEUM, id);
+        args.putInt(ID_MUSEUM_KEY, id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -43,7 +44,7 @@ public class MainInfoMuseum extends Fragment {
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            idMuseum = getArguments().getInt(ID_MUSEUM);
+            idMuseum = getArguments().getInt(ID_MUSEUM_KEY);
         }
     }
 
@@ -55,15 +56,12 @@ public class MainInfoMuseum extends Fragment {
                 inflater.inflate(R.layout.fragment_main_info_museum, container, false);
         initViews(rootView);
         getArgumentsFromBundle();
-
         setListeners();
         getMuseumInfo();
         return rootView;
     }
 
     private void getMuseumInfo() {
-
-
         viewModel.getLiveDataMuseumInfo(idMuseum)
                 .observe(this, museum -> {
                     if (museum == null) {
@@ -82,7 +80,6 @@ public class MainInfoMuseum extends Fragment {
         addressTextView = rootView.findViewById(R.id.main_info_museum_address_text_view);
         imageView = rootView.findViewById(R.id.main_info_museum_image_image_view);
         viewModel = ViewModelProviders.of(this).get(MainInfoMuseumViewModel.class);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -90,7 +87,7 @@ public class MainInfoMuseum extends Fragment {
         museumDescriptionBtn.setOnClickListener(
                 new ClickListenerHideDescription(museumDescriptionTextView)
         );
-        scrollView.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        scrollView.setOnTouchListener(new OnTouchListenerScrollViewSwipeLeftRightBack(getActivity(), false));
 
     }
 
@@ -101,7 +98,6 @@ public class MainInfoMuseum extends Fragment {
         Glide.with(getContext())
                 .load(museum.getImageUrl())
                 .into(imageView);
-
     }
 
     @SuppressLint("ClickableViewAccessibility")

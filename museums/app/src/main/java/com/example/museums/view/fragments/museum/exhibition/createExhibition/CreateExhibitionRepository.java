@@ -9,6 +9,7 @@ import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.API.services.api.ExhibitionService;
 import com.example.museums.API.services.api.FileService;
 import com.example.museums.API.models.exhibition.BaseExhibition;
+
 import java.io.File;
 
 import okhttp3.MediaType;
@@ -36,7 +37,7 @@ public class CreateExhibitionRepository {
         fileService = RetrofitConnect.createRetrofitConnection(FileService.class);
     }
 
-    public MutableLiveData<ExistingExhibition> createExhibition(BaseExhibition exhibition, File file)   {
+    public MutableLiveData<ExistingExhibition> createExhibition(BaseExhibition exhibition, File file) {
         MutableLiveData<ExistingExhibition> newsData = new MutableLiveData<>();
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("imageUpload", file.getName(), requestFile);
@@ -54,11 +55,14 @@ public class CreateExhibitionRepository {
                                                 newsData.setValue(response.body());
                                             }
                                         }
+
                                         @Override
                                         public void onFailure(Call<ExistingExhibition> call, Throwable t) {
                                             newsData.setValue(null);
                                         }
                                     });
+                        }else{
+                            newsData.setValue(null);
                         }
                     }
 

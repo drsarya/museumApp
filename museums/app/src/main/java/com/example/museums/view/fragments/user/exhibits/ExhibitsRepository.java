@@ -29,13 +29,12 @@ public class ExhibitsRepository {
 
     public ExhibitsRepository() {
         museumService = RetrofitConnect.createRetrofitConnection(MuseumService.class);
-
         exhibitService = RetrofitConnect.createRetrofitConnection(ExhibitService.class);
     }
 
-    public MutableLiveData<List<ExistingExhibit>> getExhibits( ) {
+    public MutableLiveData<List<ExistingExhibit>> getExhibits() {
         MutableLiveData<List<ExistingExhibit>> newsData = new MutableLiveData<>();
-        exhibitService.getAllExhibits( )
+        exhibitService.getAllExhibits()
                 .enqueue(new Callback<List<ExistingExhibit>>() {
                     @Override
                     public void onResponse(Call<List<ExistingExhibit>> call, Response<List<ExistingExhibit>> response) {
@@ -52,9 +51,9 @@ public class ExhibitsRepository {
         return newsData;
     }
 
-    public MutableLiveData<List<ExistingExhibit>> getMuseumExhibits(Integer id ) {
+    public MutableLiveData<List<ExistingExhibit>> getMuseumExhibits(Integer id) {
         MutableLiveData<List<ExistingExhibit>> newsData = new MutableLiveData<>();
-        exhibitService.getExhibitsByMuseumId(id )
+        exhibitService.getExhibitsByMuseumId(id)
                 .enqueue(new Callback<List<ExistingExhibit>>() {
                     @Override
                     public void onResponse(Call<List<ExistingExhibit>> call, Response<List<ExistingExhibit>> response) {
@@ -70,9 +69,10 @@ public class ExhibitsRepository {
                 });
         return newsData;
     }
-    public MutableLiveData<List<ExistingMuseum>> getMuseums(  ) {
+
+    public MutableLiveData<List<ExistingMuseum>> getMuseums() {
         MutableLiveData<List<ExistingMuseum>> newsData = new MutableLiveData<>();
-        museumService.getAllMuseums(  )
+        museumService.getAllMuseums()
                 .enqueue(new Callback<List<ExistingMuseum>>() {
                     @Override
                     public void onResponse(Call<List<ExistingMuseum>> call, Response<List<ExistingMuseum>> response) {

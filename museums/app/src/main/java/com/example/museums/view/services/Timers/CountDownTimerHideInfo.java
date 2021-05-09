@@ -9,13 +9,7 @@ import android.view.View;
 import com.example.museums.view.services.Handlers.HandlerTimerCountDown;
 
 public class CountDownTimerHideInfo extends CountDownTimer {
-    /**
-     * @param millisInFuture    The number of millis in the future from the call
-     *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-     *                          is called.
-     * @param countDownInterval The interval along the way to receive
-     *                          {@link #onTick(long)} callbacks.
-     */
+
     public CountDownTimerHideInfo(long millisInFuture, long countDownInterval, View view) {
         super(millisInFuture, countDownInterval);
         this.view = view;

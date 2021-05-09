@@ -1,8 +1,6 @@
 package com.example.museums.view.fragments.common.detailedExhibitWithListener;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,24 +21,23 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.example.museums.R;
-import com.example.museums.view.activities.common.Registration.RegistrationViewModel;
-import com.example.museums.view.fragments.common.detailedExhibition.DetailedExhibitionViewModel;
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerShare;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchListenerScrollViewSwipeLeftRightBack;
+
+import static com.example.museums.view.ConstantKeys.AUTHOR_KEY;
+import static com.example.museums.view.ConstantKeys.DATE_KEY;
+import static com.example.museums.view.ConstantKeys.DESCRIPTION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_EXHIBIT_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+import static com.example.museums.view.ConstantKeys.IMAGE_KEY;
+import static com.example.museums.view.ConstantKeys.NAME_KEY;
 
 
 public class DetailedExhibitWithListenersBackPressed extends Fragment {
-    private static final String USER_ID_KEY = "id_user_key";
-    private ScrollView view;
+     private ScrollView view;
     private LinearLayout ll;
     private ImageButton like;
-    public static final String IMAGE_KEY = "image_key";
-    public static final String NAME_KEY = "name_key";
-    public static final String AUTHOR_KEY = "author_key";
-    public static final String DATE_OF_CREATE = "date_key";
-    public static final String DESCRIPTION_KEY = "description_key";
-    public static final String ID_EXHIBIT_KEY = "id_key";
-    private String name, author, date, description;
+     private String name, author, date, description;
     private Integer idExhibit;
     private String image;
     private ImageView mainImageImageView, shareExhibit;
@@ -67,10 +64,10 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
         final DetailedExhibitWithListenersBackPressed myFragment = new DetailedExhibitWithListenersBackPressed();
         final Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
-        args.putString(DATE_OF_CREATE, date);
+        args.putString(DATE_KEY, date);
         args.putString(AUTHOR_KEY, author);
         args.putString(DESCRIPTION_KEY, description);
-        args.putInt(USER_ID_KEY, userId);
+        args.putInt(ID_USER_KEY, userId);
         args.putInt(ID_EXHIBIT_KEY, idExhibit);
         args.putString(IMAGE_KEY, image);
         myFragment.setArguments(args);
@@ -83,11 +80,11 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString(NAME_KEY);
             author = getArguments().getString(AUTHOR_KEY);
-            date = getArguments().getString(DATE_OF_CREATE);
+            date = getArguments().getString(DATE_KEY);
             description = getArguments().getString(DESCRIPTION_KEY);
             image = getArguments().getString(IMAGE_KEY);
             idExhibit = getArguments().getInt(ID_EXHIBIT_KEY);
-            userId = getArguments().getInt(USER_ID_KEY);
+            userId = getArguments().getInt(ID_USER_KEY);
         }
     }
 
@@ -142,7 +139,7 @@ public class DetailedExhibitWithListenersBackPressed extends Fragment {
 
         }
         getArguments().clear();
-        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
+        view.setOnTouchListener(new OnTouchListenerScrollViewSwipeLeftRightBack(getActivity(), true, ll));
 
         shareExhibit.setOnClickListener(new ClickListenerShare(getActivity(), createMessage(), image));
     }

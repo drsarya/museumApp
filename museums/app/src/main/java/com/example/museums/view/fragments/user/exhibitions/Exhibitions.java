@@ -22,11 +22,12 @@ import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAd
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 public class Exhibitions extends Fragment {
     private RecyclerView recyclerView;
     private ExhibitionsRecyclerViewAdapter mAdapter = new ExhibitionsRecyclerViewAdapter();
-    public static final String LOGIN_KEY_USER = "login_key";
-    private Integer userId;
+     private Integer userId;
     private EditText searchEditText;
     private static String copySearch = "";
 
@@ -44,14 +45,14 @@ public class Exhibitions extends Fragment {
     public static Exhibitions newInstance(Integer userId) {
         final Exhibitions myFragment = new Exhibitions();
         final Bundle args = new Bundle(1);
-        args.putInt(LOGIN_KEY_USER, userId);
+        args.putInt(ID_USER_KEY, userId);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            userId = getArguments().getInt(LOGIN_KEY_USER);
+            userId = getArguments().getInt(ID_USER_KEY);
         }
     }
 

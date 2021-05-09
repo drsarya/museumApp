@@ -18,17 +18,17 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
 import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.MainInfoMuseumPageEdit.MainInfoMuseumPageEdit;
+
+import static com.example.museums.view.ConstantKeys.DESCRIPTION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
 
 public class DialogChangeDescriptionMuseum extends DialogFragment {
 
-    static final String LOGIN_KEY = "login_key";
     private Button buttonUpdate;
     private ImageView closeDialog;
     public ProgressBar progressBar;
     private EditText descriptionEditText;
-    static final String DESCRIPTION_SOURCE_KEY = "description_key";
     private Integer id;
     private String description;
     private DChangeDescriptionMuseumViewModel viewModel;
@@ -40,8 +40,8 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
     public DialogChangeDescriptionMuseum newInstance(final String description, final Integer id) {
         final DialogChangeDescriptionMuseum myFragment = new DialogChangeDescriptionMuseum();
         final Bundle args = new Bundle(2);
-        args.putString(DESCRIPTION_SOURCE_KEY, description);
-        args.putInt(LOGIN_KEY, id);
+        args.putString(DESCRIPTION_KEY, description);
+        args.putInt(ID_MUSEUM_KEY, id);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -64,14 +64,13 @@ public class DialogChangeDescriptionMuseum extends DialogFragment {
         initViews(rootView);
 
         if (arguments != null) {
-            id = arguments.getInt(LOGIN_KEY);
-            description = arguments.getString(DESCRIPTION_SOURCE_KEY);
+            id = arguments.getInt(ID_MUSEUM_KEY);
+            description = arguments.getString(DESCRIPTION_KEY);
             if (!description.equals(MainInfoMuseumPageEdit.descriptionIsEmpty)) {
                 descriptionEditText.setText(description);
             }
         }
         viewModel = ViewModelProviders.of(this).get(DChangeDescriptionMuseumViewModel.class);
-
         setListeners();
         return rootView;
     }

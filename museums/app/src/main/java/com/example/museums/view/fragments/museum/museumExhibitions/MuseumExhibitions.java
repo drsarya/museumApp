@@ -28,17 +28,19 @@ import com.example.museums.view.services.recyclerViews.EditExhibitionRecyclerAda
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+
 
 public class MuseumExhibitions extends Fragment implements IDeletePosition {
     public ProgressBar progressBar;
     private RecyclerView recyclerView;
     private EditExhibitionRecyclerAdapter adapter = new EditExhibitionRecyclerAdapter(this);
-    public static final String ID_MUSEUM = "id_key";
     public Integer idMuseum;
     private static String copySearch = "";
     private EditText searchText;
     private TextView emptyTV;
     private MuseumExhibitionsViewModel viewModel;
+    private List<ExistingExhibition> exhibitions = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
@@ -55,14 +57,14 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     public MuseumExhibitions newInstance(Integer idMuseum) {
         final MuseumExhibitions myFragment = new MuseumExhibitions();
         final Bundle args = new Bundle(1);
-        args.putInt(ID_MUSEUM, idMuseum);
+        args.putInt(ID_MUSEUM_KEY, idMuseum);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            idMuseum = getArguments().getInt(ID_MUSEUM);
+            idMuseum = getArguments().getInt(ID_MUSEUM_KEY);
         }
     }
 
@@ -70,9 +72,6 @@ public class MuseumExhibitions extends Fragment implements IDeletePosition {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
-    private List<ExistingExhibition> exhibitions = new ArrayList<>();
-
 
     private void initViews(View rootView) {
         progressBar = rootView.findViewById(R.id.museum_exhibitions_progress_bar);

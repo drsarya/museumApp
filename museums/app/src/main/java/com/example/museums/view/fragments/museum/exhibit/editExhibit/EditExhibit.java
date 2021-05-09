@@ -32,7 +32,7 @@ import com.example.museums.API.services.BitmapConverter;
 import com.example.museums.R;
 import com.example.museums.view.fragments.museum.exhibition.editExhibition.EditExhibition;
 import com.example.museums.view.fragments.museum.museumExhibits.MuseumExhibits;
-import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchlistenerScrollViewSwipeLeftRightBack;
+import com.example.museums.view.services.Listeners.onTouchListeners.OnTouchListenerScrollViewSwipeLeftRightBack;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherEmptyField;
 import com.example.museums.view.services.recyclerViews.AuthorsRecyclerViewAdapter;
 
@@ -42,6 +42,14 @@ import java.util.List;
 
 import lombok.SneakyThrows;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+import static com.example.museums.view.ConstantKeys.AUTHOR_KEY;
+import static com.example.museums.view.ConstantKeys.DATE_KEY;
+import static com.example.museums.view.ConstantKeys.DESCRIPTION_KEY;
+import static com.example.museums.view.ConstantKeys.ID_EXHIBIT_KEY;
+import static com.example.museums.view.ConstantKeys.EXHIBIT_POSITION_MODEL;
+import static com.example.museums.view.ConstantKeys.IMAGE_KEY;
+import static com.example.museums.view.ConstantKeys.NAME_KEY;
 
 public class EditExhibit extends Fragment {
     private ScrollView view;
@@ -56,16 +64,11 @@ public class EditExhibit extends Fragment {
     private TextFieldBoxes descriptionTextFieldBoxes;
     static final int GALLERY_REQUEST = 1;
     private Bitmap bitmap;
-    static final String EXHIBIT_DATA_MODEL = "exhibit_data_model";
     public ProgressBar progressBar;
-    static final String EXHIBIT_NAME_MODEL = "exhibit_name_model";
-    static final String EXHIBIT_DESCRIPTION_MODEL = "exhibit_description_model";
-    static final String EXHIBIT_IMAGE_MODEL = "exhibit_image_model";
-    static final String EXHIBIT_POSITION_MODEL = "exhibit_position_model";
-    static final String EXHIBIT_ID_KEY = "id_exhibit";
+
+
     private RecyclerView authorRecyclerView;
     private AuthorsRecyclerViewAdapter authorAdapter;
-    static final String EXHIBIT_AUTHOR_MODEL = "exhibit_author_model";
     private ImageView mainImageView;
     private Button createBtn;
     private Integer idExhibit;
@@ -79,16 +82,12 @@ public class EditExhibit extends Fragment {
     public EditExhibit newInstance(Integer id, String dateOfCreate, String author, String name, String photo, String description, int positionExh) {
         final EditExhibit myFragment = new EditExhibit();
         final Bundle args = new Bundle(2);
-        args.putString(EXHIBIT_IMAGE_MODEL, photo);
-        args.putString(EXHIBIT_DESCRIPTION_MODEL, description);
-        args.putString(EXHIBIT_AUTHOR_MODEL, author);
-        if (id != null) {
-            args.putInt(EXHIBIT_ID_KEY, id);
-        } else {
-            args.putInt(EXHIBIT_ID_KEY, -1);
-        }
-        args.putString(EXHIBIT_NAME_MODEL, name);
-        args.putString(EXHIBIT_DATA_MODEL, dateOfCreate);
+        args.putString(IMAGE_KEY, photo);
+        args.putString(DESCRIPTION_KEY, description);
+        args.putString(AUTHOR_KEY, author);
+        args.putInt(ID_EXHIBIT_KEY, id);
+        args.putString(NAME_KEY, name);
+        args.putString(DATE_KEY, dateOfCreate);
         args.putInt(EXHIBIT_POSITION_MODEL, positionExh);
         myFragment.setArguments(args);
         return myFragment;
@@ -106,13 +105,13 @@ public class EditExhibit extends Fragment {
         setListeners();
         Bundle arguments = getArguments();
         if (arguments != null) {
-            nameEditText.setText(arguments.getString(EXHIBIT_NAME_MODEL));
-            authorEditText.setText(arguments.getString(EXHIBIT_AUTHOR_MODEL));
-            descriptionEditText.setText(arguments.getString(EXHIBIT_DESCRIPTION_MODEL));
-            idExhibit = arguments.getInt(EXHIBIT_ID_KEY);
-            dateOfCreateEditText.setText(arguments.getString(EXHIBIT_DATA_MODEL));
+            nameEditText.setText(arguments.getString(NAME_KEY));
+            authorEditText.setText(arguments.getString(AUTHOR_KEY));
+            descriptionEditText.setText(arguments.getString(DESCRIPTION_KEY));
+            idExhibit = arguments.getInt(ID_EXHIBIT_KEY);
+            dateOfCreateEditText.setText(arguments.getString(DATE_KEY));
             positionExh = arguments.getInt(EXHIBIT_POSITION_MODEL);
-            image = arguments.getString(EXHIBIT_IMAGE_MODEL);
+            image = arguments.getString(IMAGE_KEY);
             Glide.with(getContext())
                     .load(image)
                     .into(mainImageView);
@@ -266,7 +265,7 @@ public class EditExhibit extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
         view = (ScrollView) getActivity().findViewById(R.id.create_exhibit_scroll_view);
-        view.setOnTouchListener(new OnTouchlistenerScrollViewSwipeLeftRightBack(getActivity(), false));
+        view.setOnTouchListener(new OnTouchListenerScrollViewSwipeLeftRightBack(getActivity(), false));
     }
 
     @SneakyThrows

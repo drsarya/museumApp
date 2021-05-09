@@ -12,11 +12,6 @@ public class DialogEditMuseumViewModel extends ViewModel {
     private DialogEditMuseumRepository repository = DialogEditMuseumRepository.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public DialogEditMuseumViewModel() {
-        super();
-
-    }
-
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
@@ -37,6 +32,7 @@ public class DialogEditMuseumViewModel extends ViewModel {
     public LiveData<AnswerModel> getLiveDataLockMuseum(Integer id) {
         return repository.lockMuseum(id);
     }
+
     public LiveData<AnswerModel> getOwner(Integer id) {
         return repository.getOwner(id);
     }

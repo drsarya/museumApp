@@ -26,10 +26,12 @@ import com.example.museums.view.services.recyclerViews.MuseumExhibitsRecyclerAda
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+
 public class MuseumExhibits extends Fragment implements IDeletePosition {
     private RecyclerView recyclerView;
     private MuseumExhibitsRecyclerAdapter mAdapter = new MuseumExhibitsRecyclerAdapter(this);
-    public static final String ID_MUSEUM = "id_key";
+
     private Integer idMuseum;
     public ProgressBar progressBar;
     private TextView emptyTV;
@@ -37,18 +39,17 @@ public class MuseumExhibits extends Fragment implements IDeletePosition {
     private List<ExistingExhibit> newExhibitModels = new ArrayList<>();
     private static String copySearch = "";
 
-
     public MuseumExhibits newInstance(Integer idMuseum) {
         final MuseumExhibits myFragment = new MuseumExhibits();
         final Bundle args = new Bundle(1);
-        args.putInt(ID_MUSEUM, idMuseum);
+        args.putInt(ID_MUSEUM_KEY, idMuseum);
         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
-            idMuseum = getArguments().getInt(ID_MUSEUM);
+            idMuseum = getArguments().getInt(ID_MUSEUM_KEY);
         }
     }
 

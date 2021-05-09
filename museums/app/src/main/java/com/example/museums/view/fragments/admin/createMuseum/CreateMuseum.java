@@ -16,31 +16,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.museums.R;
-import com.example.museums.view.fragments.admin.allMuseums.AllMuseumsViewModel;
 import com.example.museums.view.services.Listeners.textWatchers.TextWatcherListenerCheckValidate;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class CreateMuseum extends Fragment {
-
-
     private Button regMuseumBtn;
-    private EditText logEditText;
-    private EditText nameEditText;
-    private EditText addressEditText;
-    private TextFieldBoxes logTextFieldBoxes;
-    private TextFieldBoxes nameTextFieldBoxes;
-    private TextFieldBoxes addressTextFieldBoxes;
+    private EditText logEditText, nameEditText, addressEditText;
+    private TextFieldBoxes logTextFieldBoxes, nameTextFieldBoxes, addressTextFieldBoxes;
     public ProgressBar progressBar;
     public CreateMuseumViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =
-                inflater.inflate(R.layout.fragment_admin_create_museum, container, false);
 
-        return rootView;
+        return inflater.inflate(R.layout.fragment_admin_create_museum, container, false);
     }
 
     private void initViews() {
@@ -68,26 +59,24 @@ public class CreateMuseum extends Fragment {
                     }
                 }
         );
-        //кнопка расшарить!!!!!!!!!!!!!!!
     }
 
     void createMuseum() {
-
         viewModel.getIsLoading().observe(this, isLoading -> {
             if (isLoading) progressBar.setVisibility(View.VISIBLE);
             else progressBar.setVisibility(View.GONE);
         });
-        viewModel.getLiveDataUser(nameEditText.getText().toString(), addressEditText.getText().toString(), logEditText.getText().toString())
+        viewModel.getLiveDataCreateMuseum(nameEditText.getText().toString(),
+                addressEditText.getText().toString(),
+                logEditText.getText().toString())
                 .observe(this, model -> {
                     viewModel.getIsLoading().postValue(false);
                     if (model == null) {
                         Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
-
                     }
                 });
-
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -2,7 +2,6 @@ package com.example.museums.view.services;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +12,11 @@ import com.example.museums.R;
 import com.example.museums.view.activities.tabs.MuseumTab;
 import com.example.museums.view.activities.tabs.UserTab;
 
-
 public class MethodsWithFragment {
-
-    public MethodsWithFragment() {
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("ResourceType")
     public void replaceFragment(Fragment myFragment, AppCompatActivity activity) {
-
         String backStateName = myFragment.getClass().getName();
         final FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         if (activity.getComponentName().getClassName().equals(UserTab.class.getTypeName())) {

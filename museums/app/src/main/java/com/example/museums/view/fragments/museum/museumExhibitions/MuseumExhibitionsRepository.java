@@ -39,8 +39,8 @@ public class MuseumExhibitionsRepository {
                     public void onResponse(Call<List<ExistingExhibition>> call, Response<List<ExistingExhibition>> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
-                            Gson      gson = new Gson();
+                        } else {
+                            Gson gson = new Gson();
                             ErrorModel[] message = gson.fromJson(response.errorBody().charStream(), ErrorModel[].class);
                             String str = "";
                             for (int i = 0; i < message.length; i++) {
@@ -68,7 +68,7 @@ public class MuseumExhibitionsRepository {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
 
-                        }else {
+                        } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }

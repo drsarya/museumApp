@@ -30,12 +30,10 @@ public class ClickListenerOpenExhibition implements View.OnClickListener {
         Fragment myFragment;
         if (view.getVisibility() == View.VISIBLE) {
             if (exhibitionWithMuseumName.getFirstDate().isEmpty()) {
-                myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(), exhibitionWithMuseumName.getMuseum().getId( ), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+                myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(), exhibitionWithMuseumName.getMuseum().getId(), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
                         "", exhibitionWithMuseumName.getDescription());
-                System.out.println("ssssssssssssssssssss");
             } else {
-                System.out.println("sssssssssssssssssssssssssssssssssssssssssssssssss");
-                myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(),  exhibitionWithMuseumName.getMuseum().getId( ), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
+                myFragment = new DetailedExhibition().newInstance(exhibitionWithMuseumName.getId(), exhibitionWithMuseumName.getMuseum().getId(), -1, exhibitionWithMuseumName.getImageUrl(), exhibitionWithMuseumName.getName(),
                         exhibitionWithMuseumName.getFirstDate() + " - " + exhibitionWithMuseumName.getLastDate(), exhibitionWithMuseumName.getDescription());
             }
             MuseumTab activity = (MuseumTab) v.getContext();

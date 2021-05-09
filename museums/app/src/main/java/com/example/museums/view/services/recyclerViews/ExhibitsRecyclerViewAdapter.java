@@ -62,7 +62,6 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
         differ.submitList(products);
     }
 
-
     @Override
     public int getItemCount() {
         return differ.getCurrentList().size();
@@ -75,8 +74,7 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
     public ExhibitsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.element_of_list_exhibits, parent, false);
-        ExhibitsViewHolder vh = new ExhibitsViewHolder(v);
-        return vh;
+        return new ExhibitsViewHolder(v);
     }
 
     @Override
@@ -89,6 +87,4 @@ public class ExhibitsRecyclerViewAdapter extends RecyclerView.Adapter<ExhibitsRe
         holder.itemView.setOnClickListener(new ClickListenerHolderExhibits(holder, purchaseList, userId));
         holder.textView.setText(purchaseList.getName());
     }
-
-
 }

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".view.activities.tabs.UserTab"
+            android:name=".view.activities.common.SplashScreen"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,21 +29,21 @@
         <activity
             android:name=".view.activities.common.RegistrationMuseum.RegistrationMuseum"
             android:windowSoftInputMode="adjustUnspecified" />
+        <activity
+            android:name=".view.activities.tabs.MuseumTab"
+            android:windowSoftInputMode="adjustResize" />
 
-        <!--  adjustResize  MuseumTab -->
-        <!--  adjustResize  Authorization -->
-<!--        <activity-->
-<!--            android:name=".view.activities.tabs.UserTab"-->
-<!--            android:windowSoftInputMode="adjustUnspecified" />-->
+        <activity
+            android:name=".view.activities.tabs.UserTab"
+            android:windowSoftInputMode="adjustUnspecified" />
 
-<!--        <activity-->
-<!--            android:name=".view.activities.common.Authorization.Authorization"-->
-<!--            android:windowSoftInputMode="adjustPan" />-->
+        <activity
+            android:name=".view.activities.common.Authorization.Authorization"
+            android:windowSoftInputMode="adjustPan" />
 
-<!--        <activity-->
-<!--            android:name=".view.activities.tabs.AdminTab"-->
-<!--            android:windowSoftInputMode="adjustPan" />-->
-
+        <activity
+            android:name=".view.activities.tabs.AdminTab"
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -38,11 +38,12 @@
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             style="@style/textBoxOuter"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             app:hasClearButton="true"
-            app:helperText="@string/login"
+             app:manualValidateError="true"
             app:labelText="@string/login">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -60,10 +61,10 @@
             style="@style/textBoxOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:manualValidateError="true"
             android:imeOptions="actionDone"
             app:hasClearButton="true"
-            app:helperText="@string/password"
-            app:labelText="@string/password">
+             app:labelText="@string/password">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/authorization_password_text_view"
@@ -75,6 +76,7 @@
                 android:textSize="20sp"
                 app:helperText="@string/password" />
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
     </LinearLayout>
 
     <LinearLayout

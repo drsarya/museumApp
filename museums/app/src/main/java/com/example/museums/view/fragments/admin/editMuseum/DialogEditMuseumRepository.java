@@ -127,11 +127,12 @@ public class DialogEditMuseumRepository {
                     @Override
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
-                            newsData.setValue(response.body() );
+                            newsData.setValue(response.body());
                         } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
+
                     @Override
                     public void onFailure(Call<AnswerModel> call, Throwable t) {
                         newsData.setValue(null);

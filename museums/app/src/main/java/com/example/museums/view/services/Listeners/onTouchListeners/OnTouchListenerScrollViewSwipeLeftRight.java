@@ -7,13 +7,12 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.FragmentActivity;
 
-public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListener {
+public class OnTouchListenerScrollViewSwipeLeftRight implements View.OnTouchListener {
     private Float downy = null;
     private LinearLayout ll;
-    private Float downx = null;
     private boolean trof;
 
-    public OnToucListenerScrollViewSwipeLeftRight(LinearLayout ll, boolean trof) {
+    public OnTouchListenerScrollViewSwipeLeftRight(LinearLayout ll, boolean trof) {
 
         this.ll = ll;
         this.trof = trof;
@@ -24,7 +23,6 @@ public class OnToucListenerScrollViewSwipeLeftRight implements View.OnTouchListe
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downy = event.getY();
-                downx = event.getX();
                 break;
             }
             case MotionEvent.ACTION_UP: {

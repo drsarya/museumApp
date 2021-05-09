@@ -38,12 +38,11 @@ public class CreateMuseumRepository {
                 .enqueue(new Callback<AnswerModel>() {
                     @SneakyThrows
                     @Override
-                    public void onResponse(Call<AnswerModel> call,
-                                           Response<AnswerModel> response) {
+                    public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
                         } else {
-                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
+                            newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }
 

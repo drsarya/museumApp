@@ -35,10 +35,11 @@ public class MainInfoPageEditMuseumRepository {
                     public void onResponse(Call<ExistingMuseum> call, Response<ExistingMuseum> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(null);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<ExistingMuseum> call, Throwable t) {
                         newsData.setValue(null);

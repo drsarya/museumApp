@@ -5,6 +5,8 @@ package com.example.museums.view.activities.tabs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -21,16 +23,26 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
+import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
+
 
 public class MuseumTab extends AppCompatActivity {
     private BottomNavigationView menuTab;
-    public static final String ID_MUSEUM = "login_key";
     private boolean currState = false;
-    private Integer idMuseum = 1;
+    private Integer idMuseum ;
+    private Integer userId ;
     private CreateExhibition createExhibition;
     private MuseumExhibits exhibits;
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
     private MuseumExhibitions exhibitions;
+
+    public static Intent newInstance(Context context, Integer museumId,Integer userId) {
+        Intent intent = new Intent(context,MuseumTab.class );
+        intent.putExtra(ID_MUSEUM_KEY, museumId);
+        intent.putExtra(ID_USER_KEY, userId);
+        return intent;
+    }
 
     private void initViews() {
         menuTab = findViewById(R.id.museum_bnview);
@@ -41,22 +53,15 @@ public class MuseumTab extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle b = getIntent().getExtras();
-        setContentView(R.layout.activity_tab_museum);
 
-        // if (b != null) {
-        //   idMuseum = b.getInt(ID_MUSEUM);
+        setContentView(R.layout.activity_tab_museum);
+        idMuseum =  getIntent().getExtras().getInt(ID_MUSEUM_KEY);
+        userId = getIntent().getExtras().getInt(ID_USER_KEY);
         exhibitions = new MuseumExhibitions().newInstance(idMuseum);
-        mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(idMuseum);
+        mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(idMuseum, userId);
         exhibits = new MuseumExhibits().newInstance(idMuseum);
         createExhibition = new CreateExhibition().newInstance(idMuseum);
-        //   }
-//        else {
-//            exhibitions = new MuseumExhibitions();
-//            mainInfoMuseumPage = new MainInfoMuseumPageEdit();
-//            exhibits = new MuseumExhibits();
-//            createExhibition = new CreateExhibition();
-//        }
+
 
         initViews();
         setInitialPage();

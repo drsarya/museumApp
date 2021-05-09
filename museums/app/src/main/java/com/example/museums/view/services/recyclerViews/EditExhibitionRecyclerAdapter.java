@@ -46,10 +46,10 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
             deleteExhibition = itemView.findViewById(R.id.element_list_museum_exhibitions_delete_exhibit_image_button);
             editExhibition = itemView.findViewById(R.id.element_list_museum_exhibition_edit_exhibit_image_button);
         }
-
     }
 
     private MuseumExhibitions museumExhibitions;
+    private MethodsWithFragment mt = new MethodsWithFragment();
 
     public EditExhibitionRecyclerAdapter(MuseumExhibitions museumExhibitions) {
         this.museumExhibitions = museumExhibitions;
@@ -70,7 +70,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
         }
     };
 
-
     @NonNull
     @Override
     public EditExhibitionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -79,7 +78,6 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
         return new EditExhibitionViewHolder(v);
     }
 
-    MethodsWithFragment mt = new MethodsWithFragment();
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -100,12 +98,11 @@ public class EditExhibitionRecyclerAdapter extends RecyclerView.Adapter<EditExhi
             holder.dateOfCreateTextView.setVisibility(View.VISIBLE);
             holder.dateOfCreateTextView.setText(exhibition.getFirstDate() + " - " + exhibition.getLastDate());
         }
-         EditExhibition c = new EditExhibition().newInstance(  exhibition.getId(), exhibition.getMuseum().getId(), exhibition.getImageUrl(), exhibition.getName(), exhibition.getFirstDate(), exhibition.getLastDate(), exhibition.getDescription());
-             c.setTargetFragment(museumExhibitions, 0);
-         holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c, (AppCompatActivity) museumExhibitions.getContext()));
+        EditExhibition c = new EditExhibition().newInstance(exhibition.getId(), exhibition.getMuseum().getId(), exhibition.getImageUrl(), exhibition.getName(), exhibition.getFirstDate(), exhibition.getLastDate(), exhibition.getDescription());
+        c.setTargetFragment(museumExhibitions, 0);
+        holder.editExhibition.setOnClickListener(v -> mt.replaceFragment(c, (AppCompatActivity) museumExhibitions.getContext()));
         holder.nameOfExhibitionTextView.setText(exhibition.getName());
         holder.nameOfMuseumTextView.setText(exhibition.getMuseum().getName());
-
     }
 
     public void submitList(List<ExistingExhibition> products) {

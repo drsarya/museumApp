@@ -36,10 +36,11 @@ public class DetailedExhibitWithListenerRepository {
                     public void onResponse(Call<BaseLike> call, Response<BaseLike> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(null);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<BaseLike> call, Throwable t) {
                         newsData.setValue(null);
@@ -56,7 +57,7 @@ public class DetailedExhibitWithListenerRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body().getMessage());
-                        }else {
+                        } else {
                             newsData.setValue(null);
                         }
                     }
@@ -77,7 +78,7 @@ public class DetailedExhibitWithListenerRepository {
                     public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                         if (response.isSuccessful()) {
                             newsData.setValue(response.body());
-                        }else {
+                        } else {
                             newsData.setValue(new AnswerModel(ErrorParser.getMessage(response)));
                         }
                     }

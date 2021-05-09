@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.museums.API.models.exhibit.ExistingExhibit;
- import com.example.museums.view.fragments.common.detailedExhibitWithListener.DetailedExhibitWithListenersBackPressed;
+import com.example.museums.view.fragments.common.detailedExhibitWithListener.DetailedExhibitWithListenersBackPressed;
 import com.example.museums.view.services.MethodsWithFragment;
 import com.example.museums.view.services.Timers.CountDownTimerHideInfo;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
@@ -35,7 +35,6 @@ public class ClickListenerHolderExhibits implements View.OnClickListener {
         if (holder.textView.getVisibility() == View.VISIBLE) {
             Fragment myFragment = new DetailedExhibitWithListenersBackPressed().newInstance(model.getId(), userId, model.getImageUrl(),
                     model.getName(), model.getAuthor().fullName, model.getDateOfCreate(), model.getDescription());
-            ;
             mth.replaceFragment(myFragment, (AppCompatActivity) v.getContext());
         } else {
             ctimte = new CountDownTimerHideInfo(3000, 3000, holder.textView);

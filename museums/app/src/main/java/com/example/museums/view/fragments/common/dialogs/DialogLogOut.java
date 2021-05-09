@@ -16,8 +16,6 @@ public class DialogLogOut extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AboutDialog);
         builder.setTitle("Выйти?")
                 .setMessage("Вы точно хотите выйти")

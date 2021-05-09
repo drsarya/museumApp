@@ -9,7 +9,7 @@ import com.example.museums.API.models.exhibit.ExistingExhibit;
 
 import java.util.List;
 
-public class MuseumExhibitsViewModel   extends ViewModel {
+public class MuseumExhibitsViewModel extends ViewModel {
     private MuseumExhibitsRepository repository = MuseumExhibitsRepository.getInstance();
     private MutableLiveData<Boolean> isLoadingExhibits = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoadingDeleteExhibit = new MutableLiveData<>();
@@ -18,16 +18,18 @@ public class MuseumExhibitsViewModel   extends ViewModel {
     public MutableLiveData<Boolean> getIsLoadingExhibits() {
         return isLoadingExhibits;
     }
+
     public MutableLiveData<Boolean> getIsLoadingDeleteExhibit() {
         return isLoadingDeleteExhibit;
     }
 
     public LiveData<List<ExistingExhibit>> getExhibitsLiveData(Integer id) {
         isLoadingExhibits.setValue(true);
-        return repository.getExhibits(id );
+        return repository.getExhibits(id);
     }
+
     public LiveData<AnswerModel> deleteExhibitLiveData(Integer id) {
         isLoadingDeleteExhibit.setValue(true);
-        return repository.deleteExhibit(id );
+        return repository.deleteExhibit(id);
     }
 }

@@ -31,14 +31,9 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class Registration extends AppCompatActivity {
     private ScrollView view;
     private RelativeLayout relativeLayoutMuseumReg;
-    private EditText loginEditText;
-    private EditText passFirstEditText;
-    private EditText passSecondEditText;
+    private EditText loginEditText, passFirstEditText, passSecondEditText;
     private Button registrationBtn;
-    private TextFieldBoxes secondPassTextFieldBoxes;
-    private TextFieldBoxes loginTextFieldBoxes;
-    private TextFieldBoxes firstPassTextFieldBoxes;
-
+    private TextFieldBoxes secondPassTextFieldBoxes, loginTextFieldBoxes, firstPassTextFieldBoxes;
     public ProgressBar progressBar;
 
     @Override
@@ -58,7 +53,6 @@ public class Registration extends AppCompatActivity {
         registrationBtn = (Button) findViewById(R.id.registration_create_btn);
         secondPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_second_pass_textFBoxes);
         firstPassTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_first_pass_textFieldBoxes);
-
         progressBar = (ProgressBar) findViewById(R.id.registration_progress_bar);
         loginTextFieldBoxes = (TextFieldBoxes) findViewById(R.id.registration_login_text_field_boxes);
     }
@@ -87,30 +81,30 @@ public class Registration extends AppCompatActivity {
 
     private void btnListener() {
         registrationBtn.setOnClickListener(v -> {
-
-            registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
-            registrationViewModel.getIsLoading().observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean isLoading) {
-                    if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                    else progressBar.setVisibility(View.GONE);
-                }
-            });
-            registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
-                    .observe(this, new Observer<AnswerModel>() {
-                        @Override
-                        public void onChanged(@Nullable AnswerModel aBoolean) {
-                            registrationViewModel.getIsLoading().postValue(false);
-                            if (aBoolean == null) {
-                                Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-
+            if (!firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() &&
+                    !loginEditText.getText().toString().isEmpty() && !passFirstEditText.getText().toString().isEmpty() && !passSecondEditText.getText().toString().isEmpty()) {
+                registration();
+            } else {
+                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
+
+    private void registration() {
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+        registrationViewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
+                .observe(this, aBoolean -> {
+                    registrationViewModel.getIsLoading().postValue(false);
+                    if (aBoolean == null) {
+                        Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void textFieldsListeners() {

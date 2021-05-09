@@ -68,11 +68,8 @@ public class EditExhibitionRepository {
                         newsData.setValue(null);
                     }
                 });
-
-
         return newsData;
     }
-
 
     public MutableLiveData<List<ExistingExhibit>> getExhibitsFromExhibition(Integer idExhibition) {
         MutableLiveData<List<ExistingExhibit>> newsData = new MutableLiveData<>();
