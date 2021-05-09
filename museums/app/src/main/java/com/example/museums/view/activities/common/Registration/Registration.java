@@ -81,22 +81,30 @@ public class Registration extends AppCompatActivity {
 
     private void btnListener() {
         registrationBtn.setOnClickListener(v -> {
-
-            registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
-            registrationViewModel.getIsLoading().observe(this, isLoading -> {
-                if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                else progressBar.setVisibility(View.GONE);
-            });
-            registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
-                    .observe(this, aBoolean -> {
-                        registrationViewModel.getIsLoading().postValue(false);
-                        if (aBoolean == null) {
-                            Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            if (!firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() &&
+                    !loginEditText.getText().toString().isEmpty() && !passFirstEditText.getText().toString().isEmpty() && !passSecondEditText.getText().toString().isEmpty()) {
+                registration();
+            } else {
+                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
+
+    private void registration() {
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
+        registrationViewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        registrationViewModel.getLiveDataUser(loginEditText.getText().toString(), passFirstEditText.getText().toString())
+                .observe(this, aBoolean -> {
+                    registrationViewModel.getIsLoading().postValue(false);
+                    if (aBoolean == null) {
+                        Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), aBoolean.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void textFieldsListeners() {

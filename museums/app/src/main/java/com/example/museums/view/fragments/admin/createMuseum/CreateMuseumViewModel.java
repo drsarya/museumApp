@@ -10,16 +10,12 @@ public class CreateMuseumViewModel extends ViewModel {
     private CreateMuseumRepository repository = CreateMuseumRepository.getInstance();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
-    public CreateMuseumViewModel() {
-        super();
-        isLoading.setValue(true);
-    }
-
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
-    public LiveData<AnswerModel> getLiveDataUser(String name, String address, String login) {
+    public LiveData<AnswerModel> getLiveDataCreateMuseum(String name, String address, String login) {
+        isLoading.setValue(true);
         return repository.createMuseum(name, address, login);
     }
 }

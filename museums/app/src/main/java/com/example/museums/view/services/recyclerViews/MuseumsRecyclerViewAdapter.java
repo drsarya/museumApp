@@ -18,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.museums.API.models.museum.ExistingMuseum;
 import com.example.museums.R;
 import com.example.museums.view.fragments.admin.allMuseums.AllMuseums;
-import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderMuseumAdminEditPage;
-//import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHolderMuseumAdminEditPage;
+import com.example.museums.view.services.Listeners.clickListeners.ClickListenerMuseumAdminEditPage;
 
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class MuseumsRecyclerViewAdapter extends RecyclerView.Adapter<MuseumsRecy
                 holder.imageView.setImageResource(R.drawable.circle_not_active);
                 break;
         }
-        holder.itemView.setOnClickListener(new ClickListenerHolderMuseumAdminEditPage(holder, purchaseList, allMuseums));
+        holder.itemView.setOnClickListener(new ClickListenerMuseumAdminEditPage(  purchaseList, allMuseums));
         holder.textView.setText(purchaseList.getName());
     }
 

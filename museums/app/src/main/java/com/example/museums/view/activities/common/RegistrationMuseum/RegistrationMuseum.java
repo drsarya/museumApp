@@ -75,21 +75,31 @@ public class RegistrationMuseum extends AppCompatActivity {
     private void btnListener() {
         regMuseumBtn.setOnClickListener(v ->
         {
-            viewModel = ViewModelProviders.of(this).get(RegistrationMuseumViewModel.class);
-            viewModel.getIsLoading().observe(this, isLoading -> {
-                if (isLoading) progressBar.setVisibility(View.VISIBLE);
-                else progressBar.setVisibility(View.GONE);
-            });
-            viewModel.getLiveDataUser(Integer.parseInt(idCodeEditText.getText().toString()), loginEditText.getText().toString(), firstPassEditText.getText().toString())
-                    .observe(this, model -> {
-                        viewModel.getIsLoading().postValue(false);
-                        if (model == null) {
-                            Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            if (!idCodeTextFieldBoxes.isOnError() && !loginTextFieldBoxes.isOnError() && !firstPassTextFieldBoxes.isOnError() && !secondPassTextFieldBoxes.isOnError() &&
+                    !idCodeEditText.getText().toString().isEmpty() && !loginEditText.getText().toString().isEmpty() && !firstPassEditText.getText().toString().isEmpty() && !secondPassEditText.getText().toString().isEmpty()) {
+                registration();
+            } else {
+                Toast.makeText(getApplicationContext(), "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
+
+    private void registration() {
+        viewModel = ViewModelProviders.of(this).get(RegistrationMuseumViewModel.class);
+        viewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) progressBar.setVisibility(View.VISIBLE);
+            else progressBar.setVisibility(View.GONE);
+        });
+        viewModel.getLiveDataUser(Integer.parseInt(idCodeEditText.getText().toString()), loginEditText.getText().toString(), firstPassEditText.getText().toString())
+                .observe(this, model -> {
+                    viewModel.getIsLoading().postValue(false);
+                    if (model == null) {
+                        Toast.makeText(getApplicationContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     @SuppressLint("ClickableViewAccessibility")

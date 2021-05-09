@@ -32,8 +32,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             app:hasClearButton="true"
+
             app:labelText="Логин представителя"
-            app:manualValidateError="true">
+             >
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/admin_create_museum_login_editText"

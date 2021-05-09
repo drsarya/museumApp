@@ -32,7 +32,7 @@
     <string name="add_museum">Добавить музей</string>
 
     <string name="all_museums">Все музеи</string>
-    <string name="empty_museum_exhibits">Здесь будут экспонаты Вашего музея \n \n Добавить новый экспонтат можно в разделе выставокб кликнув на нужную выставку</string>
+    <string name="empty_museum_exhibits">Здесь будут экспонаты Вашего музея \n \n Добавить новый экспонтат можно в разделе выставок, кликнув на нужную выставку</string>
     <string name="empty_exhibitions_museum">Здесь будут выставки Вашего музея \n \n Добавить новую выставку можно во втором разделе</string>
     <string name="address">Адрес</string>
     <string name="date_of_create">Дата создания</string>

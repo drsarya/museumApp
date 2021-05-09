@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,16 +37,17 @@ import java.io.IOException;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 public class CreateExhibition extends Fragment {
 
-    private static Integer museumId;
+    private static Integer museumId ;
     private Bitmap bitmap;
     private static CheckBox onlineCheckBox;
     private TextFieldBoxes dateOfStartTFB, dateOfEndTFB, nameTFB, descriptionTFB;
     private EditText dateOfStartET, dateOfEndET, nameET, descriptionET;
     private static ImageView currImageImageView;
-    private TextView chooseImageTextView;
+    private RelativeLayout chooseImageTextView;
     private Button hideDescriptionBtn, createExhibitionBtn;
     public ProgressBar progressBar;
     static final int GALLERY_REQUEST = 1;
@@ -53,7 +55,7 @@ public class CreateExhibition extends Fragment {
 
     private File file;
 
-    public CreateExhibition newInstance(Integer museumId) {
+    public CreateExhibition newInstance(Integer museumId ) {
         final CreateExhibition myFragment = new CreateExhibition();
         final Bundle args = new Bundle(1);
         args.putInt(ID_MUSEUM_KEY, museumId);

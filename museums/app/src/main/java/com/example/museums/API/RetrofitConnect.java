@@ -13,9 +13,8 @@ public class RetrofitConnect {
         if (retrofitConnect == null) {
 
             retrofitConnect = new Retrofit.Builder()
-                    //.baseUrl("https://museum-hall.herokuapp.com/")
-//
-                  .baseUrl("http://10.0.2.2:8080/")
+                     .baseUrl("https://museum-hall.herokuapp.com/api/")
+                    //.baseUrl("http://10.0.2.2:8080/api/")
                     .addConverterFactory(GsonConverterFactory.create( ))
                     .build();
         }

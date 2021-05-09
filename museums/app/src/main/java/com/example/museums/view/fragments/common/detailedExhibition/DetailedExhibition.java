@@ -217,9 +217,14 @@ public class DetailedExhibition extends Fragment implements IUpdateList {
                     if (list == null) {
                         Toast.makeText(getContext(), "Ошибка получения экпонатов", Toast.LENGTH_SHORT).show();
                     } else {
-                        exhibitViewPager = new ExhibitsViewPager(list, userId);
-                        mth.replaceFragment(exhibitViewPager, (AppCompatActivity) getContext());
-                        updateList(list);
+                        if (list.isEmpty()) {
+                            Toast.makeText(getContext(), "В выставке пока что нет экспонатов", Toast.LENGTH_SHORT).show();
+                        } else {
+                            exhibitViewPager = new ExhibitsViewPager(list, userId);
+                            mth.replaceFragment(exhibitViewPager, (AppCompatActivity) getContext());
+                            updateList(list);
+                        }
+
                     }
                 });
     }

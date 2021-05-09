@@ -42,6 +42,7 @@
             android:visibility="gone" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/museum_exhibits_empty_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

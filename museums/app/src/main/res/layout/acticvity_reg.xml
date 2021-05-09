@@ -142,8 +142,7 @@
             android:background="@color/glass"
             android:clickable="true"
             android:fontFamily="@font/prata"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
+             android:gravity="center"
             android:text="@string/registration_yourself"
             android:textAllCaps="false"
             android:textColor="@color/darkBeige" />

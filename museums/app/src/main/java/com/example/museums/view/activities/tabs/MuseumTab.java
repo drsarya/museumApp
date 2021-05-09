@@ -24,20 +24,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 
 public class MuseumTab extends AppCompatActivity {
     private BottomNavigationView menuTab;
     private boolean currState = false;
-    private Integer idMuseum = 1;
+    private Integer idMuseum ;
+    private Integer userId ;
     private CreateExhibition createExhibition;
     private MuseumExhibits exhibits;
     private MainInfoMuseumPageEdit mainInfoMuseumPage;
     private MuseumExhibitions exhibitions;
 
-    public static Intent newInstance(Context context, Integer userId) {
+    public static Intent newInstance(Context context, Integer museumId,Integer userId) {
         Intent intent = new Intent(context,MuseumTab.class );
-        intent.putExtra(ID_MUSEUM_KEY, userId);
+        intent.putExtra(ID_MUSEUM_KEY, museumId);
+        intent.putExtra(ID_USER_KEY, userId);
         return intent;
     }
 
@@ -53,8 +56,9 @@ public class MuseumTab extends AppCompatActivity {
 
         setContentView(R.layout.activity_tab_museum);
         idMuseum =  getIntent().getExtras().getInt(ID_MUSEUM_KEY);
+        userId = getIntent().getExtras().getInt(ID_USER_KEY);
         exhibitions = new MuseumExhibitions().newInstance(idMuseum);
-        mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(idMuseum);
+        mainInfoMuseumPage = new MainInfoMuseumPageEdit().newInstance(idMuseum, userId);
         exhibits = new MuseumExhibits().newInstance(idMuseum);
         createExhibition = new CreateExhibition().newInstance(idMuseum);
 

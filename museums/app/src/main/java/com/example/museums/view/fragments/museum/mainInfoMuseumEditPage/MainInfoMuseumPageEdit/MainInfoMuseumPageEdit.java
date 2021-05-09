@@ -35,6 +35,7 @@ import com.example.museums.view.fragments.museum.mainInfoMuseumEditPage.DialogCh
 import com.example.museums.view.services.Listeners.clickListeners.ClickListenerHideDescription;
 
 import static com.example.museums.view.ConstantKeys.ID_MUSEUM_KEY;
+import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
 
 public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenuItemClickListener {
     private Button descriptionBtn;
@@ -44,7 +45,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
     public ProgressBar progressBar;
 
     public static final String descriptionIsEmpty = "Добавьте описание музея";
-    private Integer museumId;
+    private Integer museumId, userId;
 
     @Nullable
     @Override
@@ -54,17 +55,20 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
         return rootView;
     }
 
-    public MainInfoMuseumPageEdit newInstance(Integer museumId) {
+    public MainInfoMuseumPageEdit newInstance(Integer museumId, Integer userId) {
         final MainInfoMuseumPageEdit myFragment = new MainInfoMuseumPageEdit();
         final Bundle args = new Bundle(1);
         args.putInt(ID_MUSEUM_KEY, museumId);
-        myFragment.setArguments(args);
+        args.putInt(ID_USER_KEY, userId);
+         myFragment.setArguments(args);
         return myFragment;
     }
 
     private void getArgumentsFromBundle() {
         if (getArguments() != null) {
             museumId = getArguments().getInt(ID_MUSEUM_KEY);
+            userId = getArguments().getInt(ID_USER_KEY);
+
         }
     }
 
@@ -166,7 +170,7 @@ public class MainInfoMuseumPageEdit extends Fragment implements PopupMenu.OnMenu
                 myFragment.show(ft, "dialog");
                 return true;
             case R.id.menu_item_change_password:
-                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword().newInstance(museumId);
+                DialogUpdatePassword dialogUpdatePassword = new DialogUpdatePassword().newInstance(userId);
                 final FragmentTransaction ft1 = getActivity().getSupportFragmentManager().beginTransaction();
                 dialogUpdatePassword.show(ft1, "dialog2");
                 return true;
