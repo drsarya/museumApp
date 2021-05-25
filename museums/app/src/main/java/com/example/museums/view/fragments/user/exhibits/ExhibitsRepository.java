@@ -72,7 +72,7 @@ public class ExhibitsRepository {
 
     public MutableLiveData<List<ExistingMuseum>> getMuseums() {
         MutableLiveData<List<ExistingMuseum>> newsData = new MutableLiveData<>();
-        museumService.getAllMuseums()
+        museumService.getAllActiveMuseums()
                 .enqueue(new Callback<List<ExistingMuseum>>() {
                     @Override
                     public void onResponse(Call<List<ExistingMuseum>> call, Response<List<ExistingMuseum>> response) {

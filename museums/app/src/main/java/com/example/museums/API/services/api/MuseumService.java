@@ -25,7 +25,8 @@ public interface MuseumService {
 
     @GET("museum")
     Call<List<ExistingMuseum>> getAllMuseums();
-
+    @GET("museum/active")
+    Call<List<ExistingMuseum>> getAllActiveMuseums();
     @PUT("museum")
     Call<AnswerModel> updateMuseum(@Body UpdatableMuseum baseMuseum);
 
