@@ -18,6 +18,7 @@ import com.example.museums.API.models.exhibition.ExistingExhibition;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitionsRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
@@ -76,6 +77,7 @@ public class LikedExhibitions extends Fragment {
                         empty.setVisibility(View.INVISIBLE);
                         refreshAllList(model);
                     } else {
+                        mAdapter.submitList(new ArrayList<>());
                         empty.setVisibility(View.VISIBLE);
                     }
                 }

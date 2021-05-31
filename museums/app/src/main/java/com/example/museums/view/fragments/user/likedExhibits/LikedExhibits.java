@@ -18,6 +18,7 @@ import com.example.museums.API.models.exhibit.ExistingExhibit;
 import com.example.museums.R;
 import com.example.museums.view.services.recyclerViews.ExhibitsRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.museums.view.ConstantKeys.ID_USER_KEY;
@@ -79,9 +80,11 @@ public class LikedExhibits extends Fragment {
                 Toast.makeText(getContext(), "Ошибка получения данных", Toast.LENGTH_SHORT).show();
             } else {
                 if (!model.isEmpty()) {
+                    System.out.println("SIZEEEEEEE"+ model.size());
                     empty.setVisibility(View.INVISIBLE);
                     refreshAllList(model);
                 } else {
+                    mAdapter.submitList(new ArrayList<>());
                     empty.setVisibility(View.VISIBLE);
                 }
             }
